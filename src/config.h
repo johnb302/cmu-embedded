@@ -18,7 +18,7 @@
 #define UART_RX_QUEUE_ALIGNMENT 4   /* queue contains frame plus reception timestamp */
 /* Requested test policy: three consecutive 150 ms misses, then fail-safe.
  * This is not the handout's literal 100 ms cable-unplug checkoff timing. */
-#define LINK_MISS_INTERVAL_MS    150
+#define LINK_MISS_INTERVAL_MS    50
 #define LINK_MISS_LIMIT          3
 #define LINK_TIMEOUT_MS          (LINK_MISS_INTERVAL_MS * LINK_MISS_LIMIT)
 #define LINK_FAILSAFE_RESPONSE_BUDGET_MS 100 /* measurement budget, not a delay */
@@ -40,8 +40,8 @@
  * Self-test: one press enters hazards + dynamic braking; two presses within
  * SELF_TEST_EXIT_WINDOW_MS (after entering) exit. Left/right toggle turns. */
 #define BUTTON_SELF_TEST        (1U << 0)   /* wheel button index 10 */
-#define BUTTON_LEFT             (1U << 1)   /* wheel button index 5 */
-#define BUTTON_RIGHT            (1U << 2)   /* wheel button index 4 */
+#define BUTTON_LEFT             (1U << 2)   /* wheel button index 4: physical left switch */
+#define BUTTON_RIGHT            (1U << 1)   /* wheel button index 5: physical right switch */
 #define SELF_TEST_EXIT_WINDOW_MS 500
 #define BUTTON_DEBOUNCE_MS       30 /* observed release interval before another press */
 

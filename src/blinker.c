@@ -101,18 +101,18 @@ void blinker_update_turn(uint8_t pressed, int16_t steering)
 		break; /* simultaneous presses do not change the selected side */
 	}
 
-	/* Negative input is left. First observe a turn in the selected direction,
+	/* Positive input is left on the connected wheel. First observe a turn in the selected direction,
 	 * then cancel upon reaching or crossing neutral (including skipped samples). */
 	if (requested_mode == BLINKER_LEFT) {
-		if (steering <= -BLINKER_TURN_THRESHOLD) {
-			turn_seen = true;
-		} else if (turn_seen && steering >= -STEER_DEAD_ZONE) {
-			set_mode_locked(BLINKER_OFF);
-		}
-	} else if (requested_mode == BLINKER_RIGHT) {
 		if (steering >= BLINKER_TURN_THRESHOLD) {
 			turn_seen = true;
 		} else if (turn_seen && steering <= STEER_DEAD_ZONE) {
+			set_mode_locked(BLINKER_OFF);
+		}
+	} else if (requested_mode == BLINKER_RIGHT) {
+		if (steering <= -BLINKER_TURN_THRESHOLD) {
+			turn_seen = true;
+		} else if (turn_seen && steering >= -STEER_DEAD_ZONE) {
 			set_mode_locked(BLINKER_OFF);
 		}
 	}
