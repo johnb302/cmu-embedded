@@ -1,0 +1,42 @@
+/ {
+    aliases {
+        can-a = &can0;
+        can-b = &can1;
+        /delete-property/ led0;
+    };
+
+    chosen {
+        zephyr,canbus = &can0;
+    };
+};
+
+&usart1 {
+    status = "disabled";
+};
+
+&spi1 {
+    status = "okay";
+    cs-gpios = <&gpiob 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP) &gpioc 7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+    
+    can0: mcp2515@0 {
+        compatible = "microchip,mcp2515";
+        reg = <0>;
+        spi-max-frequency = <10000000>;
+        osc-freq = <16000000>;
+        bitrate = <500000>;
+        int-gpios = <&gpioa 10 GPIO_ACTIVE_LOW>;
+        status = "okay";
+        label = "can0";
+    };
+
+    can1: mcp2515@1 {
+        compatible = "microchip,mcp2515";
+        reg = <1>;
+        spi-max-frequency = <10000000>;
+        osc-freq = <16000000>;
+        bitrate = <500000>;
+        int-gpios = <&gpiob 5 GPIO_ACTIVE_LOW>;
+        status = "okay";
+        label = "can1";
+    };
+};
