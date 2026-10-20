@@ -28,8 +28,10 @@ elseif(MOTOR_CALIBRATION)
   target_include_directories(app PRIVATE src tools/motor_calibration)
   target_sources(app PRIVATE src/encoder.c tools/motor_calibration/motor_calibration.c)
 elseif(CAN_LAB)
-  target_sources(app PRIVATE src/lab3.c src/can_bus.c src/zone_state.c src/heartbeat.c
-                             src/control.c src/blink.c src/button.c src/n2_tasks.c src/watchdog.c)
+  target_include_directories(app PRIVATE src_lab3)
+  target_sources(app PRIVATE src_lab3/lab3.c src_lab3/can_bus.c src_lab3/zone_state.c
+                             src_lab3/heartbeat.c src_lab3/control.c src_lab3/blink.c
+                             src_lab3/button.c src_lab3/n2_tasks.c src_lab3/watchdog.c)
   if(DEFINED NODE_ID)
     target_compile_definitions(app PRIVATE NODE_ID=${NODE_ID})
   endif()

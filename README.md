@@ -35,8 +35,15 @@ The Nucleo turns those into motor speed, steering, and blinkers — and stops th
 │   ├── blinker.c/h         # Turn signals and hazards
 │   ├── wheel_buttons.c/h   # Debounces steering-wheel buttons
 │   ├── status_tx.c/h       # Sends status frames back to the Pi
-│   ├── crc8_checksum.h     # CRC-8 shared with the Pi
-│   └── lab3.c              # Lab 3 CAN demo (not in CMakeLists yet)
+│   └── crc8_checksum.h     # CRC-8 shared with the Pi
+├── src_lab3/               # Lab 3 dual CAN-bus firmware (built with -DCAN_LAB=ON)
+│   ├── lab3.c              # Entry point: N2 steering / N3 drivetrain, chosen by NODE_ID
+│   ├── can_bus.c/h         # MCP2515 dual-bus CAN: filters, TX/RX, stall recovery
+│   ├── zone_state.c/h      # This zone's OK/ERROR state machine
+│   ├── heartbeat.c/h       # Heartbeat TX + monitoring of other zones
+│   ├── watchdog.c/h        # Independent watchdog (IWDG), fed only while tasks make progress
+│   ├── control.c/h, blink.c/h, button.c/h, n2_tasks.c/h
+│   └── tasks.h             # Per-node thread priorities
 ├── tools/
 │   ├── telemetry/          # Live USB dashboard (Python + Matplotlib), logs CSV
 │   ├── motor_calibration/  # Separate firmware + script to sweep motor PWM
@@ -82,6 +89,13 @@ Calibration firmware (pick one):
 ```bash
 west build -b nucleo_f401re -p -- -DMOTOR_CALIBRATION=ON
 west build -b nucleo_f401re -p -- -DSERVO_CALIBRATION=ON
+```
+
+Lab 3 CAN firmware (`src_lab3/`), one build per node:
+
+```bash
+west build -b nucleo_f401re -p -d build-lab3-n2 -- -DCAN_LAB=ON -DNODE_ID=2 \
+  -DCONF_FILE=prj_lab3.conf -DDTC_OVERLAY_FILE=boards/nucleo_f401re_lab3.overlay
 ```
 
 Watch it run:
