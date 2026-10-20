@@ -1,3 +1,5 @@
+#include <zephyr/dt-bindings/pwm/pwm.h>
+
 / {
     aliases {
         can-a = &can0;
@@ -7,6 +9,45 @@
 
     chosen {
         zephyr,canbus = &can0;
+    };
+
+    zephyr,user {
+        can-rx-a-gpios = <&gpiob 0 GPIO_ACTIVE_HIGH>;
+        can-rx-b-gpios = <&gpioc 1 GPIO_ACTIVE_HIGH>;
+        can-tx-a-gpios = <&gpioc 0 GPIO_ACTIVE_HIGH>;
+        can-tx-b-gpios = <&gpioa 4 GPIO_ACTIVE_HIGH>;
+        deg-a-gpios = <&gpioa 1 GPIO_ACTIVE_HIGH>;
+        deg-b-gpios = <&gpiob 4 GPIO_ACTIVE_HIGH>;
+        err-gpios = <&gpiob 3 GPIO_ACTIVE_HIGH>;
+        blink-left-gpios = <&gpioc 11 GPIO_ACTIVE_HIGH>;
+        blink-right-gpios = <&gpioc 10 GPIO_ACTIVE_HIGH>;
+        relay-tx-gpios = <&gpioa 9 GPIO_ACTIVE_HIGH>;
+        pwm-set-gpios = <&gpioa 9 GPIO_ACTIVE_HIGH>;
+        dir-a-gpios = <&gpioc 12 GPIO_ACTIVE_HIGH>;  /* CN7-3, N3 row 11 */
+        pwms = <&servo_pwm 3 PWM_MSEC(20) PWM_POLARITY_NORMAL>, <&pwm2 3 PWM_MSEC(1) PWM_POLARITY_NORMAL>;
+        pwm-names = "srv", "pwm_out";
+    };
+};
+
+&iwdg {
+    status = "okay";
+};
+
+&i2c1 {
+    status = "disabled";
+};
+
+&pwm2 {
+    pinctrl-0 = <&tim2_ch3_pb10>;
+};
+
+&timers4 {
+    status = "okay";
+    st,prescaler = <83>;
+    servo_pwm: pwm {
+        status = "okay";
+        pinctrl-0 = <&tim4_ch3_pb8>;
+        pinctrl-names = "default";
     };
 };
 
