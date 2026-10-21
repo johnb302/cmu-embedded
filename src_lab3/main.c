@@ -3,6 +3,7 @@
 #include "config.h"
 #include "can_bus.h"
 #include "common.h"
+#include "state.h"
 #include <zephyr/kernel.h>
 #include <zephyr/sys/printk.h>
 #include <zephyr/drivers/gpio.h>
@@ -11,8 +12,13 @@
 int main(void) {
     printk("lab3: node %d booted.\n", NODE_ID);
 
-    struct gpio_dt_spec leds[] = {GPIO_DT_SPEC_GET(DT_PATH(zephyr_user), err_gpios), GPIO_DT_SPEC_GET(DT_PATH(zephyr_user), blink_left_gpios),
-                                  GPIO_DT_SPEC_GET(DT_PATH(zephyr_user), blink_right_gpios)};
+    int st_ret = state_init();
+    if (st_ret < 0) {
+        printk("State not initialized.\n");
+        return st_ret;
+    }
+
+    struct gpio_dt_spec leds[] = {GPIO_DT_SPEC_GET(DT_PATH(zephyr_user), blink_left_gpios), GPIO_DT_SPEC_GET(DT_PATH(zephyr_user), blink_right_gpios)};
 
     for (size_t i = 0; i < ARRAY_SIZE(leds); i++) {
         if (!gpio_is_ready_dt(&leds[i])) {

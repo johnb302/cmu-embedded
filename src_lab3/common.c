@@ -1,6 +1,7 @@
 #include "common.h"
 #include "config.h"
 #include "can_bus.h"
+#include "state.h"
 #include <zephyr/kernel.h>
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/drivers/watchdog.h>
@@ -100,7 +101,7 @@ static void hb_tx_thread(void *p1, void *p2, void *p3) {
     while(1) {
         uint8_t data[FRAME_DLC] = {0};
         data[0] = 0;
-        data[1] = HB_STATE_ERROR;
+        data[1] = state_get();
         /* Set flags to show both buses healthy */
         atomic_val_t deg_a = atomic_get(&health_a);
         atomic_val_t deg_b = atomic_get(&health_b);
