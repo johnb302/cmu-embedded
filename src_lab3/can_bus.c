@@ -19,9 +19,32 @@ static const uint16_t ids[] = {ID_CTRL, ID_FAULT, ID_HB_N1, ID_HB_N2, ID_HB_N3, 
 /* RX counts per bus */
 static atomic_t rx_counts[] = {0, 0};
 
+/* Table of time data from nodes last heard from */
+static int64_t last_heard[ZONE_N3 + 1][2] = {{-100000, -100000}, {-100000, -100000}, {-100000, -100000}, {-100000, -100000}};
+static K_MUTEX_DEFINE(heard_lock);
+
 static void rx_cb(const struct device *dev, struct can_frame *frame, void *user_data) {
     /* Recover bus */
     size_t i = (size_t)(uintptr_t)user_data;
+
+    int zone = 0;
+    switch(frame->id) {
+        case ID_HB_N1:
+            zone = ZONE_N1;
+            break;
+        case ID_HB_N2:
+            zone = ZONE_N2;
+            break;
+        case ID_HB_N3:
+            zone = ZONE_N3;
+            break;
+        default:
+            return;
+    }
+
+    k_mutex_lock(&heard_lock, K_FOREVER);
+    last_heard[zone][i] = k_uptime_get();
+    k_mutex_unlock(&heard_lock);
 
     /* Increment count */
     atomic_inc(&rx_counts[i]);
@@ -140,4 +163,12 @@ int can_io_send(uint16_t id, const uint8_t data[FRAME_DLC]) {
     }
 
     return 0;
+}
+
+int64_t can_io_hb_age_ms(uint8_t zone, int bus) {
+    k_mutex_lock(&heard_lock, K_FOREVER);
+    int64_t heard = last_heard[zone][bus];
+    k_mutex_unlock(&heard_lock);
+
+    return (k_uptime_get() - heard);
 }
