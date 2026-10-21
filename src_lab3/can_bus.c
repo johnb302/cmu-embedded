@@ -2,6 +2,7 @@
 #include "state.h"
 #include "ctrl.h"
 #include "blink.h"
+#include "relay.h"
 #include <zephyr/device.h>
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/drivers/can.h>
@@ -118,6 +119,10 @@ static void rx_cb(const struct device *dev, struct can_frame *frame, void *user_
             break;
     }
 
+#if NODE_ID == ZONE_N2
+    /* RELAY decides whether the other bus needs this frame (relay.c) */
+    relay_offer(frame, i);
+#endif
 }
 
 int can_io_get_rx(int bus) {
@@ -241,6 +246,16 @@ int can_io_send(uint16_t id, const uint8_t data[FRAME_DLC]) {
     }
 
     return 0;
+}
+
+/* RELAY: re-send a received frame on ONE bus, unchanged except for the relayed
+ * flag. The seq is kept, so receivers dedup it against any other copy. */
+int can_io_forward(int bus, const struct can_frame *f) {
+    struct can_frame frame = *f;
+    frame.data[0] |= FLAG_RELAYED;
+
+    gpio_pin_toggle_dt(&tx_pins[bus]);
+    return can_send(devs[bus], &frame, K_MSEC(CAN_TX_WAIT_MS), tx_cb, NULL);
 }
 
 int64_t can_io_hb_age_ms(uint8_t zone, int bus) {

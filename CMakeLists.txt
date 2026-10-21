@@ -36,6 +36,8 @@ elseif(CAN_LAB)
   endif()
   if(NODE_ID EQUAL 3)
     target_sources(app PRIVATE src_lab3/n3.c)
+  elseif(NODE_ID EQUAL 2)
+    target_sources(app PRIVATE src_lab3/n2.c src_lab3/relay.c)
   endif()
 else()
   target_sources(app PRIVATE src/encoder.c src/main.c src/motor_control.c src/blinker.c

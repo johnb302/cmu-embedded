@@ -5,6 +5,8 @@
 #include "state.h"
 #include "ctrl.h"
 #include "n3.h"
+#include "n2.h"
+#include "relay.h"
 #include "blink.h"
 #include "button.h"
 #include <zephyr/kernel.h>
@@ -45,6 +47,20 @@ int main(void) {
 
     common_start();
 
+#if NODE_ID == ZONE_N2
+    /* After CAN, unlike n3_start(): FORCE_TX starts sending right away */
+    int n2_ret = n2_start();
+    if (n2_ret < 0) {
+        printk("N2 tasks not started.\n");
+        return n2_ret;
+    }
+    int rl_ret = relay_start();
+    if (rl_ret < 0) {
+        printk("RELAY not started.\n");
+        return rl_ret;
+    }
+#endif
+
     /* After CAN: a press sends FAULT */
     int btn_ret = button_start();
     if (btn_ret < 0) {
@@ -65,6 +81,9 @@ int main(void) {
         printk("CAN B counts: %d\n", can_io_get_rx(1));
         printk("CAN accepted counts: %d\n", can_io_get_accepted());
         printk("CAN dropped counts: %d\n", can_io_get_dropped());
+#if NODE_ID == ZONE_N2
+        printk("Relayed: %u\n", relay_take_count());
+#endif
     }
 
     return 0;
