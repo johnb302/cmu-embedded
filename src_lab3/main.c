@@ -6,6 +6,7 @@
 #include "ctrl.h"
 #include "n3.h"
 #include "blink.h"
+#include "button.h"
 #include <zephyr/kernel.h>
 #include <zephyr/sys/printk.h>
 #include <zephyr/drivers/gpio.h>
@@ -43,6 +44,14 @@ int main(void) {
     }
 
     common_start();
+
+    /* After CAN: a press sends FAULT */
+    int btn_ret = button_start();
+    if (btn_ret < 0) {
+        printk("TEST_BTN not started.\n");
+        return btn_ret;
+    }
+
     if (common_wdg_start() < 0) {
         printk("watchdog not ready.\n");
         return -ENODEV;

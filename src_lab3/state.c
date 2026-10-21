@@ -110,7 +110,9 @@ void state_note_valid_ctrl(void) {
 }
 
 void state_clear_test(void) {
-
+    k_mutex_lock(&state_lock, K_FOREVER);
+    test_latched = false;
+    k_mutex_unlock(&state_lock);
 }
 
 bool state_local_fault(void) {
