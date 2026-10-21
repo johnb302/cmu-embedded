@@ -110,4 +110,6 @@
 #define HB_MON_PRIO   6
 #endif
 
+#define MAIN_PRIO 13
+
 #endif /* APP_CONFIG_H_ */

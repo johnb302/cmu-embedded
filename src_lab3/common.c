@@ -14,6 +14,16 @@ static const uint8_t peers[] = {ZONE_N1, ZONE_N2 + ZONE_N3 - NODE_ID};
 static atomic_t health_a = 1;
 static atomic_t health_b = 1;
 
+/* Watchdog */
+static const struct device *wdg = DEVICE_DT_GET(DT_NODELABEL(iwdg));
+static const struct wdt_timeout_cfg cfg = {
+        .callback = NULL,
+        .window.min = 0,
+        .window.max = WDT_TIMEOUT_MS,
+        .flags = WDT_FLAG_RESET_SOC
+    };
+static int channel = -1;
+
 static void hb_mon_thread(void *p1, void *p2, void *p3) {
     ARG_UNUSED(p1);
     ARG_UNUSED(p2);
@@ -63,6 +73,11 @@ static void hb_mon_thread(void *p1, void *p2, void *p3) {
 
         next += HB_INTERVAL_MS;
         k_sleep(K_TIMEOUT_ABS_MS(next));
+
+        /* Feed watchdog */
+        if (channel >= 0) {
+            wdt_feed(wdg, channel);
+        }
     }
 }
 
@@ -119,6 +134,25 @@ int common_start(void) {
 
     k_thread_start(hb_tid);
     k_thread_start(hb_mon_tid);
+
+    return 0;
+}
+
+int common_wdg_start(void) {
+    if (!device_is_ready(wdg)) {
+        return -ENODEV;
+    }
+
+    channel = wdt_install_timeout(wdg, &cfg);
+    if (channel < 0) {
+        return channel;
+    }
+
+    int ret = wdt_setup(wdg, WDT_OPT_PAUSE_HALTED_BY_DBG);
+    if (ret < 0) {
+        channel = -1;
+        return ret;
+    }
 
     return 0;
 }
