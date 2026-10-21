@@ -1,6 +1,8 @@
 /* Main file for Lab3 of 18649 */
 
 #include "config.h"
+#include "can_bus.h"
+#include "common.h"
 #include <zephyr/kernel.h>
 #include <zephyr/sys/printk.h>
 #include <zephyr/drivers/gpio.h>
@@ -23,6 +25,14 @@ int main(void) {
             return ret;
         }
     }
+
+    int ret = can_io_init();
+    if (ret < 0) {
+        printk("CAN buses could not be initialized.\n");
+        return ret;
+    }
+
+    common_start();
 
     int count = 0;
     while (1) {
