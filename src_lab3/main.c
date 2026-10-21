@@ -10,8 +10,8 @@
 int main(void) {
     printk("lab3: node %d booted.\n", NODE_ID);
 
-    struct gpio_dt_spec leds[] = {GPIO_DT_SPEC_GET(DT_PATH(zephyr_user), deg_a_gpios), GPIO_DT_SPEC_GET(DT_PATH(zephyr_user), deg_b_gpios), GPIO_DT_SPEC_GET(DT_PATH(zephyr_user), err_gpios),
-                                GPIO_DT_SPEC_GET(DT_PATH(zephyr_user), blink_left_gpios), GPIO_DT_SPEC_GET(DT_PATH(zephyr_user), blink_right_gpios)};
+    struct gpio_dt_spec leds[] = {GPIO_DT_SPEC_GET(DT_PATH(zephyr_user), err_gpios), GPIO_DT_SPEC_GET(DT_PATH(zephyr_user), blink_left_gpios),
+                                  GPIO_DT_SPEC_GET(DT_PATH(zephyr_user), blink_right_gpios)};
 
     for (size_t i = 0; i < ARRAY_SIZE(leds); i++) {
         if (!gpio_is_ready_dt(&leds[i])) {
@@ -34,14 +34,8 @@ int main(void) {
 
     common_start();
 
-    int count = 0;
     while (1) {
-        gpio_pin_set_dt(&leds[count], 1);
-        k_msleep(200);
-        gpio_pin_set_dt(&leds[count++], 0);
-        if (count == ARRAY_SIZE(leds)) {count = 0;}
-
-        k_msleep(800);
+        k_msleep(1000);
         printk("CAN A counts: %d\n", can_io_get_rx(0));
         printk("CAN B counts: %d\n", can_io_get_rx(1));
         printk("CAN accepted counts: %d\n", can_io_get_accepted());

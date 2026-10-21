@@ -6,7 +6,4 @@
 /* Start the thread */
 int common_start(void);
 
-/* Heartbeat thread */
-void hb_tx_thread(void *p1, void *p2, void *p3);
-
 #endif
