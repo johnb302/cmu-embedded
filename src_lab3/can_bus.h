@@ -13,6 +13,12 @@ int can_io_send(uint16_t id, const uint8_t data[FRAME_DLC]);
 /* Get rx callback counts */
 int can_io_get_rx(int bus);
 
+/* Get accepted frame count */
+int can_io_get_accepted(void);
+
+/* Get dropped frame count */
+int can_io_get_dropped(void);
+
 /* Compute age of heartbeat */
 int64_t can_io_hb_age_ms(uint8_t zone, int bus);
 

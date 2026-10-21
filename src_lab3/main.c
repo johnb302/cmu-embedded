@@ -44,6 +44,8 @@ int main(void) {
         k_msleep(800);
         printk("CAN A counts: %d\n", can_io_get_rx(0));
         printk("CAN B counts: %d\n", can_io_get_rx(1));
+        printk("CAN accepted counts: %d\n", can_io_get_accepted());
+        printk("CAN dropped counts: %d\n", can_io_get_dropped());
         printk("Zone 1 Age on CAN A: %lld\n", can_io_hb_age_ms(ZONE_N1, 0));
         printk("Zone 1 Age on CAN B: %lld\n", can_io_hb_age_ms(ZONE_N1, 1));
         if (NODE_ID == ZONE_N2) {

@@ -23,6 +23,25 @@ static atomic_t rx_counts[] = {0, 0};
 static int64_t last_heard[ZONE_N3 + 1][2] = {{-100000, -100000}, {-100000, -100000}, {-100000, -100000}, {-100000, -100000}};
 static K_MUTEX_DEFINE(heard_lock);
 
+/* Struct of last heard message on either bus */
+struct last_rx {
+    uint8_t seq;
+    int64_t time;
+};
+static struct last_rx last_rx[10] = {{.seq = 0, .time=-100000}, {.seq = 0, .time=-100000}, {.seq = 0, .time=-100000}, {.seq = 0, .time=-100000},
+                                     {.seq = 0, .time=-100000}, {.seq = 0, .time=-100000}, {.seq = 0, .time=-100000}, {.seq = 0, .time=-100000},
+                                     {.seq = 0, .time=-100000}, {.seq = 0, .time=-100000}};
+
+/* Lock for editing shared variable last_rx */
+static K_MUTEX_DEFINE(dedup_lock);
+
+/* Frame counters */
+static atomic_t rx_accepted = 0;
+static atomic_t rx_dropped = 0;
+
+/* Function definition for get_counter in rx_cb */
+static int get_counter(uint16_t id);
+
 static void rx_cb(const struct device *dev, struct can_frame *frame, void *user_data) {
     /* Recover bus */
     size_t i = (size_t)(uintptr_t)user_data;
@@ -39,20 +58,55 @@ static void rx_cb(const struct device *dev, struct can_frame *frame, void *user_
             zone = ZONE_N3;
             break;
         default:
-            return;
+            break;
     }
 
-    k_mutex_lock(&heard_lock, K_FOREVER);
-    last_heard[zone][i] = k_uptime_get();
-    k_mutex_unlock(&heard_lock);
+    if (zone != 0) {
+        /* Record heartbeat's heard @ time */
+        k_mutex_lock(&heard_lock, K_FOREVER);
+        last_heard[zone][i] = k_uptime_get();
+        k_mutex_unlock(&heard_lock);
+    }
 
     /* Increment count */
     atomic_inc(&rx_counts[i]);
+
+    /* If the frame id is fault, it could come from many places */
+    int slot = 0;
+    if (frame->id == ID_FAULT) {
+        uint8_t sender = frame->data[1];
+        if (sender < 1 || sender > 3) {return;}
+        slot = 6 + sender;
+    } else {
+        slot = get_counter(frame->id);
+        if (slot < 0) {return;}
+    }
+
+    k_mutex_lock(&dedup_lock, K_FOREVER);
+    /* If this frame has the same seq as the sender and is within the dedup window, drop it*/
+    if (last_rx[slot].seq == (frame->data[0] & SEQ_MASK) && k_uptime_get() < last_rx[slot].time + DEDUP_WINDOW_MS) {
+        k_mutex_unlock(&dedup_lock);
+        atomic_inc(&rx_dropped);
+        return;
+    }
+    last_rx[slot].seq = (frame->data[0] & SEQ_MASK);
+    last_rx[slot].time = k_uptime_get();
+    k_mutex_unlock(&dedup_lock);
+    atomic_inc(&rx_accepted);
+
 }
 
 int can_io_get_rx(int bus) {
     atomic_val_t count = atomic_clear(&rx_counts[bus]);
     return count;
+}
+
+int can_io_get_dropped(void) {
+    return atomic_clear(&rx_dropped);
+}
+
+int can_io_get_accepted(void) {
+    return atomic_clear(&rx_accepted);
 }
 
 int can_io_init(void) {
