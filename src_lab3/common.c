@@ -110,7 +110,7 @@ static void hb_tx_thread(void *p1, void *p2, void *p3) {
         atomic_val_t deg_b = atomic_get(&health_b);
         data[2] = (deg_a ? 0 : HB_HEALTH_A) | (deg_b ? 0 : HB_HEALTH_B);
         /* Set local fault */
-        data[3] = 0;
+        data[3] = state_local_fault() ? 1 : 0;
 
         can_io_send(id, data);
         next += HB_INTERVAL_MS;

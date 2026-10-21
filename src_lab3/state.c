@@ -81,15 +81,33 @@ void state_clear_test(void) {
 }
 
 bool state_local_fault(void) {
-    return false;
+    int64_t now = k_uptime_get();
+    bool local = false;
+    k_mutex_lock(&state_lock, K_FOREVER);
+    if (test_latched || now < bad_ctrl_until) {local = true;}
+    k_mutex_unlock(&state_lock);
+    return local;
 }
 
 void state_peer_report(uint8_t zone, bool fault) {
+    if (zone < ZONE_N1 || zone > ZONE_N3 || zone == NODE_ID) {
+        return;
+    }
 
+    k_mutex_lock(&state_lock, K_FOREVER);
+    peer_fault[zone] = fault;
+    k_mutex_unlock(&state_lock);
 }
 
 void state_remote_fault(uint8_t zone) {
+    if (zone < ZONE_N1 || zone > ZONE_N3 || zone == NODE_ID) {
+        return;
+    }
 
+    k_mutex_lock(&state_lock, K_FOREVER);
+    peer_fault[zone] = true;
+    enter_error(FAULT_REMOTE);
+    k_mutex_unlock(&state_lock);
 }
 
 void state_update(bool all_peers_alive) {

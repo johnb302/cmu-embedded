@@ -61,6 +61,7 @@ static void rx_cb(const struct device *dev, struct can_frame *frame, void *user_
         default:
             break;
     }
+    state_peer_report(zone, frame->data[3] != 0);
 
     if (zone != 0) {
         /* Record heartbeat's heard @ time */
@@ -99,6 +100,9 @@ static void rx_cb(const struct device *dev, struct can_frame *frame, void *user_
     switch(frame->id) {
         case ID_CTRL:
             state_note_valid_ctrl();
+            break;
+        case ID_FAULT:
+            state_remote_fault(frame->data[1]);
             break;
         default:
             break;
