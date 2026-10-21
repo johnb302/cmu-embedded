@@ -35,6 +35,7 @@ static void hb_mon_thread(void *p1, void *p2, void *p3) {
     while(1) {
         int count_A = 0;
         int count_B = 0;
+        bool all_peers_alive = true;
         /* Loop over the zones and check the age on each bus */
         for (int i = 0; i < ARRAY_SIZE(peers); i++) {
             /* Check bus A */
@@ -50,7 +51,7 @@ static void hb_mon_thread(void *p1, void *p2, void *p3) {
 
             /* Check if a zone is lost */
             if (zone_age_A >= HB_TIMEOUT_MS && zone_age_B >= HB_TIMEOUT_MS) {
-                printk("Zone %d is lost.\n", i);
+                all_peers_alive = false;
             }
         }
 
@@ -71,6 +72,8 @@ static void hb_mon_thread(void *p1, void *p2, void *p3) {
             atomic_set(&health_b, 0);
             gpio_pin_set_dt(&gpios[1], 0);
         }
+
+        state_update(all_peers_alive);
 
         next += HB_INTERVAL_MS;
         k_sleep(K_TIMEOUT_ABS_MS(next));

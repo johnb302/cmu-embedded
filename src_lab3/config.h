@@ -58,6 +58,7 @@
 #define FAULT_TEST_BUTTON 1
 #define FAULT_BAD_CTRL    2
 #define FAULT_HB_LOSS     3
+#define FAULT_REMOTE      4
 
 /* BLINK (Pi -> all): b1 state | b2 bit 0 = phase (1 = lamps on) */
 #define BLINK_OFF    0

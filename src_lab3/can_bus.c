@@ -1,4 +1,5 @@
 #include "can_bus.h"
+#include "state.h"
 #include <zephyr/device.h>
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/drivers/can.h>
@@ -93,6 +94,15 @@ static void rx_cb(const struct device *dev, struct can_frame *frame, void *user_
     last_rx[slot].time = k_uptime_get();
     k_mutex_unlock(&dedup_lock);
     atomic_inc(&rx_accepted);
+
+    /* Let state machine update */
+    switch(frame->id) {
+        case ID_CTRL:
+            state_note_valid_ctrl();
+            break;
+        default:
+            break;
+    }
 
 }
 
