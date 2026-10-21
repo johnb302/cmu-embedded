@@ -30,7 +30,7 @@ elseif(MOTOR_CALIBRATION)
 elseif(CAN_LAB)
   target_include_directories(app PRIVATE src_lab3)
   target_sources(app PRIVATE src_lab3/main.c src_lab3/can_bus.c src_lab3/common.c src_lab3/state.c src_lab3/ctrl.c
-                             src_lab3/blink.c src_lab3/button.c)
+                             src_lab3/blink.c src_lab3/button.c src_lab3/wcet.c)
   if(DEFINED NODE_ID)
     target_compile_definitions(app PRIVATE NODE_ID=${NODE_ID})
   endif()

@@ -3,6 +3,7 @@
 #include "can_bus.h"
 #include "ctrl.h"
 #include "state.h"
+#include "wcet.h"
 #include <zephyr/kernel.h>
 #include <zephyr/drivers/pwm.h>
 
@@ -19,10 +20,12 @@ static void steer_thread(void *p1, void *p2, void *p3) {
         struct ctrl c;
 
         ctrl_get(&frame);
+        uint32_t t0 = wcet_start();
 
         if (ctrl_decode(&frame, &c) != 0) {
             /* Keep the last good angle: a jump to center isn't safer than holding */
             state_report_fault(FAULT_BAD_CTRL);
+            wcet_record(WCET_STEER, t0);
             continue;
         }
 
@@ -32,6 +35,7 @@ static void steer_thread(void *p1, void *p2, void *p3) {
          * hazard, not having it. -32767..32766 -> 1000..2000 us */
         int32_t pulse_us = SERVO_CENTER_US + ((int32_t)c.steer * SERVO_SPAN_US) / 32767;
         pwm_set_pulse_dt(&srv, PWM_USEC(pulse_us));
+        wcet_record(WCET_STEER, t0);
     }
 }
 
@@ -46,10 +50,12 @@ static void force_thread(void *p1, void *p2, void *p3) {
     int8_t counter = 0;
 
     while (1) {
+        uint32_t t0 = wcet_start();
         uint8_t data[FRAME_DLC] = {0};
         data[1] = counter++;
 
         can_io_send(ID_FORCE, data);
+        wcet_record(WCET_FORCE_TX, t0);
 
         next += FORCE_INTERVAL_MS;
         k_sleep(K_TIMEOUT_ABS_MS(next));

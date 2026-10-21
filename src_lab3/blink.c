@@ -1,5 +1,6 @@
 #include "blink.h"
 #include "config.h"
+#include "wcet.h"
 #include <zephyr/kernel.h>
 #include <zephyr/drivers/gpio.h>
 
@@ -26,10 +27,12 @@ static void blink_thread(void *p1, void *p2, void *p3) {
         struct can_frame frame;
 
         k_msgq_get(&blink_q, &frame, K_FOREVER);
+        uint32_t t0 = wcet_start();
 
         uint8_t st = frame.data[1];
         bool on = (frame.data[2] & 0x01) != 0;
         if (st > BLINK_HAZARD) {
+            wcet_record(WCET_BLINK, t0);
             continue; /* not a state we know: ignore it, keep the last lamps */
         }
 
@@ -37,6 +40,7 @@ static void blink_thread(void *p1, void *p2, void *p3) {
         bool right = on && (st == BLINK_RIGHT || st == BLINK_HAZARD);
         gpio_pin_set_dt(&lamp_left, left);
         gpio_pin_set_dt(&lamp_right, right);
+        wcet_record(WCET_BLINK, t0);
     }
 }
 

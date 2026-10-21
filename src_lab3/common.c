@@ -2,6 +2,7 @@
 #include "config.h"
 #include "can_bus.h"
 #include "state.h"
+#include "wcet.h"
 #include <zephyr/kernel.h>
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/drivers/watchdog.h>
@@ -33,6 +34,7 @@ static void hb_mon_thread(void *p1, void *p2, void *p3) {
     int64_t next = k_uptime_get();
 
     while(1) {
+        uint32_t t0 = wcet_start();
         int count_A = 0;
         int count_B = 0;
         bool all_peers_alive = true;
@@ -74,6 +76,7 @@ static void hb_mon_thread(void *p1, void *p2, void *p3) {
         }
 
         state_update(all_peers_alive);
+        wcet_record(WCET_HB_MON, t0);
 
         next += HB_INTERVAL_MS;
         k_sleep(K_TIMEOUT_ABS_MS(next));
@@ -102,6 +105,7 @@ static void hb_tx_thread(void *p1, void *p2, void *p3) {
     }
 
     while(1) {
+        uint32_t t0 = wcet_start();
         uint8_t data[FRAME_DLC] = {0};
         data[0] = 0;
         data[1] = state_get();
@@ -113,6 +117,7 @@ static void hb_tx_thread(void *p1, void *p2, void *p3) {
         data[3] = state_local_fault() ? 1 : 0;
 
         can_io_send(id, data);
+        wcet_record(WCET_HB_TX, t0);
         next += HB_INTERVAL_MS;
         k_sleep(K_TIMEOUT_ABS_MS(next));
     }

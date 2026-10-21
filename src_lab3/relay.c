@@ -1,6 +1,7 @@
 #include "relay.h"
 #include "config.h"
 #include "can_bus.h"
+#include "wcet.h"
 #include <zephyr/kernel.h>
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/sys/atomic.h>
@@ -81,10 +82,12 @@ static void relay_thread(void *p1, void *p2, void *p3) {
         struct relay_job job;
 
         k_msgq_get(&relay_q, &job, K_FOREVER);
+        uint32_t t0 = wcet_start();
         gpio_pin_toggle_dt(&relay_tp);
         if (can_io_forward(job.to_bus, &job.frame) == 0) {
             atomic_inc(&relayed);
         }
+        wcet_record(WCET_RELAY, t0);
     }
 }
 

@@ -2,6 +2,7 @@
 #include "config.h"
 #include "ctrl.h"
 #include "state.h"
+#include "wcet.h"
 #include <zephyr/kernel.h>
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/drivers/pwm.h>
@@ -39,13 +40,15 @@ static void drive_thread(void *p1, void *p2, void *p3) {
         struct ctrl c;
 
         ctrl_get(&frame);
+        uint32_t t0 = wcet_start();
 
         if (ctrl_decode(&frame, &c) != 0) {
             /* Bad input: fail safe first, then tell everyone */
             k_mutex_lock(&drive_lock, K_FOREVER);
             apply(true, 0);
             k_mutex_unlock(&drive_lock);
-            state_report_fault(FAULT_BAD_CTRL);
+            state_report_fault(FAULT_BAD_CTRL); /* includes N3's 2 ms FAULT delay (a sleep, not CPU) */
+            wcet_record(WCET_DRIVE, t0);
             continue;
         }
 
@@ -55,6 +58,7 @@ static void drive_thread(void *p1, void *p2, void *p3) {
         k_mutex_lock(&drive_lock, K_FOREVER);
         apply(brake, c.throttle);
         k_mutex_unlock(&drive_lock);
+        wcet_record(WCET_DRIVE, t0);
     }
 }
 
@@ -69,6 +73,7 @@ static void pid_thread(void *p1, void *p2, void *p3) {
     int64_t next = k_uptime_get();
 
     while (1) {
+        uint32_t t0 = wcet_start();
         if (state_get() == HB_STATE_ERROR) {
             k_mutex_lock(&drive_lock, K_FOREVER);
             if (!braking) {
@@ -76,6 +81,7 @@ static void pid_thread(void *p1, void *p2, void *p3) {
             }
             k_mutex_unlock(&drive_lock);
         }
+        wcet_record(WCET_PID, t0);
 
         next += PID_INTERVAL_MS;
         k_sleep(K_TIMEOUT_ABS_MS(next));

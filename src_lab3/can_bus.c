@@ -3,6 +3,7 @@
 #include "ctrl.h"
 #include "blink.h"
 #include "relay.h"
+#include "wcet.h"
 #include <zephyr/device.h>
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/drivers/can.h>
@@ -13,6 +14,7 @@
 /* Acquire buses and tx pins from device tree */
 static const struct device *devs[] = {DEVICE_DT_GET(DT_ALIAS(can_a)), DEVICE_DT_GET(DT_ALIAS(can_b))};
 static const struct gpio_dt_spec tx_pins[] = {GPIO_DT_SPEC_GET(DT_PATH(zephyr_user), can_tx_a_gpios), GPIO_DT_SPEC_GET(DT_PATH(zephyr_user), can_tx_b_gpios)};
+static const struct gpio_dt_spec rx_pins[] = {GPIO_DT_SPEC_GET(DT_PATH(zephyr_user), can_rx_a_gpios), GPIO_DT_SPEC_GET(DT_PATH(zephyr_user), can_rx_b_gpios)};
 
 /* Create SEQ counters for each ID */
 static atomic_t seq_counters[] = {0, 0, 0, 0, 0, 0, 0};
@@ -46,7 +48,7 @@ static atomic_t rx_dropped = 0;
 /* Function definition for get_counter in rx_cb */
 static int get_counter(uint16_t id);
 
-static void rx_cb(const struct device *dev, struct can_frame *frame, void *user_data) {
+static void rx_dispatch(const struct device *dev, struct can_frame *frame, void *user_data) {
     /* Recover bus */
     size_t i = (size_t)(uintptr_t)user_data;
 
@@ -125,6 +127,17 @@ static void rx_cb(const struct device *dev, struct can_frame *frame, void *user_
 #endif
 }
 
+/* The driver's RX callback (its thread, after the SPI read): CAN_RX_A/B toggles
+ * here, the moment our code sees the frame (handout test-point definition). */
+static void rx_cb(const struct device *dev, struct can_frame *frame, void *user_data) {
+    size_t bus = (size_t)(uintptr_t)user_data;
+    uint32_t t0 = wcet_start();
+
+    gpio_pin_toggle_dt(&rx_pins[bus]);
+    rx_dispatch(dev, frame, user_data);
+    wcet_record(WCET_CAN_RX, t0);
+}
+
 int can_io_get_rx(int bus) {
     atomic_val_t count = atomic_clear(&rx_counts[bus]);
     return count;
@@ -149,6 +162,17 @@ int can_io_init(void) {
         int ret = gpio_pin_configure_dt(&tx_pins[i], GPIO_OUTPUT_INACTIVE);
         if (ret < 0) {
             printk("TX on CAN %zu could not be configured.\n", i);
+            return ret;
+        }
+
+        /* RX test point: must be ready before can_start() lets rx_cb run */
+        if (!gpio_is_ready_dt(&rx_pins[i])) {
+            printk("RX on CAN %zu not ready.\n", i);
+            return -ENODEV;
+        }
+        ret = gpio_pin_configure_dt(&rx_pins[i], GPIO_OUTPUT_INACTIVE);
+        if (ret < 0) {
+            printk("RX on CAN %zu could not be configured.\n", i);
             return ret;
         }
 

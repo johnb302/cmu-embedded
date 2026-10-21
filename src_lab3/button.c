@@ -1,6 +1,7 @@
 #include "button.h"
 #include "config.h"
 #include "state.h"
+#include "wcet.h"
 #include <zephyr/kernel.h>
 #include <zephyr/drivers/gpio.h>
 
@@ -55,6 +56,7 @@ static void button_thread(void *p1, void *p2, void *p3) {
 
     while (1) {
         k_sem_take(&btn_sem, K_FOREVER);
+        uint32_t t0 = wcet_start();
         int64_t now = k_uptime_get();
 
         if (!latched) {
@@ -67,6 +69,7 @@ static void button_thread(void *p1, void *p2, void *p3) {
         } else {
             last_press = now; /* first press of a possible double */
         }
+        wcet_record(WCET_TEST_BTN, t0); /* N3: includes the 2 ms FAULT delay on a latch */
 
         wait_released();
     }

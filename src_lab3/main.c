@@ -7,6 +7,7 @@
 #include "n3.h"
 #include "n2.h"
 #include "relay.h"
+#include "wcet.h"
 #include "blink.h"
 #include "button.h"
 #include <zephyr/kernel.h>
@@ -75,6 +76,7 @@ int main(void) {
 
     k_thread_priority_set(k_current_get(), MAIN_PRIO);
 
+    unsigned int wcet_tick = 0;
     while (1) {
         k_msleep(1000);
         printk("CAN A counts: %d\n", can_io_get_rx(0));
@@ -84,6 +86,9 @@ int main(void) {
 #if NODE_ID == ZONE_N2
         printk("Relayed: %u\n", relay_take_count());
 #endif
+        if (++wcet_tick % 5 == 0) {
+            wcet_print();
+        }
     }
 
     return 0;
