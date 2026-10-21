@@ -40,6 +40,10 @@ int main(void) {
         k_msleep(200);
         gpio_pin_set_dt(&leds[count++], 0);
         if (count == ARRAY_SIZE(leds)) {count = 0;}
+
+        k_msleep(800);
+        printk("CAN A counts: %d\n", can_io_get_rx(0));
+        printk("CAN B counts: %d\n", can_io_get_rx(1));
     }
 
     return 0;

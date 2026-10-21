@@ -13,6 +13,25 @@ static const struct gpio_dt_spec tx_pins[] = {GPIO_DT_SPEC_GET(DT_PATH(zephyr_us
 /* Create SEQ counters for each ID */
 static atomic_t seq_counters[] = {0, 0, 0, 0, 0, 0, 0};
 
+/* Array of potential IDs */
+static const uint16_t ids[] = {ID_CTRL, ID_FAULT, ID_HB_N1, ID_HB_N2, ID_HB_N3, ID_BLINK};
+
+/* RX counts per bus */
+static atomic_t rx_counts[] = {0, 0};
+
+static void rx_cb(const struct device *dev, struct can_frame *frame, void *user_data) {
+    /* Recover bus */
+    size_t i = (size_t)(uintptr_t)user_data;
+
+    /* Increment count */
+    atomic_inc(&rx_counts[i]);
+}
+
+int can_io_get_rx(int bus) {
+    atomic_val_t count = atomic_clear(&rx_counts[bus]);
+    return count;
+}
+
 int can_io_init(void) {
     /* Loop over and initialize buses */
     for (size_t i = 0; i < ARRAY_SIZE(devs); i++) {
@@ -30,6 +49,21 @@ int can_io_init(void) {
         if (!device_is_ready(devs[i])) {
             printk("CAN %zu is not ready.\n", i);
             return -ENODEV;
+        }
+
+        /* Creating CAN filters by looping over all possible IDs */
+        for (size_t j = 0; j < ARRAY_SIZE(ids); j++) {
+            /* Filter should accept frame when filter.id and frame.id match */
+            struct can_filter filter = {
+                .mask = CAN_STD_ID_MASK,
+                .id = ids[j],
+            };
+
+            int filt_ret = can_add_rx_filter(devs[i], rx_cb, (void *)(uintptr_t)i, &filter);
+            if (filt_ret < 0) {
+                printk("Unable to add filter to CAN %zu.\n", i);
+                return filt_ret;
+            }
         }
 
         int start_ret = can_start(devs[i]);
