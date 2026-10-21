@@ -95,7 +95,7 @@
 #if NODE_ID == ZONE_N2
 /* Node 2 priorities (deadline monotonic; 0 is main during init) */
 #define RELAY_PRIO    1 /* on the relayed brake chain: N3's only copy of CTRL */
-#define BLINK_F_PRIO  2
+#define BLINK_PRIO    2 /* BLINK_F: same code as BLINK_R (blink.c) */
 #define STEER_PRIO    3
 #define TEST_BTN_PRIO 4
 #define HB_TX_PRIO    5
@@ -104,7 +104,7 @@
 #else
 /* Node 3 priorities */
 #define DRIVE_PRIO    1 /* ties BLINK_R's 0.5 ms, but brake beats lights */
-#define BLINK_R_PRIO  2
+#define BLINK_PRIO    2 /* BLINK_R */
 #define TEST_BTN_PRIO 3
 #define PID_PRIO      4
 #define HB_TX_PRIO    5

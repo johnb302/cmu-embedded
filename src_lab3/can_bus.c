@@ -1,6 +1,7 @@
 #include "can_bus.h"
 #include "state.h"
 #include "ctrl.h"
+#include "blink.h"
 #include <zephyr/device.h>
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/drivers/can.h>
@@ -109,6 +110,9 @@ static void rx_cb(const struct device *dev, struct can_frame *frame, void *user_
             break;
         case ID_FAULT:
             state_remote_fault(frame->data[1]);
+            break;
+        case ID_BLINK:
+            blink_post(frame);
             break;
         default:
             break;

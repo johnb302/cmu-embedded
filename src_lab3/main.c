@@ -5,6 +5,7 @@
 #include "state.h"
 #include "ctrl.h"
 #include "n3.h"
+#include "blink.h"
 #include <zephyr/kernel.h>
 #include <zephyr/sys/printk.h>
 #include <zephyr/drivers/gpio.h>
@@ -28,19 +29,11 @@ int main(void) {
     }
 #endif
 
-    struct gpio_dt_spec leds[] = {GPIO_DT_SPEC_GET(DT_PATH(zephyr_user), blink_left_gpios), GPIO_DT_SPEC_GET(DT_PATH(zephyr_user), blink_right_gpios)};
-
-    for (size_t i = 0; i < ARRAY_SIZE(leds); i++) {
-        if (!gpio_is_ready_dt(&leds[i])) {
-            printk("GPIO %zu isn't ready\n", i);
-            return -ENODEV;
-        }
-
-        int ret = gpio_pin_configure_dt(&leds[i], GPIO_OUTPUT_INACTIVE);
-        if (ret < 0) {
-            printk("GPIO %zu can't be configured.\n", i);
-            return ret;
-        }
+    /* The blinker lamps belong to the BLINK task now */
+    int bl_ret = blink_start();
+    if (bl_ret < 0) {
+        printk("BLINK not started.\n");
+        return bl_ret;
     }
 
     int ret = can_io_init();
