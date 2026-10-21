@@ -1,9 +1,9 @@
 /* Main file for Lab3 of 18649 */
-
 #include "config.h"
 #include "can_bus.h"
 #include "common.h"
 #include "state.h"
+#include "ctrl.h"
 #include <zephyr/kernel.h>
 #include <zephyr/sys/printk.h>
 #include <zephyr/drivers/gpio.h>
