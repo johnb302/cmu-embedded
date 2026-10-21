@@ -3,11 +3,16 @@
 #include "can_bus.h"
 #include <zephyr/kernel.h>
 #include <zephyr/drivers/gpio.h>
+#include <zephyr/drivers/watchdog.h>
 
 static const struct gpio_dt_spec gpios[] = {GPIO_DT_SPEC_GET(DT_PATH(zephyr_user), deg_a_gpios), GPIO_DT_SPEC_GET(DT_PATH(zephyr_user), deg_b_gpios)};
 
 /* Peer nodes */
 static const uint8_t peers[] = {ZONE_N1, ZONE_N2 + ZONE_N3 - NODE_ID};
+
+/* Per-bus atomic value (health bit) */
+static atomic_t health_a = 1;
+static atomic_t health_b = 1;
 
 static void hb_mon_thread(void *p1, void *p2, void *p3) {
     ARG_UNUSED(p1);
@@ -40,15 +45,19 @@ static void hb_mon_thread(void *p1, void *p2, void *p3) {
 
         /* If all nodes on BUS A miss heartbeat, bus is degraded */
         if (count_A == 2) {
+            atomic_set(&health_a, 1);
             gpio_pin_set_dt(&gpios[0], 1);
         } else {
+            atomic_set(&health_a, 0);
             gpio_pin_set_dt(&gpios[0], 0);
         }
 
         /* If all nodes on BUS B miss heartbeat, bus is degraded */
         if (count_B == 2) {
+            atomic_set(&health_b, 1);
             gpio_pin_set_dt(&gpios[1], 1);
         } else {
+            atomic_set(&health_b, 0);
             gpio_pin_set_dt(&gpios[1], 0);
         }
 
@@ -78,7 +87,9 @@ static void hb_tx_thread(void *p1, void *p2, void *p3) {
         data[0] = 0;
         data[1] = HB_STATE_ERROR;
         /* Set flags to show both buses healthy */
-        data[2] = 0x03;
+        atomic_val_t deg_a = atomic_get(&health_a);
+        atomic_val_t deg_b = atomic_get(&health_b);
+        data[2] = (deg_a ? 0 : HB_HEALTH_A) | (deg_b ? 0 : HB_HEALTH_B);
         /* Set local fault */
         data[3] = 0;
 
