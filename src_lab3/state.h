@@ -11,6 +11,9 @@ uint8_t state_get(void);
 
 void state_fail(uint8_t reason);
 
+/* state_fail(reason) AND broadcast FAULT (bad CTRL, test button). Blocks up to ~6 ms on N3. */
+void state_report_fault(uint8_t reason);
+
 void state_note_valid_ctrl(void);
 
 void state_clear_test(void);

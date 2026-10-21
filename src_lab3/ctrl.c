@@ -23,27 +23,46 @@ uint8_t crc8(const uint8_t *buf, size_t len) {
     return crc;
 }
 
-/* TODO 6.3: decode + validate. Return -EBADMSG on any failure, 0 on success.
- *   1. CRC: copy b0..b6 into a local array, clear the flag bits of the copy's b0
- *      (keep only SEQ_MASK), crc8() the 7 bytes, compare with b7.
- *   2. Ranges:
- *        steer = (int16_t)sys_get_le16(&f->data[1]), within STEER_RAW_MIN..STEER_RAW_MAX
- *        b3 (throttle) and b4 (brake) <= CTRL_PCT_MAX
- *        b5 has no bits outside BUTTON_MASK
- *        b6 == 0
- *   3. Fill *out. */
 int ctrl_decode(const struct can_frame *f, struct ctrl *out) {
-    return -EBADMSG;
+    uint8_t local[7];
+    memcpy(local, f->data, 7);
+    /* Flags (relayed) are set in transit by N2: not part of the command */
+    local[0] &= SEQ_MASK;
+
+    uint8_t crc = crc8(local, 7);
+    if (crc != f->data[7]) {
+        return -EBADMSG;
+    }
+
+    /* bN is data[N]. Only steer is 16 bits; throttle and brake are one byte each */
+    int16_t steer = (int16_t)sys_get_le16(&f->data[1]);
+    uint8_t throttle = f->data[3];
+    uint8_t brake = f->data[4];
+    uint8_t buttons = f->data[5];
+    if (steer < STEER_RAW_MIN || steer > STEER_RAW_MAX) {return -EBADMSG;}
+    if (throttle > CTRL_PCT_MAX || brake > CTRL_PCT_MAX) {return -EBADMSG;}
+
+    /* No bits outside the allowed buttons */
+    if (buttons & ~BUTTON_MASK) {return -EBADMSG;}
+
+    if (f->data[6] != 0) {return -EBADMSG;}
+
+    out->steer = steer;
+    out->throttle = throttle;
+    out->brake = brake;
+    out->buttons = buttons;
+
+    return 0;
 }
 
-/* TODO 6.4: driver-thread context: never block.
- *   k_msgq_put(..., K_NO_WAIT); if it fails (full), k_msgq_purge() and put again. */
+/* Driver-thread context: never block. A stale CTRL is worthless, so keep the newest. */
 void ctrl_post(const struct can_frame *f) {
-
+    if (k_msgq_put(&msg_q, f, K_NO_WAIT) != 0) {
+        k_msgq_purge(&msg_q);
+        (void)k_msgq_put(&msg_q, f, K_NO_WAIT);
+    }
 }
 
-/* TODO 6.5: task context: block until a CTRL arrives.
- *   k_msgq_get(..., K_FOREVER) */
 void ctrl_get(struct can_frame *f) {
-
+    k_msgq_get(&msg_q, f, K_FOREVER);
 }

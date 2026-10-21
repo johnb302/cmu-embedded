@@ -4,6 +4,7 @@
 #include "common.h"
 #include "state.h"
 #include "ctrl.h"
+#include "n3.h"
 #include <zephyr/kernel.h>
 #include <zephyr/sys/printk.h>
 #include <zephyr/drivers/gpio.h>
@@ -17,6 +18,15 @@ int main(void) {
         printk("State not initialized.\n");
         return st_ret;
     }
+
+#if NODE_ID == ZONE_N3
+    /* Before CAN starts: outputs braked, DRIVE waiting for its first CTRL */
+    int n3_ret = n3_start();
+    if (n3_ret < 0) {
+        printk("N3 tasks not started.\n");
+        return n3_ret;
+    }
+#endif
 
     struct gpio_dt_spec leds[] = {GPIO_DT_SPEC_GET(DT_PATH(zephyr_user), blink_left_gpios), GPIO_DT_SPEC_GET(DT_PATH(zephyr_user), blink_right_gpios)};
 

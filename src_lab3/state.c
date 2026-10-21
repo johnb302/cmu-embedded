@@ -1,5 +1,6 @@
 #include "state.h"
 #include "config.h"
+#include "can_bus.h"
 #include <zephyr/kernel.h>
 #include <zephyr/drivers/gpio.h>
 
@@ -68,6 +69,38 @@ void state_fail(uint8_t reason) {
     }
     k_mutex_unlock(&state_lock);
 
+}
+
+/* Time of the last FAULT this zone sent. Guarded by state_lock. */
+static int64_t last_fault_tx = -100000;
+
+void state_report_fault(uint8_t reason) {
+    state_fail(reason);
+
+    /* Catalog: at most one FAULT per FAULT_MIN_INTERVAL_MS from a zone.
+     * Decide under the lock, but never hold it across the CAN send. */
+    int64_t now = k_uptime_get();
+    bool send = false;
+    k_mutex_lock(&state_lock, K_FOREVER);
+    if (now - last_fault_tx >= FAULT_MIN_INTERVAL_MS) {
+        last_fault_tx = now;
+        send = true;
+    }
+    k_mutex_unlock(&state_lock);
+    if (!send) {
+        return;
+    }
+
+#if NODE_ID == ZONE_N3
+    /* A bad CTRL makes N2 and N3 fault at the same instant: same ID, different
+     * data = bit error and retries in lockstep. N3 waits a few frame times. */
+    k_msleep(FAULT_N3_DELAY_MS);
+#endif
+
+    uint8_t data[FRAME_DLC] = {0};
+    data[1] = NODE_ID; /* failing zone: us */
+    data[2] = reason;
+    can_io_send(ID_FAULT, data);
 }
 
 void state_note_valid_ctrl(void) {
