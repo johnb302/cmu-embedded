@@ -78,7 +78,7 @@ static void hb_mon_thread(void *p1, void *p2, void *p3) {
         state_update(all_peers_alive);
         wcet_record(WCET_HB_MON, t0);
 
-        next += HB_INTERVAL_MS;
+        next += HB_MON_INTERVAL_MS;
         k_sleep(K_TIMEOUT_ABS_MS(next));
 
         /* Feed watchdog */

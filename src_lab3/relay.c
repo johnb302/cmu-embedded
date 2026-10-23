@@ -6,7 +6,7 @@
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/sys/atomic.h>
 
-/* RELAY_TX test point (PA9): toggles each time a forwarded frame is queued on the other bus */
+/* RELAY_TX test point (PA9): toggles each time a frame forwarded A -> B has been sent on bus B */
 static const struct gpio_dt_spec relay_tp = GPIO_DT_SPEC_GET(DT_PATH(zephyr_user), relay_tx_gpios);
 
 struct relay_job {
@@ -62,7 +62,7 @@ void relay_offer(const struct can_frame *f, int from_bus) {
     }
 
     int to_bus = 1 - from_bus;
-    if (can_io_hb_age_ms(sender, to_bus) < HB_TIMEOUT_MS) {
+    if (can_io_hb_age_ms(sender, to_bus) < RELAY_AFTER_MS) {
         return; /* the sender reaches the other bus itself */
     }
     if (!someone_else_on(to_bus, sender)) {
@@ -83,9 +83,13 @@ static void relay_thread(void *p1, void *p2, void *p3) {
 
         k_msgq_get(&relay_q, &job, K_FOREVER);
         uint32_t t0 = wcet_start();
-        gpio_pin_toggle_dt(&relay_tp);
         if (can_io_forward(job.to_bus, &job.frame) == 0) {
             atomic_inc(&relayed);
+        }
+        /* After the send on bus B returns (TA clarification, measurement #6: RELAY C,
+         * CAN_RX_A -> RELAY_TX). Only A -> B forwards toggle, so every edge pairs with a CAN_RX_A edge. */
+        if (job.to_bus == 1) {
+            gpio_pin_toggle_dt(&relay_tp);
         }
         wcet_record(WCET_RELAY, t0);
     }

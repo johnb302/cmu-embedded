@@ -67,9 +67,17 @@
 #define BLINK_HAZARD 3
 
 /* Timing */
-#define HB_INTERVAL_MS 20
-#define HB_MISS_LIMIT  3
-#define HB_TIMEOUT_MS  (HB_MISS_LIMIT * HB_INTERVAL_MS) /* DEG on / zone failed */
+#define HB_INTERVAL_MS     20
+#define HB_MON_INTERVAL_MS 10
+/* DEG on / zone failed. Measured from the last heartbeat, and HB_MON notices up to
+ * one HB_MON period later, so from the fault: <= HB_TIMEOUT_MS + HB_MON_INTERVAL_MS
+ * = 60 ms (step 5). Two missed heartbeats plus 10 ms margin, so one late or lost
+ * heartbeat never trips it. */
+#define HB_TIMEOUT_MS      50
+/* RELAY (N2): forward a sender's frames to a bus once it hasn't been heard there this
+ * long. Must start before receivers hit HB_TIMEOUT_MS: relaying begins at the sender's
+ * 2nd missing heartbeat (t = 40 ms), so a receiver's age peaks at ~40 ms < 50 ms. */
+#define RELAY_AFTER_MS     30
 #define HB_FAILSAFE_RESPONSE_BUDGET_MS 100              /* R4.5 system error */
 
 #define PID_INTERVAL_MS   10
