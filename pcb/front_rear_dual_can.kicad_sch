@@ -2,9 +2,193 @@
 	(version 20260306)
 	(generator "eeschema")
 	(generator_version "10.0")
-	(uuid 11f1b6cb-7ca3-4657-a79b-c672c999e35e)
+	(uuid "11f1b6cb-7ca3-4657-a79b-c672c999e35e")
 	(paper "A4")
 	(lib_symbols)
+	(sheet
+		(at 123.19 80.01)
+		(size 43.18 43.18)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "41c6a9fc-11c6-456e-ba86-638326a8715f")
+		(property "Sheetname" "Power"
+			(at 123.19 79.2984 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "power.kicad_sch"
+			(at 123.19 123.7746 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "front_rear_dual_can"
+				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e"
+					(page "5")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 120.65 29.21)
+		(size 24.13 12.7)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "5405e341-74c8-4510-ade9-af70f4b85a3e")
+		(property "Sheetname" "Cockpit"
+			(at 120.65 28.4984 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "cockpit.kicad_sch"
+			(at 120.65 42.4946 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "front_rear_dual_can"
+				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e"
+					(page "4")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 187.96 91.44)
+		(size 35.56 35.56)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "793cf9c1-f95a-4353-aaa3-727cd0cf6ad0")
+		(property "Sheetname" "Front Zone"
+			(at 187.96 90.7284 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "front_zone.kicad_sch"
+			(at 187.96 127.5846 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "front_rear_dual_can"
+				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 107.95 166.37)
+		(size 30.48 17.78)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "fb8dd42e-e08f-4165-aace-adf15651bc30")
+		(property "Sheetname" "Rear Zone"
+			(at 107.95 165.6584 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "rear_zone.kicad_sch"
+			(at 107.95 184.7346 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "front_rear_dual_can"
+				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e"
+					(page "3")
+				)
+			)
+		)
+	)
 	(sheet_instances
 		(path "/"
 			(page "1")

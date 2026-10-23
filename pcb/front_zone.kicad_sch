@@ -1,0 +1,100 @@
+(kicad_sch
+	(version 20260306)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "cdb354ff-8e33-4193-95a4-32720dab5077")
+	(paper "A4")
+	(lib_symbols)
+	(sheet
+		(at 133.35 91.44)
+		(size 31.75 21.59)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "0b621270-f4d6-48c3-b191-a257f51aa285")
+		(property "Sheetname" "CAN 1"
+			(at 133.35 90.7284 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "can_bus.kicad_sch"
+			(at 133.35 113.6146 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "front_rear_dual_can"
+				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
+					(page "6")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 133.35 54.61)
+		(size 33.02 21.59)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "a293e13b-2eb6-4270-afde-ceac647869ef")
+		(property "Sheetname" "MCU"
+			(at 133.35 53.8984 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "STM32F401RE.kicad_sch"
+			(at 133.35 76.7846 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "front_rear_dual_can"
+				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
+					(page "7")
+				)
+			)
+		)
+	)
+)
