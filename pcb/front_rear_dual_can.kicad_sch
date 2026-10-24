@@ -98,8 +98,8 @@
 		)
 	)
 	(sheet
-		(at 187.96 91.44)
-		(size 35.56 35.56)
+		(at 189.23 92.71)
+		(size 60.96 38.1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -114,7 +114,7 @@
 		)
 		(uuid "793cf9c1-f95a-4353-aaa3-727cd0cf6ad0")
 		(property "Sheetname" "Front Zone"
-			(at 187.96 90.7284 0)
+			(at 189.23 91.9984 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -125,7 +125,7 @@
 			)
 		)
 		(property "Sheetfile" "front_zone.kicad_sch"
-			(at 187.96 127.5846 0)
+			(at 189.23 131.3946 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -133,6 +133,46 @@
 					(size 1.27 1.27)
 				)
 				(justify left top)
+			)
+		)
+		(pin "CAN_A_H" input
+			(at 189.23 95.25 180)
+			(uuid "f58d4795-1451-4132-b272-feecbc5cc62d")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "CAN_A_L" input
+			(at 189.23 97.79 180)
+			(uuid "5aa296c6-c9db-4402-b806-181971efcde7")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "CAN_B_H" input
+			(at 189.23 100.33 180)
+			(uuid "78ba76ad-c421-43e1-814b-7c16877bfe5e")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "CAN_B_L" input
+			(at 189.23 102.87 180)
+			(uuid "9030ac2f-a264-4892-9750-8308f1a7ec87")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 			)
 		)
 		(instances
@@ -144,7 +184,7 @@
 		)
 	)
 	(sheet
-		(at 107.95 166.37)
+		(at 158.75 139.7)
 		(size 30.48 17.78)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -160,7 +200,7 @@
 		)
 		(uuid "fb8dd42e-e08f-4165-aace-adf15651bc30")
 		(property "Sheetname" "Rear Zone"
-			(at 107.95 165.6584 0)
+			(at 158.75 138.9884 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -171,7 +211,7 @@
 			)
 		)
 		(property "Sheetfile" "rear_zone.kicad_sch"
-			(at 107.95 184.7346 0)
+			(at 158.75 158.0646 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -179,6 +219,46 @@
 					(size 1.27 1.27)
 				)
 				(justify left top)
+			)
+		)
+		(pin "CAN_A_H" input
+			(at 158.75 142.24 180)
+			(uuid "d562d0e9-41c9-4ac1-a389-37d1dec85590")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "CAN_A_L" input
+			(at 158.75 144.78 180)
+			(uuid "195119ca-cc32-4d80-b2f4-bcc407284f0b")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "CAN_B_H" input
+			(at 158.75 147.32 180)
+			(uuid "4c730575-f330-4e94-ade7-54cfa61d4756")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "CAN_B_L" input
+			(at 158.75 149.86 180)
+			(uuid "e5f8e1b8-7324-4257-ae76-65fa224a1ca4")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 			)
 		)
 		(instances

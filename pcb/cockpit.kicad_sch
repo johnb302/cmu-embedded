@@ -5,4 +5,236 @@
 	(uuid "95d98250-d90d-4f6f-83eb-4c2231b718a4")
 	(paper "A4")
 	(lib_symbols)
+	(sheet
+		(at 134.62 86.36)
+		(size 38.1 26.67)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "cf0d388d-a7d8-4847-abb6-2b888fef43c4")
+		(property "Sheetname" "CAN A"
+			(at 134.62 85.6484 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "can_bus.kicad_sch"
+			(at 134.62 113.6146 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "CS" input
+			(at 134.62 88.9 180)
+			(uuid "392cc31f-ea48-40b9-a5ee-0759d191b155")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SCK" input
+			(at 134.62 91.44 180)
+			(uuid "01a18cee-47f7-4726-87cf-af4fa893b6e2")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SI" input
+			(at 134.62 93.98 180)
+			(uuid "02744d9b-7c17-44d3-b440-2581598f7871")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "CAN_H" output
+			(at 172.72 88.9 0)
+			(uuid "79ad2c54-fca2-4744-8630-e84eaad0e9de")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "CAN_L" output
+			(at 172.72 91.44 0)
+			(uuid "6ba13f8f-6746-46b4-ab0c-71ebbc741e7c")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "INT" output
+			(at 172.72 93.98 0)
+			(uuid "bab88180-7877-4242-9859-a630172b436f")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "SO" output
+			(at 172.72 96.52 0)
+			(uuid "aad2508f-f8ee-480b-9baf-152a16ce9b83")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(instances
+			(project "front_rear_dual_can"
+				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/5405e341-74c8-4510-ade9-af70f4b85a3e"
+					(page "12")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 91.44 104.14)
+		(size 30.48 27.94)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "f9d9d8f4-0752-4a00-9954-7a6c25f1d293")
+		(property "Sheetname" "CAN B"
+			(at 91.44 103.4284 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "can_bus.kicad_sch"
+			(at 91.44 132.6646 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "CS" input
+			(at 91.44 106.68 180)
+			(uuid "6f3c6b39-a101-42b5-bbbb-893bbb227b05")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SCK" input
+			(at 91.44 109.22 180)
+			(uuid "397d3b85-66b4-4bc9-87a2-769137a9f263")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SI" input
+			(at 91.44 111.76 180)
+			(uuid "ba332cc8-4eba-4b70-b8f5-05db552d9e2a")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "CAN_H" output
+			(at 121.92 106.68 0)
+			(uuid "a7956c31-1881-4b24-984f-d74e0c5bf582")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "CAN_L" output
+			(at 121.92 109.22 0)
+			(uuid "cc6945ac-63a4-48ef-9bc7-2b595a6c7a15")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "INT" output
+			(at 121.92 111.76 0)
+			(uuid "7187c582-46cd-416a-aa32-cf85313e0d25")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "SO" output
+			(at 121.92 114.3 0)
+			(uuid "8963ad07-c9a3-437a-bd4c-79ca06e6fdeb")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(instances
+			(project "front_rear_dual_can"
+				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/5405e341-74c8-4510-ade9-af70f4b85a3e"
+					(page "13")
+				)
+			)
+		)
+	)
 )
