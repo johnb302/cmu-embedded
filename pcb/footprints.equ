@@ -1,0 +1,64 @@
+# Footprint association file for front_rear_dual_can
+# Format: 'Value' 'Library:Footprint'  (value must match the symbol Value exactly)
+# Load in Footprint Assignment Tool: Preferences > Manage Footprint Association Files,
+# then Tools > Perform Automatic Footprint Association.
+#
+# Not listed on purpose (same value, different parts -> assign by hand):
+#   Conn_01x06: J303/J304 motor = Connector_JST:JST_PH_B6B-PH-SM4-TB_1x06-1MP_P2.00mm_Vertical
+#               J702/J1102 SWD  = Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical
+
+# --- Capacitors, 0603 ---
+'100 nF' 'Capacitor_SMD:C_0603_1608Metric'
+'100nF' 'Capacitor_SMD:C_0603_1608Metric'
+'10nF' 'Capacitor_SMD:C_0603_1608Metric'
+'1nF' 'Capacitor_SMD:C_0603_1608Metric'
+'1μF' 'Capacitor_SMD:C_0603_1608Metric'
+'22 pF' 'Capacitor_SMD:C_0603_1608Metric'
+'30pF' 'Capacitor_SMD:C_0603_1608Metric'
+'33pF' 'Capacitor_SMD:C_0603_1608Metric'
+
+# --- Capacitors, larger (DC bias / shelf part / bulk) ---
+'10μF' 'Capacitor_SMD:C_0805_2012Metric'
+'22μF' 'Capacitor_SMD:C_0805_2012Metric'
+'4.7μF' 'Capacitor_SMD:C_0805_2012Metric'
+'47μF' 'Capacitor_SMD:C_1206_3216Metric'
+'470μF' 'Capacitor_THT:CP_Radial_D10.0mm_P5.00mm'
+
+# --- Resistors, 0603 ---
+'0Ω' 'Resistor_SMD:R_0603_1608Metric'
+'10 kΩ' 'Resistor_SMD:R_0603_1608Metric'
+'10kΩ' 'Resistor_SMD:R_0603_1608Metric'
+'1kΩ' 'Resistor_SMD:R_0603_1608Metric'
+'20kΩ' 'Resistor_SMD:R_0603_1608Metric'
+'30kΩ' 'Resistor_SMD:R_0603_1608Metric'
+'47kΩ' 'Resistor_SMD:R_0603_1608Metric'
+'45.3kΩ' 'Resistor_SMD:R_0603_1608Metric'
+'220kΩ' 'Resistor_SMD:R_0603_1608Metric'
+'348kΩ' 'Resistor_SMD:R_0603_1608Metric'
+'120Ω' 'Resistor_SMD:R_0603_1608Metric'
+'330Ω' 'Resistor_SMD:R_0603_1608Metric'
+
+# --- Servo shunt, 2512 4-terminal Kelvin ---
+'40mΩ' 'Resistor_SMD:R_Shunt_Vishay_WSK2512_6332Metric_T1.19mm'
+
+# --- Inductors (buck: Sunlord MWSA0603S molded, 7x6.6 mm; JLCPCB C408449 / C408447 / C408446) ---
+'6.8μH' 'Inductor_SMD:L_Sunlord_MWSA0603S'
+'4.7μH' 'Inductor_SMD:L_Sunlord_MWSA0603S'
+'3.3μH' 'Inductor_SMD:L_Sunlord_MWSA0603S'
+'L_Ferrite' 'Inductor_SMD:L_0603_1608Metric'
+
+# --- Diodes / LEDs ---
+'D_Schottky' 'Diode_SMD:D_SMB'
+'BZT52C10' 'Diode_SMD:D_SOD-123'
+'LED' 'LED_SMD:LED_0603_1608Metric'
+
+# --- Connectors / headers ---
+'XT60' 'Connector_AMASS:AMASS_XT60-M_1x02_P7.20mm_Vertical'
+'Conn_01x02' 'Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical'
+'Conn_01x02_Pin' 'Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical'
+'Conn_01x03' 'Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical'
+'Raspberry_Pi_4' 'Connector_PinSocket_2.54mm:PinSocket_2x20_P2.54mm_Vertical'
+
+# --- Misc ---
+'15 A' 'Fuse:Fuseholder_Blade_Mini_Keystone_3568'
+'TestPoint' 'TestPoint:TestPoint_Keystone_5015_Micro_Mini'

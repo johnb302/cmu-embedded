@@ -4686,7 +4686,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0a70a2d6-47d2-4922-8f5c-4c002aff315d")
-		(property "Reference" "#PWR0135"
+		(property "Reference" "#PWR0308"
 			(at 139.7 137.16 0)
 			(hide yes)
 			(show_name no)
@@ -4747,7 +4747,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "#PWR0135")
+					(reference "#PWR0308")
 					(unit 1)
 				)
 			)
@@ -4765,7 +4765,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0cad0451-47d6-4f54-a5c9-68a107254454")
-		(property "Reference" "TP22"
+		(property "Reference" "TP301"
 			(at 20.32 178.3079 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4787,7 +4787,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 22.86 182.88 0)
 			(hide yes)
 			(show_name no)
@@ -4826,7 +4826,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "TP22")
+					(reference "TP301")
 					(unit 1)
 				)
 			)
@@ -4844,7 +4844,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0d5f5c45-ff6b-47db-9588-71a2424c746d")
-		(property "Reference" "C28"
+		(property "Reference" "C301"
 			(at 38.1 132.0799 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4866,7 +4866,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 35.2552 137.16 0)
 			(hide yes)
 			(show_name no)
@@ -4908,7 +4908,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "C28")
+					(reference "C301")
 					(unit 1)
 				)
 			)
@@ -4926,7 +4926,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "14057a63-f063-453a-b622-aaf660b3394d")
-		(property "Reference" "R14"
+		(property "Reference" "R305"
 			(at 59.69 123.19 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4946,7 +4946,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 59.944 128.524 90)
 			(hide yes)
 			(show_name no)
@@ -4988,7 +4988,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "R14")
+					(reference "R305")
 					(unit 1)
 				)
 			)
@@ -5006,7 +5006,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "1aff7a1c-f16a-4d51-8b2b-1104a4f3edab")
-		(property "Reference" "#PWR0139"
+		(property "Reference" "#PWR0304"
 			(at 105.41 143.51 0)
 			(hide yes)
 			(show_name no)
@@ -5066,7 +5066,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "#PWR0139")
+					(reference "#PWR0304")
 					(unit 1)
 				)
 			)
@@ -5084,7 +5084,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "21bd21fd-1c29-4299-bc46-8d7f204bf46a")
-		(property "Reference" "R19"
+		(property "Reference" "R308"
 			(at 102.87 132.0799 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5106,7 +5106,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 104.394 133.604 90)
 			(hide yes)
 			(show_name no)
@@ -5148,7 +5148,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "R19")
+					(reference "R308")
 					(unit 1)
 				)
 			)
@@ -5166,7 +5166,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "26c8e6cb-249c-47a1-a642-45579d09dee1")
-		(property "Reference" "TP43"
+		(property "Reference" "TP310"
 			(at 91.44 178.3079 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5188,7 +5188,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 93.98 182.88 0)
 			(hide yes)
 			(show_name no)
@@ -5227,7 +5227,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "TP43")
+					(reference "TP310")
 					(unit 1)
 				)
 			)
@@ -5245,7 +5245,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "3db25e6c-e569-46b5-9cb8-b7aabf0b832d")
-		(property "Reference" "TP48"
+		(property "Reference" "TP316"
 			(at 144.78 155.4479 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5267,7 +5267,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 147.32 160.02 0)
 			(hide yes)
 			(show_name no)
@@ -5306,7 +5306,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "TP48")
+					(reference "TP316")
 					(unit 1)
 				)
 			)
@@ -5324,7 +5324,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "3e8f5e6f-3ed6-476c-a595-df294d3c6d7e")
-		(property "Reference" "C31"
+		(property "Reference" "C310"
 			(at 264.16 99.0599 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5346,7 +5346,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 261.3152 104.14 0)
 			(hide yes)
 			(show_name no)
@@ -5388,7 +5388,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "C31")
+					(reference "C310")
 					(unit 1)
 				)
 			)
@@ -5406,7 +5406,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "3f924533-354d-4a68-81b3-7316f4ebe951")
-		(property "Reference" "#PWR0142"
+		(property "Reference" "#PWR0326"
 			(at 247.65 100.33 0)
 			(hide yes)
 			(show_name no)
@@ -5466,7 +5466,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "#PWR0142")
+					(reference "#PWR0326")
 					(unit 1)
 				)
 			)
@@ -5484,7 +5484,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "3fda81bc-40dd-4057-b302-2ee7d474ba8f")
-		(property "Reference" "J11"
+		(property "Reference" "J303"
 			(at 153.67 132.0799 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5506,7 +5506,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_JST:JST_PH_B6B-PH-SM4-TB_1x06-1MP_P2.00mm_Vertical"
 			(at 151.13 132.08 0)
 			(hide yes)
 			(show_name no)
@@ -5560,7 +5560,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "J11")
+					(reference "J303")
 					(unit 1)
 				)
 			)
@@ -5578,7 +5578,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "40df6cca-c5a3-42c6-a5b8-e7593ee47dc6")
-		(property "Reference" "#PWR0143"
+		(property "Reference" "#PWR0325"
 			(at 240.03 66.04 0)
 			(hide yes)
 			(show_name no)
@@ -5639,7 +5639,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "#PWR0143")
+					(reference "#PWR0325")
 					(unit 1)
 				)
 			)
@@ -5657,7 +5657,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "44782e92-e6db-4c4c-8f9a-0f52ba9ffa76")
-		(property "Reference" "#PWR0122"
+		(property "Reference" "#PWR0317"
 			(at 203.2 44.45 0)
 			(hide yes)
 			(show_name no)
@@ -5718,7 +5718,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "#PWR0122")
+					(reference "#PWR0317")
 					(unit 1)
 				)
 			)
@@ -5736,7 +5736,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "4fb318cb-af60-4058-b39e-283f0c60e763")
-		(property "Reference" "D18"
+		(property "Reference" "D307"
 			(at 234.95 54.2924 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5759,7 +5759,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_SMB"
 			(at 232.41 55.88 0)
 			(hide yes)
 			(show_name no)
@@ -5801,7 +5801,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "D18")
+					(reference "D307")
 					(unit 1)
 				)
 			)
@@ -5819,7 +5819,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "53adcfca-25b8-4880-97fe-3012a5de7989")
-		(property "Reference" "#PWR0126"
+		(property "Reference" "#PWR0330"
 			(at 274.32 86.36 0)
 			(hide yes)
 			(show_name no)
@@ -5880,7 +5880,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "#PWR0126")
+					(reference "#PWR0330")
 					(unit 1)
 				)
 			)
@@ -5898,7 +5898,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "54315c09-3ac8-4189-9a98-058a8e795cbe")
-		(property "Reference" "C25"
+		(property "Reference" "C306"
 			(at 193.04 48.26 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5918,7 +5918,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 196.85 54.9148 0)
 			(hide yes)
 			(show_name no)
@@ -5960,7 +5960,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "C25")
+					(reference "C306")
 					(unit 1)
 				)
 			)
@@ -5978,7 +5978,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "54d29023-4102-4176-90ff-369597280aea")
-		(property "Reference" "R26"
+		(property "Reference" "R304"
 			(at 43.18 76.1999 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6000,7 +6000,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 40.64 77.47 0)
 			(hide yes)
 			(show_name no)
@@ -6042,7 +6042,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "R26")
+					(reference "R304")
 					(unit 1)
 				)
 			)
@@ -6060,7 +6060,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "56648a8a-c145-4c17-be3e-bdf5114ad16d")
-		(property "Reference" "D17"
+		(property "Reference" "D305"
 			(at 226.06 54.2924 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6083,7 +6083,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_SMB"
 			(at 223.52 55.88 0)
 			(hide yes)
 			(show_name no)
@@ -6125,7 +6125,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "D17")
+					(reference "D305")
 					(unit 1)
 				)
 			)
@@ -6143,7 +6143,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "5db5fdec-6214-4c2c-99b9-cf5b5f4311d6")
-		(property "Reference" "R16"
+		(property "Reference" "R302"
 			(at 25.4 132.0799 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6165,7 +6165,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 26.924 133.604 90)
 			(hide yes)
 			(show_name no)
@@ -6207,7 +6207,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "R16")
+					(reference "R302")
 					(unit 1)
 				)
 			)
@@ -6225,7 +6225,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "63a9682a-5deb-4061-bd57-2529703f0fae")
-		(property "Reference" "#PWR0120"
+		(property "Reference" "#PWR0311"
 			(at 181.61 100.33 0)
 			(hide yes)
 			(show_name no)
@@ -6285,7 +6285,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "#PWR0120")
+					(reference "#PWR0311")
 					(unit 1)
 				)
 			)
@@ -6303,7 +6303,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "6c0a2639-87d8-4edb-a700-ef4a9c8927aa")
-		(property "Reference" "TP40"
+		(property "Reference" "TP307"
 			(at 71.12 155.4479 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6325,7 +6325,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 73.66 160.02 0)
 			(hide yes)
 			(show_name no)
@@ -6364,7 +6364,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "TP40")
+					(reference "TP307")
 					(unit 1)
 				)
 			)
@@ -6382,7 +6382,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "6e8d9b83-86c0-4c51-b474-949b07a3b0c8")
-		(property "Reference" "C27"
+		(property "Reference" "C304"
 			(at 182.88 48.26 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6402,7 +6402,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 186.69 54.9148 0)
 			(hide yes)
 			(show_name no)
@@ -6444,7 +6444,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "C27")
+					(reference "C304")
 					(unit 1)
 				)
 			)
@@ -6462,7 +6462,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "6f5b1157-c6b6-438c-b50f-e7e353e218ab")
-		(property "Reference" "J10"
+		(property "Reference" "J304"
 			(at 193.04 132.0799 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6484,7 +6484,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_JST:JST_PH_B6B-PH-SM4-TB_1x06-1MP_P2.00mm_Vertical"
 			(at 190.5 132.08 0)
 			(hide yes)
 			(show_name no)
@@ -6538,7 +6538,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "J10")
+					(reference "J304")
 					(unit 1)
 				)
 			)
@@ -6556,7 +6556,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "730ad8a1-69bb-4bdd-a2fe-5e543af4d07d")
-		(property "Reference" "#PWR0131"
+		(property "Reference" "#PWR0322"
 			(at 232.41 101.6 0)
 			(hide yes)
 			(show_name no)
@@ -6616,7 +6616,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "#PWR0131")
+					(reference "#PWR0322")
 					(unit 1)
 				)
 			)
@@ -6634,7 +6634,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "743d602f-a48b-4d62-8d38-de89921e5d67")
-		(property "Reference" "#PWR0136"
+		(property "Reference" "#PWR0301"
 			(at 27.94 143.51 0)
 			(hide yes)
 			(show_name no)
@@ -6694,7 +6694,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "#PWR0136")
+					(reference "#PWR0301")
 					(unit 1)
 				)
 			)
@@ -6712,7 +6712,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "74b75485-30c7-4909-9f1c-4fdd5916687e")
-		(property "Reference" "D10"
+		(property "Reference" "D308"
 			(at 234.95 89.8524 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6735,7 +6735,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_SMB"
 			(at 232.41 91.44 0)
 			(hide yes)
 			(show_name no)
@@ -6777,7 +6777,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "D10")
+					(reference "D308")
 					(unit 1)
 				)
 			)
@@ -6795,7 +6795,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "78c3f35a-4a7a-4864-afdb-26358b440870")
-		(property "Reference" "TP52"
+		(property "Reference" "TP319"
 			(at 166.37 178.3079 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6817,7 +6817,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 168.91 182.88 0)
 			(hide yes)
 			(show_name no)
@@ -6856,7 +6856,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "TP52")
+					(reference "TP319")
 					(unit 1)
 				)
 			)
@@ -6874,7 +6874,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "796ccefc-3818-401e-9edb-53f278a86faf")
-		(property "Reference" "#PWR0130"
+		(property "Reference" "#PWR0321"
 			(at 223.52 101.6 0)
 			(hide yes)
 			(show_name no)
@@ -6934,7 +6934,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "#PWR0130")
+					(reference "#PWR0321")
 					(unit 1)
 				)
 			)
@@ -6952,7 +6952,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7a20dd42-e39d-4352-ac63-1d08b2f3e48c")
-		(property "Reference" "D8"
+		(property "Reference" "D304"
 			(at 217.17 89.8524 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6975,7 +6975,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_SMB"
 			(at 214.63 91.44 0)
 			(hide yes)
 			(show_name no)
@@ -7017,7 +7017,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "D8")
+					(reference "D304")
 					(unit 1)
 				)
 			)
@@ -7035,7 +7035,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7cf3c690-c6c2-4495-a8b4-0285ab2d3b23")
-		(property "Reference" "TP49"
+		(property "Reference" "TP315"
 			(at 139.7 178.3079 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7057,7 +7057,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 142.24 182.88 0)
 			(hide yes)
 			(show_name no)
@@ -7096,7 +7096,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "TP49")
+					(reference "TP315")
 					(unit 1)
 				)
 			)
@@ -7114,7 +7114,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7e3d2bcd-4050-4015-b75d-5c474fc9b20f")
-		(property "Reference" "#PWR0132"
+		(property "Reference" "#PWR0312"
 			(at 189.23 129.54 0)
 			(hide yes)
 			(show_name no)
@@ -7175,7 +7175,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "#PWR0132")
+					(reference "#PWR0312")
 					(unit 1)
 				)
 			)
@@ -7193,7 +7193,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7f7c8bf2-acfa-40a6-8fdf-1e1c3364fbb7")
-		(property "Reference" "C29"
+		(property "Reference" "C302"
 			(at 73.66 132.0799 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7215,7 +7215,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 70.8152 137.16 0)
 			(hide yes)
 			(show_name no)
@@ -7257,7 +7257,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "C29")
+					(reference "C302")
 					(unit 1)
 				)
 			)
@@ -7275,7 +7275,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8101314d-6c96-4a28-988a-9bca0ce81cb9")
-		(property "Reference" "TP27"
+		(property "Reference" "TP306"
 			(at 53.34 178.3079 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7297,7 +7297,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 55.88 182.88 0)
 			(hide yes)
 			(show_name no)
@@ -7336,7 +7336,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "TP27")
+					(reference "TP306")
 					(unit 1)
 				)
 			)
@@ -7354,7 +7354,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8897eaf5-71bf-4a2f-80b7-a99ea3312e3f")
-		(property "Reference" "D7"
+		(property "Reference" "D301"
 			(at 209.55 54.2924 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7377,7 +7377,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_SMB"
 			(at 207.01 55.88 0)
 			(hide yes)
 			(show_name no)
@@ -7419,7 +7419,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "D7")
+					(reference "D301")
 					(unit 1)
 				)
 			)
@@ -7437,7 +7437,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "89401eca-541c-497b-a5f1-edb24f7e173f")
-		(property "Reference" "R17"
+		(property "Reference" "R306"
 			(at 60.96 132.0799 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7459,7 +7459,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 62.484 133.604 90)
 			(hide yes)
 			(show_name no)
@@ -7501,7 +7501,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "R17")
+					(reference "R306")
 					(unit 1)
 				)
 			)
@@ -7519,7 +7519,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "894486bd-636c-4b83-90aa-11286f3f39e4")
-		(property "Reference" "#PWR0138"
+		(property "Reference" "#PWR0303"
 			(at 97.79 129.54 0)
 			(hide yes)
 			(show_name no)
@@ -7580,7 +7580,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "#PWR0138")
+					(reference "#PWR0303")
 					(unit 1)
 				)
 			)
@@ -7598,7 +7598,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8c7aa562-910f-408f-95c1-191fe2a486cc")
-		(property "Reference" "#PWR0118"
+		(property "Reference" "#PWR0316"
 			(at 189.23 43.18 0)
 			(hide yes)
 			(show_name no)
@@ -7658,7 +7658,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "#PWR0118")
+					(reference "#PWR0316")
 					(unit 1)
 				)
 			)
@@ -7676,7 +7676,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8c8cff64-0035-4a57-8f88-9869fd7984aa")
-		(property "Reference" "TP42"
+		(property "Reference" "TP309"
 			(at 91.44 155.4479 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7698,7 +7698,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 93.98 160.02 0)
 			(hide yes)
 			(show_name no)
@@ -7737,7 +7737,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "TP42")
+					(reference "TP309")
 					(unit 1)
 				)
 			)
@@ -7755,7 +7755,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8e11f1c9-a209-406e-b285-4b8c19490db7")
-		(property "Reference" "TP50"
+		(property "Reference" "TP318"
 			(at 165.1 155.4479 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7777,7 +7777,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 167.64 160.02 0)
 			(hide yes)
 			(show_name no)
@@ -7816,7 +7816,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "TP50")
+					(reference "TP318")
 					(unit 1)
 				)
 			)
@@ -7834,7 +7834,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "91803a66-62f4-41ae-bc2e-aa42f3aa4455")
-		(property "Reference" "#PWR0116"
+		(property "Reference" "#PWR0315"
 			(at 186.69 97.79 0)
 			(hide yes)
 			(show_name no)
@@ -7894,7 +7894,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "#PWR0116")
+					(reference "#PWR0315")
 					(unit 1)
 				)
 			)
@@ -7911,7 +7911,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "919aa7c6-9b14-4a77-9a50-5252a21ae460")
-		(property "Reference" "#PWR0125"
+		(property "Reference" "#PWR0324"
 			(at 248.92 58.42 0)
 			(hide yes)
 			(show_name no)
@@ -7972,7 +7972,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "#PWR0125")
+					(reference "#PWR0324")
 					(unit 1)
 				)
 			)
@@ -7990,7 +7990,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "92dd3a96-e58a-4c80-b830-5743e68a5453")
-		(property "Reference" "D16"
+		(property "Reference" "D303"
 			(at 217.17 54.2924 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8013,7 +8013,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_SMB"
 			(at 214.63 55.88 0)
 			(hide yes)
 			(show_name no)
@@ -8055,7 +8055,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "D16")
+					(reference "D303")
 					(unit 1)
 				)
 			)
@@ -8073,7 +8073,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "94cacb7f-f795-4399-8e27-a8da33bfafa9")
-		(property "Reference" "TP23"
+		(property "Reference" "TP302"
 			(at 21.59 155.4479 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8095,7 +8095,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 24.13 160.02 0)
 			(hide yes)
 			(show_name no)
@@ -8134,7 +8134,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "TP23")
+					(reference "TP302")
 					(unit 1)
 				)
 			)
@@ -8152,7 +8152,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9b38e3cd-f69e-4215-9160-3e673e5b598d")
-		(property "Reference" "#PWR0137"
+		(property "Reference" "#PWR0302"
 			(at 63.5 143.51 0)
 			(hide yes)
 			(show_name no)
@@ -8212,7 +8212,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "#PWR0137")
+					(reference "#PWR0302")
 					(unit 1)
 				)
 			)
@@ -8230,7 +8230,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9b959683-8e7a-4f8c-9d65-3178f24cdc78")
-		(property "Reference" "R18"
+		(property "Reference" "R307"
 			(at 101.6 123.19 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8250,7 +8250,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 101.854 128.524 90)
 			(hide yes)
 			(show_name no)
@@ -8292,7 +8292,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "R18")
+					(reference "R307")
 					(unit 1)
 				)
 			)
@@ -8310,7 +8310,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9eab8e18-40a3-4cf6-864b-4bf889ca25a4")
-		(property "Reference" "TP45"
+		(property "Reference" "TP312"
 			(at 107.95 178.3079 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8332,7 +8332,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 110.49 182.88 0)
 			(hide yes)
 			(show_name no)
@@ -8371,7 +8371,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "TP45")
+					(reference "TP312")
 					(unit 1)
 				)
 			)
@@ -8389,7 +8389,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a1550a45-0f72-4c91-9c4d-92f41e694a5c")
-		(property "Reference" "#PWR0133"
+		(property "Reference" "#PWR0313"
 			(at 179.07 137.16 0)
 			(hide yes)
 			(show_name no)
@@ -8450,7 +8450,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "#PWR0133")
+					(reference "#PWR0313")
 					(unit 1)
 				)
 			)
@@ -8468,7 +8468,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a3458506-1946-4d48-824f-a52e84876741")
-		(property "Reference" "TP44"
+		(property "Reference" "TP311"
 			(at 107.95 155.4479 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8490,7 +8490,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 110.49 160.02 0)
 			(hide yes)
 			(show_name no)
@@ -8529,7 +8529,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "TP44")
+					(reference "TP311")
 					(unit 1)
 				)
 			)
@@ -8547,7 +8547,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "a38291e9-a088-4cc2-9ee2-f2663be43edb")
-		(property "Reference" "J21"
+		(property "Reference" "J302"
 			(at 35.56 87.884 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8569,7 +8569,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
 			(at 35.56 80.01 0)
 			(hide yes)
 			(show_name no)
@@ -8611,7 +8611,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "J21")
+					(reference "J302")
 					(unit 1)
 				)
 			)
@@ -8629,7 +8629,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ac9b78cf-460a-4e35-ac31-b61a49780a26")
-		(property "Reference" "TP26"
+		(property "Reference" "TP305"
 			(at 53.34 155.4479 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8651,7 +8651,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 55.88 160.02 0)
 			(hide yes)
 			(show_name no)
@@ -8690,7 +8690,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "TP26")
+					(reference "TP305")
 					(unit 1)
 				)
 			)
@@ -8708,7 +8708,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "aeafbbca-f6ce-40f1-bc08-90a30b116476")
-		(property "Reference" "#PWR0129"
+		(property "Reference" "#PWR0320"
 			(at 214.63 101.6 0)
 			(hide yes)
 			(show_name no)
@@ -8768,7 +8768,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "#PWR0129")
+					(reference "#PWR0320")
 					(unit 1)
 				)
 			)
@@ -8786,7 +8786,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "b001edfd-ae3e-42a5-a759-fe726afbb970")
-		(property "Reference" "#PWR055"
+		(property "Reference" "#PWR0305"
 			(at 105.41 189.23 0)
 			(hide yes)
 			(show_name no)
@@ -8846,7 +8846,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "#PWR055")
+					(reference "#PWR0305")
 					(unit 1)
 				)
 			)
@@ -8864,7 +8864,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "b1cbab06-1322-45a9-b405-0e891f93fe62")
-		(property "Reference" "R15"
+		(property "Reference" "R301"
 			(at 24.13 123.19 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8884,7 +8884,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 24.384 128.524 90)
 			(hide yes)
 			(show_name no)
@@ -8926,7 +8926,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "R15")
+					(reference "R301")
 					(unit 1)
 				)
 			)
@@ -8944,7 +8944,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "b2eb3528-2823-448a-a233-9bccafbdb6f1")
-		(property "Reference" "D6"
+		(property "Reference" "D302"
 			(at 209.55 89.8524 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8967,7 +8967,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_SMB"
 			(at 207.01 91.44 0)
 			(hide yes)
 			(show_name no)
@@ -9009,7 +9009,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "D6")
+					(reference "D302")
 					(unit 1)
 				)
 			)
@@ -9027,7 +9027,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "b3ac50c3-b401-48b3-9284-82b2922e0f9b")
-		(property "Reference" "#PWR0115"
+		(property "Reference" "#PWR0306"
 			(at 123.19 189.23 0)
 			(hide yes)
 			(show_name no)
@@ -9087,7 +9087,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "#PWR0115")
+					(reference "#PWR0306")
 					(unit 1)
 				)
 			)
@@ -9105,7 +9105,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "b8fe4df1-a98d-4231-a091-8b40b6937409")
-		(property "Reference" "J20"
+		(property "Reference" "J301"
 			(at 35.56 56.134 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9127,7 +9127,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
 			(at 35.56 48.26 0)
 			(hide yes)
 			(show_name no)
@@ -9169,7 +9169,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "J20")
+					(reference "J301")
 					(unit 1)
 				)
 			)
@@ -9187,7 +9187,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "bd95d095-cae0-4ef7-805f-da490fdf09be")
-		(property "Reference" "C34"
+		(property "Reference" "C307"
 			(at 242.57 60.9599 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9209,7 +9209,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 245.4148 66.04 0)
 			(hide yes)
 			(show_name no)
@@ -9251,7 +9251,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "C34")
+					(reference "C307")
 					(unit 1)
 				)
 			)
@@ -9269,7 +9269,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "bf476244-81ed-4f8e-ac71-735c9b2233b8")
-		(property "Reference" "TP51"
+		(property "Reference" "TP317"
 			(at 153.67 178.3079 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9291,7 +9291,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 156.21 182.88 0)
 			(hide yes)
 			(show_name no)
@@ -9330,7 +9330,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "TP51")
+					(reference "TP317")
 					(unit 1)
 				)
 			)
@@ -9348,7 +9348,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "bfa510c3-c453-43db-b549-5ec19842d9b2")
-		(property "Reference" "C26"
+		(property "Reference" "C305"
 			(at 193.04 36.83 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9368,7 +9368,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:CP_Elec_8x11.9"
 			(at 196.85 43.4848 0)
 			(hide yes)
 			(show_name no)
@@ -9410,7 +9410,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "C26")
+					(reference "C305")
 					(unit 1)
 				)
 			)
@@ -9428,7 +9428,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "c0130a73-31fd-43f3-8723-3529cb74c691")
-		(property "Reference" "TP41"
+		(property "Reference" "TP308"
 			(at 71.12 178.3079 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9450,7 +9450,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 73.66 182.88 0)
 			(hide yes)
 			(show_name no)
@@ -9489,7 +9489,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "TP41")
+					(reference "TP308")
 					(unit 1)
 				)
 			)
@@ -9507,7 +9507,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "c45f4b83-2801-4001-a610-9b96acdf9a4e")
-		(property "Reference" "#PWR0134"
+		(property "Reference" "#PWR0307"
 			(at 149.86 129.54 0)
 			(hide yes)
 			(show_name no)
@@ -9568,7 +9568,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "#PWR0134")
+					(reference "#PWR0307")
 					(unit 1)
 				)
 			)
@@ -9586,7 +9586,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "c572a6c7-3453-40f9-82a8-c9b61abd2efd")
-		(property "Reference" "U9"
+		(property "Reference" "U303"
 			(at 275.082 80.518 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9668,7 +9668,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "U9")
+					(reference "U303")
 					(unit 1)
 				)
 			)
@@ -9686,7 +9686,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "c96d34f5-d29e-407c-9997-5bce9a1b44b8")
-		(property "Reference" "TP46"
+		(property "Reference" "TP313"
 			(at 125.73 155.4479 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9708,7 +9708,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 128.27 160.02 0)
 			(hide yes)
 			(show_name no)
@@ -9747,7 +9747,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "TP46")
+					(reference "TP313")
 					(unit 1)
 				)
 			)
@@ -9765,7 +9765,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d2878f45-bbf7-491d-83ac-e6ee8be7ee15")
-		(property "Reference" "#PWR0123"
+		(property "Reference" "#PWR0310"
 			(at 172.72 55.88 0)
 			(hide yes)
 			(show_name no)
@@ -9826,7 +9826,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "#PWR0123")
+					(reference "#PWR0310")
 					(unit 1)
 				)
 			)
@@ -9844,7 +9844,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d3148a4e-8a72-40bb-a284-ca4c590320cd")
-		(property "Reference" "C32"
+		(property "Reference" "C309"
 			(at 264.16 43.1799 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9866,7 +9866,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 261.3152 48.26 0)
 			(hide yes)
 			(show_name no)
@@ -9908,7 +9908,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "C32")
+					(reference "C309")
 					(unit 1)
 				)
 			)
@@ -9926,7 +9926,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "d36852ea-30ee-46a6-be85-6c55c0f50929")
-		(property "Reference" "C33"
+		(property "Reference" "C308"
 			(at 243.84 88.8999 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9948,7 +9948,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 246.6848 93.98 0)
 			(hide yes)
 			(show_name no)
@@ -9990,7 +9990,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "C33")
+					(reference "C308")
 					(unit 1)
 				)
 			)
@@ -10007,7 +10007,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "d933db93-2d5f-4bf4-bc49-d7039af4b845")
-		(property "Reference" "#PWR0124"
+		(property "Reference" "#PWR0323"
 			(at 247.65 86.36 0)
 			(hide yes)
 			(show_name no)
@@ -10068,7 +10068,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "#PWR0124")
+					(reference "#PWR0323")
 					(unit 1)
 				)
 			)
@@ -10086,7 +10086,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d987249f-3486-4f52-a8ad-19edcae02509")
-		(property "Reference" "#PWR0128"
+		(property "Reference" "#PWR0319"
 			(at 207.01 101.6 0)
 			(hide yes)
 			(show_name no)
@@ -10146,7 +10146,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "#PWR0128")
+					(reference "#PWR0319")
 					(unit 1)
 				)
 			)
@@ -10164,7 +10164,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d9abb87d-75a5-4eef-8e04-43e492c3fd4a")
-		(property "Reference" "D9"
+		(property "Reference" "D306"
 			(at 226.06 89.8524 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10187,7 +10187,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_SMB"
 			(at 223.52 91.44 0)
 			(hide yes)
 			(show_name no)
@@ -10229,7 +10229,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "D9")
+					(reference "D306")
 					(unit 1)
 				)
 			)
@@ -10247,7 +10247,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "e9065f93-7022-4fbc-b40d-6b0d9b47774b")
-		(property "Reference" "#PWR0127"
+		(property "Reference" "#PWR0329"
 			(at 274.32 58.42 0)
 			(hide yes)
 			(show_name no)
@@ -10308,7 +10308,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "#PWR0127")
+					(reference "#PWR0329")
 					(unit 1)
 				)
 			)
@@ -10326,7 +10326,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "eacbddd1-fc38-4a05-b31a-41fba51e449d")
-		(property "Reference" "U8"
+		(property "Reference" "U302"
 			(at 275.59 52.9746 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10408,7 +10408,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "U8")
+					(reference "U302")
 					(unit 1)
 				)
 			)
@@ -10426,7 +10426,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ead36dba-8db5-46fa-8af6-59d1434d69b3")
-		(property "Reference" "#PWR0140"
+		(property "Reference" "#PWR0328"
 			(at 260.35 110.49 0)
 			(hide yes)
 			(show_name no)
@@ -10486,7 +10486,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "#PWR0140")
+					(reference "#PWR0328")
 					(unit 1)
 				)
 			)
@@ -10504,7 +10504,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ebbd7c7c-350f-4f0e-bdae-da050af31473")
-		(property "Reference" "#PWR0141"
+		(property "Reference" "#PWR0327"
 			(at 260.35 34.29 0)
 			(hide yes)
 			(show_name no)
@@ -10564,7 +10564,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "#PWR0141")
+					(reference "#PWR0327")
 					(unit 1)
 				)
 			)
@@ -10582,7 +10582,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ec93ba0f-89c1-4490-8358-596292d5fc30")
-		(property "Reference" "TP47"
+		(property "Reference" "TP314"
 			(at 125.73 178.3079 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10604,7 +10604,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 128.27 182.88 0)
 			(hide yes)
 			(show_name no)
@@ -10643,7 +10643,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "TP47")
+					(reference "TP314")
 					(unit 1)
 				)
 			)
@@ -10660,7 +10660,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "f0e53073-5b82-4672-9596-7db47dd59d2f")
-		(property "Reference" "U7"
+		(property "Reference" "U301"
 			(at 193.04 90.424 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10764,7 +10764,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "U7")
+					(reference "U301")
 					(unit 1)
 				)
 			)
@@ -10782,7 +10782,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f2d42635-b11f-4f1f-9440-0530fabb8770")
-		(property "Reference" "C30"
+		(property "Reference" "C303"
 			(at 115.57 132.0799 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10804,7 +10804,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 112.7252 137.16 0)
 			(hide yes)
 			(show_name no)
@@ -10846,7 +10846,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "C30")
+					(reference "C303")
 					(unit 1)
 				)
 			)
@@ -10864,7 +10864,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f488c0f4-4cd4-4d2c-ac9e-a4895111d3c2")
-		(property "Reference" "R25"
+		(property "Reference" "R303"
 			(at 43.18 44.4499 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10886,7 +10886,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 40.64 45.72 0)
 			(hide yes)
 			(show_name no)
@@ -10928,7 +10928,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "R25")
+					(reference "R303")
 					(unit 1)
 				)
 			)
@@ -10946,7 +10946,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f53f9f2e-a8ef-4529-903a-7ead97df4dd9")
-		(property "Reference" "#PWR0119"
+		(property "Reference" "#PWR0309"
 			(at 176.53 100.33 0)
 			(hide yes)
 			(show_name no)
@@ -11006,7 +11006,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "#PWR0119")
+					(reference "#PWR0309")
 					(unit 1)
 				)
 			)
@@ -11024,7 +11024,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f715a2e2-7858-45a8-a991-06efdd908de0")
-		(property "Reference" "#PWR0117"
+		(property "Reference" "#PWR0314"
 			(at 186.69 49.53 0)
 			(hide yes)
 			(show_name no)
@@ -11084,7 +11084,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "#PWR0117")
+					(reference "#PWR0314")
 					(unit 1)
 				)
 			)
@@ -11102,7 +11102,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f7d5c6b7-4865-415f-905c-256d838f40cd")
-		(property "Reference" "TP25"
+		(property "Reference" "TP304"
 			(at 38.1 178.3079 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11124,7 +11124,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 40.64 182.88 0)
 			(hide yes)
 			(show_name no)
@@ -11163,7 +11163,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "TP25")
+					(reference "TP304")
 					(unit 1)
 				)
 			)
@@ -11181,7 +11181,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f7e2daf2-9e19-4272-a45e-b34d03ea7e45")
-		(property "Reference" "#PWR0121"
+		(property "Reference" "#PWR0318"
 			(at 203.2 55.88 0)
 			(hide yes)
 			(show_name no)
@@ -11242,7 +11242,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "#PWR0121")
+					(reference "#PWR0318")
 					(unit 1)
 				)
 			)
@@ -11260,7 +11260,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "fde35d3c-5de2-430d-88ff-64c3da6cecb9")
-		(property "Reference" "TP24"
+		(property "Reference" "TP303"
 			(at 38.1 155.4479 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11282,7 +11282,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 40.64 160.02 0)
 			(hide yes)
 			(show_name no)
@@ -11321,7 +11321,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30"
-					(reference "TP24")
+					(reference "TP303")
 					(unit 1)
 				)
 			)

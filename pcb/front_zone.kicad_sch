@@ -822,10 +822,12 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Device:R_Shunt_US"
+		(symbol "Device:R"
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
 				(offset 0)
-				(hide yes)
 			)
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -833,7 +835,7 @@
 			(in_pos_files yes)
 			(duplicate_pin_numbers_are_jumpers no)
 			(property "Reference" "R"
-				(at -5.08 0 90)
+				(at 2.032 0 90)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
@@ -842,8 +844,8 @@
 					)
 				)
 			)
-			(property "Value" "R_Shunt_US"
-				(at -3.048 0 90)
+			(property "Value" "R"
+				(at 0 0 90)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
@@ -874,7 +876,7 @@
 					)
 				)
 			)
-			(property "Description" "Shunt resistor with Kelvin connections, US symbol"
+			(property "Description" "Resistor"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -885,7 +887,7 @@
 					)
 				)
 			)
-			(property "ki_keywords" "R res shunt resistor"
+			(property "ki_keywords" "R res resistor"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -896,7 +898,7 @@
 					)
 				)
 			)
-			(property "ki_fp_filters" "R_*Shunt*"
+			(property "ki_fp_filters" "R_*"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -907,94 +909,23 @@
 					)
 				)
 			)
-			(symbol "R_Shunt_US_1_1"
-				(polyline
-					(pts
-						(xy 0 2.286) (xy 0 2.54)
-					)
+			(symbol "R_0_1"
+				(rectangle
+					(start -1.016 -2.54)
+					(end 1.016 2.54)
 					(stroke
-						(width 0)
+						(width 0.254)
 						(type default)
 					)
 					(fill
 						(type none)
 					)
 				)
-				(polyline
-					(pts
-						(xy 0 2.286) (xy 1.016 1.905) (xy 0 1.524) (xy -1.016 1.143) (xy 0 0.762)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 0.762) (xy 1.016 0.381) (xy 0 0) (xy -1.016 -0.381) (xy 0 -0.762)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 -0.762) (xy 1.016 -1.143) (xy 0 -1.524) (xy -1.016 -1.905) (xy 0 -2.286)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 -2.286) (xy 0 -2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 -2.54) (xy 1.27 -2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.27 2.54) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
+			)
+			(symbol "R_1_1"
 				(pin passive line
-					(at 0 5.08 270)
-					(length 2.54)
+					(at 0 3.81 270)
+					(length 1.27)
 					(name ""
 						(effects
 							(font
@@ -1011,7 +942,7 @@
 					)
 				)
 				(pin passive line
-					(at 2.54 2.54 180)
+					(at 0 -3.81 90)
 					(length 1.27)
 					(name ""
 						(effects
@@ -1021,42 +952,6 @@
 						)
 					)
 					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 2.54 -2.54 180)
-					(length 1.27)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -5.08 90)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1891,10 +1786,22 @@
 		(uuid "726e37ca-cfa1-4379-9d9b-67fff6f3c951")
 	)
 	(junction
+		(at 233.68 25.4)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c0e14431-abd3-4794-9d33-822294bdc14b")
+	)
+	(junction
 		(at 59.69 105.41)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "d7de7067-004a-4607-ba7f-b91fde7ee27f")
+	)
+	(junction
+		(at 241.3 25.4)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f1b4de73-1654-4816-b101-1c7e599a32ce")
 	)
 	(junction
 		(at 228.6 41.91)
@@ -1959,6 +1866,16 @@
 	(no_connect
 		(at 167.64 93.98)
 		(uuid "fded9118-d16f-49c3-bda9-16362beb36dd")
+	)
+	(wire
+		(pts
+			(xy 241.3 25.4) (xy 261.62 25.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "026a30cb-a430-48e7-b09c-271967f6f1a2")
 	)
 	(wire
 		(pts
@@ -2262,6 +2179,16 @@
 	)
 	(wire
 		(pts
+			(xy 241.3 27.94) (xy 241.3 25.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5c6cb03f-7e92-475c-9a91-a308f926042b")
+	)
+	(wire
+		(pts
 			(xy 173.99 58.42) (xy 167.64 58.42)
 		)
 		(stroke
@@ -2269,16 +2196,6 @@
 			(type default)
 		)
 		(uuid "5d27f0a7-5607-4402-82e4-686d1ecf6257")
-	)
-	(wire
-		(pts
-			(xy 242.57 25.4) (xy 261.62 25.4)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "60f0039f-a5de-434e-ac0a-a0869fdb4021")
 	)
 	(wire
 		(pts
@@ -2299,6 +2216,16 @@
 			(type default)
 		)
 		(uuid "62912a95-36f0-4e8e-b388-f3c3ba251e9d")
+	)
+	(wire
+		(pts
+			(xy 233.68 27.94) (xy 233.68 25.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "62a41224-2891-4c4c-8503-49ad81a967eb")
 	)
 	(wire
 		(pts
@@ -2329,6 +2256,16 @@
 			(type default)
 		)
 		(uuid "6f328b5c-d297-454e-b827-fe29da873c82")
+	)
+	(wire
+		(pts
+			(xy 234.95 27.94) (xy 233.68 27.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "73e08af7-649b-4a10-ae8f-08917d672d00")
 	)
 	(wire
 		(pts
@@ -2462,7 +2399,7 @@
 	)
 	(wire
 		(pts
-			(xy 229.87 25.4) (xy 232.41 25.4)
+			(xy 229.87 25.4) (xy 233.68 25.4)
 		)
 		(stroke
 			(width 0)
@@ -2509,6 +2446,16 @@
 			(type default)
 		)
 		(uuid "97cbfd07-e9a9-4a1a-89d7-ddad16902810")
+	)
+	(wire
+		(pts
+			(xy 240.03 27.94) (xy 241.3 27.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "99f1e608-c533-47ed-ac84-b43329d3a776")
 	)
 	(wire
 		(pts
@@ -3156,7 +3103,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0054ca01-0fef-485e-a0fd-48bfc96f5adb")
-		(property "Reference" "TP11"
+		(property "Reference" "TP201"
 			(at 20.32 178.3079 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3178,7 +3125,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 22.86 182.88 0)
 			(hide yes)
 			(show_name no)
@@ -3217,7 +3164,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "TP11")
+					(reference "TP201")
 					(unit 1)
 				)
 			)
@@ -3235,7 +3182,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "079e923c-edb5-456d-9dcf-23e676097ead")
-		(property "Reference" "TP15"
+		(property "Reference" "TP211"
 			(at 107.95 155.4479 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3257,7 +3204,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 110.49 160.02 0)
 			(hide yes)
 			(show_name no)
@@ -3296,7 +3243,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "TP15")
+					(reference "TP211")
 					(unit 1)
 				)
 			)
@@ -3314,7 +3261,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0b78dbe8-2baf-47cb-8918-9b947d2f4f23")
-		(property "Reference" "#PWR048"
+		(property "Reference" "#PWR0209"
 			(at 255.27 27.94 0)
 			(hide yes)
 			(show_name no)
@@ -3375,7 +3322,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "#PWR048")
+					(reference "#PWR0209")
 					(unit 1)
 				)
 			)
@@ -3393,7 +3340,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0f394164-7b57-4ddd-b731-e28f869983b0")
-		(property "Reference" "TP20"
+		(property "Reference" "TP214"
 			(at 125.73 178.3079 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3415,7 +3362,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 128.27 182.88 0)
 			(hide yes)
 			(show_name no)
@@ -3454,7 +3401,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "TP20")
+					(reference "TP214")
 					(unit 1)
 				)
 			)
@@ -3472,7 +3419,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0fa22f05-548a-4ff5-82cd-4e0134f7bd6a")
-		(property "Reference" "R13"
+		(property "Reference" "R201"
 			(at 50.8 60.9599 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3494,7 +3441,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 48.26 62.23 0)
 			(hide yes)
 			(show_name no)
@@ -3536,7 +3483,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "R13")
+					(reference "R201")
 					(unit 1)
 				)
 			)
@@ -3554,7 +3501,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "12be3908-9fca-49ee-933b-1750a717bd6f")
-		(property "Reference" "C22"
+		(property "Reference" "C202"
 			(at 224.79 44.4499 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3576,7 +3523,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 227.6348 49.53 0)
 			(hide yes)
 			(show_name no)
@@ -3618,7 +3565,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "C22")
+					(reference "C202")
 					(unit 1)
 				)
 			)
@@ -3636,7 +3583,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "13e5fd11-ca8d-4178-9e74-7c7a32ac26cb")
-		(property "Reference" "J7"
+		(property "Reference" "J203"
 			(at 269.24 24.1299 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3658,7 +3605,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical"
 			(at 266.7 25.4 0)
 			(hide yes)
 			(show_name no)
@@ -3703,7 +3650,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "J7")
+					(reference "J203")
 					(unit 1)
 				)
 			)
@@ -3721,7 +3668,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "14d202df-7927-477d-9817-64741a2084a6")
-		(property "Reference" "C23"
+		(property "Reference" "C201"
 			(at 189.23 50.7999 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3743,7 +3690,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 186.3852 55.88 0)
 			(hide yes)
 			(show_name no)
@@ -3785,7 +3732,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "C23")
+					(reference "C201")
 					(unit 1)
 				)
 			)
@@ -3803,7 +3750,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "1ae43d0f-ca8c-42d2-84b3-94c51cbee511")
-		(property "Reference" "TP7"
+		(property "Reference" "TP203"
 			(at 38.1 155.4479 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3825,7 +3772,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 40.64 160.02 0)
 			(hide yes)
 			(show_name no)
@@ -3864,7 +3811,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "TP7")
+					(reference "TP203")
 					(unit 1)
 				)
 			)
@@ -3882,7 +3829,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "21d78ae3-2dba-446e-886b-83ebbd2f284c")
-		(property "Reference" "TP17"
+		(property "Reference" "TP208"
 			(at 71.12 178.3079 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3904,7 +3851,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 73.66 182.88 0)
 			(hide yes)
 			(show_name no)
@@ -3943,7 +3890,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "TP17")
+					(reference "TP208")
 					(unit 1)
 				)
 			)
@@ -3961,7 +3908,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "247c163b-810c-48f6-b71c-25daf4768104")
-		(property "Reference" "TP12"
+		(property "Reference" "TP204"
 			(at 38.1 178.3079 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3983,7 +3930,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 40.64 182.88 0)
 			(hide yes)
 			(show_name no)
@@ -4022,7 +3969,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "TP12")
+					(reference "TP204")
 					(unit 1)
 				)
 			)
@@ -4040,7 +3987,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "3a43cfaa-b5e4-4654-a347-464436a3843d")
-		(property "Reference" "R11"
+		(property "Reference" "R203"
 			(at 191.77 41.91 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4060,7 +4007,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 192.024 47.244 90)
 			(hide yes)
 			(show_name no)
@@ -4102,7 +4049,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "R11")
+					(reference "R203")
 					(unit 1)
 				)
 			)
@@ -4120,7 +4067,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "45056633-99d5-4754-9668-952c8e3a99c9")
-		(property "Reference" "#PWR046"
+		(property "Reference" "#PWR0201"
 			(at 105.41 189.23 0)
 			(hide yes)
 			(show_name no)
@@ -4180,7 +4127,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "#PWR046")
+					(reference "#PWR0201")
 					(unit 1)
 				)
 			)
@@ -4198,7 +4145,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "46478b9c-15c2-4092-a604-abb7633dfb9f")
-		(property "Reference" "TP19"
+		(property "Reference" "TP212"
 			(at 107.95 178.3079 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4220,7 +4167,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 110.49 182.88 0)
 			(hide yes)
 			(show_name no)
@@ -4259,7 +4206,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "TP19")
+					(reference "TP212")
 					(unit 1)
 				)
 			)
@@ -4277,7 +4224,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "4e87e09e-6ea6-40d9-8e8c-ffb1647ac55b")
-		(property "Reference" "#PWR054"
+		(property "Reference" "#PWR0208"
 			(at 250.19 39.37 0)
 			(hide yes)
 			(show_name no)
@@ -4337,7 +4284,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "#PWR054")
+					(reference "#PWR0208")
 					(unit 1)
 				)
 			)
@@ -4355,7 +4302,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "500010db-e6c9-4a5e-8842-71bd05b773f0")
-		(property "Reference" "U6"
+		(property "Reference" "U201"
 			(at 226.06 35.4898 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4426,7 +4373,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "U6")
+					(reference "U201")
 					(unit 1)
 				)
 			)
@@ -4444,7 +4391,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "53c1a757-ec54-4e20-9b8e-db1ef4cda853")
-		(property "Reference" "TP16"
+		(property "Reference" "TP213"
 			(at 125.73 155.4479 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4466,7 +4413,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 128.27 160.02 0)
 			(hide yes)
 			(show_name no)
@@ -4505,7 +4452,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "TP16")
+					(reference "TP213")
 					(unit 1)
 				)
 			)
@@ -4523,7 +4470,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "69e69069-8455-4e5c-973b-2832b20de8ec")
-		(property "Reference" "C24"
+		(property "Reference" "C203"
 			(at 246.38 27.9399 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4545,7 +4492,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:CP_Elec_8x11.9"
 			(at 249.2248 33.02 0)
 			(hide yes)
 			(show_name no)
@@ -4587,7 +4534,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "C24")
+					(reference "C203")
 					(unit 1)
 				)
 			)
@@ -4605,7 +4552,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "6d70a81d-6780-4359-8e9f-4c53aefd99a8")
-		(property "Reference" "TP9"
+		(property "Reference" "TP205"
 			(at 53.34 155.4479 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4627,7 +4574,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 55.88 160.02 0)
 			(hide yes)
 			(show_name no)
@@ -4666,7 +4613,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "TP9")
+					(reference "TP205")
 					(unit 1)
 				)
 			)
@@ -4684,7 +4631,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "79f81bc8-b914-4f22-8450-948caf68b62e")
-		(property "Reference" "J8"
+		(property "Reference" "J202"
 			(at 43.18 104.394 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4706,7 +4653,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
 			(at 43.18 96.52 0)
 			(hide yes)
 			(show_name no)
@@ -4748,7 +4695,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "J8")
+					(reference "J202")
 					(unit 1)
 				)
 			)
@@ -4766,7 +4713,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "93ba0462-07fb-4515-8cc3-697eee466264")
-		(property "Reference" "TP18"
+		(property "Reference" "TP210"
 			(at 91.44 178.3079 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4788,7 +4735,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 93.98 182.88 0)
 			(hide yes)
 			(show_name no)
@@ -4827,7 +4774,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "TP18")
+					(reference "TP210")
 					(unit 1)
 				)
 			)
@@ -4845,7 +4792,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9b594bce-d787-42e3-91b2-16523cab3473")
-		(property "Reference" "#PWR053"
+		(property "Reference" "#PWR0203"
 			(at 185.42 62.23 0)
 			(hide yes)
 			(show_name no)
@@ -4905,14 +4852,14 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "#PWR053")
+					(reference "#PWR0203")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "Device:R_Shunt_US")
+		(lib_id "Device:R")
 		(at 237.49 25.4 270)
 		(unit 1)
 		(body_style 1)
@@ -4923,7 +4870,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "aa01516d-1422-42e1-ba3d-89c7563129bd")
-		(property "Reference" "R10"
+		(property "Reference" "R204"
 			(at 237.49 19.05 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4943,7 +4890,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_2512_6332Metric"
 			(at 237.49 23.622 90)
 			(hide yes)
 			(show_name no)
@@ -4965,7 +4912,7 @@
 				)
 			)
 		)
-		(property "Description" "Shunt resistor with Kelvin connections, US symbol"
+		(property "Description" "Resistor"
 			(at 237.49 25.4 0)
 			(hide yes)
 			(show_name no)
@@ -4976,22 +4923,16 @@
 				)
 			)
 		)
-		(pin "4"
-			(uuid "5174e10d-490f-480e-9cdd-44e856650624")
-		)
 		(pin "2"
 			(uuid "dac89e6a-dd7c-4e9c-91b3-61d472b4bb97")
 		)
 		(pin "1"
 			(uuid "a7a30306-1f3d-49aa-b940-4a8ec9f81cc8")
 		)
-		(pin "3"
-			(uuid "9852b06d-0228-427e-b24f-d1e1bc0f7bf6")
-		)
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "R10")
+					(reference "R204")
 					(unit 1)
 				)
 			)
@@ -5009,7 +4950,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "aabc6b07-15a2-4c5d-b89b-d3b4dd9e46f5")
-		(property "Reference" "TP13"
+		(property "Reference" "TP206"
 			(at 53.34 178.3079 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5031,7 +4972,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 55.88 182.88 0)
 			(hide yes)
 			(show_name no)
@@ -5070,7 +5011,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "TP13")
+					(reference "TP206")
 					(unit 1)
 				)
 			)
@@ -5088,7 +5029,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "b8b6335f-73c2-4568-8889-2675b5f175f0")
-		(property "Reference" "#PWR052"
+		(property "Reference" "#PWR0205"
 			(at 228.6 55.88 0)
 			(hide yes)
 			(show_name no)
@@ -5148,7 +5089,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "#PWR052")
+					(reference "#PWR0205")
 					(unit 1)
 				)
 			)
@@ -5166,7 +5107,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "bba74b79-b6b2-4fd5-832e-1af4eed5079a")
-		(property "Reference" "J9"
+		(property "Reference" "J201"
 			(at 43.18 72.644 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5188,7 +5129,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
 			(at 43.18 64.77 0)
 			(hide yes)
 			(show_name no)
@@ -5230,7 +5171,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "J9")
+					(reference "J201")
 					(unit 1)
 				)
 			)
@@ -5248,7 +5189,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "c5adc351-8089-4157-9153-ef99f35b4c9d")
-		(property "Reference" "TP8"
+		(property "Reference" "TP202"
 			(at 21.59 155.4479 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5270,7 +5211,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 24.13 160.02 0)
 			(hide yes)
 			(show_name no)
@@ -5309,7 +5250,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "TP8")
+					(reference "TP202")
 					(unit 1)
 				)
 			)
@@ -5327,7 +5268,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d472d70b-8185-41b8-8f05-7db6045c05b2")
-		(property "Reference" "#PWR049"
+		(property "Reference" "#PWR0206"
 			(at 233.68 25.4 0)
 			(hide yes)
 			(show_name no)
@@ -5388,7 +5329,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "#PWR049")
+					(reference "#PWR0206")
 					(unit 1)
 				)
 			)
@@ -5406,7 +5347,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "e325a6e2-c5d3-47eb-bdd7-c0d706faa62b")
-		(property "Reference" "TP21"
+		(property "Reference" "TP215"
 			(at 144.78 155.4479 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5428,7 +5369,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 147.32 160.02 0)
 			(hide yes)
 			(show_name no)
@@ -5467,7 +5408,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "TP21")
+					(reference "TP215")
 					(unit 1)
 				)
 			)
@@ -5485,7 +5426,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "e857913d-5c3b-4248-bfdd-137725054f24")
-		(property "Reference" "#PWR051"
+		(property "Reference" "#PWR0207"
 			(at 254 41.91 0)
 			(hide yes)
 			(show_name no)
@@ -5546,7 +5487,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "#PWR051")
+					(reference "#PWR0207")
 					(unit 1)
 				)
 			)
@@ -5564,7 +5505,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ec2c65f1-4be8-4511-b9aa-82cf9f5de9ef")
-		(property "Reference" "TP14"
+		(property "Reference" "TP209"
 			(at 91.44 155.4479 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5586,7 +5527,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 93.98 160.02 0)
 			(hide yes)
 			(show_name no)
@@ -5625,7 +5566,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "TP14")
+					(reference "TP209")
 					(unit 1)
 				)
 			)
@@ -5643,7 +5584,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f3a26238-3154-4c84-aa74-fc158276ab5e")
-		(property "Reference" "TP10"
+		(property "Reference" "TP207"
 			(at 71.12 155.4479 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5665,7 +5606,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
 			(at 73.66 160.02 0)
 			(hide yes)
 			(show_name no)
@@ -5704,7 +5645,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "TP10")
+					(reference "TP207")
 					(unit 1)
 				)
 			)
@@ -5722,7 +5663,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f518643d-6cde-4ace-b501-405667a540bc")
-		(property "Reference" "#PWR047"
+		(property "Reference" "#PWR0202"
 			(at 123.19 189.23 0)
 			(hide yes)
 			(show_name no)
@@ -5782,7 +5723,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "#PWR047")
+					(reference "#PWR0202")
 					(unit 1)
 				)
 			)
@@ -5800,7 +5741,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ffd15ea9-2852-49c6-9e49-0eaa333b908b")
-		(property "Reference" "#PWR050"
+		(property "Reference" "#PWR0204"
 			(at 229.87 41.91 0)
 			(hide yes)
 			(show_name no)
@@ -5861,7 +5802,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "#PWR050")
+					(reference "#PWR0204")
 					(unit 1)
 				)
 			)
@@ -5879,7 +5820,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ffe5b6ce-f05b-4bbc-9e78-af180995cb59")
-		(property "Reference" "R12"
+		(property "Reference" "R202"
 			(at 50.8 92.7099 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5901,7 +5842,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 48.26 93.98 0)
 			(hide yes)
 			(show_name no)
@@ -5943,7 +5884,7 @@
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0"
-					(reference "R12")
+					(reference "R202")
 					(unit 1)
 				)
 			)
