@@ -89,6 +89,46 @@
 				(justify left top)
 			)
 		)
+		(pin "CAN_A_H" input
+			(at 120.65 31.75 180)
+			(uuid "b503be3d-29e3-4d8d-b93c-5a30cc0a83a7")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "CAN_A_L" input
+			(at 120.65 34.29 180)
+			(uuid "c9493d8f-dc22-482a-9d3f-58506d180b50")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "CAN_B_H" input
+			(at 120.65 36.83 180)
+			(uuid "569fdf40-7b47-4d48-983a-aa455a6803ef")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "CAN_B_L" input
+			(at 120.65 39.37 180)
+			(uuid "89b5032d-49b9-41bd-9681-eae8f96feb56")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
 		(instances
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e"

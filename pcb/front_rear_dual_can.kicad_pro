@@ -438,7 +438,7 @@
         "uuid": "11f1b6cb-7ca3-4657-a79b-c672c999e35e"
       }
     ],
-    "used_designators": "#PWR1-143,C1-75,D1-18,J1-27,L1-3,R1-36,S1-6,TP1-52,U1-20,Y1-11",
+    "used_designators": "#FLG1-5,#PWR1-206,C1-89,D1-22,F1,J1-33,L1-5,Q1,R1-54,S1-6,TP1-70,U1-24,Y1-13",
     "variants": []
   },
   "sheets": [
@@ -487,11 +487,11 @@
       "MCU"
     ],
     [
-      "cf0d388d-a7d8-4847-abb6-2b888fef43c4",
+      "9c465aa6-9f82-4afe-bc3d-806c2b9186bc",
       "CAN A"
     ],
     [
-      "f9d9d8f4-0752-4a00-9954-7a6c25f1d293",
+      "3d0f5c9f-53e2-432c-acac-fdb401963da9",
       "CAN B"
     ]
   ],
