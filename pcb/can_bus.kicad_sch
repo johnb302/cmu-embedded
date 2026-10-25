@@ -2098,6 +2098,12 @@
 		(uuid "9e5d2416-2176-45bb-80c0-53fee04e8b08")
 	)
 	(junction
+		(at 176.53 72.39)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "15e427b2-2c34-4d93-b3d7-dccbe2973343")
+	)
+	(junction
 		(at 158.75 59.69)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2126,6 +2132,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "ca792de9-6abb-4ac8-bc23-e778734c4d43")
+	)
+	(junction
+		(at 176.53 69.85)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "eec4c705-ae24-4603-b35f-cd091876f3fa")
 	)
 	(no_connect
 		(at 194.31 67.31)
@@ -2265,7 +2277,7 @@
 	)
 	(wire
 		(pts
-			(xy 173.99 69.85) (xy 194.31 69.85)
+			(xy 173.99 69.85) (xy 176.53 69.85)
 		)
 		(stroke
 			(width 0)
@@ -2295,7 +2307,7 @@
 	)
 	(wire
 		(pts
-			(xy 173.99 72.39) (xy 194.31 72.39)
+			(xy 173.99 72.39) (xy 176.53 72.39)
 		)
 		(stroke
 			(width 0)
@@ -2312,6 +2324,16 @@
 			(type default)
 		)
 		(uuid "7a057979-d5b7-48a4-8809-ab65a91c983a")
+	)
+	(wire
+		(pts
+			(xy 176.53 72.39) (xy 194.31 72.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7bc88da2-fffd-41ca-ad50-ac2b689d5b19")
 	)
 	(wire
 		(pts
@@ -2392,6 +2414,16 @@
 			(type default)
 		)
 		(uuid "d37273ec-0305-48fd-aec4-74c875a36bf8")
+	)
+	(wire
+		(pts
+			(xy 176.53 69.85) (xy 194.31 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dcca832e-2976-4372-955d-bb04d8e38ecc")
 	)
 	(wire
 		(pts
@@ -4815,6 +4847,270 @@
 				)
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30/5125ea9e-afdc-4a92-a95f-8533815df6d7"
 					(reference "#PWR01008")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 176.53 69.85 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d22694d0-0e54-44e8-9546-f8a58e00779a")
+		(property "Reference" "TP604"
+			(at 179.07 65.2779 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 179.07 67.8179 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
+			(at 181.61 69.85 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 181.61 69.85 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "test point"
+			(at 176.53 69.85 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C2906768"
+			(at 176.53 69.85 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "5015"
+			(at 176.53 69.85 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Keystone Electronics"
+			(at 176.53 69.85 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "4fea1e50-ffab-479f-9cb7-4f8762cc5b93")
+		)
+		(instances
+			(project "front_rear_dual_can"
+				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/5405e341-74c8-4510-ade9-af70f4b85a3e/3d0f5c9f-53e2-432c-acac-fdb401963da9"
+					(reference "TP1304")
+					(unit 1)
+				)
+				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/5405e341-74c8-4510-ade9-af70f4b85a3e/9c465aa6-9f82-4afe-bc3d-806c2b9186bc"
+					(reference "TP1204")
+					(unit 1)
+				)
+				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0/269583e0-c208-44ad-b484-ad9f94472f0e"
+					(reference "TP604")
+					(unit 1)
+				)
+				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0/66d95986-444c-4449-afaa-33758f35ac4e"
+					(reference "TP804")
+					(unit 1)
+				)
+				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30/42f85c8e-ccae-416d-8fc3-a494a8fa517c"
+					(reference "TP904")
+					(unit 1)
+				)
+				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30/5125ea9e-afdc-4a92-a95f-8533815df6d7"
+					(reference "TP1004")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 176.53 72.39 180)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d6cf7de9-5c45-4b9f-9b6f-04df78c3f9ff")
+		(property "Reference" "TP605"
+			(at 179.07 74.4219 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 179.07 76.9619 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
+			(at 171.45 72.39 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 171.45 72.39 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "test point"
+			(at 176.53 72.39 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C2906768"
+			(at 176.53 72.39 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "5015"
+			(at 176.53 72.39 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Keystone Electronics"
+			(at 176.53 72.39 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "815343be-ddcb-45ac-a668-3e427bab212e")
+		)
+		(instances
+			(project "front_rear_dual_can"
+				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/5405e341-74c8-4510-ade9-af70f4b85a3e/3d0f5c9f-53e2-432c-acac-fdb401963da9"
+					(reference "TP1305")
+					(unit 1)
+				)
+				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/5405e341-74c8-4510-ade9-af70f4b85a3e/9c465aa6-9f82-4afe-bc3d-806c2b9186bc"
+					(reference "TP1205")
+					(unit 1)
+				)
+				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0/269583e0-c208-44ad-b484-ad9f94472f0e"
+					(reference "TP605")
+					(unit 1)
+				)
+				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/793cf9c1-f95a-4353-aaa3-727cd0cf6ad0/66d95986-444c-4449-afaa-33758f35ac4e"
+					(reference "TP805")
+					(unit 1)
+				)
+				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30/42f85c8e-ccae-416d-8fc3-a494a8fa517c"
+					(reference "TP905")
+					(unit 1)
+				)
+				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/fb8dd42e-e08f-4165-aace-adf15651bc30/5125ea9e-afdc-4a92-a95f-8533815df6d7"
+					(reference "TP1005")
 					(unit 1)
 				)
 			)

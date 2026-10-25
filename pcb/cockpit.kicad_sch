@@ -3044,6 +3044,16 @@
 		)
 		(uuid "019ac199-06f4-438a-84d2-f766b255606f")
 	)
+	(label "ERR"
+		(at 73.66 167.64 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "0fef8004-954b-46ed-9c5f-4f36e09c27ae")
+	)
 	(label "CAN_TX_A"
 		(at 144.78 86.36 180)
 		(effects
@@ -3134,6 +3144,16 @@
 		)
 		(uuid "87c74bc7-f21d-4dc2-a3fc-0c43150f9327")
 	)
+	(label "TEST_BTN"
+		(at 73.66 184.15 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "8e997498-42c2-4afe-9d7a-83f4a2eb9b13")
+	)
 	(label "DEG_B"
 		(at 34.29 167.64 270)
 		(effects
@@ -3165,7 +3185,7 @@
 		(uuid "b442d8f9-bcba-433c-b9ae-69e0fc2f65aa")
 	)
 	(label "CAN_TX_B"
-		(at 50.8 184.15 270)
+		(at 46.99 184.15 270)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3175,7 +3195,7 @@
 		(uuid "bbb82ecd-1f67-421c-b16e-31d91a43c031")
 	)
 	(label "UDP_RX"
-		(at 50.8 167.64 270)
+		(at 46.99 167.64 270)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3338,7 +3358,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 69.85 184.15 0)
+		(at 59.69 184.15 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3349,7 +3369,7 @@
 		(fields_autoplaced yes)
 		(uuid "0ac3d60f-cfe2-4f63-9e94-aaf30ad13974")
 		(property "Reference" "#PWR0402"
-			(at 69.85 190.5 0)
+			(at 59.69 190.5 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3360,7 +3380,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 69.85 189.23 0)
+			(at 59.69 189.23 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3370,7 +3390,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 69.85 184.15 0)
+			(at 59.69 184.15 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3381,7 +3401,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 69.85 184.15 0)
+			(at 59.69 184.15 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3392,7 +3412,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 69.85 184.15 0)
+			(at 59.69 184.15 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3409,6 +3429,118 @@
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/5405e341-74c8-4510-ade9-af70f4b85a3e"
 					(reference "#PWR0402")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 73.66 184.15 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "115e13e4-ae9a-4e8b-8398-da9d6c960560")
+		(property "Reference" "TP410"
+			(at 76.2 179.5779 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 76.2 182.1179 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
+			(at 78.74 184.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 78.74 184.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "test point"
+			(at 73.66 184.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C2906768"
+			(at 73.66 184.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "5015"
+			(at 73.66 184.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Keystone Electronics"
+			(at 73.66 184.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "4cf843de-eb39-4c27-9836-7458b477b74f")
+		)
+		(instances
+			(project "front_rear_dual_can"
+				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/5405e341-74c8-4510-ade9-af70f4b85a3e"
+					(reference "TP410")
 					(unit 1)
 				)
 			)
@@ -3494,7 +3626,7 @@
 	)
 	(symbol
 		(lib_id "Connector:TestPoint")
-		(at 69.85 167.64 0)
+		(at 59.69 167.64 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3505,7 +3637,7 @@
 		(fields_autoplaced yes)
 		(uuid "4ef52a51-f4f9-4204-9797-c8c8c58a4229")
 		(property "Reference" "TP407"
-			(at 72.39 163.0679 0)
+			(at 62.23 163.0679 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3516,7 +3648,7 @@
 			)
 		)
 		(property "Value" "TestPoint"
-			(at 72.39 165.6079 0)
+			(at 62.23 165.6079 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3527,7 +3659,7 @@
 			)
 		)
 		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
-			(at 74.93 167.64 0)
+			(at 64.77 167.64 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3538,7 +3670,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 74.93 167.64 0)
+			(at 64.77 167.64 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3549,7 +3681,7 @@
 			)
 		)
 		(property "Description" "test point"
-			(at 69.85 167.64 0)
+			(at 59.69 167.64 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3560,7 +3692,7 @@
 			)
 		)
 		(property "LCSC" "C2906768"
-			(at 69.85 167.64 0)
+			(at 59.69 167.64 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3571,7 +3703,7 @@
 			)
 		)
 		(property "MPN" "5015"
-			(at 69.85 167.64 0)
+			(at 59.69 167.64 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3582,7 +3714,7 @@
 			)
 		)
 		(property "Manufacturer" "Keystone Electronics"
-			(at 69.85 167.64 0)
+			(at 59.69 167.64 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4531,7 +4663,7 @@
 	)
 	(symbol
 		(lib_id "Connector:TestPoint")
-		(at 50.8 167.64 0)
+		(at 46.99 167.64 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -4542,7 +4674,7 @@
 		(fields_autoplaced yes)
 		(uuid "83e8da20-6164-4144-8f52-8bf3bc1dfda9")
 		(property "Reference" "TP405"
-			(at 53.34 163.0679 0)
+			(at 49.53 163.0679 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4553,7 +4685,7 @@
 			)
 		)
 		(property "Value" "TestPoint"
-			(at 53.34 165.6079 0)
+			(at 49.53 165.6079 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4564,7 +4696,7 @@
 			)
 		)
 		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
-			(at 55.88 167.64 0)
+			(at 52.07 167.64 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4575,7 +4707,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 55.88 167.64 0)
+			(at 52.07 167.64 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4586,7 +4718,7 @@
 			)
 		)
 		(property "Description" "test point"
-			(at 50.8 167.64 0)
+			(at 46.99 167.64 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4597,7 +4729,7 @@
 			)
 		)
 		(property "LCSC" "C2906768"
-			(at 50.8 167.64 0)
+			(at 46.99 167.64 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4608,7 +4740,7 @@
 			)
 		)
 		(property "MPN" "5015"
-			(at 50.8 167.64 0)
+			(at 46.99 167.64 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4619,7 +4751,7 @@
 			)
 		)
 		(property "Manufacturer" "Keystone Electronics"
-			(at 50.8 167.64 0)
+			(at 46.99 167.64 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4993,7 +5125,7 @@
 	)
 	(symbol
 		(lib_id "Connector:TestPoint")
-		(at 69.85 184.15 0)
+		(at 59.69 184.15 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -5004,7 +5136,7 @@
 		(fields_autoplaced yes)
 		(uuid "a75d9883-cda7-42e2-8ba7-c80fe62fd8ac")
 		(property "Reference" "TP408"
-			(at 72.39 179.5779 0)
+			(at 62.23 179.5779 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5015,7 +5147,7 @@
 			)
 		)
 		(property "Value" "TestPoint"
-			(at 72.39 182.1179 0)
+			(at 62.23 182.1179 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5026,7 +5158,7 @@
 			)
 		)
 		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
-			(at 74.93 184.15 0)
+			(at 64.77 184.15 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5037,7 +5169,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 74.93 184.15 0)
+			(at 64.77 184.15 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5048,7 +5180,7 @@
 			)
 		)
 		(property "Description" "test point"
-			(at 69.85 184.15 0)
+			(at 59.69 184.15 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5059,7 +5191,7 @@
 			)
 		)
 		(property "LCSC" "C2906768"
-			(at 69.85 184.15 0)
+			(at 59.69 184.15 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5070,7 +5202,7 @@
 			)
 		)
 		(property "MPN" "5015"
-			(at 69.85 184.15 0)
+			(at 59.69 184.15 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5081,7 +5213,7 @@
 			)
 		)
 		(property "Manufacturer" "Keystone Electronics"
-			(at 69.85 184.15 0)
+			(at 59.69 184.15 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5472,7 +5604,7 @@
 	)
 	(symbol
 		(lib_id "Connector:TestPoint")
-		(at 50.8 184.15 0)
+		(at 46.99 184.15 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -5483,7 +5615,7 @@
 		(fields_autoplaced yes)
 		(uuid "c7451a3c-9131-4050-b3b2-ad7028b7efab")
 		(property "Reference" "TP406"
-			(at 53.34 179.5779 0)
+			(at 49.53 179.5779 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5494,7 +5626,7 @@
 			)
 		)
 		(property "Value" "TestPoint"
-			(at 53.34 182.1179 0)
+			(at 49.53 182.1179 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5505,7 +5637,7 @@
 			)
 		)
 		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
-			(at 55.88 184.15 0)
+			(at 52.07 184.15 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5516,7 +5648,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 55.88 184.15 0)
+			(at 52.07 184.15 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5527,7 +5659,7 @@
 			)
 		)
 		(property "Description" "test point"
-			(at 50.8 184.15 0)
+			(at 46.99 184.15 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5538,7 +5670,7 @@
 			)
 		)
 		(property "LCSC" "C2906768"
-			(at 50.8 184.15 0)
+			(at 46.99 184.15 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5549,7 +5681,7 @@
 			)
 		)
 		(property "MPN" "5015"
-			(at 50.8 184.15 0)
+			(at 46.99 184.15 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5560,7 +5692,7 @@
 			)
 		)
 		(property "Manufacturer" "Keystone Electronics"
-			(at 50.8 184.15 0)
+			(at 46.99 184.15 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5971,7 +6103,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 69.85 167.64 0)
+		(at 59.69 167.64 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -5982,7 +6114,7 @@
 		(fields_autoplaced yes)
 		(uuid "fa89e790-f580-4fea-959b-3d94ff739e82")
 		(property "Reference" "#PWR0401"
-			(at 69.85 173.99 0)
+			(at 59.69 173.99 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5993,7 +6125,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 69.85 172.72 0)
+			(at 59.69 172.72 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6003,7 +6135,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 69.85 167.64 0)
+			(at 59.69 167.64 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6014,7 +6146,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 69.85 167.64 0)
+			(at 59.69 167.64 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6025,7 +6157,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 69.85 167.64 0)
+			(at 59.69 167.64 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6120,6 +6252,118 @@
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/5405e341-74c8-4510-ade9-af70f4b85a3e"
 					(reference "#PWR0409")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 73.66 167.64 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "fce3f8f6-9a88-4efa-9035-f299d64dab22")
+		(property "Reference" "TP409"
+			(at 76.2 163.0679 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 76.2 165.6079 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
+			(at 78.74 167.64 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 78.74 167.64 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "test point"
+			(at 73.66 167.64 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C2906768"
+			(at 73.66 167.64 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "5015"
+			(at 73.66 167.64 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer" "Keystone Electronics"
+			(at 73.66 167.64 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "c7e5e22f-7b83-4417-8109-70d15138caf4")
+		)
+		(instances
+			(project "front_rear_dual_can"
+				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/5405e341-74c8-4510-ade9-af70f4b85a3e"
+					(reference "TP409")
 					(unit 1)
 				)
 			)
