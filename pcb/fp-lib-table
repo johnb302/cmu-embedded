@@ -1,0 +1,5 @@
+(fp_lib_table
+	(version 7)
+	(lib (name "CX3225SB16000H0FLJCC") (type "KiCad") (uri "${KIPRJMOD}/CX3225SB16000H0FLJCC.pretty") (options "") (descr ""))
+	(lib (name "SWT0210-045026GSA_REVA") (type "KiCad") (uri "${KIPRJMOD}/SWT0210-045026GSA_REVA.pretty") (options "") (descr ""))
+)
