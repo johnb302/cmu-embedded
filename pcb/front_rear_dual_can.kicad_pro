@@ -568,6 +568,14 @@
       {
         "netclass": "Power",
         "pattern": "+3V3"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "/Rear Zone/M_R-"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "/Rear Zone/M_L-"
       }
     ]
   },
