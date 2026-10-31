@@ -3599,9 +3599,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "812b769a-1bfe-435f-89c5-c08663c441c3")
@@ -3627,7 +3627,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
 			(at 59.69 180.34 0)
 			(hide yes)
 			(show_name no)
@@ -3649,7 +3649,7 @@
 				)
 			)
 		)
-		(property "Description" "test point"
+		(property "Description" ""
 			(at 54.61 180.34 0)
 			(hide yes)
 			(show_name no)
@@ -4493,9 +4493,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "c20db6c3-c1f5-4641-8564-9cc217c8f7d5")
@@ -4521,7 +4521,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
 			(at 22.86 180.34 0)
 			(hide yes)
 			(show_name no)
@@ -4543,7 +4543,7 @@
 				)
 			)
 		)
-		(property "Description" "test point"
+		(property "Description" ""
 			(at 17.78 180.34 0)
 			(hide yes)
 			(show_name no)
@@ -4858,9 +4858,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d22694d0-0e54-44e8-9546-f8a58e00779a")
@@ -4886,7 +4886,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
 			(at 181.61 69.85 0)
 			(hide yes)
 			(show_name no)
@@ -4908,7 +4908,7 @@
 				)
 			)
 		)
-		(property "Description" "test point"
+		(property "Description" ""
 			(at 176.53 69.85 0)
 			(hide yes)
 			(show_name no)
@@ -4990,9 +4990,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d6cf7de9-5c45-4b9f-9b6f-04df78c3f9ff")
@@ -5018,7 +5018,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
 			(at 171.45 72.39 0)
 			(hide yes)
 			(show_name no)
@@ -5040,7 +5040,7 @@
 				)
 			)
 		)
-		(property "Description" "test point"
+		(property "Description" ""
 			(at 176.53 72.39 0)
 			(hide yes)
 			(show_name no)
@@ -5685,9 +5685,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f817a167-5020-4a0a-88bb-7b3b5435141e")
@@ -5713,7 +5713,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_Keystone_5015_Micro_Mini"
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
 			(at 40.64 180.34 0)
 			(hide yes)
 			(show_name no)
@@ -5735,7 +5735,7 @@
 				)
 			)
 		)
-		(property "Description" "test point"
+		(property "Description" ""
 			(at 35.56 180.34 0)
 			(hide yes)
 			(show_name no)
