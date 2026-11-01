@@ -566,7 +566,7 @@
         "pattern": "+12V"
       },
       {
-        "netclass": "Power",
+        "netclass": "Default",
         "pattern": "+3V3"
       },
       {
