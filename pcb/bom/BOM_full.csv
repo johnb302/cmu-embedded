@@ -44,7 +44,8 @@ IPD90P03P4L-04-HXY,Q501,1,3,TO-252-2,IPD90P03P4L-04,HXY MOSFET,C20606270,Extende
 45.3kΩ,R513,1,3,R_0603_1608Metric,0603WAF4532T5E,UNI-ROYAL,C23058,Extended,JLCPCB
 0Ω,"R517,R518,R519",3,5,R_0603_1608Metric,RC0603JR-070RL,YAGEO,C95177,Extended,Tom's List
 SWT0210-045026GSA_REVA,"S401,S701,S702,S1101,S1102",5,7,SW_SWT0210-045026GSA_REVA,SWT0210-045026GSA,GCT,,-,Tom's List
-TestPoint,"TP201,TP202,TP203,TP204,TP205,TP206,TP207,TP208,TP209,TP210,TP211,TP212,TP213,TP214,TP215,TP301,TP302,TP303,TP304,TP305,TP306,TP307,TP308,TP309,TP310,TP311,TP312,TP313,TP314,TP315,TP316,TP317,TP318,TP319,TP401,TP402,TP403,TP404,TP405,TP406,TP407,TP408,TP409,TP410,TP501,TP502,TP503,TP504,TP505,TP506,TP507,TP508,TP509,TP510,TP601,TP602,TP603,TP604,TP605,TP801,TP802,TP803,TP804,TP805,TP901,TP902,TP903,TP904,TP905,TP1001,TP1002,TP1003,TP1004,TP1005,TP1201,TP1202,TP1203,TP1204,TP1205,TP1301,TP1302,TP1303,TP1304,TP1305",84,93,TestPoint_Keystone_5015_Micro_Mini,5015,Keystone Electronics,C2906768,Extended,Tom's List
+TestPoint (5015 SMT loop),"TP309,TP316,TP317,TP319,TP407,TP601,TP602,TP801,TP1002",9,11,TestPoint_Keystone_5015_Micro_Mini,5015,Keystone Electronics,C2906768,Extended,Tom's List
+"TestPoint (5001 black THT loop, GND)","TP212,TP214,TP312,TP314,TP408,TP502,TP503,TP603,TP903,TP1003,TP1203,TP1303",12,14,TestPoint_Keystone_5000-5004_Miniature,5001,Keystone Electronics,C238122,Extended,LCSC / DigiKey 36-5001-ND (check Tom's List first)
 INA180A1,U201,1,3,SOT-23-5,INA180A1IDBVR,Texas Instruments,C122228,Extended,JLCPCB
 L298N,U301,1,3,TO-220-15_P2.54x5.08mm_StaggerOdd_Lead4.58mm_Vertical,L298N,STMicroelectronics,C434589,Extended,Tom's List
 ACS712xLCTR-05B,"U302,U303",2,4,SOIC-8_3.9x4.9mm_P1.27mm,ACS712ELCTR-05B-T,Allegro MicroSystems,C44471,Extended,Tom's List
@@ -53,6 +54,12 @@ MCP2515-xST,"U601,U801,U901,U1001,U1201,U1301",6,8,TSSOP-20_4.4x6.5mm_P0.65mm,MC
 SN65HVD230,"U602,U802,U902,U1002,U1202,U1302",6,8,SOIC-8_3.9x4.9mm_P1.27mm,SN65HVD230MDREP,Texas Instruments,C2878159,Extended,Tom's List
 STM32F401RETx,"U701,U1101",2,4,LQFP-64_10x10mm_P0.5mm,STM32F401RET6TR,STMicroelectronics,C2053837,Extended,Tom's List
 CX3225SB16000H0FLJCC,"Y601,Y701,Y801,Y901,Y1001,Y1101,Y1201,Y1301",8,10,OSCCC320X250X60N,CX3225SB16000H0FLJCC,KYOCERA AVX,C1985207,Extended,Tom's List
+Heatsink for L298N (U301),HS301,1,1,HSINK_6396BG,6396BG,Boyd Laconia,-,-,DigiKey 6396BG-ND
+"Jumper shunt, 2.54 mm, 2-pos, closed top (18 installed; J502-J504 regulator-disable jumpers normally parked on one pin)","J201,J202,J301,J302,J502,J503,J504,J505,J506,J601,J602,J801,J802,J901,J902,J1001,J1002,J1201,J1202,J1301,J1302",21,24,-,SPC02SYAN,Sullins Connector Solutions,-,-,DigiKey S9001-ND
+Heatsink hardware (not on schematic): M3 x 8 mm pan-head machine screw (M3 x 10 also fits),(HS301 / U301),1,3,-,M3 x 8 mm pan head,-,-,-,Lab stock / hardware store
+Heatsink hardware (not on schematic): M3 hex nut,(HS301 / U301),1,3,-,M3 hex nut,-,-,-,Lab stock / hardware store
+Heatsink hardware (not on schematic): M3 split lock washer,(HS301 / U301),1,3,-,M3 lock washer,-,-,-,Lab stock / hardware store
+Thermal compound for L298N tab to heatsink (not on schematic; thin layer),(HS301 / U301),1,1,-,Non-conductive thermal paste (e.g. Arctic MX-4),-,-,-,Lab stock
 "15A MINI blade fuse (not on schematic, hand-installed in F501)",(F501 holder),1,3,-,0297015.WXNV,Littelfuse,C151095,Extended,DigiKey/LCSC (not on Tom's List)
 "Accessory (not on PCB): 1-4S LiPo AC balance charger, 2.5 A, XT60 output",-,1,1,-,M4AC (XT60 version),ToolKitRC,-,-,GetFPV: https://www.getfpv.com/batteries/battery-chargers/toolkitrc-m4ac-30w-2-5a-compact-ac-balance-charger-xt60.html
 "Accessory (not on PCB): LiPo fire-safe charging/storage bag, 260x130x180 mm",-,1,1,-,Lipo Safe Bag (B091L1XCF3),OVONIC,-,-,Amazon: https://www.amazon.com/dp/B091L1XCF3
