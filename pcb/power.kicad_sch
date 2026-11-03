@@ -2519,6 +2519,18 @@
 		(uuid "28daacdd-62d2-4926-b9f7-e3ab71b736a6")
 	)
 	(rectangle
+		(start 13.97 66.04)
+		(end 45.72 83.82)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "3edc3126-2ba2-4d8c-9e5e-a8eda434d7a9")
+	)
+	(rectangle
 		(start 88.9 66.04)
 		(end 283.21 113.03)
 		(stroke
@@ -2561,6 +2573,16 @@
 			)
 		)
 		(uuid "8d8484d6-fa64-4c85-8951-888c8a655357")
+	)
+	(text "Camera PWR"
+		(exclude_from_sim no)
+		(at 20.066 64.77 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "b4ee0c8b-299b-4c13-8b90-043902fb541f")
 	)
 	(text "Reverse Polarity Protection"
 		(exclude_from_sim no)
@@ -3325,6 +3347,16 @@
 			(type default)
 		)
 		(uuid "3f440b15-2b7c-4e7e-8b0d-a5c826649c7e")
+	)
+	(wire
+		(pts
+			(xy 25.4 77.47) (xy 29.21 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "411efdb0-4508-481e-a0b1-872515895c6b")
 	)
 	(wire
 		(pts
@@ -4195,6 +4227,16 @@
 			(type default)
 		)
 		(uuid "cfe37cc0-cb47-4ae3-abc6-7ec17a4f1470")
+	)
+	(wire
+		(pts
+			(xy 25.4 74.93) (xy 29.21 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d16e17c2-75fa-4f20-94aa-48f9c2d9d867")
 	)
 	(wire
 		(pts
@@ -5385,6 +5427,86 @@
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/540e34a7-c3f5-439a-b73e-b98a85e18928"
 					(reference "C514")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector_Generic:Conn_01x02")
+		(at 20.32 77.47 180)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "1204111f-8d9c-4a94-9302-4dff072f6a0e")
+		(property "Reference" "J507"
+			(at 20.32 68.58 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Camera PWR"
+			(at 20.32 71.12 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
+			(at 20.32 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 20.32 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 20.32 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "b8b90bc9-3cd2-4e63-a748-94c8897d844b")
+		)
+		(pin "1"
+			(uuid "efaf90aa-bc94-49c3-a6cc-4f4269140f5f")
+		)
+		(instances
+			(project "front_rear_dual_can"
+				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/540e34a7-c3f5-439a-b73e-b98a85e18928"
+					(reference "J507")
 					(unit 1)
 				)
 			)
@@ -11476,6 +11598,85 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+5V")
+		(at 29.21 74.93 270)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "bf3fbb3b-3f0e-4410-b141-89cac4c1f7cd")
+		(property "Reference" "#PWR0527"
+			(at 25.4 74.93 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+5V"
+			(at 33.02 74.9299 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 29.21 74.93 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 29.21 74.93 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
+			(at 29.21 74.93 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "fb12dd5b-87d3-43fa-b419-dac647febf65")
+		)
+		(instances
+			(project "front_rear_dual_can"
+				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/540e34a7-c3f5-439a-b73e-b98a85e18928"
+					(reference "#PWR0527")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Transistor_FET:QM6015D")
 		(at 52.07 29.21 90)
 		(unit 1)
@@ -14223,6 +14424,85 @@
 			(project "front_rear_dual_can"
 				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/540e34a7-c3f5-439a-b73e-b98a85e18928"
 					(reference "C511")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 29.21 77.47 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f480f71c-549d-4c2e-a1ad-71d4c5d02863")
+		(property "Reference" "#PWR0528"
+			(at 35.56 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 33.02 77.4699 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 29.21 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 29.21 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 29.21 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "06d02f5f-4742-4030-9355-4b18192f8b55")
+		)
+		(instances
+			(project "front_rear_dual_can"
+				(path "/11f1b6cb-7ca3-4657-a79b-c672c999e35e/540e34a7-c3f5-439a-b73e-b98a85e18928"
+					(reference "#PWR0528")
 					(unit 1)
 				)
 			)
