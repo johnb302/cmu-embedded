@@ -1,4 +1,4 @@
-/* Main file for Lab3 of 18649 */
+/* Main file for Lab5 of 18649 */
 #include "config.h"
 #include "can_bus.h"
 #include "common.h"
@@ -10,13 +10,16 @@
 #include "wcet.h"
 #include "blink.h"
 #include "button.h"
+#include "netstate.h"
 #include <zephyr/kernel.h>
 #include <zephyr/sys/printk.h>
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/drivers/watchdog.h>
 
 int main(void) {
-    printk("lab3: node %d booted.\n", NODE_ID);
+    printk("lab5: node %d booted.\n", NODE_ID);
+
+    netstate_selftest();
 
     int st_ret = state_init();
     if (st_ret < 0) {
