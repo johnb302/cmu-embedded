@@ -4,6 +4,8 @@
 #include "blink.h"
 #include "relay.h"
 #include "wcet.h"
+#include "raft.h"
+#include "raft_node.h"
 #include <zephyr/device.h>
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/drivers/can.h>
@@ -21,6 +23,12 @@ static atomic_t seq_counters[] = {0, 0, 0, 0, 0, 0, 0};
 
 /* Array of potential IDs */
 static const uint16_t ids[] = {ID_CTRL, ID_FAULT, ID_HB_N1, ID_HB_N2, ID_HB_N3, ID_BLINK};
+
+/* Lab 5: two mask filters cover every Raft frame (raft.h) */
+static const struct can_filter raft_filters[] = {
+    {.id = RAFT_FILTER_REF_ID, .mask = RAFT_FILTER_REF_MASK}, /* 0x000-0x003: REF */
+    {.id = RAFT_FILTER_ID, .mask = RAFT_FILTER_MASK},         /* 0x040-0x07F: the rest */
+};
 
 /* RX counts per bus */
 static atomic_t rx_counts[] = {0, 0};
@@ -76,6 +84,13 @@ static void rx_dispatch(const struct device *dev, struct can_frame *frame, void 
 
     /* Increment count */
     atomic_inc(&rx_counts[i]);
+
+    /* Lab 5: Raft frames go to the RAFT thread. Their byte 0 is a term, not a seq, so they
+     * skip the dedup below; raft.c is fine seeing both bus copies. */
+    if (raft_is_frame(frame->id)) {
+        raft_node_post(frame);
+        return;
+    }
 
     /* If the frame id is fault, it could come from many places */
     int slot = 0;
@@ -195,6 +210,13 @@ int can_io_init(void) {
                 return filt_ret;
             }
         }
+        for (size_t j = 0; j < ARRAY_SIZE(raft_filters); j++) {
+            int filt_ret = can_add_rx_filter(devs[i], rx_cb, (void *)(uintptr_t)i, &raft_filters[j]);
+            if (filt_ret < 0) {
+                printk("Unable to add Raft filter to CAN %zu.\n", i);
+                return filt_ret;
+            }
+        }
 
         int start_ret = can_start(devs[i]);
         if (start_ret < 0) {
@@ -232,15 +254,6 @@ static int get_counter(uint16_t id) {
 }
 
 int can_io_send(uint16_t id, const uint8_t data[FRAME_DLC]) {
-    /* Build the frame */
-    struct can_frame frame = {
-        .id = id,
-        .dlc = FRAME_DLC,
-        .flags = 0,
-    };
-    memcpy(frame.data, data, FRAME_DLC);
-
-    
     int counter = get_counter(id);
     if (counter < 0) {
         printk("ID not in the known list.\n");
@@ -248,8 +261,23 @@ int can_io_send(uint16_t id, const uint8_t data[FRAME_DLC]) {
     }
 
     /* Clear the bottom half of byte 0, then OR with SEQ */
+    uint8_t stamped[FRAME_DLC];
+    memcpy(stamped, data, FRAME_DLC);
     atomic_val_t prev = atomic_inc(&seq_counters[counter]);
-    frame.data[0] = (frame.data[0] & ~SEQ_MASK) | (SEQ_MASK & prev);
+    stamped[0] = (stamped[0] & ~SEQ_MASK) | (SEQ_MASK & prev);
+
+    return can_io_send_raw(id, stamped);
+}
+
+/* The two-bus send itself. Raft frames call it directly: their byte 0 is the term. */
+int can_io_send_raw(uint16_t id, const uint8_t data[FRAME_DLC]) {
+    /* Build the frame */
+    struct can_frame frame = {
+        .id = id,
+        .dlc = FRAME_DLC,
+        .flags = 0,
+    };
+    memcpy(frame.data, data, FRAME_DLC);
 
     int failed = 0;
     int ret;

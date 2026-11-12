@@ -13,8 +13,11 @@
  *   getNetwork()                        the only read
  * The four mutators are static so the graph changes only through netstate_apply(),
  * which Raft calls once per committed log entry. That keeps every node's graph identical.
+ * Boots all down (nodes, links, cockpit ERROR); the log brings it up.
  *
- * Shell: "net show | net node up|down <1-3> | net link up|down <1-3> <A|B> | net cockpit ok|error"
+ * Portable C (built for the STM32s and the Pi): no Zephyr or Linux headers in shared/.
+ * Not thread-safe: each platform calls into shared/ while holding its one Raft lock.
+ * STM32 shell commands live in src_lab5/net_shell.c.
  */
 
 #include <stdbool.h>

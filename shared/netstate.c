@@ -1,14 +1,10 @@
 #include "netstate.h"
 #include <errno.h>
-#include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
-#include <zephyr/kernel.h>
-#include <zephyr/shell/shell.h>
-#include <zephyr/sys/printk.h>
 
 /* Boots with nothing known: every node and link down, cockpit in error */
 static struct network graph;
-static K_MUTEX_DEFINE(graph_lock);
 
 static const char *const event_names[] = {
     [COCKPIT_OK] = "COCKPIT_OK",
@@ -56,7 +52,6 @@ int netstate_apply(const struct net_event *ev) {
         return -EINVAL;
     }
 
-    k_mutex_lock(&graph_lock, K_FOREVER);
     switch (ev->type) {
     case COCKPIT_OK:
         graph.cockpit_ok = true;
@@ -77,28 +72,24 @@ int netstate_apply(const struct net_event *ev) {
         dropLink(ev->node, ev->bus);
         break;
     }
-    k_mutex_unlock(&graph_lock);
     return 0;
 }
 
 struct network getNetwork(void) {
-    k_mutex_lock(&graph_lock, K_FOREVER);
-    struct network copy = graph;
-    k_mutex_unlock(&graph_lock);
-    return copy;
+    return graph;
 }
 
 void netstate_format(const struct network *net, char *buf, size_t len) {
     size_t pos = 0;
     for (int n = 0; n < NET_NODES; n++) {
         if (net->node_up[n]) {
-            pos += snprintk(buf + pos, len - pos, "N%d up A%c B%c | ", n + 1,
+            pos += snprintf(buf + pos, len - pos, "N%d up A%c B%c | ", n + 1,
                             net->link_up[n][0] ? '+' : '-', net->link_up[n][1] ? '+' : '-');
         } else {
-            pos += snprintk(buf + pos, len - pos, "N%d down | ", n + 1);
+            pos += snprintf(buf + pos, len - pos, "N%d down | ", n + 1);
         }
     }
-    snprintk(buf + pos, len - pos, "cockpit %s", net->cockpit_ok ? "OK" : "ERROR");
+    snprintf(buf + pos, len - pos, "cockpit %s", net->cockpit_ok ? "OK" : "ERROR");
 }
 
 /* ---- Self-test: each step applies one event, then compares the whole graph ---- */
@@ -130,6 +121,7 @@ static const struct selftest_step steps[] = {
     {{NODE_UP, 3, 0}, {.cockpit_ok = 1, .node_up = {0, 1, 1}, .link_up = {{0, 0}, {0, 1}, {0, 0}}}},
     {{COCKPIT_ERROR, 0, 0}, {.node_up = {0, 1, 1}, .link_up = {{0, 0}, {0, 1}, {0, 0}}}},
 };
+#define NUM_STEPS (sizeof(steps) / sizeof(steps[0]))
 
 static bool network_equal(const struct network *a, const struct network *b) {
     bool same_cockpit = a->cockpit_ok == b->cockpit_ok;
@@ -143,8 +135,8 @@ int netstate_selftest(void) {
     char expect_str[96];
     int failures = 0;
 
-    printk("netstate selftest\n");
-    for (size_t i = 0; i < ARRAY_SIZE(steps); i++) {
+    printf("netstate selftest\n");
+    for (size_t i = 0; i < NUM_STEPS; i++) {
         const struct net_event *ev = &steps[i].ev;
 
         netstate_apply(ev);
@@ -156,100 +148,23 @@ int netstate_selftest(void) {
         bool is_link_event = ev->type == CANLINK_UP || ev->type == CANLINK_DOWN;
         bool is_node_event = ev->type == NODE_UP || ev->type == NODE_DOWN;
         if (is_link_event) {
-            snprintk(args, sizeof(args), "N%u %c", ev->node, ev->bus == BUS_A ? 'A' : 'B');
+            snprintf(args, sizeof(args), "N%u %c", ev->node, ev->bus == BUS_A ? 'A' : 'B');
         } else if (is_node_event) {
-            snprintk(args, sizeof(args), "N%u", ev->node);
+            snprintf(args, sizeof(args), "N%u", ev->node);
         }
 
         bool pass = network_equal(&got, &steps[i].expect);
-        printk("[%2zu] %-13s %-4s -> %s  %s\n", i + 1, event_names[ev->type], args, got_str,
+        printf("[%2zu] %-13s %-4s -> %s  %s\n", i + 1, event_names[ev->type], args, got_str,
                pass ? "PASS" : "FAIL");
         if (!pass) {
             netstate_format(&steps[i].expect, expect_str, sizeof(expect_str));
-            printk("     expected %s\n", expect_str);
+            printf("     expected %s\n", expect_str);
             failures++;
         }
     }
-    printk("netstate selftest: %d/%d PASS\n", (int)ARRAY_SIZE(steps) - failures, (int)ARRAY_SIZE(steps));
+    printf("netstate selftest: %d/%d PASS\n", (int)NUM_STEPS - failures, (int)NUM_STEPS);
 
-    /* Leave the graph as at boot so the shell starts clean */
-    k_mutex_lock(&graph_lock, K_FOREVER);
+    /* Leave the graph as at boot (all down) so the shell starts clean */
     memset(&graph, 0, sizeof(graph));
-    k_mutex_unlock(&graph_lock);
     return failures;
 }
-
-/* ---- Shell: drive the state machine by hand ---- */
-
-static int cmd_show(const struct shell *sh, size_t argc, char **argv) {
-    struct network net = getNetwork();
-    char str[96];
-
-    netstate_format(&net, str, sizeof(str));
-    shell_print(sh, "%s", str);
-    return 0;
-}
-
-/* "up" / "down" -> true / false; -EINVAL otherwise */
-static int parse_up(const struct shell *sh, const char *arg, bool *up) {
-    if (strcmp(arg, "up") == 0) {
-        *up = true;
-        return 0;
-    }
-    if (strcmp(arg, "down") == 0) {
-        *up = false;
-        return 0;
-    }
-    shell_error(sh, "expected up or down, got %s", arg);
-    return -EINVAL;
-}
-
-/* Applies the event, reports a bad argument, then shows the new graph */
-static int apply_and_show(const struct shell *sh, const struct net_event *ev) {
-    if (netstate_apply(ev) < 0) {
-        shell_error(sh, "node must be 1-3, bus A or B");
-        return -EINVAL;
-    }
-    return cmd_show(sh, 0, NULL);
-}
-
-static int cmd_node(const struct shell *sh, size_t argc, char **argv) {
-    bool up;
-    if (parse_up(sh, argv[1], &up) < 0) {
-        return -EINVAL;
-    }
-    struct net_event ev = {up ? NODE_UP : NODE_DOWN, (uint8_t)atoi(argv[2]), 0};
-    return apply_and_show(sh, &ev);
-}
-
-static int cmd_link(const struct shell *sh, size_t argc, char **argv) {
-    bool up;
-    if (parse_up(sh, argv[1], &up) < 0) {
-        return -EINVAL;
-    }
-    bool is_a = strcmp(argv[3], "A") == 0 || strcmp(argv[3], "a") == 0;
-    bool is_b = strcmp(argv[3], "B") == 0 || strcmp(argv[3], "b") == 0;
-    uint8_t bus = is_a ? NET_BUS_A : (is_b ? NET_BUS_B : NET_BUSES); /* NET_BUSES = invalid, rejected by apply */
-    struct net_event ev = {up ? CANLINK_UP : CANLINK_DOWN, (uint8_t)atoi(argv[2]), bus};
-    return apply_and_show(sh, &ev);
-}
-
-static int cmd_cockpit(const struct shell *sh, size_t argc, char **argv) {
-    bool ok = strcmp(argv[1], "ok") == 0;
-    bool error = strcmp(argv[1], "error") == 0;
-    if (!ok && !error) {
-        shell_error(sh, "expected ok or error, got %s", argv[1]);
-        return -EINVAL;
-    }
-    struct net_event ev = {ok ? COCKPIT_OK : COCKPIT_ERROR, 0, 0};
-    return apply_and_show(sh, &ev);
-}
-
-SHELL_STATIC_SUBCMD_SET_CREATE(net_cmds,
-    SHELL_CMD_ARG(show, NULL, "Print the network graph (getNetwork)", cmd_show, 1, 0),
-    SHELL_CMD_ARG(node, NULL, "node up|down <1-3>", cmd_node, 3, 0),
-    SHELL_CMD_ARG(link, NULL, "link up|down <1-3> <A|B>", cmd_link, 4, 0),
-    SHELL_CMD_ARG(cockpit, NULL, "cockpit ok|error", cmd_cockpit, 2, 0),
-    SHELL_SUBCMD_SET_END);
-
-SHELL_CMD_REGISTER(net, &net_cmds, "Raft network state machine", NULL);

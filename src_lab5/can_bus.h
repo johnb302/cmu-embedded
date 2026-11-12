@@ -10,6 +10,9 @@ int can_io_init(void);
 /* Send frame on both CAN buses */
 int can_io_send(uint16_t id, const uint8_t data[FRAME_DLC]);
 
+/* Lab 5 (Raft frames): send on both buses as-is, with no seq stamped into byte 0 */
+int can_io_send_raw(uint16_t id, const uint8_t data[FRAME_DLC]);
+
 /* Get rx callback counts */
 int can_io_get_rx(int bus);
 

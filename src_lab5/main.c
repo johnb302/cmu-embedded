@@ -11,6 +11,7 @@
 #include "blink.h"
 #include "button.h"
 #include "netstate.h"
+#include "raft_node.h"
 #include <zephyr/kernel.h>
 #include <zephyr/sys/printk.h>
 #include <zephyr/drivers/gpio.h>
@@ -50,6 +51,13 @@ int main(void) {
     }
 
     common_start();
+
+    /* After CAN: RAFT sends REF and APPEND whenever this node is leader */
+    int rf_ret = raft_node_start();
+    if (rf_ret < 0) {
+        printk("RAFT not started.\n");
+        return rf_ret;
+    }
 
 #if NODE_ID == ZONE_N2
     /* After CAN, unlike n3_start(): FORCE_TX starts sending right away */

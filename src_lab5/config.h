@@ -109,6 +109,8 @@
 #define HB_TX_PRIO    5
 #define HB_MON_PRIO   6
 #define FORCE_TX_PRIO 7
+#define RAFT_PRIO     8 /* Last: the REF time is stamped at send (raft_node.c), so a late RAFT
+                         * thread can't skew sync. Its deadline is the 60 ms follower timeout. */
 #else
 /* Node 3 priorities */
 #define DRIVE_PRIO    1 /* ties BLINK_R's 0.5 ms, but brake beats lights */
@@ -117,6 +119,8 @@
 #define PID_PRIO      4
 #define HB_TX_PRIO    5
 #define HB_MON_PRIO   6
+#define RAFT_PRIO     7 /* Last: the REF time is stamped at send (raft_node.c), so a late RAFT
+                         * thread can't skew sync. Its deadline is the 60 ms follower timeout. */
 #endif
 
 #define MAIN_PRIO 13
