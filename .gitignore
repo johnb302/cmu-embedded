@@ -13,3 +13,9 @@
 # Operating system metadata
 .DS_Store
 .DS_Store
+
+# Cockpit binary and run logs (built on the Pi)
+/cockpit/cockpit
+/cockpit/*.log
+/cockpit/fp.fifo
+/shared/test/host_test
