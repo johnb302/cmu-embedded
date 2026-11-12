@@ -19,6 +19,30 @@ static const char *const event_names[] = {
     [CANLINK_DOWN] = "CANLINK_DOWN",
 };
 
+/* addNode(X): node X is alive again, with no links until addLink */
+static void addNode(uint8_t node) {
+    /* No link reset needed: links only come up with addLink, and dropNode cleared them */
+    graph.node_up[node - 1] = true;
+}
+
+/* dropNode(X): node X goes down, along with every link attached to it */
+static void dropNode(uint8_t node) {
+    graph.node_up[node - 1] = false;
+    for (int bus = 0; bus < NET_BUSES; bus++) {
+        graph.link_up[node - 1][bus] = false;
+    }
+}
+
+/* addLink(X, Y): the link between node X and bus Y is up */
+static void addLink(uint8_t node, uint8_t bus) {
+    graph.link_up[node - 1][bus] = true;
+}
+
+/* dropLink(X, Y): the link between node X and bus Y is down; node X and the bus stay */
+static void dropLink(uint8_t node, uint8_t bus) {
+    graph.link_up[node - 1][bus] = false;
+}
+
 int netstate_apply(const struct net_event *ev) {
     bool is_link_event = ev->type == CANLINK_UP || ev->type == CANLINK_DOWN;
     bool is_node_event = is_link_event || ev->type == NODE_UP || ev->type == NODE_DOWN;
@@ -32,7 +56,6 @@ int netstate_apply(const struct net_event *ev) {
         return -EINVAL;
     }
 
-    int n = ev->node - 1;
     k_mutex_lock(&graph_lock, K_FOREVER);
     switch (ev->type) {
     case COCKPIT_OK:
@@ -42,29 +65,27 @@ int netstate_apply(const struct net_event *ev) {
         graph.cockpit_ok = false;
         break;
     case NODE_UP:
-        /* Comes back with no links: each needs its own CANLINK_UP */
-        graph.node_up[n] = true;
+        addNode(ev->node);
         break;
     case NODE_DOWN:
-        graph.node_up[n] = false;
-        graph.link_up[n][0] = false;
-        graph.link_up[n][1] = false;
+        dropNode(ev->node);
         break;
     case CANLINK_UP:
-        graph.link_up[n][ev->bus] = true;
+        addLink(ev->node, ev->bus);
         break;
     case CANLINK_DOWN:
-        graph.link_up[n][ev->bus] = false;
+        dropLink(ev->node, ev->bus);
         break;
     }
     k_mutex_unlock(&graph_lock);
     return 0;
 }
 
-void netstate_get(struct network *out) {
+struct network getNetwork(void) {
     k_mutex_lock(&graph_lock, K_FOREVER);
-    *out = graph;
+    struct network copy = graph;
     k_mutex_unlock(&graph_lock);
+    return copy;
 }
 
 void netstate_format(const struct network *net, char *buf, size_t len) {
@@ -87,8 +108,8 @@ struct selftest_step {
     struct network expect;
 };
 
-#define BUS_A 0
-#define BUS_B 1
+#define BUS_A NET_BUS_A
+#define BUS_B NET_BUS_B
 
 static const struct selftest_step steps[] = {
     /* Bring N2 up with both links */
@@ -125,10 +146,9 @@ int netstate_selftest(void) {
     printk("netstate selftest\n");
     for (size_t i = 0; i < ARRAY_SIZE(steps); i++) {
         const struct net_event *ev = &steps[i].ev;
-        struct network got;
 
         netstate_apply(ev);
-        netstate_get(&got);
+        struct network got = getNetwork();
         netstate_format(&got, got_str, sizeof(got_str));
 
         /* Show only the arguments this event type uses */
@@ -162,10 +182,9 @@ int netstate_selftest(void) {
 /* ---- Shell: drive the state machine by hand ---- */
 
 static int cmd_show(const struct shell *sh, size_t argc, char **argv) {
-    struct network net;
+    struct network net = getNetwork();
     char str[96];
 
-    netstate_get(&net);
     netstate_format(&net, str, sizeof(str));
     shell_print(sh, "%s", str);
     return 0;
@@ -210,7 +229,7 @@ static int cmd_link(const struct shell *sh, size_t argc, char **argv) {
     }
     bool is_a = strcmp(argv[3], "A") == 0 || strcmp(argv[3], "a") == 0;
     bool is_b = strcmp(argv[3], "B") == 0 || strcmp(argv[3], "b") == 0;
-    uint8_t bus = is_a ? 0 : (is_b ? 1 : NET_BUSES); /* NET_BUSES = invalid, rejected by apply */
+    uint8_t bus = is_a ? NET_BUS_A : (is_b ? NET_BUS_B : NET_BUSES); /* NET_BUSES = invalid, rejected by apply */
     struct net_event ev = {up ? CANLINK_UP : CANLINK_DOWN, (uint8_t)atoi(argv[2]), bus};
     return apply_and_show(sh, &ev);
 }
