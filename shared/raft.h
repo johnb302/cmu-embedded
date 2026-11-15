@@ -64,7 +64,8 @@ static inline bool raft_is_frame(uint16_t id) {
  *         hook stamps b2-7 just before transmit (step 7: global_gettime()).
  *
  * APPEND  b0 term | b1-2 prevLogIndex LE | b3 prevLogTerm | b4 entry term |
- *         b5 entry event, 0 = none (an empty APPEND) | b6-7 leaderCommit LE
+ *         b5 entry event (net_event_encode code), 0 = none (an empty APPEND) |
+ *         b6-7 leaderCommit LE. An empty APPEND's prev is the leader's last entry.
  */
 
 /* ------------------------------- the API ------------------------------- */

@@ -1,5 +1,6 @@
 #include "raft.h"
 #include "raft_config.h"
+#include "raft_log.h"
 #include <stdio.h>
 
 /* Names follow Figure 2 of the Raft paper (currentTerm, votedFor, ...) */
@@ -83,11 +84,12 @@ static void send_ref(void) {
 
 /* Empty APPEND: the leader's log position and commit index, with no entry (b4, b5 = 0) */
 static void send_empty_append(void) {
-    /* TODO(step 2): from the log: last index, the term of that entry, the commit index.
-     * All 0 while the log is empty. */
-    uint16_t prev_index = 0;
-    uint8_t prev_term = 0;
-    uint16_t commit_index = 0;
+    /* With no entry, "prev" is the leader's last entry. A follower holding that index with
+     * the same term matches the leader's whole log (Raft's Log Matching Property), so it can
+     * commit up to leaderCommit (step 4). All 0 while the log is empty. */
+    uint16_t prev_index = raft_log_last_index();
+    uint8_t prev_term = raft_log_last_term();
+    uint16_t commit_index = raft_log_commit_index();
 
     uint8_t data[8] = {0};
     data[0] = current_term & RAFT_TERM_MASK;

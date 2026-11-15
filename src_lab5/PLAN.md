@@ -2,7 +2,7 @@
 
 Due 2026-11-18. Steps 2–6 are Raft, steps 7–8 are time sync. Time sync only needs step 3's heartbeat, so the two tracks can split after step 3.
 
-Step 3 was done before step 2 (it only needs zeros from the log). Step 2 must be finished before step 4.
+Step 3 was done before step 2 (it only needs zeros from the log).
 
 Where things live:
 - `shared/`: portable C (no Zephyr or Linux headers) built into all three nodes: `netstate`, `raft`, `raft_config.h`, and the step 2 log. `make -C shared/test` runs its checks on the Mac.
@@ -15,15 +15,15 @@ Where things live:
 **Adds:** the graph of which nodes and CAN links are up. Log events are applied to it, and `getNetwork()` reads it back.
 **Verify:** boot prints `netstate selftest: 11/11 PASS`. In the shell, `net node up 3`, `net link down 3 A`, `net show`.
 
-### 2. Config and replicated log — IN PROGRESS (blocks step 4)
+### 2. Config and replicated log — DONE
 **Adds:** the shared Raft config (N, default leader, heartbeat period, timeouts, debug). A log of `{term, index, event}` entries that update the network state only once committed.
-**Verify:** `raft config` prints the same values on every node. `log append` doesn't change `net show`; `log commit` does.
-**Done:** `shared/raft_config.h` (the Part 2 keys).
-**Left:**
-- 1-byte event encoding in `netstate` (0 = no event, for the empty APPEND)
-- `shared/raft_log.c/.h`: `term[]` and `event[]` arrays (2 bytes per entry, so 30000 fit in RAM), indexes from 1; commit applies `lastApplied+1 … commitIndex` through `netstate_apply`
-- shell: `raft config`, `log commit`, `log show`; `net node|link|cockpit` appends instead of applying
-- the `TODO(step 2)` in `send_empty_append()` (`shared/raft.c`): fill prevLogIndex, prevLogTerm and leaderCommit from the log
+**Verify:** `make -C shared/test`: appending doesn't change the graph, committing applies each entry once and in order, and the empty APPEND carries the leader's log position. (The shell commands moved to step 4.)
+**Result (2026-11-15):**
+- `shared/raft_config.h` (the Part 2 keys)
+- 1-byte event codes in `netstate`: `net_event_encode/decode`, 0 = no event. High hex digit = type, low = node (+4 on bus B), e.g. `0x56` = CANLINK_UP N2 B.
+- `shared/raft_log.c/.h`: `term[]` and `event[]` arrays, indexes from 1. `raft_log_commit` applies `lastApplied+1 … commitIndex` through `netstate_apply`; `raft_log_truncate` is there for step 4. Host tests pass.
+- `send_empty_append()` fills prevLogIndex, prevLogTerm (the leader's last entry) and leaderCommit from the log. The bus looks the same until the leader's log has entries.
+- RAM (of 96 KB): the linker keeps only the arrays something reads. Now, with `term[]` only: N3 56%, N2 58%. Once step 4 reads `event[]` (+30 KB): N3 87% (measured), N2 about 88%, leaving about 11 KB.
 
 ### 3. Raft over CAN with a fixed leader — DONE
 **Adds:** Raft CAN frames. Nodes boot with the cockpit as leader in term 1, no election. The leader sends REF every 20 ms and an empty APPEND every 100 ms. LEADER and SYNC LEDs.
@@ -41,6 +41,7 @@ Frames (`shared/raft.h`): one CAN ID per type per sender (REF `0x000`+node, APPE
 ### 4. Log replication
 **Adds:** an event sent to the leader is replicated to followers and committed once a majority has it. Events sent to a follower get redirected to the leader.
 **Verify:** submit an event from any node's shell. `log show` and `net show` match on every node.
+**Shell (moved from step 2):** `log show`; `net node|link|cockpit` submits through Raft instead of applying directly, holding the Raft lock (`net_shell.c` doesn't take it today). The Pi needs the same on stdin. `raft config` is optional: the config is one header, identical on every node by construction.
 
 ### 5. Leader election
 **Adds:** when the leader's heartbeats stop, followers time out at random offsets, vote, and elect a new leader in a new term. A "random leader" boot mode with no preset leader.

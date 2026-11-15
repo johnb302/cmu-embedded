@@ -15,6 +15,73 @@ static const char *const event_names[] = {
     [CANLINK_DOWN] = "CANLINK_DOWN",
 };
 
+/* Which fields each event type uses */
+static bool uses_bus(enum net_event_type type) {
+    return type == CANLINK_UP || type == CANLINK_DOWN;
+}
+
+static bool uses_node(enum net_event_type type) {
+    return type == NODE_UP || type == NODE_DOWN || uses_bus(type);
+}
+
+/* A known type, with a node and bus in range wherever the type uses them.
+ * netstate_apply() and net_event_encode() share this, so every code that decodes applies. */
+static bool event_valid(const struct net_event *ev) {
+    if ((unsigned)ev->type > CANLINK_DOWN) {
+        return false;
+    }
+    if (uses_node(ev->type) && (ev->node < 1 || ev->node > NET_NODES)) {
+        return false;
+    }
+    if (uses_bus(ev->type) && ev->bus >= NET_BUSES) {
+        return false;
+    }
+    return true;
+}
+
+#define CODE_TYPE_SHIFT 4
+#define CODE_BUS_SHIFT  2
+#define CODE_FIELD_MASK 0x3 /* bus and node are 2 bits each */
+
+uint8_t net_event_encode(const struct net_event *ev) {
+    if (!event_valid(ev)) {
+        return NET_EVENT_NONE;
+    }
+    unsigned node = uses_node(ev->type) ? ev->node : 0;
+    unsigned bus = uses_bus(ev->type) ? ev->bus : 0;
+    return (uint8_t)((ev->type + 1u) << CODE_TYPE_SHIFT | bus << CODE_BUS_SHIFT | node);
+}
+
+int net_event_decode(uint8_t code, struct net_event *ev) {
+    unsigned type_field = code >> CODE_TYPE_SHIFT;
+    if (type_field == 0 || type_field - 1 > CANLINK_DOWN) {
+        return -EINVAL; /* NET_EVENT_NONE, or no such type */
+    }
+    struct net_event got = {
+        .type = (enum net_event_type)(type_field - 1),
+        .node = code & CODE_FIELD_MASK,
+        .bus = (code >> CODE_BUS_SHIFT) & CODE_FIELD_MASK,
+    };
+    /* Accept exactly the codes encode produces. This rejects node 0 or bus 2-3 where the
+     * type uses them, and stray bits where it doesn't. */
+    if (net_event_encode(&got) != code) {
+        return -EINVAL;
+    }
+    *ev = got;
+    return 0;
+}
+
+void net_event_format(const struct net_event *ev, char *buf, size_t len) {
+    const char *name = (unsigned)ev->type <= CANLINK_DOWN ? event_names[ev->type] : "?";
+    if (uses_bus(ev->type)) {
+        snprintf(buf, len, "%s N%u %c", name, ev->node, ev->bus == NET_BUS_A ? 'A' : 'B');
+    } else if (uses_node(ev->type)) {
+        snprintf(buf, len, "%s N%u", name, ev->node);
+    } else {
+        snprintf(buf, len, "%s", name);
+    }
+}
+
 /* addNode(X): node X is alive again, with no links until addLink */
 static void addNode(uint8_t node) {
     /* No link reset needed: links only come up with addLink, and dropNode cleared them */
@@ -40,15 +107,7 @@ static void dropLink(uint8_t node, uint8_t bus) {
 }
 
 int netstate_apply(const struct net_event *ev) {
-    bool is_link_event = ev->type == CANLINK_UP || ev->type == CANLINK_DOWN;
-    bool is_node_event = is_link_event || ev->type == NODE_UP || ev->type == NODE_DOWN;
-    bool node_valid = ev->node >= 1 && ev->node <= NET_NODES;
-    bool bus_valid = ev->bus < NET_BUSES;
-
-    if (is_node_event && !node_valid) {
-        return -EINVAL;
-    }
-    if (is_link_event && !bus_valid) {
+    if (!event_valid(ev)) {
         return -EINVAL;
     }
 
@@ -77,6 +136,10 @@ int netstate_apply(const struct net_event *ev) {
 
 struct network getNetwork(void) {
     return graph;
+}
+
+void netstate_reset(void) {
+    memset(&graph, 0, sizeof(graph));
 }
 
 void netstate_format(const struct network *net, char *buf, size_t len) {
@@ -131,6 +194,7 @@ static bool network_equal(const struct network *a, const struct network *b) {
 }
 
 int netstate_selftest(void) {
+    char ev_str[24];
     char got_str[96];
     char expect_str[96];
     int failures = 0;
@@ -142,20 +206,10 @@ int netstate_selftest(void) {
         netstate_apply(ev);
         struct network got = getNetwork();
         netstate_format(&got, got_str, sizeof(got_str));
-
-        /* Show only the arguments this event type uses */
-        char args[8] = "";
-        bool is_link_event = ev->type == CANLINK_UP || ev->type == CANLINK_DOWN;
-        bool is_node_event = ev->type == NODE_UP || ev->type == NODE_DOWN;
-        if (is_link_event) {
-            snprintf(args, sizeof(args), "N%u %c", ev->node, ev->bus == BUS_A ? 'A' : 'B');
-        } else if (is_node_event) {
-            snprintf(args, sizeof(args), "N%u", ev->node);
-        }
+        net_event_format(ev, ev_str, sizeof(ev_str));
 
         bool pass = network_equal(&got, &steps[i].expect);
-        printf("[%2zu] %-13s %-4s -> %s  %s\n", i + 1, event_names[ev->type], args, got_str,
-               pass ? "PASS" : "FAIL");
+        printf("[%2zu] %-17s -> %s  %s\n", i + 1, ev_str, got_str, pass ? "PASS" : "FAIL");
         if (!pass) {
             netstate_format(&steps[i].expect, expect_str, sizeof(expect_str));
             printf("     expected %s\n", expect_str);
@@ -165,6 +219,6 @@ int netstate_selftest(void) {
     printf("netstate selftest: %d/%d PASS\n", (int)NUM_STEPS - failures, (int)NUM_STEPS);
 
     /* Leave the graph as at boot (all down) so the shell starts clean */
-    memset(&graph, 0, sizeof(graph));
+    netstate_reset();
     return failures;
 }
