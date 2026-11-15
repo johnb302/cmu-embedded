@@ -38,10 +38,23 @@ Frames (`shared/raft.h`): one CAN ID per type per sender (REF `0x000`+node, APPE
 **Pins:** STM32 LEADER PA0 (A0), SYNC PA8 (D7), REF_RX PC8 (CN10-2). Pi LEADER BCM 16 (pin 36), SYNC BCM 12 (pin 32), REF_RX BCM 27 (pin 13). LEDs still need wiring.
 **Later:** REF_RX flips on both bus copies of a REF, so it pulses instead of toggling. In step 7, act only on the first copy (match the cycle counter).
 
-### 4. Log replication
+### 4. Log replication — IN PROGRESS
 **Adds:** an event sent to the leader is replicated to followers and committed once a majority has it. Events sent to a follower get redirected to the leader.
 **Verify:** submit an event from any node's shell. `log show` and `net show` match on every node.
-**Shell (moved from step 2):** `log show`; `net node|link|cockpit` submits through Raft instead of applying directly, holding the Raft lock (`net_shell.c` doesn't take it today). The Pi needs the same on stdin. `raft config` is optional: the config is one header, identical on every node by construction.
+**Done (2026-11-15), in `shared/`, tested on the Mac:**
+- Frames (`raft.h`): APPEND carries one entry. APPEND_RESP `0x048`+node: success + the index it matches through, or failure + how far it can match. EVENT `0x060`+node: sequence number + event code. Confirm with the TA along with the rest.
+- `raft_submit(event)`: on the leader, appends; on a follower, sends an EVENT that only the leader acts on (the redirect).
+- Leader: nextIndex/matchIndex per follower, one entry in flight to each (resent every 100 ms until acknowledged). Commits an entry from its own term once a majority holds it, then sends an empty APPEND right away so followers apply it too.
+- Follower: Figure 2's AppendEntries receiver: check prev, drop conflicting uncommitted entries, append, commit up to min(leaderCommit, last matching index). One reply per APPEND.
+- Each APPEND and EVENT is acted on once, not once per bus: each sender's last 8 frames are remembered, because back-to-back frames can arrive A1 A2 B1 B2 (the sim caught a single-slot version appending duplicates).
+- `shared/test/sim.c`: all three nodes in one process on two simulated buses. Covers submits on the leader and followers, a node off and back, a reboot (empty log) catching up, and no commit without a majority.
+- RAM with the whole log linked: N3 88%, N2 89% (10.4 KB free).
+
+**Left:**
+- Shell (moved from step 2): `log show`; `net node|link|cockpit` calls `raft_submit` instead of applying directly, holding the Raft lock (`net_shell.c` doesn't take it today). The Pi needs the same on stdin. `raft config` is optional: the config is one header, identical on every node by construction.
+- Board check: the verify line above, plus `candump` showing APPEND_RESP and EVENT frames.
+
+**Known limit (until step 9):** logs live in RAM. A rebooted follower catches up on its own (sim 4.7). A rebooted Pi comes back as leader of term 1 with an empty log while the followers keep theirs, so its new entry 1 has the same index and term as their old entry 1 and they'd keep the old one. After restarting the Pi, restart both STM32s too.
 
 ### 5. Leader election
 **Adds:** when the leader's heartbeats stop, followers time out at random offsets, vote, and elect a new leader in a new term. A "random leader" boot mode with no preset leader.
@@ -88,4 +101,4 @@ Console: `picocom -b 115200 /dev/ttyACMx` (quit: Ctrl-A, Ctrl-X). On a Mac: `scr
 
 Pi (from the Mac, repo root): `cockpit/deploy.sh` copies `cockpit/` and `shared/` to `~/lab5` on the Pi and builds there. Then on the Pi, `~/lab5/cockpit/run_cockpit.sh` starts it; it also stops the Lab 3 cockpit if that's running. Log: `~/lab5/cockpit/cockpit.log`.
 
-Shared code on the Mac, no board: `make -C shared/test` (should end `ALL PASS`).
+Shared code on the Mac, no board: `make -C shared/test` runs `host_test` (one node, frames by hand) and then `sim` (three nodes on two simulated buses). Both should end `ALL PASS`.

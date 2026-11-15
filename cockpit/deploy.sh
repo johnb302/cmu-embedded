@@ -10,6 +10,9 @@ cd "$(dirname "$0")/.."
 DIRS="cockpit"
 [ -d shared ] && DIRS="$DIRS shared"
 
-# --delete drops files removed from the repo; the excludes keep the Pi's binary and logs
-rsync -a --delete --exclude cockpit/cockpit --exclude '*.log' --exclude fp.fifo $DIRS "$HOST:lab5/"
+# --delete drops files removed from the repo; the excludes keep the Pi's binary and logs,
+# and leave out the Mac's test binaries (make -C shared/test on the Pi builds its own)
+rsync -a --delete --exclude cockpit/cockpit --exclude '*.log' --exclude fp.fifo \
+    --exclude shared/test/host_test --exclude shared/test/sim --exclude 'shared/test/*.so' \
+    $DIRS "$HOST:lab5/"
 ssh "$HOST" 'make -C lab5/cockpit'

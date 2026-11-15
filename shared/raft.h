@@ -12,8 +12,10 @@
  * and implements raft_platform_send(). Nothing in shared/ is thread-safe: the platform
  * holds its one Raft lock around every call in.
  *
- * Step 3 (fixed leader): the leader sends REF every heartbeat_ms and an empty APPEND
- * every 100 ms; followers track it. No elections, no replication yet.
+ * Steps 3-4 (fixed leader): the leader sends REF every heartbeat_ms and an empty APPEND
+ * every 100 ms. Events reach the leader's log through raft_submit() (EVENT frames from
+ * followers); the leader sends each entry in an APPEND and commits it once a majority
+ * holds it. No elections yet (step 5).
  */
 
 #include <stdbool.h>
@@ -66,6 +68,14 @@ static inline bool raft_is_frame(uint16_t id) {
  * APPEND  b0 term | b1-2 prevLogIndex LE | b3 prevLogTerm | b4 entry term |
  *         b5 entry event (net_event_encode code), 0 = none (an empty APPEND) |
  *         b6-7 leaderCommit LE. An empty APPEND's prev is the leader's last entry.
+ *
+ * APPEND_RESP  b0 term | b1 1 = success, 0 = failure | b2-3 index LE. Success: the
+ *         follower's log matches the leader's through index (its matchIndex). Failure: it
+ *         can't match past index, so the leader resends from index + 1.
+ *
+ * EVENT   b0 term (not checked: a client request isn't tied to a term) | b1 sequence
+ *         number, +1 per event, so the leader appends each event once |
+ *         b2 event (net_event_encode code)
  */
 
 /* ------------------------------- the API ------------------------------- */
@@ -84,6 +94,15 @@ uint8_t raft_get_term(void);
 uint8_t raft_get_leader(void);     /* RAFT_NODE_NONE if not known */
 int64_t raft_last_heard(void);     /* follower: when the leader was last heard */
 bool raft_in_sync(int64_t now_ms); /* the SYNC LED */
+
+/*
+ * A local client's event (a net_event_encode code). On the leader it becomes the next log
+ * entry and the index is returned. On a follower it goes to the leader in an EVENT frame
+ * (the Part 1 redirect) and 0 is returned; the entry arrives when the leader replicates
+ * it. Fire and forget: if the leader dies first, the event is lost.
+ * -EINVAL for a bad code, -EAGAIN while no leader is known, -ENOSPC if the log is full.
+ */
+int raft_submit(uint8_t event);
 
 /*
  * Each platform implements this: send one 8-byte frame on both buses with byte 0

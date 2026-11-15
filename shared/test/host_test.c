@@ -9,8 +9,10 @@
 
 static int64_t now;      /* simulated ms */
 static bool print_tx;    /* print each frame sent, or only count them */
-static int refs, appends;
+static int refs, appends, resps, events;
 static uint8_t last_append[8]; /* data of the last APPEND sent */
+static uint8_t last_resp[8];   /* ... APPEND_RESP */
+static uint8_t last_event[8];  /* ... EVENT */
 static int failures;
 
 /* Stand-in for the CAN send hook: count each frame, and print it if asked */
@@ -20,6 +22,12 @@ void raft_platform_send(uint16_t id, uint8_t data[8]) {
     } else if (RAFT_ID_TYPE(id) == RAFT_ID_APPEND) {
         appends++;
         memcpy(last_append, data, sizeof(last_append));
+    } else if (RAFT_ID_TYPE(id) == RAFT_ID_APPEND_RESP) {
+        resps++;
+        memcpy(last_resp, data, sizeof(last_resp));
+    } else if (RAFT_ID_TYPE(id) == RAFT_ID_EVENT) {
+        events++;
+        memcpy(last_event, data, sizeof(last_event));
     }
     if (print_tx) {
         printf("  t=%3lld ms  tx 0x%03X ", (long long)now, id);
@@ -275,6 +283,113 @@ static void follower(void) {
     check("frame with our own ID (relayed back): ignored", raft_get_term() == 2);
 }
 
+/* ---- step 4: one node's side of replication. The three together run in sim.c. ---- */
+
+/* Deliver an APPEND (layout in raft.h) */
+static void rx_append(uint8_t leader, uint8_t term, uint16_t prev, uint8_t prev_term, uint8_t entry_term,
+                      uint8_t event, uint16_t commit, int64_t t) {
+    uint8_t data[8] = {term, prev & 0xFF, prev >> 8, prev_term, entry_term, event, commit & 0xFF, commit >> 8};
+    now = t;
+    raft_on_frame(RAFT_ID(RAFT_ID_APPEND, leader), data, t);
+}
+
+/* The last APPEND_RESP said this */
+static bool replied(bool success, uint16_t index) {
+    return last_resp[1] == success && (last_resp[2] | last_resp[3] << 8) == index;
+}
+
+/* 4.1: Figure 2's AppendEntries receiver, including what only a later leader would send */
+static void follower_append(void) {
+    printf("\nraft 4.1: N2 follower takes APPENDs\n");
+    uint8_t n2_up = code(NODE_UP, 2, 0);
+    uint8_t n2_a = code(CANLINK_UP, 2, NET_BUS_A);
+    uint8_t n2_b = code(CANLINK_UP, 2, NET_BUS_B);
+    uint8_t n3_up = code(NODE_UP, 3, 0);
+    uint8_t n3_a = code(CANLINK_UP, 3, NET_BUS_A);
+    raft_log_init();
+    raft_init(RAFT_NODE_STEERING, 0);
+    resps = 0;
+
+    rx_append(1, 1, 0, 0, 1, n2_up, 0, 10);
+    check("entry 1: appended, not applied; reply success 1",
+          raft_log_last_index() == 1 && raft_log_commit_index() == 0 && strcmp(graph(), ALL_DOWN) == 0 &&
+              resps == 1 && replied(true, 1));
+    rx_append(1, 1, 0, 0, 1, n2_up, 0, 11);
+    check("its bus B copy 1 ms later: ignored, no second reply", raft_log_last_index() == 1 && resps == 1);
+    rx_append(1, 1, 1, 1, 1, n2_a, 1, 20);
+    check("entry 2 with leaderCommit 1: entry 1 applied; reply success 2",
+          raft_log_last_index() == 2 && raft_log_commit_index() == 1 &&
+              strcmp(graph(), "N1 down | N2 up A- B- | N3 down | cockpit ERROR") == 0 && replied(true, 2));
+    rx_append(1, 1, 2, 1, 0, 0, 2, 100);
+    check("empty APPEND, prev 2 term 1, commit 2: entry 2 applied",
+          raft_log_commit_index() == 2 && strcmp(graph(), "N1 down | N2 up A+ B- | N3 down | cockpit ERROR") == 0 &&
+              replied(true, 2));
+    rx_append(1, 1, 5, 1, 0, 0, 2, 200);
+    check("prev 5, past our last: reply failure 2 (we match through 2 at most)",
+          replied(false, 2) && raft_log_last_index() == 2);
+    rx_append(1, 1, 2, 7, 0, 0, 2, 300);
+    check("prev 2 but term 7, not ours: reply failure 1", replied(false, 1));
+
+    /* N1 leaves entries 3 and 4 uncommitted, then N3 leads term 2. Its log has the same
+     * entry 3 but a different entry 4. */
+    rx_append(1, 1, 2, 1, 1, n2_b, 2, 400);
+    rx_append(1, 1, 3, 1, 1, n3_up, 2, 410);
+    rx_append(3, 2, 2, 1, 1, n2_b, 5, 500);
+    check("N3 (term 2) resends entry 3 with commit 5: apply through 3, not our stale 4",
+          raft_get_term() == 2 && raft_get_leader() == 3 && raft_log_commit_index() == 3 && replied(true, 3));
+    rx_append(3, 2, 3, 1, 2, n3_a, 5, 510);
+    check("its entry 4 (term 2) replaces our stale one, then applies",
+          raft_log_last_index() == 4 && raft_log_term(4) == 2 && raft_log_event(4) == n3_a &&
+              raft_log_commit_index() == 4 && replied(true, 4));
+    rx_append(3, 2, 0, 0, 2, n3_up, 5, 520);
+    check("an entry 1 that conflicts with our committed one: refused, ours kept",
+          replied(false, 0) && raft_log_term(1) == 1 && raft_log_last_index() == 4);
+    raft_log_init();
+}
+
+/* 4.2: raft_submit on a leader and on a follower, and EVENT at the leader */
+static void submit(void) {
+    printf("\nraft 4.2: raft_submit and EVENT\n");
+    raft_log_init();
+    raft_init(RAFT_NODE_COCKPIT, 0);
+    check("leader: appends to its own log, returns the index",
+          raft_submit(code(NODE_UP, 1, 0)) == 1 && raft_log_last_index() == 1);
+    check("a bad code or 0: -EINVAL", raft_submit(0xFF) == -EINVAL && raft_submit(NET_EVENT_NONE) == -EINVAL);
+
+    uint8_t ev[8] = {1, 7, code(NODE_DOWN, 3, 0)};
+    raft_on_frame(RAFT_ID(RAFT_ID_EVENT, 2), ev, 10);
+    raft_on_frame(RAFT_ID(RAFT_ID_EVENT, 2), ev, 11);
+    check("EVENT from N2, then its bus B copy: appended once as entry 2",
+          raft_log_last_index() == 2 && raft_log_event(2) == code(NODE_DOWN, 3, 0));
+    ev[1] = 8;
+    raft_on_frame(RAFT_ID(RAFT_ID_EVENT, 2), ev, 12);
+    check("the same event with the next seq: a new entry 3", raft_log_last_index() == 3);
+    uint8_t first[8] = {1, 9, code(NODE_UP, 3, 0)};
+    uint8_t second[8] = {1, 10, code(CANLINK_UP, 3, NET_BUS_A)};
+    raft_on_frame(RAFT_ID(RAFT_ID_EVENT, 2), first, 20);
+    raft_on_frame(RAFT_ID(RAFT_ID_EVENT, 2), second, 20);
+    raft_on_frame(RAFT_ID(RAFT_ID_EVENT, 2), first, 21);
+    raft_on_frame(RAFT_ID(RAFT_ID_EVENT, 2), second, 21);
+    check("two EVENTs arriving A1 A2 B1 B2: two entries (4, 5), not four", raft_log_last_index() == 5);
+
+    raft_log_init();
+    raft_init(RAFT_NODE_STEERING, 0);
+    events = 0;
+    check("follower: sends EVENT seq 0 to the leader, appends nothing itself",
+          raft_submit(code(CANLINK_DOWN, 3, NET_BUS_B)) == 0 && events == 1 && last_event[1] == 0 &&
+              last_event[2] == code(CANLINK_DOWN, 3, NET_BUS_B) && raft_log_last_index() == 0);
+    raft_submit(code(NODE_UP, 3, 0));
+    check("its next event: seq 1", events == 2 && last_event[1] == 1);
+    raft_on_frame(RAFT_ID(RAFT_ID_EVENT, 3), ev, 20);
+    check("a follower ignores another node's EVENT", raft_log_last_index() == 0);
+
+    uint8_t resp[8] = {2}; /* a term 2 frame that isn't from a leader */
+    raft_on_frame(RAFT_ID(RAFT_ID_APPEND_RESP, 3), resp, 30);
+    check("term 2 began and nobody leads it yet: -EAGAIN",
+          raft_get_leader() == RAFT_NODE_NONE && raft_submit(code(NODE_UP, 3, 0)) == -EAGAIN);
+    raft_log_init();
+}
+
 /* 3.3: a leader that hears a higher term steps down and stops sending */
 static void leader_steps_down(void) {
     printf("\nraft 3.3: N1 leader hears term 2\n");
@@ -299,6 +414,8 @@ int main(void) {
     leader_timing();
     follower();
     leader_steps_down();
+    follower_append();
+    submit();
     printf("\n%s: %d failure(s)\n", failures == 0 ? "ALL PASS" : "FAILED", failures);
     return failures == 0 ? 0 : 1;
 }

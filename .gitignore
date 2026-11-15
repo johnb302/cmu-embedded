@@ -19,3 +19,5 @@
 /cockpit/*.log
 /cockpit/fp.fifo
 /shared/test/host_test
+/shared/test/sim
+/shared/test/*.so
