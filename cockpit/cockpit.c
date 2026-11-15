@@ -8,9 +8,11 @@
  *          state); blinker master (BLINK on change and every 500 ms toggle).
  * CAN_RX : both interfaces; (ID, seq) dedup like the STM32s; heartbeats,
  *          FAULT and FORCE. FORCE goes back to the proxy over UDP.
- * main   : keyboard. "b" + Enter = corrupt the next CTRL (bad-input test),
- *          "q" = quit. Status line once a second. Running in the
- *          background (no keyboard): `kill -USR1 <pid>` injects instead.
+ * main   : console, one command per line on stdin: "b" = corrupt the next CTRL
+ *          (bad-input test), "q" = quit, and Lab 5's net and raft commands, the
+ *          same as the STM32 shell ("h" lists them). run_cockpit.sh feeds stdin
+ *          from cmd.fifo. Status line once a second. `kill -USR1 <pid>` also
+ *          injects a bad CTRL.
  *
  * Bus naming: the bus is decided by the MCP2515's chip select, not by the
  * Linux name. CE0 (spi0.0) is bus A, CE1 (spi0.1) is bus B; the names
@@ -46,8 +48,10 @@
 #include <linux/can/raw.h>
 
 #include "state.h"
+#include "netstate.h"    /* ../shared: the network graph the log builds */
 #include "raft.h"        /* ../shared: the Raft agent, same code as the STM32s */
 #include "raft_config.h"
+#include "raft_log.h"
 
 /* ------------------------------ catalog ------------------------------- */
 
@@ -794,6 +798,180 @@ static void *periodic_thread(void *arg)
 	return NULL;
 }
 
+/* ---------------------------- console (Lab 5) ---------------------------- */
+/*
+ * The STM32 shell's Raft commands (src_lab5/net_shell.c, raft_node.c), one per line:
+ *   net show | net node up|down <1-3> | net link up|down <1-3> <A|B> | net cockpit ok|error
+ *   raft status | raft log [count|all] | raft config
+ */
+
+#define COMMIT_WAIT_MS   500 /* the leader resends every 100 ms, so several tries */
+#define COMMIT_POLL_MS   10
+#define LOG_SHOW_DEFAULT 10  /* entries `raft log` prints without a count */
+
+static void console_help(void)
+{
+	printf("commands: b = inject bad CTRL | q = quit | net show | net %s\n"
+	       "          raft status | raft log [count|all] | raft config\n", NET_EVENT_USAGE);
+}
+
+/* `raft status`, and the last line of the status every second */
+static void print_raft_status(void)
+{
+	pthread_mutex_lock(&raft_lock);
+	enum raft_role role = raft_get_role();
+	uint8_t term = raft_get_term();
+	uint8_t leader = raft_get_leader();
+	bool sync = raft_in_sync(now_ms());
+	pthread_mutex_unlock(&raft_lock);
+	printf("raft %s | term %u | leader N%u | SYNC %s\n", raft_role_name(role), term, leader,
+	       sync ? "on" : "off");
+}
+
+static void console_net_show(void)
+{
+	char str[96];
+
+	pthread_mutex_lock(&raft_lock);
+	struct network net = getNetwork();
+	pthread_mutex_unlock(&raft_lock);
+	netstate_format(&net, str, sizeof(str));
+	printf("%s\n", str);
+}
+
+/* The first entry after index `after` holding event, once it commits here; 0 if it hasn't
+ * within COMMIT_WAIT_MS */
+static uint16_t wait_committed(uint8_t event, uint16_t after)
+{
+	for (int waited = 0;; waited += COMMIT_POLL_MS) {
+		pthread_mutex_lock(&raft_lock);
+		uint16_t index = raft_log_find_committed(event, after);
+		pthread_mutex_unlock(&raft_lock);
+		if (index != 0 || waited >= COMMIT_WAIT_MS) {
+			return index;
+		}
+		usleep(COMMIT_POLL_MS * 1000);
+	}
+}
+
+/* net node|link|cockpit ...: argv[0] is the subcommand. The same steps as net_shell.c. */
+static void console_submit(int argc, char **argv)
+{
+	struct net_event ev;
+	char name[24];
+
+	if (net_event_parse(argc, argv, &ev) < 0) {
+		printf("usage: net %s\n", NET_EVENT_USAGE);
+		return;
+	}
+	uint8_t event = net_event_encode(&ev);
+
+	net_event_format(&ev, name, sizeof(name));
+	pthread_mutex_lock(&raft_lock);
+	uint16_t committed = raft_log_commit_index();
+	int ret = raft_submit(event);
+	uint8_t leader = raft_get_leader();
+	pthread_mutex_unlock(&raft_lock);
+
+	if (ret < 0) {
+		printf("%s: not submitted, %s\n", name,
+		       ret == -EAGAIN ? "no leader known" : (ret == -ENOSPC ? "log full" : "bad event"));
+		return;
+	}
+	if (ret > 0) {
+		printf("%s: appended as entry %d (this node leads)\n", name, ret);
+	} else {
+		printf("%s: sent to leader N%u\n", name, leader);
+	}
+	/* The leader knows the index. A follower looks past what was committed when it sent. */
+	uint16_t index = wait_committed(event, ret > 0 ? (uint16_t)(ret - 1) : committed);
+
+	if (index == 0) {
+		printf("not committed after %d ms: is a majority up?\n", COMMIT_WAIT_MS);
+		return;
+	}
+	printf("ok: committed as entry %u\n", index);
+	console_net_show();
+}
+
+/* raft log [count|all]: the newest entries, the lock taken per entry as on the STM32s */
+static void console_log(int argc, char **argv)
+{
+	int count = LOG_SHOW_DEFAULT;
+
+	if (argc > 1) {
+		count = strcmp(argv[1], "all") == 0 ? RAFT_LOG_SIZE : atoi(argv[1]);
+		if (count <= 0) {
+			printf("usage: raft log [count|all]\n");
+			return;
+		}
+	}
+	pthread_mutex_lock(&raft_lock);
+	uint16_t last = raft_log_last_index();
+	uint16_t commit = raft_log_commit_index();
+	uint8_t term = raft_get_term();
+	pthread_mutex_unlock(&raft_lock);
+
+	printf("N%d log: %u entries, commit %u, term %u\n", RAFT_NODE_COCKPIT, last, commit, term);
+	for (int i = last > count ? last - count + 1 : 1; i <= last; i++) {
+		char line[64];
+
+		pthread_mutex_lock(&raft_lock);
+		int ret = raft_log_format((uint16_t)i, line, sizeof(line));
+		pthread_mutex_unlock(&raft_lock);
+		if (ret < 0) {
+			break; /* replaced by the leader's entries meanwhile */
+		}
+		printf("%s\n", line);
+	}
+}
+
+static void console_config(void)
+{
+	char line[192];
+
+	raft_config_format(line, sizeof(line));
+	printf("node %d | %s\n", RAFT_NODE_COCKPIT, line);
+}
+
+/* One console line. Returns false for q. */
+static bool console_command(char *line)
+{
+	char *argv[8];
+	char *save;
+	int argc = 0;
+
+	for (char *tok = strtok_r(line, " \t\r\n", &save); tok != NULL && argc < 8;
+	     tok = strtok_r(NULL, " \t\r\n", &save)) {
+		argv[argc++] = tok;
+	}
+	if (argc == 0) {
+		return true;
+	}
+	bool is_raft = argc >= 2 && strcmp(argv[0], "raft") == 0;
+
+	if (strcmp(argv[0], "q") == 0) {
+		return false;
+	} else if (strcmp(argv[0], "b") == 0) {
+		atomic_store(&inject_bad, true);
+	} else if (argc >= 2 && strcmp(argv[0], "net") == 0) {
+		if (strcmp(argv[1], "show") == 0) {
+			console_net_show();
+		} else {
+			console_submit(argc - 1, argv + 1);
+		}
+	} else if (is_raft && strcmp(argv[1], "status") == 0) {
+		print_raft_status();
+	} else if (is_raft && strcmp(argv[1], "log") == 0) {
+		console_log(argc - 1, argv + 1);
+	} else if (is_raft && strcmp(argv[1], "config") == 0) {
+		console_config();
+	} else {
+		console_help();
+	}
+	return true;
+}
+
 /* --------------------------------- main -------------------------------- */
 
 static void on_sigusr1(int sig)
@@ -834,6 +1012,7 @@ int main(void)
 	bool rt = (geteuid() == 0);
 
 	setvbuf(stdout, NULL, _IOLBF, 0);
+	setvbuf(stdin, NULL, _IONBF, 0); /* no line waits in stdio's buffer where poll() can't see it */
 	signal(SIGUSR1, on_sigusr1);
 	for (int z = 0; z <= ZONE_N3; z++) {
 		remote_since[z] = -1;
@@ -882,7 +1061,7 @@ int main(void)
 	start_thread(raft_thread, 75, rt);      /* REF on time: below the brake chain, above CAN_RX */
 	start_thread(can_rx_thread, 70, rt);
 	start_thread(periodic_thread, 60, rt);
-	printf("cockpit up%s. Commands: b = inject bad CTRL, q = quit\n",
+	printf("cockpit up%s. Commands: b = inject bad CTRL, q = quit, h = the Raft ones\n",
 	       rt ? " (SCHED_FIFO, core 3)" : " (normal priority; sudo for SCHED_FIFO)");
 
 	bool have_stdin = true;
@@ -896,14 +1075,12 @@ int main(void)
 			wait = 0;
 		}
 		if (have_stdin && poll(&in, 1, (int)wait) > 0) {
-			char line[32];
+			char line[128];
 
 			if (fgets(line, sizeof(line), stdin) == NULL) {
-				have_stdin = false; /* background: no keyboard, use SIGUSR1 */
-			} else if (line[0] == 'b') {
-				atomic_store(&inject_bad, true);
-			} else if (line[0] == 'q') {
-				break;
+				have_stdin = false; /* stdin is /dev/null: no console, use SIGUSR1 */
+			} else if (!console_command(line)) {
+				break; /* q */
 			}
 			continue;
 		}
@@ -929,15 +1106,7 @@ int main(void)
 		       atomic_load(&raw_steer), atomic_load(&raw_thr), atomic_load(&raw_brk),
 		       atomic_exchange(&force_count, 0), fv, atomic_exchange(&relayed_count, 0),
 		       atomic_exchange(&tx_fail[BUS_A], 0), atomic_exchange(&tx_fail[BUS_B], 0));
-
-		pthread_mutex_lock(&raft_lock);
-		enum raft_role role = raft_get_role();
-		uint8_t term = raft_get_term();
-		uint8_t leader = raft_get_leader();
-		bool sync = raft_in_sync(now_ms());
-		pthread_mutex_unlock(&raft_lock);
-		printf("raft %s | term %u | leader N%u | SYNC %s\n", raft_role_name(role), term, leader,
-		       sync ? "on" : "off");
+		print_raft_status();
 	}
 	gpio_put(GPIO_ERR, true);
 	return 0;

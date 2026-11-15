@@ -1,14 +1,17 @@
 /*
  * STM32 side of the Raft agent: the RAFT thread, Raft frames in and out, the LEADER
- * and SYNC LEDs, the REF_RX test point, and `raft status` in the shell.
+ * and SYNC LEDs, the REF_RX test point, and `raft status|log|config` in the shell.
  * The protocol is in shared/raft.c; this file only feeds it.
  */
 
 #include "raft_node.h"
 #include "raft.h"
 #include "raft_config.h"
+#include "raft_log.h"
 #include "config.h"
 #include "can_bus.h"
+#include <stdlib.h>
+#include <string.h>
 #include <zephyr/kernel.h>
 #include <zephyr/drivers/can.h>
 #include <zephyr/drivers/gpio.h>
@@ -133,7 +136,15 @@ int raft_node_start(void) {
     return 0;
 }
 
-/* ---- Shell: raft status ---- */
+void raft_node_lock(void) {
+    k_mutex_lock(&raft_lock, K_FOREVER);
+}
+
+void raft_node_unlock(void) {
+    k_mutex_unlock(&raft_lock);
+}
+
+/* ---- Shell: raft status | log | config ---- */
 
 static int cmd_status(const struct shell *sh, size_t argc, char **argv) {
     k_mutex_lock(&raft_lock, K_FOREVER);
@@ -151,8 +162,50 @@ static int cmd_status(const struct shell *sh, size_t argc, char **argv) {
     return 0;
 }
 
+#define LOG_SHOW_DEFAULT 10 /* entries `raft log` prints without a count */
+
+/* raft log [count|all]: the newest entries. The lock is taken per entry, so a long log
+ * printing over the console doesn't hold up the RAFT thread. */
+static int cmd_log(const struct shell *sh, size_t argc, char **argv) {
+    int count = LOG_SHOW_DEFAULT;
+    if (argc > 1) {
+        count = strcmp(argv[1], "all") == 0 ? RAFT_LOG_SIZE : atoi(argv[1]);
+        if (count <= 0) {
+            shell_error(sh, "usage: raft log [count|all]");
+            return -EINVAL;
+        }
+    }
+    k_mutex_lock(&raft_lock, K_FOREVER);
+    uint16_t last = raft_log_last_index();
+    uint16_t commit = raft_log_commit_index();
+    uint8_t term = raft_get_term();
+    k_mutex_unlock(&raft_lock);
+
+    shell_print(sh, "N%d log: %u entries, commit %u, term %u", NODE_ID, last, commit, term);
+    for (int i = last > count ? last - count + 1 : 1; i <= last; i++) {
+        char line[64];
+        k_mutex_lock(&raft_lock, K_FOREVER);
+        int ret = raft_log_format((uint16_t)i, line, sizeof(line));
+        k_mutex_unlock(&raft_lock);
+        if (ret < 0) {
+            break; /* replaced by the leader's entries meanwhile */
+        }
+        shell_print(sh, "%s", line);
+    }
+    return 0;
+}
+
+static int cmd_config(const struct shell *sh, size_t argc, char **argv) {
+    char line[192];
+    raft_config_format(line, sizeof(line));
+    shell_print(sh, "node %d | %s", NODE_ID, line);
+    return 0;
+}
+
 SHELL_STATIC_SUBCMD_SET_CREATE(raft_cmds,
     SHELL_CMD_ARG(status, NULL, "Role, term, leader, SYNC", cmd_status, 1, 0),
+    SHELL_CMD_ARG(log, NULL, "log [count|all]: the newest log entries (default 10)", cmd_log, 1, 1),
+    SHELL_CMD_ARG(config, NULL, "The Part 2 config (shared/raft_config.h)", cmd_config, 1, 0),
     SHELL_SUBCMD_SET_END);
 
 SHELL_CMD_REGISTER(raft, &raft_cmds, "Raft agent", NULL);

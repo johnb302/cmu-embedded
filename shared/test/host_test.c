@@ -390,6 +390,70 @@ static void submit(void) {
     raft_log_init();
 }
 
+/* Split a console line on spaces, as cockpit.c and the STM32 shell do, then parse it */
+static int parse(const char *line, struct net_event *ev) {
+    char buf[64];
+    char *argv[8];
+    int argc = 0;
+    snprintf(buf, sizeof(buf), "%s", line);
+    for (char *tok = strtok(buf, " "); tok != NULL && argc < 8; tok = strtok(NULL, " ")) {
+        argv[argc++] = tok;
+    }
+    return net_event_parse(argc, argv, ev);
+}
+
+/* 4.9: what the consoles (net_shell.c and raft_node.c on the STM32s, cockpit.c) build on */
+static void console(void) {
+    printf("\nraft 4.9: console helpers\n");
+    struct net_event ev;
+    check("\"node up 2\", \"link down 3 A\", \"link up 1 b\", \"cockpit error\"",
+          parse("node up 2", &ev) == 0 && net_event_encode(&ev) == code(NODE_UP, 2, 0) &&
+              parse("link down 3 A", &ev) == 0 && net_event_encode(&ev) == code(CANLINK_DOWN, 3, NET_BUS_A) &&
+              parse("link up 1 b", &ev) == 0 && net_event_encode(&ev) == code(CANLINK_UP, 1, NET_BUS_B) &&
+              parse("cockpit error", &ev) == 0 && net_event_encode(&ev) == code(COCKPIT_ERROR, 0, 0));
+    static const char *const bad[] = {"node up 4", "node up 0", "node up 3x", "node sideways 3", "node up 3 A",
+                                      "link up 2 C", "link up 2", "cockpit fine", "bogus up", ""};
+    struct net_event before = ev;
+    int rejected = 0;
+    for (size_t i = 0; i < sizeof(bad) / sizeof(bad[0]); i++) {
+        rejected += parse(bad[i], &ev) == -EINVAL;
+    }
+    check("10 bad lines (node 4, bus C, a word missing or extra...): -EINVAL",
+          rejected == 10 && same_event(&ev, &before));
+
+    raft_log_init();
+    uint8_t n3_a_down = code(CANLINK_DOWN, 3, NET_BUS_A);
+    raft_log_append(1, code(NODE_UP, 3, 0));
+    raft_log_append(1, n3_a_down);
+    raft_log_append(1, code(NODE_UP, 2, 0));
+    raft_log_append(2, n3_a_down);
+    raft_log_commit(3);
+    check("find: the first committed match after `after` (entry 2)",
+          raft_log_find_committed(n3_a_down, 0) == 2 && raft_log_find_committed(n3_a_down, 1) == 2);
+    check("find: a match past commitIndex (entry 4) isn't reported yet",
+          raft_log_find_committed(n3_a_down, 2) == 0);
+    raft_log_commit(4);
+    check("... until it commits", raft_log_find_committed(n3_a_down, 2) == 4);
+    check("find: no entry holds the event: 0", raft_log_find_committed(code(COCKPIT_OK, 0, 0), 0) == 0);
+
+    raft_log_append(2, code(COCKPIT_OK, 0, 0));
+    char line[64];
+    raft_log_format(4, line, sizeof(line));
+    check("format: entry 4", strcmp(line, "    4  term 2   CANLINK_DOWN N3 A") == 0);
+    raft_log_format(5, line, sizeof(line));
+    check("format: entry 5, not committed", strcmp(line, "    5  term 2   COCKPIT_OK  (not committed)") == 0);
+    check("format: index 0 or past the end: -EINVAL, buf untouched",
+          raft_log_format(0, line, sizeof(line)) == -EINVAL && raft_log_format(6, line, sizeof(line)) == -EINVAL &&
+              strcmp(line, "    5  term 2   COCKPIT_OK  (not committed)") == 0);
+    raft_log_init();
+
+    char config[192];
+    raft_config_format(config, sizeof(config));
+    printf("  %s\n", config);
+    check("config: every key through debug, within 192 bytes",
+          strncmp(config, "N=", 2) == 0 && strstr(config, " debug=") != NULL && strlen(config) < sizeof(config) - 1);
+}
+
 /* 3.3: a leader that hears a higher term steps down and stops sending */
 static void leader_steps_down(void) {
     printf("\nraft 3.3: N1 leader hears term 2\n");
@@ -416,6 +480,7 @@ int main(void) {
     leader_steps_down();
     follower_append();
     submit();
+    console();
     printf("\n%s: %d failure(s)\n", failures == 0 ? "ALL PASS" : "FAILED", failures);
     return failures == 0 ? 0 : 1;
 }

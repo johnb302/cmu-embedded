@@ -18,6 +18,7 @@
  * Zeroed statics are an empty log, so nothing needs calling at boot.
  */
 
+#include <stddef.h>
 #include <stdint.h>
 
 /* Empties the log and resets the graph to all down: no entries, nothing applied */
@@ -44,5 +45,14 @@ uint8_t raft_log_last_term(void);       /* term of the last entry; 0 when empty 
 uint8_t raft_log_term(uint16_t index);  /* 0 for index 0 or past the end */
 uint8_t raft_log_event(uint16_t index); /* NET_EVENT_NONE for index 0 or past the end */
 uint16_t raft_log_commit_index(void);   /* Figure 2 commitIndex; 0 = nothing committed */
+
+/* The first committed entry after index `after` that holds event, or 0 if there's none yet.
+ * How a console sees the event it submitted commit, on whichever node it was typed:
+ * Figure 2's "ok" to the client. */
+uint16_t raft_log_find_committed(uint8_t event, uint16_t after);
+
+/* One entry for the console: "    7  term 1   CANLINK_DOWN N3 A", with "  (not committed)"
+ * past commitIndex. -EINVAL (buf untouched) for index 0 or past the last entry. */
+int raft_log_format(uint16_t index, char *buf, size_t len);
 
 #endif /* SHARED_RAFT_LOG_H_ */

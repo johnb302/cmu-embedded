@@ -38,9 +38,9 @@ Frames (`shared/raft.h`): one CAN ID per type per sender (REF `0x000`+node, APPE
 **Pins:** STM32 LEADER PA0 (A0), SYNC PA8 (D7), REF_RX PC8 (CN10-2). Pi LEADER BCM 16 (pin 36), SYNC BCM 12 (pin 32), REF_RX BCM 27 (pin 13). LEDs still need wiring.
 **Later:** REF_RX flips on both bus copies of a REF, so it pulses instead of toggling. In step 7, act only on the first copy (match the cycle counter).
 
-### 4. Log replication — IN PROGRESS
+### 4. Log replication — DONE
 **Adds:** an event sent to the leader is replicated to followers and committed once a majority has it. Events sent to a follower get redirected to the leader.
-**Verify:** submit an event from any node's shell. `log show` and `net show` match on every node.
+**Verify:** submit an event from any node's console, e.g. `net link down 3 A`, and it prints `ok: committed as entry N`. `raft log` and `net show` match on every node.
 **Done (2026-11-15), in `shared/`, tested on the Mac:**
 - Frames (`raft.h`): APPEND carries one entry. APPEND_RESP `0x048`+node: success + the index it matches through, or failure + how far it can match. EVENT `0x060`+node: sequence number + event code. Confirm with the TA along with the rest.
 - `raft_submit(event)`: on the leader, appends; on a follower, sends an EVENT that only the leader acts on (the redirect).
@@ -49,10 +49,18 @@ Frames (`shared/raft.h`): one CAN ID per type per sender (REF `0x000`+node, APPE
 - Each APPEND and EVENT is acted on once, not once per bus: each sender's last 8 frames are remembered, because back-to-back frames can arrive A1 A2 B1 B2 (the sim caught a single-slot version appending duplicates).
 - `shared/test/sim.c`: all three nodes in one process on two simulated buses. Covers submits on the leader and followers, a node off and back, a reboot (empty log) catching up, and no commit without a majority.
 - RAM with the whole log linked: N3 88%, N2 89% (10.4 KB free).
+- Consoles: the same commands on the STM32 shell and the Pi's stdin.
+  - `net node|link|cockpit ...` submits through `raft_submit` with the Raft lock held, waits up to 500 ms for the entry to commit on that node (Figure 2's "ok"), then prints the graph. Nothing applies an event directly any more, so a board with no leader up prints `not committed after 500 ms`.
+  - `net show`, `raft status`, `raft log [count|all]` (the newest 10 by default), `raft config` (the Part 2 keys). It's `raft log`, not `log show`: Zephyr's own `log` command would clash if logging is ever turned on.
+  - The parser, the "ok" lookup and the formats are in `shared/` (host test 4.9; sim 4.4 checks the "ok" points at the same entry on every node).
+  - Pi: `run_cockpit.sh` feeds stdin from `cmd.fifo`, like the fake proxy's `fp.fifo`.
 
-**Left:**
-- Shell (moved from step 2): `log show`; `net node|link|cockpit` calls `raft_submit` instead of applying directly, holding the Raft lock (`net_shell.c` doesn't take it today). The Pi needs the same on stdin. `raft config` is optional: the config is one header, identical on every node by construction.
-- Board check: the verify line above, plus `candump` showing APPEND_RESP and EVENT frames.
+**Board check (2026-11-15, all three nodes):**
+- Submits from every node commit. N2 and N3 send theirs to the leader; the Pi appends its own. Each prints `ok: committed as entry N` and the new graph. After 18 entries, `raft log` and `net show` are identical on N1, N2 and N3.
+- `candump`: EVENT `0x062` → APPEND `0x041` carrying the entry → APPEND_RESP `0x04A`/`0x04B` → empty APPEND with the new leaderCommit. 8.4 ms from the EVENT to the commit going out.
+- A reset follower (N3, empty log) answers "no entry 9 here", then the leader replays entries 1–9 one per round trip: 90 ms in all, about 10 ms per entry.
+- `raft config` prints the same line on every node. The Pi console works through `cmd.fifo`.
+- Hardware: N3's ST-Link stopped passing typed input three times, each right after a submit typed on N3. Board output and Raft kept working, and replugging its USB fixed it. The same submits typed on N2 never did it, so it's N3's ST-Link, cable or port, not the firmware. Before the demo, try another cable or port, or update the ST-Link firmware (V2J33M25).
 
 **Known limit (until step 9):** logs live in RAM. A rebooted follower catches up on its own (sim 4.7). A rebooted Pi comes back as leader of term 1 with an empty log while the followers keep theirs, so its new entry 1 has the same index and term as their old entry 1 and they'd keep the old one. After restarting the Pi, restart both STM32s too.
 
@@ -99,6 +107,6 @@ STM32_Programmer_CLI -c port=SWD sn=<ST-Link serial> mode=UR reset=HWrst -w buil
 
 Console: `picocom -b 115200 /dev/ttyACMx` (quit: Ctrl-A, Ctrl-X). On a Mac: `screen /dev/cu.usbmodemXXXX 115200` (quit: Ctrl-A, K, y).
 
-Pi (from the Mac, repo root): `cockpit/deploy.sh` copies `cockpit/` and `shared/` to `~/lab5` on the Pi and builds there. Then on the Pi, `~/lab5/cockpit/run_cockpit.sh` starts it; it also stops the Lab 3 cockpit if that's running. Log: `~/lab5/cockpit/cockpit.log`.
+Pi (from the Mac, repo root): `cockpit/deploy.sh` copies `cockpit/` and `shared/` to `~/lab5` on the Pi and builds there. Then on the Pi, `~/lab5/cockpit/run_cockpit.sh` starts it; it also stops the Lab 3 cockpit if that's running. Log: `~/lab5/cockpit/cockpit.log`. Console: `echo "raft log" > ~/lab5/cockpit/cmd.fifo` (`h` lists the commands), replies in the log. Or stop it (`pkill -x cockpit`) and run `./cockpit` in the foreground to type them.
 
 Shared code on the Mac, no board: `make -C shared/test` runs `host_test` (one node, frames by hand) and then `sim` (three nodes on two simulated buses). Both should end `ALL PASS`.

@@ -11,4 +11,9 @@ int raft_node_start(void);
 /* From the CAN RX path: queue one Raft frame for the RAFT thread */
 void raft_node_post(const struct can_frame *f);
 
+/* The Raft lock, for shell commands that call into shared/ (net_shell.c). Hold it only
+ * around the calls: the RAFT thread takes it every tick. */
+void raft_node_lock(void);
+void raft_node_unlock(void);
+
 #endif /* APP_RAFT_NODE_H_ */

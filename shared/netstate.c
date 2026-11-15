@@ -82,6 +82,55 @@ void net_event_format(const struct net_event *ev, char *buf, size_t len) {
     }
 }
 
+/* 1 for yes, 0 for no, -1 for any other word */
+static int parse_word(const char *arg, const char *yes, const char *no) {
+    if (strcmp(arg, yes) == 0) {
+        return 1;
+    }
+    return strcmp(arg, no) == 0 ? 0 : -1;
+}
+
+/* "1" to "3"; anything else ("4", "3x", "") gives 0, which event_valid() rejects */
+static uint8_t parse_node(const char *arg) {
+    bool digit = arg[0] >= '1' && arg[0] <= '0' + NET_NODES && arg[1] == '\0';
+    return digit ? (uint8_t)(arg[0] - '0') : 0;
+}
+
+/* A or B, either case; anything else gives NET_BUSES, which event_valid() rejects */
+static uint8_t parse_bus(const char *arg) {
+    if (strcmp(arg, "A") == 0 || strcmp(arg, "a") == 0) {
+        return NET_BUS_A;
+    }
+    if (strcmp(arg, "B") == 0 || strcmp(arg, "b") == 0) {
+        return NET_BUS_B;
+    }
+    return NET_BUSES;
+}
+
+int net_event_parse(int argc, char *const argv[], struct net_event *ev) {
+    struct net_event got = {0};
+    int up = -1;
+
+    if (argc == 3 && strcmp(argv[0], "node") == 0) {
+        up = parse_word(argv[1], "up", "down");
+        got.type = up == 1 ? NODE_UP : NODE_DOWN;
+        got.node = parse_node(argv[2]);
+    } else if (argc == 4 && strcmp(argv[0], "link") == 0) {
+        up = parse_word(argv[1], "up", "down");
+        got.type = up == 1 ? CANLINK_UP : CANLINK_DOWN;
+        got.node = parse_node(argv[2]);
+        got.bus = parse_bus(argv[3]);
+    } else if (argc == 2 && strcmp(argv[0], "cockpit") == 0) {
+        up = parse_word(argv[1], "ok", "error");
+        got.type = up == 1 ? COCKPIT_OK : COCKPIT_ERROR;
+    }
+    if (up < 0 || !event_valid(&got)) {
+        return -EINVAL;
+    }
+    *ev = got;
+    return 0;
+}
+
 /* addNode(X): node X is alive again, with no links until addLink */
 static void addNode(uint8_t node) {
     /* No link reset needed: links only come up with addLink, and dropNode cleared them */

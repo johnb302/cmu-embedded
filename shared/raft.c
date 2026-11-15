@@ -489,6 +489,29 @@ const char *raft_role_name(enum raft_role r) {
     return r <= RAFT_LEADER ? names[r] : "?";
 }
 
+static const char *node_name(uint8_t id) {
+    switch (id) {
+    case RAFT_NODE_COCKPIT:
+        return "cockpit";
+    case RAFT_NODE_STEERING:
+        return "steering";
+    case RAFT_NODE_DRIVETRAIN:
+        return "drivetrain";
+    default:
+        return "none";
+    }
+}
+
+/* In the handout's key names (Part 2), e.g. "N=3 default_leader=cockpit heartbeat_ms=20 ..." */
+void raft_config_format(char *buf, size_t len) {
+    snprintf(buf, len,
+             "N=%d default_leader=%s heartbeat_ms=%d missed_heartbeats=%d election_timeout_jitter_ms=%d "
+             "log_size=%d nodes=cockpit:%d,steering:%d,drivetrain:%d debug=%s",
+             RAFT_N, node_name(RAFT_DEFAULT_LEADER), RAFT_HEARTBEAT_MS, RAFT_MISSED_HEARTBEATS,
+             RAFT_ELECTION_JITTER_MS, RAFT_LOG_SIZE, RAFT_NODE_COCKPIT, RAFT_NODE_STEERING,
+             RAFT_NODE_DRIVETRAIN, RAFT_DEBUG ? "yes" : "no");
+}
+
 uint8_t raft_get_term(void) {
     return current_term;
 }

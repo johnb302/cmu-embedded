@@ -75,6 +75,13 @@ int net_event_decode(uint8_t code, struct net_event *ev);
 /* One event, e.g. "CANLINK_UP N2 B", "NODE_DOWN N3", "COCKPIT_OK" */
 void net_event_format(const struct net_event *ev, char *buf, size_t len);
 
+/* An event as the consoles' `net` commands take it, argv[0] first (the STM32 shell and the
+ * Pi's stdin share this, so the syntax is the same on every node):
+ *   node up|down <1-3>   link up|down <1-3> <A|B>   cockpit ok|error
+ * Fills *ev and returns 0, or -EINVAL (*ev untouched) for anything else. */
+#define NET_EVENT_USAGE "node up|down <1-3> | link up|down <1-3> <A|B> | cockpit ok|error"
+int net_event_parse(int argc, char *const argv[], struct net_event *ev);
+
 /* Applies one committed log entry by calling the matching Part 4 mutator.
  * -EINVAL if the type, node or bus is out of range; the graph is unchanged then. */
 int netstate_apply(const struct net_event *ev);

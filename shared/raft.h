@@ -19,6 +19,7 @@
  */
 
 #include <stdbool.h>
+#include <stddef.h>
 #include <stdint.h>
 
 /* ---------------------------- frame catalog ----------------------------
@@ -94,6 +95,10 @@ uint8_t raft_get_term(void);
 uint8_t raft_get_leader(void);     /* RAFT_NODE_NONE if not known */
 int64_t raft_last_heard(void);     /* follower: when the leader was last heard */
 bool raft_in_sync(int64_t now_ms); /* the SYNC LED */
+
+/* The Part 2 config as one line, for the consoles' `raft config`. The same on every node,
+ * since every node builds from the one raft_config.h. */
+void raft_config_format(char *buf, size_t len);
 
 /*
  * A local client's event (a net_event_encode code). On the leader it becomes the next log

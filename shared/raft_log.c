@@ -2,6 +2,7 @@
 #include "netstate.h"
 #include "raft_config.h"
 #include <errno.h>
+#include <stdio.h>
 
 /* APPEND carries log indexes in 16 bits (prevLogIndex, leaderCommit) */
 _Static_assert(RAFT_LOG_SIZE <= UINT16_MAX, "log indexes must fit in 16 bits");
@@ -85,4 +86,25 @@ uint8_t raft_log_event(uint16_t index) {
 
 uint16_t raft_log_commit_index(void) {
     return commit_index;
+}
+
+uint16_t raft_log_find_committed(uint8_t event, uint16_t after) {
+    for (uint32_t index = (uint32_t)after + 1; index <= commit_index; index++) {
+        if (log_event[index] == event) {
+            return (uint16_t)index;
+        }
+    }
+    return 0;
+}
+
+int raft_log_format(uint16_t index, char *buf, size_t len) {
+    struct net_event ev;
+    if (index == 0 || index > last_index || net_event_decode(log_event[index], &ev) < 0) {
+        return -EINVAL;
+    }
+    char name[24];
+    net_event_format(&ev, name, sizeof(name));
+    snprintf(buf, len, "%5u  term %-3u %s%s", index, log_term[index], name,
+             index > commit_index ? "  (not committed)" : "");
+    return 0;
 }

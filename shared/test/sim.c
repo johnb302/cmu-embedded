@@ -25,6 +25,7 @@ struct node {
     uint16_t (*raft_log_commit_index)(void);
     uint8_t (*raft_log_term)(uint16_t);
     uint8_t (*raft_log_event)(uint16_t);
+    uint16_t (*raft_log_find_committed)(uint8_t, uint16_t);
     struct network (*getNetwork)(void);
     uint8_t (*net_event_encode)(const struct net_event *);
     void (*netstate_format)(const struct network *, char *, size_t);
@@ -60,6 +61,7 @@ static void load(uint8_t id) {
     LOAD(n, lib, raft_log_commit_index);
     LOAD(n, lib, raft_log_term);
     LOAD(n, lib, raft_log_event);
+    LOAD(n, lib, raft_log_find_committed);
     LOAD(n, lib, getNetwork);
     LOAD(n, lib, net_event_encode);
     LOAD(n, lib, netstate_format);
@@ -195,10 +197,16 @@ int main(void) {
     check("20 ms later: entry 1 committed on all three, graphs equal", all_agree(1));
 
     printf("\nsim 4.4: events submitted on followers go to the leader\n");
-    check("N2 sends NODE_UP N2 to the leader (returns 0)", nodes[2].raft_submit(code(NODE_UP, 2, 0)) == 0);
+    uint8_t n2_up = code(NODE_UP, 2, 0);
+    uint16_t n2_committed = nodes[2].raft_log_commit_index(); /* what N2's console notes first */
+    check("N2 sends NODE_UP N2 to the leader (returns 0)", nodes[2].raft_submit(n2_up) == 0);
     check("N3 sends NODE_UP N3 in the same ms", nodes[3].raft_submit(code(NODE_UP, 3, 0)) == 0);
     run(30);
     check("30 ms later: entries 2-3 everywhere, one entry per event, not per bus copy", all_agree(3));
+    uint16_t found = nodes[2].raft_log_find_committed(n2_up, n2_committed);
+    check("N2's console finds its event committed, at that index on every node",
+          found != 0 && nodes[1].raft_log_find_committed(n2_up, n2_committed) == found &&
+              nodes[3].raft_log_find_committed(n2_up, n2_committed) == found);
 
     printf("\nsim 4.5: N3 powered off: N1 and N2 are still a majority\n");
     nodes[3].up = false;
