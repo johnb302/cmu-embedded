@@ -108,8 +108,10 @@
 #define S_PORT 8001 /* Pi -> proxy (force) */
 
 #define WHEEL_BTN_SELF_TEST 10
-#define WHEEL_BTN_LEFT      4 /* physical left switch (config.h) */
-#define WHEEL_BTN_RIGHT     5
+/* The G920's turn buttons as SDL reports them with SDL_JOYSTICK_MFI=0 (the IOKit backend):
+ * the left button is index 5, the right 4. With 4/5 the signals came out mirrored. */
+#define WHEEL_BTN_LEFT      5
+#define WHEEL_BTN_RIGHT     4
 
 #define BTN_SELF_TEST 0x01
 #define BTN_RIGHT     0x02
@@ -119,13 +121,15 @@
 #define STEER_MAX       32766
 #define THROTTLE_MAX    32767
 /*
- * mac_proxy.py convention: lRz = 0 released .. 32767 fully pressed. Our G920's
- * brake now uses the full range: SDL reads +1.00 at rest (lRz 0) and -1.00 on a
- * hard press (lRz 32767). It used to rest at 29426..30582, hence the old 30800.
- * BRAKE_REST is a ~3 % dead band so released reads 0 %.
+ * mac_proxy.py convention: lRz = 0 released .. 32767 fully pressed. Our G920's brake
+ * pedal doesn't always rest at 0: depending on its power-up calibration it rests at 0
+ * or around 29426..30582 (2026-11-16: 30582), always rising to 32767 when pressed. So the
+ * rest point is learned: the lowest lRz seen (build_ctrl), plus a 3 % dead band of the
+ * remaining range so a released pedal reads 0 %. Starting the proxy with the brake held
+ * reads 0 % until the pedal is first released.
  */
-#define BRAKE_REST      1000
 #define BRAKE_FULL      32767
+#define BRAKE_DEADBAND_PCT 3
 #define TURN_ARM        1000  /* steer past this in the turn direction arms self-cancel */
 #define TURN_CENTER     500   /* back inside this: cancel */
 
@@ -493,13 +497,19 @@ static void build_ctrl(const DIJOYSTATE2_t *s, uint8_t d[8])
 	}
 	uint8_t thr_pct = (thr < 0 || thr > THROTTLE_MAX) ? 0xFF : (uint8_t)(thr * 100 / THROTTLE_MAX);
 	uint8_t brk_pct;
+	static int brk_rest = BRAKE_FULL; /* the lowest lRz seen: the released pedal */
+
+	if (brk >= 0 && brk < brk_rest) {
+		brk_rest = brk;
+	}
+	int brk_zero = brk_rest + (BRAKE_FULL - brk_rest) * BRAKE_DEADBAND_PCT / 100;
 
 	if (brk < 0 || brk > BRAKE_FULL) {
 		brk_pct = 0xFF;
-	} else if (brk <= BRAKE_REST) {
+	} else if (brk <= brk_zero || brk_zero >= BRAKE_FULL) {
 		brk_pct = 0;
 	} else {
-		brk_pct = (uint8_t)((brk - BRAKE_REST) * 100 / (BRAKE_FULL - BRAKE_REST));
+		brk_pct = (uint8_t)((brk - brk_zero) * 100 / (BRAKE_FULL - brk_zero));
 	}
 
 	if (s->rgbButtons[WHEEL_BTN_SELF_TEST]) {
