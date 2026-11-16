@@ -1,9 +1,13 @@
 # Build and run the shared/ self-tests on the Mac: make -C shared/test
 #   host_test: one node, frames fed in by hand
 #   sim:       three nodes on simulated buses, each its own copy of shared/ (n1.so ...)
+#              ./sim                default_leader = cockpit (n*.so)
+#              ./sim random         LEADER=random (r*.so)
+#              ./sim random-seed9   LEADER=random, seed 9: the Pi wins (p*.so)
 CFLAGS  = -std=c11 -Wall -Wextra -I..
 SHARED  = $(wildcard ../*.c)
 HEADERS = $(wildcard ../*.h)
+RANDOM  = -DRAFT_DEFAULT_LEADER=RAFT_NODE_NONE
 
 ifeq ($(shell uname),Darwin)
 SO_FLAGS  = -dynamiclib -undefined dynamic_lookup
@@ -13,9 +17,13 @@ SO_FLAGS  = -shared -Wl,-Bsymbolic
 SIM_FLAGS = -rdynamic -ldl
 endif
 
-run: host_test sim
+LIBS = n1.so n2.so n3.so r1.so r2.so r3.so p1.so p2.so p3.so
+
+run: host_test sim $(LIBS)
 	./host_test
 	./sim
+	./sim random
+	./sim random-seed9
 
 host_test: host_test.c $(SHARED) $(HEADERS)
 	$(CC) $(CFLAGS) -o $@ host_test.c $(SHARED)
@@ -24,10 +32,16 @@ host_test: host_test.c $(SHARED) $(HEADERS)
 n%.so: $(SHARED) $(HEADERS)
 	$(CC) $(CFLAGS) -fPIC $(SO_FLAGS) -o $@ $(SHARED)
 
-sim: sim.c n1.so n2.so n3.so $(HEADERS)
+r%.so: $(SHARED) $(HEADERS)
+	$(CC) $(CFLAGS) $(RANDOM) -fPIC $(SO_FLAGS) -o $@ $(SHARED)
+
+p%.so: $(SHARED) $(HEADERS)
+	$(CC) $(CFLAGS) $(RANDOM) -DRAFT_SEED=9 -fPIC $(SO_FLAGS) -o $@ $(SHARED)
+
+sim: sim.c $(HEADERS)
 	$(CC) $(CFLAGS) -o $@ sim.c $(SIM_FLAGS)
 
 clean:
-	rm -f host_test sim n*.so
+	rm -f host_test sim *.so
 
 .PHONY: run clean

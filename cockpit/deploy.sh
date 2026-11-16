@@ -1,9 +1,12 @@
 #!/bin/sh
 # From the Mac: copy cockpit/ and shared/ to the Pi's ~/lab5 and build there.
-# Usage: cockpit/deploy.sh [user@host]   (default team5@team5.local)
+# Usage: [RAFT_LEADER=random] [RAFT_SEED=9] cockpit/deploy.sh [user@host]   (default team5@team5.local)
+# RAFT_LEADER and RAFT_SEED must match the STM32 builds (-DRAFT_LEADER=... -DRAFT_SEED=...).
 # Doesn't restart anything; run ~/lab5/cockpit/run_cockpit.sh on the Pi for that.
 set -e
 HOST=${1:-team5@team5.local}
+RAFT_LEADER=${RAFT_LEADER:-cockpit}
+RAFT_SEED=${RAFT_SEED:-1}
 cd "$(dirname "$0")/.."
 
 # shared/ only exists once the portable Raft code is there
@@ -15,4 +18,5 @@ DIRS="cockpit"
 rsync -a --delete --exclude cockpit/cockpit --exclude '*.log' --exclude fp.fifo --exclude cmd.fifo \
     --exclude shared/test/host_test --exclude shared/test/sim --exclude 'shared/test/*.so' \
     $DIRS "$HOST:lab5/"
-ssh "$HOST" 'make -C lab5/cockpit'
+# -B: rebuild even if no source changed, since the flags may have
+ssh "$HOST" "make -B -C lab5/cockpit RAFT_LEADER=$RAFT_LEADER RAFT_SEED=$RAFT_SEED"

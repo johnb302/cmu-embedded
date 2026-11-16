@@ -9,10 +9,12 @@
 
 static int64_t now;      /* simulated ms */
 static bool print_tx;    /* print each frame sent, or only count them */
-static int refs, appends, resps, events;
+static int refs, appends, resps, events, vote_reqs, votes;
 static uint8_t last_append[8]; /* data of the last APPEND sent */
 static uint8_t last_resp[8];   /* ... APPEND_RESP */
 static uint8_t last_event[8];  /* ... EVENT */
+static uint8_t last_req[8];    /* ... REQ_VOTE */
+static uint8_t last_vote[8];   /* ... VOTE */
 static int failures;
 
 /* Stand-in for the CAN send hook: count each frame, and print it if asked */
@@ -28,6 +30,12 @@ void raft_platform_send(uint16_t id, uint8_t data[8]) {
     } else if (RAFT_ID_TYPE(id) == RAFT_ID_EVENT) {
         events++;
         memcpy(last_event, data, sizeof(last_event));
+    } else if (RAFT_ID_TYPE(id) == RAFT_ID_REQ_VOTE) {
+        vote_reqs++;
+        memcpy(last_req, data, sizeof(last_req));
+    } else if (RAFT_ID_TYPE(id) == RAFT_ID_VOTE) {
+        votes++;
+        memcpy(last_vote, data, sizeof(last_vote));
     }
     if (print_tx) {
         printf("  t=%3lld ms  tx 0x%03X ", (long long)now, id);
@@ -465,7 +473,194 @@ static void leader_steps_down(void) {
     for (now = 5; now <= 200; now += RAFT_TICK_MS) {
         raft_tick(now);
     }
-    check("then sends nothing", refs == 0 && appends == 0);
+    check("then sends no REF or APPEND", refs == 0 && appends == 0);
+}
+
+/* ---- step 5: elections, one node's side. The three together run in sim.c. ---- */
+
+/* Deliver a REQ_VOTE or a VOTE (layouts in raft.h) */
+static void rx_req_vote(uint8_t cand, uint8_t term, bool prevote, uint16_t last_index, uint8_t last_term,
+                        int64_t t) {
+    uint8_t data[8] = {term, prevote, last_index & 0xFF, last_index >> 8, last_term};
+    now = t;
+    raft_on_frame(RAFT_ID(RAFT_ID_REQ_VOTE, cand), data, t);
+}
+
+static void rx_vote(uint8_t voter, uint8_t term, bool granted, uint8_t cand, bool prevote, int64_t t) {
+    uint8_t data[8] = {term, granted, cand, prevote};
+    now = t;
+    raft_on_frame(RAFT_ID(RAFT_ID_VOTE, voter), data, t);
+}
+
+/* The last VOTE sent said this */
+static bool answered(uint8_t term, bool granted, uint8_t cand, bool prevote) {
+    return last_vote[0] == term && last_vote[1] == granted && last_vote[2] == cand && last_vote[3] == prevote;
+}
+
+/* Tick every RAFT_TICK_MS after now, up to t */
+static void tick_until(int64_t t) {
+    while (now + RAFT_TICK_MS <= t) {
+        now += RAFT_TICK_MS;
+        raft_tick(now);
+    }
+}
+
+/* 5.1: the timeouts themselves: Part 2's formula, one draw per (seed, node, term) */
+static void election_timeouts(void) {
+    printf("\nraft 5.1: election timeouts\n");
+    int lo = 1000, hi = 0;
+    bool same_twice = true;
+    for (uint32_t seed = 0; seed < 100; seed++) {
+        for (uint8_t node = 1; node <= RAFT_N; node++) {
+            for (uint8_t term = 0; term < 20; term++) {
+                int t = raft_election_timeout_ms(seed, node, term);
+                lo = t < lo ? t : lo;
+                hi = t > hi ? t : hi;
+                same_twice = same_twice && t == raft_election_timeout_ms(seed, node, term);
+            }
+        }
+    }
+    int base = RAFT_MISSED_HEARTBEATS * RAFT_HEARTBEAT_MS;
+    check("6000 draws: all of 60..99 ms used, nothing outside",
+          lo == base && hi == base + RAFT_ELECTION_JITTER_MS);
+    check("the same (seed, node, term) always draws the same", same_twice);
+    printf("  seed %u, term 1: N1 %d ms, N2 %d ms, N3 %d ms\n", (unsigned)RAFT_SEED,
+           raft_election_timeout_ms(RAFT_SEED, 1, 1), raft_election_timeout_ms(RAFT_SEED, 2, 1),
+           raft_election_timeout_ms(RAFT_SEED, 3, 1));
+    bool pi_first = true;
+    for (uint8_t term = 0; term <= 2; term++) {
+        int pi = raft_election_timeout_ms(9, 1, term);
+        pi_first = pi_first && pi + 10 <= raft_election_timeout_ms(9, 2, term) &&
+                   pi + 10 <= raft_election_timeout_ms(9, 3, term);
+    }
+    check("seed 9: the Pi times out 10+ ms before both STM32s in terms 0-2", pi_first);
+}
+
+/* 5.2: N2 times out on its leader, asks for pre-votes, then votes, and wins */
+static void candidate(void) {
+    printf("\nraft 5.2: N2 times out, campaigns, wins\n");
+    raft_log_init();
+    raft_init(RAFT_NODE_STEERING, 0);
+    vote_reqs = 0;
+    now = 0;
+    tick_until(1000);
+    check("preset leader N1 never heard: no election for 1 s", vote_reqs == 0 && raft_get_role() == RAFT_FOLLOWER);
+
+    int timeout = raft_election_timeout_ms(RAFT_SEED, RAFT_NODE_STEERING, 1);
+    rx(RAFT_ID_REF, 1, 1, 1000);
+    tick_until(1000 + timeout - 1);
+    check("REF at t=1000: nothing sent before 1000 + timeout", vote_reqs == 0);
+    tick_until(1000 + timeout + RAFT_TICK_MS - 1);
+    check("the next tick: pre-vote for term 2 (b1 = 1); our term is still 1",
+          vote_reqs == 1 && last_req[0] == 2 && last_req[1] == 1 && raft_get_term() == 1 &&
+              raft_get_role() == RAFT_PRECANDIDATE);
+
+    rx_vote(3, 1, false, 2, true, now);
+    check("a pre-vote no from N3 carrying our term: nothing changes",
+          raft_get_role() == RAFT_PRECANDIDATE && raft_get_term() == 1);
+    rx_vote(1, 2, true, 3, true, now);
+    check("N1's pre-vote yes for N3, not us: ignored, term not adopted",
+          raft_get_role() == RAFT_PRECANDIDATE && raft_get_term() == 1);
+    rx_vote(3, 2, true, 2, true, now);
+    check("N3's pre-vote yes: candidate in term 2, REQ_VOTE term 2 (b1 = 0)",
+          raft_get_role() == RAFT_CANDIDATE && raft_get_term() == 2 && vote_reqs == 2 && last_req[0] == 2 &&
+              last_req[1] == 0 && raft_get_leader() == RAFT_NODE_NONE);
+    rx_vote(3, 2, true, 2, true, now + 1);
+    check("the pre-vote yes's bus B copy: no second REQ_VOTE", vote_reqs == 2);
+    refs = appends = 0;
+    rx_vote(3, 2, true, 2, false, now + 1);
+    check("N3's vote: leader of term 2", raft_get_role() == RAFT_LEADER && raft_get_leader() == RAFT_NODE_STEERING);
+    check("REF and an empty APPEND in term 2 at once, not on the next tick",
+          refs == 1 && appends == 1 && last_append[0] == 2);
+    tick_until(now + RAFT_HEARTBEAT_MS - 1);
+    check("the next REF a heartbeat later", refs == 1);
+    tick_until(now + RAFT_TICK_MS);
+    check("... then on the 20 ms grid", refs == 2);
+
+    printf("\nraft 5.2: N2 cut off: pre-votes go unanswered\n");
+    raft_init(RAFT_NODE_STEERING, 0);
+    rx(RAFT_ID_REF, 1, 1, 0);
+    vote_reqs = 0;
+    tick_until(1000);
+    check("1 s with nobody answering: a pre-vote every timeout, term still 1",
+          vote_reqs >= 1000 / (timeout + RAFT_TICK_MS) && raft_get_term() == 1 &&
+              raft_get_role() == RAFT_PRECANDIDATE);
+    rx(RAFT_ID_REF, 1, 1, 1000);
+    check("N1's REF reaches it again: back to follower of N1",
+          raft_get_role() == RAFT_FOLLOWER && raft_get_leader() == 1 && raft_get_term() == 1);
+
+    printf("\nraft 5.2: two candidates split the vote\n");
+    raft_init(RAFT_NODE_STEERING, 0);
+    rx(RAFT_ID_REF, 1, 1, 0);
+    tick_until(timeout + RAFT_TICK_MS - 1);
+    rx_vote(3, 2, true, 2, true, now);
+    rx_req_vote(3, 2, false, 0, 0, now);
+    check("N3 is a candidate in term 2 too: no vote for it (voted for ourselves)",
+          answered(2, false, 3, false) && raft_get_role() == RAFT_CANDIDATE);
+    int timeout2 = raft_election_timeout_ms(RAFT_SEED, RAFT_NODE_STEERING, 2);
+    vote_reqs = 0;
+    tick_until(now + timeout2 + RAFT_TICK_MS);
+    check("no majority within term 2's timeout: pre-vote for term 3",
+          vote_reqs == 1 && last_req[0] == 3 && last_req[1] == 1 && raft_get_role() == RAFT_PRECANDIDATE);
+}
+
+/* 5.3: N3 answers pre-votes and votes, and replies to stale terms */
+static void voter(void) {
+    printf("\nraft 5.3: N3 answers (log: 2 entries of term 1)\n");
+    raft_log_init();
+    raft_log_append(1, code(NODE_UP, 1, 0));
+    raft_log_append(1, code(NODE_UP, 2, 0));
+    raft_init(RAFT_NODE_DRIVETRAIN, 0);
+    rx(RAFT_ID_REF, 1, 1, 0);
+
+    rx_req_vote(2, 2, true, 2, 1, 30);
+    check("pre-vote 30 ms after N1's REF: no, carrying our term 1", answered(1, false, 2, true));
+    rx_req_vote(2, 2, true, 2, 1, 70);
+    check("70 ms after: yes, carrying term 2; our term stays 1",
+          answered(2, true, 2, true) && raft_get_term() == 1);
+    rx_req_vote(2, 2, true, 1, 1, 71);
+    check("pre-vote from a shorter log: no", answered(1, false, 2, true));
+    rx_req_vote(2, 1, true, 2, 1, 72);
+    check("pre-vote for term 1, not past ours: no", answered(1, false, 2, true));
+
+    rx_req_vote(2, 2, false, 2, 1, 75);
+    check("RequestVote from N2 in term 2: adopt term 2, vote yes",
+          raft_get_term() == 2 && answered(2, true, 2, false) && raft_get_leader() == RAFT_NODE_NONE);
+    rx_req_vote(2, 2, false, 2, 1, 76);
+    check("its bus B copy: yes again", answered(2, true, 2, false));
+    rx_req_vote(1, 2, false, 5, 1, 77);
+    check("N1 asks in term 2 too: no, we voted for N2", answered(2, false, 1, false));
+    rx_req_vote(1, 3, false, 1, 1, 78);
+    check("N1 in term 3 with a shorter log: adopt term 3, no", raft_get_term() == 3 && answered(3, false, 1, false));
+    rx_req_vote(1, 3, false, 3, 1, 79);
+    check("N1 again in term 3, longer log: yes (no vote cast in term 3)", answered(3, true, 1, false));
+    rx_req_vote(2, 2, false, 2, 1, 80);
+    check("stale RequestVote, term 2: no, carrying our term 3", answered(3, false, 2, false) && raft_get_term() == 3);
+    rx_req_vote(2, 4, false, 1, 2, 81);
+    check("term 4, 1 entry of term 2 beats our 2 of term 1: yes", answered(4, true, 2, false));
+
+    resps = 0;
+    rx(RAFT_ID_APPEND, 1, 1, 82);
+    check("stale APPEND (term 1): APPEND_RESP no, our term 4, we match 2 at most",
+          resps == 1 && last_resp[0] == 4 && replied(false, 2));
+    resps = 0;
+    int votes_before = votes;
+    rx(RAFT_ID_REF, 1, 1, 83);
+    check("stale REF: no answer", resps == 0 && votes == votes_before && raft_get_term() == 4);
+    raft_log_init();
+
+    printf("\nraft 5.3: a stale leader steps down on the answer\n");
+    raft_init(RAFT_NODE_COCKPIT, 0);
+    uint8_t answer[8] = {4, 0, 2, 0};
+    raft_on_frame(RAFT_ID(RAFT_ID_APPEND_RESP, 3), answer, 5);
+    check("N1, leader of term 1, hears term 4 in an answer: follower, no leader known",
+          raft_get_role() == RAFT_FOLLOWER && raft_get_term() == 4 && raft_get_leader() == RAFT_NODE_NONE);
+
+    char line[128];
+    raft_status_format(line, sizeof(line), 5);
+    printf("  %s\n", line);
+    static const char status[] = "follower | term 4 | leader none | SYNC off | election timeout ";
+    check("status: role, term, leader none, SYNC, timeout", strncmp(line, status, strlen(status)) == 0);
 }
 
 int main(void) {
@@ -481,6 +676,9 @@ int main(void) {
     follower_append();
     submit();
     console();
+    election_timeouts();
+    candidate();
+    voter();
     printf("\n%s: %d failure(s)\n", failures == 0 ? "ALL PASS" : "FAILED", failures);
     return failures == 0 ? 0 : 1;
 }

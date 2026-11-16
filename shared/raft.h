@@ -12,10 +12,16 @@
  * and implements raft_platform_send(). Nothing in shared/ is thread-safe: the platform
  * holds its one Raft lock around every call in.
  *
- * Steps 3-4 (fixed leader): the leader sends REF every heartbeat_ms and an empty APPEND
- * every 100 ms. Events reach the leader's log through raft_submit() (EVENT frames from
- * followers); the leader sends each entry in an APPEND and commits it once a majority
- * holds it. No elections yet (step 5).
+ * Steps 3-4: the leader sends REF every heartbeat_ms and an empty APPEND every 100 ms.
+ * Events reach the leader's log through raft_submit() (EVENT frames from followers); the
+ * leader sends each entry in an APPEND and commits it once a majority holds it.
+ *
+ * Step 5, elections: a follower that hears no REF or APPEND for its election timeout
+ * (missed_heartbeats x heartbeat_ms + jitter) first asks for pre-votes (Raft thesis 9.6):
+ * "would you vote for me in the next term?" Only if a majority says yes does it raise its
+ * term and ask for real votes. A node that still hears the leader says no, so a node that
+ * has only lost its own link to the leader (a pulled jumper, an isolated node) never moves
+ * the term or deposes a leader the others still hear.
  */
 
 #include <stdbool.h>
@@ -32,8 +38,8 @@
 #define RAFT_ID_REF         0x000 /* leader -> all, every heartbeat_ms. Above CTRL (0x010): sync accuracy */
 #define RAFT_ID_APPEND      0x040 /* leader -> all: AppendEntries with one entry, or empty */
 #define RAFT_ID_APPEND_RESP 0x048 /* follower -> leader (step 4) */
-#define RAFT_ID_REQ_VOTE    0x050 /* candidate -> all (step 5) */
-#define RAFT_ID_VOTE        0x058 /* voter -> candidate (step 5) */
+#define RAFT_ID_REQ_VOTE    0x050 /* candidate -> all: RequestVote, or a pre-vote (step 5) */
+#define RAFT_ID_VOTE        0x058 /* voter -> candidate: the answer (step 5) */
 #define RAFT_ID_EVENT       0x060 /* client -> leader: an event to log (steps 4, 6) */
 
 #define RAFT_ID(base, sender) ((uint16_t)((base) + (sender)))
@@ -77,11 +83,20 @@ static inline bool raft_is_frame(uint16_t id) {
  * EVENT   b0 term (not checked: a client request isn't tied to a term) | b1 sequence
  *         number, +1 per event, so the leader appends each event once |
  *         b2 event (net_event_encode code)
+ *
+ * REQ_VOTE  b0 term: the candidate's new term, or for a pre-vote the term it would
+ *         campaign in (its own + 1, not taken yet) | b1 1 = pre-vote, 0 = vote |
+ *         b2-3 lastLogIndex LE | b4 lastLogTerm
+ *
+ * VOTE    b0 term: the voter's, except a granted pre-vote, which carries the term asked
+ *         about | b1 1 = granted | b2 the candidate it answers: every node hears every
+ *         VOTE | b3 1 = pre-vote
  */
 
 /* ------------------------------- the API ------------------------------- */
 
-enum raft_role { RAFT_FOLLOWER, RAFT_CANDIDATE, RAFT_LEADER };
+/* A pre-candidate has timed out and is asking for pre-votes, still in its old term */
+enum raft_role { RAFT_FOLLOWER, RAFT_PRECANDIDATE, RAFT_CANDIDATE, RAFT_LEADER };
 
 #define RAFT_TICK_MS 5 /* platforms call raft_tick() at least this often */
 
@@ -99,6 +114,19 @@ bool raft_in_sync(int64_t now_ms); /* the SYNC LED */
 /* The Part 2 config as one line, for the consoles' `raft config`. The same on every node,
  * since every node builds from the one raft_config.h. */
 void raft_config_format(char *buf, size_t len);
+
+/* `raft status` on every console, e.g. "follower | term 2 | leader N3 | SYNC on |
+ * heard 4 ms ago | election timeout 72 ms" */
+void raft_status_format(char *buf, size_t len, int64_t now_ms);
+
+/*
+ * The election timeout of node in term: missed_heartbeats x heartbeat_ms +
+ * U(0, election_timeout_jitter_ms), where the U(...) is a hash of (seed, node, term).
+ * Each term is a fresh draw, but the same on every run, so the seed fixes which node
+ * times out first in each term (checkoff step 8: "the seed that makes the Pi win").
+ * Pure: the sim and the consoles call it for any node.
+ */
+int raft_election_timeout_ms(uint32_t seed, uint8_t node, uint8_t term);
 
 /*
  * A local client's event (a net_event_encode code). On the leader it becomes the next log

@@ -2,8 +2,13 @@
  * Three nodes on two simulated CAN buses, in one process (make -C shared/test).
  * Each node is its own copy of the shared/ code (n1.so, n2.so, n3.so, opened with
  * dlopen), so each has its own statics, as on three boards. This file plays the
- * platform: it delivers every frame once per bus to every other powered node, ticks
- * each powered node every RAFT_TICK_MS, and powers nodes off and on.
+ * platform: it delivers every frame once per bus to every other powered node whose
+ * jumper on that bus is in, ticks each powered node every RAFT_TICK_MS, and powers
+ * nodes off and on.
+ *
+ *   ./sim                default_leader=cockpit: steps 4 and 5
+ *   ./sim random         LEADER=random (r1.so ...: built with RAFT_DEFAULT_LEADER = none)
+ *   ./sim random-seed9   LEADER=random with seed 9 (p1.so ...): the seed that makes the Pi win
  */
 #include "netstate.h"
 #include "raft.h"
@@ -20,6 +25,9 @@ struct node {
     void (*raft_tick)(int64_t);
     void (*raft_on_frame)(uint16_t, const uint8_t[8], int64_t);
     int (*raft_submit)(uint8_t);
+    enum raft_role (*raft_get_role)(void);
+    uint8_t (*raft_get_term)(void);
+    uint8_t (*raft_get_leader)(void);
     void (*raft_log_init)(void);
     uint16_t (*raft_log_last_index)(void);
     uint16_t (*raft_log_commit_index)(void);
@@ -43,9 +51,10 @@ static void *symbol(void *lib, const char *name) {
 
 #define LOAD(node, lib, fn) ((node)->fn = (__typeof__((node)->fn))symbol(lib, #fn))
 
-static void load(uint8_t id) {
+/* prefix "n" loads ./n1.so for node 1, and so on */
+static void load(const char *prefix, uint8_t id) {
     char path[16];
-    snprintf(path, sizeof(path), "./n%u.so", id);
+    snprintf(path, sizeof(path), "./%s%u.so", prefix, id);
     void *lib = dlopen(path, RTLD_NOW | RTLD_LOCAL);
     if (lib == NULL) {
         fprintf(stderr, "sim: %s\n", dlerror());
@@ -56,6 +65,9 @@ static void load(uint8_t id) {
     LOAD(n, lib, raft_tick);
     LOAD(n, lib, raft_on_frame);
     LOAD(n, lib, raft_submit);
+    LOAD(n, lib, raft_get_role);
+    LOAD(n, lib, raft_get_term);
+    LOAD(n, lib, raft_get_leader);
     LOAD(n, lib, raft_log_init);
     LOAD(n, lib, raft_log_last_index);
     LOAD(n, lib, raft_log_commit_index);
@@ -72,16 +84,21 @@ static void load(uint8_t id) {
 struct frame {
     uint16_t id;
     uint8_t data[8];
-    int64_t at; /* delivery time */
+    uint8_t bus; /* NET_BUS_A or NET_BUS_B */
+    int64_t at;  /* delivery time */
 };
 #define MAX_FRAMES 4096
 static struct frame queue[MAX_FRAMES];
 static int queued;
 static int64_t now; /* simulated ms */
 
+/* linked[node][bus]: that node's jumper on that bus is in. A pulled one cuts the node
+ * off that bus both ways. */
+static bool linked[RAFT_N + 1][2];
+
 /* The platform hook every node calls: the frame goes out on bus A, and on bus B 1 ms later */
 void raft_platform_send(uint16_t id, uint8_t data[8]) {
-    for (int bus = 0; bus < 2; bus++) {
+    for (uint8_t bus = NET_BUS_A; bus <= NET_BUS_B; bus++) {
         if (queued == MAX_FRAMES) {
             fprintf(stderr, "sim: bus queue full\n");
             exit(2);
@@ -89,12 +106,13 @@ void raft_platform_send(uint16_t id, uint8_t data[8]) {
         struct frame *f = &queue[queued++];
         f->id = id;
         memcpy(f->data, data, 8);
+        f->bus = bus;
         f->at = now + 1 + bus;
     }
 }
 
-/* Every frame due by now reaches every other powered node. Frames sent from inside
- * raft_on_frame (replies) are queued for later. */
+/* Every frame due by now reaches every other powered node on its bus. Frames sent from
+ * inside raft_on_frame (replies) are queued for later. */
 static void deliver(void) {
     int pending = queued;
     int kept = 0;
@@ -104,8 +122,9 @@ static void deliver(void) {
             queue[kept++] = f;
             continue;
         }
+        uint8_t from = RAFT_ID_SENDER(f.id);
         for (uint8_t id = 1; id <= RAFT_N; id++) {
-            if (id != RAFT_ID_SENDER(f.id) && nodes[id].up) {
+            if (id != from && nodes[id].up && linked[from][f.bus] && linked[id][f.bus]) {
                 nodes[id].raft_on_frame(f.id, f.data, now);
             }
         }
@@ -135,12 +154,17 @@ static void boot(uint8_t id) {
     nodes[id].up = true;
 }
 
+static void set_links(uint8_t id, bool a, bool b) {
+    linked[id][NET_BUS_A] = a;
+    linked[id][NET_BUS_B] = b;
+}
+
 /* ---- Checks ---- */
 
 static int failures;
 
 static void check(const char *what, bool ok) {
-    printf("  %-66s %s\n", what, ok ? "PASS" : "FAIL");
+    printf("  %-70s %s\n", what, ok ? "PASS" : "FAIL");
     if (!ok) {
         failures++;
     }
@@ -151,9 +175,12 @@ static uint8_t code(enum net_event_type type, uint8_t node, uint8_t bus) {
     return nodes[1].net_event_encode(&ev);
 }
 
-/* Node id holds n entries, all committed, the same as N1's, and the same graph */
-static bool agrees(uint8_t id, uint16_t n) {
-    struct node *a = &nodes[1];
+#define BIT(id) (1U << (id))
+#define ALL     (BIT(1) | BIT(2) | BIT(3))
+
+/* Node id holds n entries, all committed, the same as node ref's, and the same graph */
+static bool same_as(uint8_t ref, uint8_t id, uint16_t n) {
+    struct node *a = &nodes[ref];
     struct node *b = &nodes[id];
     if (b->raft_log_last_index() != n || b->raft_log_commit_index() != n || a->raft_log_last_index() < n) {
         return false;
@@ -168,8 +195,78 @@ static bool agrees(uint8_t id, uint16_t n) {
     return memcmp(&na, &nb, sizeof(na)) == 0;
 }
 
+/* Every node in mask holds the same n committed entries and the same graph */
+static bool logs_agree(unsigned mask, uint16_t n) {
+    uint8_t ref = 0;
+    for (uint8_t id = 1; id <= RAFT_N; id++) {
+        if (mask & BIT(id)) {
+            if (ref == 0) {
+                ref = id;
+            }
+            if (!same_as(ref, id, n)) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+static bool agrees(uint8_t id, uint16_t n) {
+    return same_as(1, id, n);
+}
+
 static bool all_agree(uint16_t n) {
-    return agrees(1, n) && agrees(2, n) && agrees(3, n);
+    return logs_agree(ALL, n);
+}
+
+/* The leader the nodes in mask agree on: exactly one of them leads, and all of them are
+ * in its term and name it. 0 if they don't agree (yet). */
+static uint8_t elected(unsigned mask) {
+    uint8_t leader = 0;
+    for (uint8_t id = 1; id <= RAFT_N; id++) {
+        if ((mask & BIT(id)) && nodes[id].raft_get_role() == RAFT_LEADER) {
+            if (leader != 0) {
+                return 0;
+            }
+            leader = id;
+        }
+    }
+    if (leader == 0) {
+        return 0;
+    }
+    uint8_t term = nodes[leader].raft_get_term();
+    for (uint8_t id = 1; id <= RAFT_N; id++) {
+        if ((mask & BIT(id)) && (nodes[id].raft_get_term() != term || nodes[id].raft_get_leader() != leader)) {
+            return 0;
+        }
+    }
+    return leader;
+}
+
+/* Run ms by ms until the nodes in mask agree on a leader. The ms it took, or -1 after max_ms. */
+static int run_until_elected(unsigned mask, int max_ms) {
+    for (int ms = 0; ms <= max_ms; ms++) {
+        if (elected(mask) != 0) {
+            return ms;
+        }
+        run(1);
+    }
+    return -1;
+}
+
+/* Every node in mask is in term */
+static bool in_term(unsigned mask, uint8_t term) {
+    for (uint8_t id = 1; id <= RAFT_N; id++) {
+        if ((mask & BIT(id)) && nodes[id].raft_get_term() != term) {
+            return false;
+        }
+    }
+    return true;
+}
+
+/* The other STM32 */
+static uint8_t other_stm32(uint8_t id) {
+    return id == RAFT_NODE_STEERING ? RAFT_NODE_DRIVETRAIN : RAFT_NODE_STEERING;
 }
 
 /* `log` and `net show` for every node, as the demo compares them */
@@ -179,18 +276,15 @@ static void show(void) {
         struct network net = n->getNetwork();
         char graph[96];
         n->netstate_format(&net, graph, sizeof(graph));
-        printf("  N%u %-4s log %u, commit %u | %s\n", id, n->up ? "up" : "DOWN", n->raft_log_last_index(),
+        printf("  N%u %-4s %-9s term %u, log %u, commit %u | %s\n", id, n->up ? "up" : "DOWN",
+               n->raft_get_role() == RAFT_LEADER ? "leader" : "", n->raft_get_term(), n->raft_log_last_index(),
                n->raft_log_commit_index(), graph);
     }
 }
 
-int main(void) {
-    for (uint8_t id = 1; id <= RAFT_N; id++) {
-        load(id);
-        boot(id);
-    }
-    run(10);
+/* ---- default_leader = cockpit ---- */
 
+static void step4(void) {
     printf("\nsim 4.3: an event submitted on the leader\n");
     check("N1 appends NODE_UP N1 as entry 1", nodes[1].raft_submit(code(NODE_UP, 1, 0)) == 1);
     run(20);
@@ -239,10 +333,183 @@ int main(void) {
     check("N2 back: entry 6 commits on N1 and N2", agrees(1, 6) && agrees(2, 6));
     nodes[3].up = true;
     run(150);
-    check("N3 back: all three agree on 6 entries", all_agree(6));
+    check("N3 back: all three agree on 6 entries, still term 1", all_agree(6) && in_term(ALL, 1));
+}
 
-    printf("\nsim: final state\n");
+/* Link faults and failures, from step 4's state: N1 leads term 1, 6 entries */
+static void step5(void) {
+    uint16_t entries = 6;
+
+    printf("\nsim 5.1: N3's A jumper out for 1 s (checkoff step 4: no election)\n");
+    set_links(3, false, true);
+    run(1000);
+    check("term 1 on all three, all following N1", in_term(ALL, 1) && elected(ALL) == 1);
+    set_links(3, true, true);
+
+    printf("\nsim 5.2: N1 off B and N3 off A for 1 s: N3 can't hear the leader\n");
+    set_links(1, true, false);
+    set_links(3, false, true);
+    nodes[2].raft_submit(code(CANLINK_DOWN, 1, NET_BUS_B));
+    entries++;
+    run(1000);
+    check("N2 turned down N3's pre-votes: still term 1, N1 leads N2",
+          in_term(ALL, 1) && elected(BIT(1) | BIT(2)) == 1);
+    check("N2's event committed on N1 and N2 (N3 needs the relay, step 6)",
+          logs_agree(BIT(1) | BIT(2), entries) && nodes[3].raft_log_last_index() == entries - 1);
+    set_links(1, true, true);
+    set_links(3, true, true);
+    run(300);
+    check("jumpers back: N3 follows N1 again, all agree, term 1", elected(ALL) == 1 && all_agree(entries));
+
+    printf("\nsim 5.3: N2 isolated for 1 s, then back (checkoff step 10, not the leader)\n");
+    set_links(2, false, false);
+    run(1000);
+    check("term 1 everywhere; N1 still leads N3", in_term(ALL, 1) && elected(BIT(1) | BIT(3)) == 1);
+    set_links(2, true, true);
+    run(300);
+    check("N2 back: follows N1, term 1", elected(ALL) == 1 && in_term(ALL, 1) && all_agree(entries));
+
+    printf("\nsim 5.4: the Pi powered off (checkoff step 6)\n");
+    nodes[1].up = false;
+    int ms = run_until_elected(BIT(2) | BIT(3), 1000);
+    uint8_t leader = elected(BIT(2) | BIT(3));
+    printf("  N%u leads term %u after %d ms\n", leader, nodes[leader].raft_get_term(), ms);
+    check("an STM32 leads within 1 s, in term 2 (the term moved once)",
+          ms >= 0 && ms < 1000 && in_term(BIT(2) | BIT(3), 2));
+    nodes[other_stm32(leader)].raft_submit(code(NODE_DOWN, 1, 0));
+    entries++;
+    run(50);
+    check("an event from the follower commits on both STM32s", logs_agree(BIT(2) | BIT(3), entries));
+
+    printf("\nsim 5.5: the Pi powers back on (checkoff step 7): empty log, boots as leader of term 1\n");
+    boot(1);
+    run(400);
+    check("it hears term 2, steps down and follows the STM32; the STM32 still leads",
+          elected(ALL) == leader && in_term(ALL, 2));
+    check("the leader replayed the whole log to it: all agree", all_agree(entries));
+
+    printf("\nsim 5.6: the STM32 leader isolated (checkoff step 10, the leader)\n");
+    uint8_t old_leader = leader;
+    uint8_t rest = BIT(1) | BIT(other_stm32(old_leader));
+    set_links(old_leader, false, false);
+    ms = run_until_elected(rest, 1000);
+    leader = elected(rest);
+    printf("  N%u leads term %u after %d ms\n", leader, leader ? nodes[leader].raft_get_term() : 0, ms);
+    check("the other two elect within 1 s, term 3", ms >= 0 && ms < 1000 && in_term(rest, 3));
+    check("the isolated node still thinks it leads term 2",
+          nodes[old_leader].raft_get_role() == RAFT_LEADER && nodes[old_leader].raft_get_term() == 2);
+    nodes[leader].raft_submit(code(NODE_UP, 1, 0));
+    entries++;
+    run(50);
+    check("an event commits on the two", logs_agree(rest, entries));
+    set_links(old_leader, true, true);
+    run(300);
+    check("reconnected: it steps down and follows; term 3 everywhere (moved once)",
+          elected(ALL) == leader && in_term(ALL, 3));
+    check("and it caught up: all agree", all_agree(entries));
+
+    printf("\nsim 5.7: only one node left: no leader, and the term stays put\n");
+    uint8_t lone = leader == 1 ? RAFT_NODE_STEERING : 1;
+    uint8_t back = (uint8_t)(6 - leader - lone); /* the third node */
+    nodes[leader].up = false;
+    nodes[back].up = false;
+    run(1000);
+    check("1 s alone: not leader, still term 3 (pre-votes unanswered)",
+          nodes[lone].raft_get_role() != RAFT_LEADER && nodes[lone].raft_get_term() == 3);
+    nodes[back].up = true;
+    ms = run_until_elected(BIT(lone) | BIT(back), 1000);
+    uint8_t term = nodes[lone].raft_get_term();
+    printf("  N%u back: N%u leads term %u after %d ms\n", back, elected(BIT(lone) | BIT(back)), term, ms);
+    check("a second node back: a leader within 1 s, in a new term",
+          ms >= 0 && ms < 1000 && term > 3 && in_term(BIT(lone) | BIT(back), term));
+    nodes[leader].up = true; /* the old leader, frozen since it went off */
+    run(300);
+    check("the third back: it follows, one term everywhere, all agree",
+          elected(ALL) != 0 && in_term(ALL, term) && all_agree(entries));
+}
+
+/* ---- LEADER=random (checkoff step 8) ---- */
+
+static void random_leader(bool pi_seed) {
+    printf("\nsim R.1: all three boot at once with no preset leader\n");
+    int ms = run_until_elected(ALL, 1000);
+    uint8_t leader = elected(ALL);
+    printf("  N%u leads term %u after %d ms\n", leader, leader ? nodes[leader].raft_get_term() : 0, ms);
+    check("one leader within 1 s, everyone in its term", ms >= 0 && ms < 1000);
+    nodes[leader].raft_submit(code(NODE_UP, 1, 0));
+    run(50);
+    check("an event commits everywhere", all_agree(1));
+
+    printf("\nsim R.2: reboot everything; the Pi's cockpit starts 30 s after the STM32s\n");
+    for (uint8_t id = 1; id <= RAFT_N; id++) {
+        nodes[id].up = false;
+    }
+    run(100);
+    boot(RAFT_NODE_STEERING);
+    boot(RAFT_NODE_DRIVETRAIN);
+    ms = run_until_elected(BIT(2) | BIT(3), 1000);
+    leader = elected(BIT(2) | BIT(3));
+    printf("  N%u leads term %u after %d ms\n", leader, leader ? nodes[leader].raft_get_term() : 0, ms);
+    check("an STM32 leads within 1 s", ms >= 0 && ms < 1000);
+    run(30000 - ms);
+    boot(1);
+    run(200);
+    check("the Pi starts: it follows the STM32", elected(ALL) == leader);
+    nodes[1].raft_submit(code(NODE_UP, 2, 0));
+    nodes[1].raft_submit(code(NODE_UP, 3, 0));
+    run(100);
+    check("events from the Pi commit everywhere", all_agree(2));
+
+    printf("\nsim R.3: power off that STM32: the Pi and the other STM32 elect\n");
+    uint8_t first = leader;
+    uint8_t term = nodes[first].raft_get_term();
+    unsigned rest = BIT(1) | BIT(other_stm32(first));
+    nodes[first].up = false;
+    ms = run_until_elected(rest, 1000);
+    leader = elected(rest);
+    printf("  N%u leads term %u after %d ms\n", leader, leader ? nodes[leader].raft_get_term() : 0, ms);
+    check("a new leader within 1 s, term + 1", ms >= 0 && ms < 1000 && in_term(rest, (uint8_t)(term + 1)));
+    if (pi_seed) {
+        check("seed 9: the Pi wins", leader == 1);
+    }
+    check("logs agree", logs_agree(rest, 2));
+
+    printf("\nsim R.4: the STM32 powers back on, then the Pi goes off (checkoff step 6 again)\n");
+    boot(first);
+    run(300);
+    check("the STM32 rejoins as a follower and catches up", elected(ALL) == leader && all_agree(2));
+    if (leader == 1) {
+        nodes[1].up = false;
+        ms = run_until_elected(BIT(2) | BIT(3), 1000);
+        leader = elected(BIT(2) | BIT(3));
+        printf("  N%u leads term %u after %d ms\n", leader, leader ? nodes[leader].raft_get_term() : 0, ms);
+        check("Pi off: an STM32 leads within 1 s; logs agree",
+              ms >= 0 && ms < 1000 && logs_agree(BIT(2) | BIT(3), 2));
+    }
+}
+
+int main(int argc, char **argv) {
+    const char *mode = argc > 1 ? argv[1] : "default";
+    bool random_mode = strcmp(mode, "random") == 0;
+    bool pi_seed = strcmp(mode, "random-seed9") == 0;
+    const char *prefix = random_mode ? "r" : (pi_seed ? "p" : "n");
+
+    printf("\nsim (%s): %s1.so %s2.so %s3.so\n", mode, prefix, prefix, prefix);
+    for (uint8_t id = 1; id <= RAFT_N; id++) {
+        load(prefix, id);
+        set_links(id, true, true);
+        boot(id);
+    }
+    if (random_mode || pi_seed) {
+        random_leader(pi_seed);
+    } else {
+        run(10);
+        step4();
+        step5();
+    }
+
+    printf("\nsim (%s): final state\n", mode);
     show();
-    printf("\nsim %s: %d failure(s)\n", failures == 0 ? "ALL PASS" : "FAILED", failures);
+    printf("\nsim (%s) %s: %d failure(s)\n", mode, failures == 0 ? "ALL PASS" : "FAILED", failures);
     return failures == 0 ? 0 : 1;
 }

@@ -62,11 +62,57 @@ Frames (`shared/raft.h`): one CAN ID per type per sender (REF `0x000`+node, APPE
 - `raft config` prints the same line on every node. The Pi console works through `cmd.fifo`.
 - Hardware: N3's ST-Link stopped passing typed input three times, each right after a submit typed on N3. Board output and Raft kept working, and replugging its USB fixed it. The same submits typed on N2 never did it, so it's N3's ST-Link, cable or port, not the firmware. Before the demo, try another cable or port, or update the ST-Link firmware (V2J33M25).
 
-**Known limit (until step 9):** logs live in RAM. A rebooted follower catches up on its own (sim 4.7). A rebooted Pi comes back as leader of term 1 with an empty log while the followers keep theirs, so its new entry 1 has the same index and term as their old entry 1 and they'd keep the old one. After restarting the Pi, restart both STM32s too.
+**Known limit (until step 9):** logs live in RAM. A rebooted follower catches up on its own (sim 4.7). Since step 5, a restarted Pi also rejoins as a follower and gets the log replayed (sim 5.5), because the STM32s have elected a leader in term 2 by the time it's back. The old problem remains only if the Pi restarts while just one STM32 is up: with no majority there's no election, the term stays 1, and the Pi's empty term-1 log is taken as current. In that case, restart the STM32s too.
 
-### 5. Leader election
+### 5. Leader election — DONE except the jumper pulls (board check below)
 **Adds:** when the leader's heartbeats stop, followers time out at random offsets, vote, and elect a new leader in a new term. A "random leader" boot mode with no preset leader.
 **Verify:** power off the leader. A new LEADER LED lights within 1 s, the term goes up once, and logs still agree. Pulling a link must not trigger an election.
+**Done (2026-11-16), in `shared/`, tested on the Mac:**
+- Election timeout = 60 ms + U(0, 39) (Part 2). The U(...) is a hash of (seed, node, term): a fresh draw each term, but the same on every run, so the seed fixes which node times out first in each term. The F401 has no hardware random number generator, and checkoff step 8 asks for "the seed that makes the Pi win".
+- **Pre-vote** (Raft thesis 9.6). A timed-out node first asks "would you vote for me in term+1?" without changing its own term. Nodes that heard a leader in the last 60 ms say no. Only with a majority of yeses does it take the term and ask for real votes. So a node that has lost its own link to the leader (checkoff steps 4, 5, 9, 10) never raises the term. With plain Raft, an isolated node raises its term every timeout, and when it reconnects it deposes the working leader, which fails checkoff step 10.
+- RequestVote follows Figure 2: one vote per term, and only to a candidate whose log is at least as up to date. Votes are counted per voter in a bitmask, so the copy from the second bus counts once. A stale leader or candidate gets a "no" carrying the current term and steps down. For a stale APPEND, that "no" is an APPEND_RESP saying "I match through my last entry", which is true, so this term's leader, which also hears it, loses nothing.
+- Frames (`raft.h`): REQ_VOTE `0x050`+node: term, pre-vote flag, last log index, last log term. VOTE `0x058`+node: term, granted, candidate, pre-vote flag. Confirm with the TA along with the rest.
+- **Boot with a preset leader** (Part 2: "no election is held at boot"): followers don't start elections until they've heard a leader once, however long the Pi takes to boot. After that, its silence starts an election. One gap: if both STM32s reboot while the Pi is off, no election ever happens.
+- **LEADER=random**: every node boots in term 0 with no leader, and timers run from boot. The STM32s are up ~30 s before the cockpit, so one of them wins ("An STM32 is leader"), and the Pi joins as a follower.
+- **Seed 9 makes the Pi win.** In terms 0–2 the Pi times out at least 10 ms before both STM32s. So when that first STM32 leader is powered off, the Pi beats the other STM32 (sim `random-seed9`). Seed 1 (the default) ties N2 and N3 in term 0, so a simultaneous STM32 boot does a split vote first (sim R.2: elected in 145 ms).
+- `raft status` is the same on every console: `follower | term 2 | leader N2 | SYNC on | heard 4 ms ago | election timeout 66 ms`. `raft config` ends with `seed=N`. Debug lines: `election timeout -> pre-candidate`, `pre-vote won -> candidate`, `vote for N2 in term 2`, `won the vote -> leader`. Pre-vote retries aren't printed (a cut-off node retries ~12 times/s).
+- Sim (`make -C shared/test`), with per-node jumpers now:
+  - one jumper out: no election
+  - N1 off B and N3 off A: N2 turns down N3's pre-votes, term stays 1
+  - a follower isolated: term stays 1
+  - Pi off: N2 leads term 2 after 62 ms
+  - Pi back with an empty log: steps down, gets all 8 entries replayed
+  - STM32 leader isolated: the other two elect term 3 in 65 ms, and it steps down when reconnected
+  - one node alone: term stays put
+  - random mode, both seeds
+- Build: `-DRAFT_LEADER=cockpit|steering|drivetrain|random -DRAFT_SEED=n` on the STM32s, and `RAFT_LEADER=... RAFT_SEED=... cockpit/deploy.sh` on the Pi. A typo fails the build. **All three nodes need the same values.** A follower that hears two leaders in one term prints `rebuild all nodes with one config` and stays with the first.
+- RAM: N3 87.7%, N2 89.3%, about the same as step 4.
+
+**Board check (2026-11-16, all three nodes).** The Pi was stopped with `pkill -x cockpit`, and an STM32 was "powered off" by halting its core through OpenOCD. Times are from `candump` on the Pi.
+- **Cold start, default mode.** The STM32s wait (`no election until the leader is heard`) until the cockpit starts, then follow it in term 1. In 5 s on the bus: REF `0x001` at 50/s per bus, APPEND `0x041` at 10/s, no `0x05x`. Submits from all three nodes commit (entries 1–3).
+- **Pi down.** N2 timed out and won term 2: pre-vote `0x052` at 65.4 ms after the Pi's last REF, N3's yes, vote request at 71.2 ms, N3's vote at 71.8 ms, N2's first REF at 76.5 ms. N2's REF period is then 19.4–20.6 ms.
+- **Pi back.** It boots as leader of term 1. N3's stale-term answer makes it a follower in term 2, and N2 replays entries 1–3 to it. The logs match, and LEADER stays on N2.
+- **STM32 leader down** (N2 halted). The Pi (66 ms) beat N3 (86 ms): N3 voted for it, and the Pi's first REF came 70.5 ms after N2's last. Released, N2 rebooted and caught up. Entries 4 (from N2) and 5 (from the Pi) then committed in term 3, and N1's and N2's logs are identical. A rebooted follower (N3) also caught up from an empty log.
+- **LEADER=random, seed 9** (all three rebuilt). The STM32s cold-started and N3 won term 1 with N2's vote. The cockpit started and joined N3 as a follower. N3 halted: the Pi won term 2 in 71 ms. N3 back: it rejoined and caught up. Pi stopped: N2 won term 3, and N3, which timed out 5 ms later, voted for it instead of splitting. Then the default builds were restored on all three.
+- **Debug lines block the RAFT thread** on the STM32: printf waits on the 115200-baud console, about 5 ms per line. Each frame now goes out before its debug line, which cut the first election from 90 ms to 76 ms. The remaining ~10 ms is a print holding up the next frame. For step 7: stamp the REF receive time in `raft_node_post()` (the RX callback), not in the RAFT thread.
+- **N3's console input died again** right after typing a submit on N3. A board reset through OpenOCD didn't bring it back, so it's the ST-Link/USB side, as step 4 concluded. Replugging N3's USB fixes it.
+
+**Still to check on the boards (needs hands on the jumpers; all covered in the sim):**
+1. Pull N3's A jumper: no `0x05x` frames, term unchanged everywhere.
+2. Pull N1 off B and N3 off A:
+   - N3 shows `pre-candidate` and sends `0x053` (b1 = 1) every 60–99 ms
+   - N2 answers `0x05A` with b1 = 0 (no)
+   - term unchanged on all three
+   - Put the jumpers back: N3 follows again and catches up.
+3. Pull both jumpers of the STM32 leader: the Pi and the other STM32 elect, term +1. Reconnect: one term everywhere, one LEADER LED.
+
+**Checkoff step 8 plan:**
+1. Build all three with `RAFT_LEADER=random`: an STM32 leads. Power it off: a new leader, no failure mode.
+2. Rebuild with `RAFT_SEED=9`. Power off the first STM32 leader: the Pi wins.
+3. Power that STM32 back on, then do checkoff step 6 again.
+4. Rebuild with `cockpit` afterwards.
+
+**Ask the TA:** Is "the seed that makes the Pi win" about the election after an STM32 leader dies? At boot the Pi can't win, because the STM32s finish electing before the cockpit starts.
 
 ### 6. Link watching and routing
 **Adds:** each node reports node and link failures and recoveries to the leader as log events. Routing (direct bus or relay) is built from `getNetwork()` instead of lab3's heartbeat ages.
@@ -92,6 +138,7 @@ Build (repo root, west venv active):
 west build -p always -b nucleo_f401re -d build/n3 . -- -DLAB5=ON -DNODE_ID=3 \
   -DCONF_FILE=prj_lab3.conf -DDTC_OVERLAY_FILE=boards/nucleo_f401re_lab3.overlay
 ```
+For checkoff step 8, add `-DRAFT_LEADER=random` (and `-DRAFT_SEED=9` for the Pi to win), and deploy the Pi with the same values: `RAFT_LEADER=random RAFT_SEED=9 cockpit/deploy.sh`. `raft config` on each node shows what it was built with.
 
 Flash (`--serial` is silently ignored, so pass the ST-Link serial to OpenOCD):
 ```
@@ -109,4 +156,4 @@ Console: `picocom -b 115200 /dev/ttyACMx` (quit: Ctrl-A, Ctrl-X). On a Mac: `scr
 
 Pi (from the Mac, repo root): `cockpit/deploy.sh` copies `cockpit/` and `shared/` to `~/lab5` on the Pi and builds there. Then on the Pi, `~/lab5/cockpit/run_cockpit.sh` starts it; it also stops the Lab 3 cockpit if that's running. Log: `~/lab5/cockpit/cockpit.log`. Console: `echo "raft log" > ~/lab5/cockpit/cmd.fifo` (`h` lists the commands), replies in the log. Or stop it (`pkill -x cockpit`) and run `./cockpit` in the foreground to type them.
 
-Shared code on the Mac, no board: `make -C shared/test` runs `host_test` (one node, frames by hand) and then `sim` (three nodes on two simulated buses). Both should end `ALL PASS`.
+Shared code on the Mac, no board: `make -C shared/test` runs `host_test` (one node, frames by hand) and then `sim` three times (three nodes on two simulated buses, with jumpers that can be pulled): with the Pi as preset leader, `random`, and `random-seed9`. All four should end `ALL PASS`.

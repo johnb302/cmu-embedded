@@ -818,14 +818,12 @@ static void console_help(void)
 /* `raft status`, and the last line of the status every second */
 static void print_raft_status(void)
 {
+	char line[128];
+
 	pthread_mutex_lock(&raft_lock);
-	enum raft_role role = raft_get_role();
-	uint8_t term = raft_get_term();
-	uint8_t leader = raft_get_leader();
-	bool sync = raft_in_sync(now_ms());
+	raft_status_format(line, sizeof(line), now_ms());
 	pthread_mutex_unlock(&raft_lock);
-	printf("raft %s | term %u | leader N%u | SYNC %s\n", raft_role_name(role), term, leader,
-	       sync ? "on" : "off");
+	printf("raft %s\n", line);
 }
 
 static void console_net_show(void)

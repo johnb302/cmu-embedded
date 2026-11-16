@@ -147,18 +147,13 @@ void raft_node_unlock(void) {
 /* ---- Shell: raft status | log | config ---- */
 
 static int cmd_status(const struct shell *sh, size_t argc, char **argv) {
+    char line[128];
+
     k_mutex_lock(&raft_lock, K_FOREVER);
-    int64_t now = k_uptime_get();
-    enum raft_role role = raft_get_role();
-    uint8_t term = raft_get_term();
-    uint8_t leader = raft_get_leader();
-    bool sync = raft_in_sync(now);
-    int64_t heard = raft_last_heard();
+    raft_status_format(line, sizeof(line), k_uptime_get());
     k_mutex_unlock(&raft_lock);
 
-    shell_print(sh, "N%d %s | term %u | leader N%u | SYNC %s | leader heard %lld ms ago | rx dropped %ld",
-                NODE_ID, raft_role_name(role), term, leader, sync ? "on" : "off",
-                (long long)(now - heard), (long)atomic_get(&raft_q_dropped));
+    shell_print(sh, "N%d %s | rx dropped %ld", NODE_ID, line, (long)atomic_get(&raft_q_dropped));
     return 0;
 }
 
