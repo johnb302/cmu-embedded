@@ -28,6 +28,7 @@
         leader-gpios = <&gpioa 0 GPIO_ACTIVE_HIGH>;  /* A0, CN8-1 */
         sync-gpios = <&gpioa 8 GPIO_ACTIVE_HIGH>;    /* D7, CN9-8 */
         ref-rx-gpios = <&gpioc 8 GPIO_ACTIVE_HIGH>;  /* CN10-2 */
+        pps-gpios = <&gpioc 9 GPIO_ACTIVE_HIGH>;     /* CN10-1: Lab 5 PPS, next to REF_RX */
         pwms = <&servo_pwm 3 PWM_MSEC(20) PWM_POLARITY_NORMAL>, <&pwm2 3 PWM_MSEC(1) PWM_POLARITY_NORMAL>;
         pwm-names = "srv", "pwm_out";
     };

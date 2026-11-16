@@ -5,8 +5,8 @@ Due 2026-11-18. Steps 2–6 are Raft, steps 7–8 are time sync. Time sync only 
 Step 3 was done before step 2 (it only needs zeros from the log).
 
 Where things live:
-- `shared/`: portable C (no Zephyr or Linux headers) built into all three nodes: `netstate`, `raft`, `raft_config.h`, and the step 2 log. `make -C shared/test` runs its checks on the Mac.
-- `src_lab5/`: the STM32 side (`raft_node.c` is the RAFT thread and its CAN frames; `net_shell.c` is the `net` commands).
+- `shared/`: portable C (no Zephyr or Linux headers) built into all three nodes: `netstate`, `raft`, `raft_config.h`, the step 2 log, `netwatch` (link watching and routing, step 6) and `timesync` (global time, step 7). `make -C shared/test` runs its checks on the Mac.
+- `src_lab5/`: the STM32 side (`raft_node.c` is the RAFT thread and its CAN frames; `net_shell.c` is the `net` commands; `time_node.c` is global time, PPS and `time`; `relay.c` and `blink.c`).
 - `cockpit/`: the Pi (`cockpit.c`), built on the Pi with `shared/` linked in.
 
 ## Steps
@@ -35,8 +35,8 @@ Where things live:
 - Pi stopped: SYNC off on both followers, term stays 1. Pi restarted: SYNC back on within ~20 ms.
 
 Frames (`shared/raft.h`): one CAN ID per type per sender (REF `0x000`+node, APPEND `0x040`+node, …). Byte 0 is the term, so Raft frames skip the Lab 3 seq dedup. REF: b1 cycle counter, b2–7 master time in µs. **Confirm the IDs and layouts with the TA**: the handout doesn't define them.
-**Pins:** STM32 LEADER PA0 (A0), SYNC PA8 (D7), REF_RX PC8 (CN10-2). Pi LEADER BCM 16 (pin 36), SYNC BCM 12 (pin 32), REF_RX BCM 27 (pin 13). LEDs still need wiring.
-**Later:** REF_RX flips on both bus copies of a REF, so it pulses instead of toggling. In step 7, act only on the first copy (match the cycle counter).
+**Pins:** STM32 LEADER PA0 (A0), SYNC PA8 (D7), REF_RX PC8 (CN10-2), PPS PC9 (CN10-1, step 7). Pi LEADER BCM 16 (pin 36), SYNC BCM 12 (pin 32), REF_RX BCM 27 (pin 13), PPS BCM 22 (pin 15), HZ BCM 23 (pin 16). LEDs still need wiring.
+REF_RX toggles once per REF since step 7: on its first copy (bus A, bus B or relayed), matched by sender and cycle counter.
 
 ### 4. Log replication — DONE
 **Adds:** an event sent to the leader is replicated to followers and committed once a majority has it. Events sent to a follower get redirected to the leader.
@@ -114,24 +114,95 @@ Frames (`shared/raft.h`): one CAN ID per type per sender (REF `0x000`+node, APPE
 
 **Ask the TA:** Is "the seed that makes the Pi win" about the election after an STM32 leader dies? At boot the Pi can't win, because the STM32s finish electing before the cockpit starts.
 
-### 6. Link watching and routing
+### 6. Link watching and routing — DONE except the jumper pulls (board check below)
 **Adds:** each node reports node and link failures and recoveries to the leader as log events. Routing (direct bus or relay) is built from `getNetwork()` instead of lab3's heartbeat ages.
 **Verify:** pull an A jumper and you get one new log entry, at the same index on every node, with the term unchanged. Pull N1 off B and N3 off A, and steering, blinking and braking still work through the Pi relay.
+**Done (2026-11-16):** `shared/netwatch.c` (the Part 1 Raft client), tested in `host_test` 6.1-6.3 and `sim watch`.
+- **Link watching.** Every 10 ms each node turns heartbeat ages into facts it can vouch for, compares them with the committed graph, and submits any difference with `raft_submit_change()` (retried every 300 ms while the graph still disagrees). The facts:
+  - its own link on a bus is up if it hears another node's own (not relayed) heartbeat there
+  - another node is up if heard at all, and down only if this node sees both buses and hears it on neither
+  - another node's link: up iff its own heartbeat is heard on that bus
+  - the cockpit: OK while N1 is up
+- **One entry per change.** Every node reports the same change. The leader logs an event only if it changes its projected graph (committed entries plus the uncommitted tail). EVENT b3 = 1 marks such reports; console submits are never dropped.
+- **Routing table** (`route_build`): forward S's frames from bus X to bus Y when the graph says this node is on both buses, S is on X and not on Y, and a third node is on Y and not on X. With three nodes at most one node qualifies. Part 5.2: until the log has a second link failure, the same rule also runs on direct heartbeat ages (`route_relay_observed`, sender stale after 30 ms, before the 50 ms timeout).
+- **Relays.** Every node relays now: N2 and N3 (`relay.c`, a thread each) and the Pi (`relay_maybe()` in its RX thread, for checkoff step 9). Raft frames are relayed too, with bit 7 of b0 set. A relayed REF gets the first hop and its time in the relay added to its master time (a transparent clock).
+- **Sim `watch`** (heartbeats modeled from the jumpers, relaying by each node's table):
+  - cold start: exactly 10 entries (3 NODE_UP, 6 CANLINK_UP, COCKPIT_OK) on all three
+  - one jumper: one entry each way
+  - N1 off B, N3 off A: two entries; N3 gets them through N2's relay and keeps SYNC; an EVENT from N2 reaches N3's log
+  - the STM32 leader cut off from the other STM32: the Pi bridges, term unchanged
+  - a follower isolated: NODE_DOWN once, then NODE_UP plus its 2 links
+- **Board (2026-11-16):** cold start logged exactly those 10 entries, the same on all three. No relaying with all links up (`relay none` in `raft status`).
 
-### 7. Global time
+**Still to check on the boards (needs hands on the jumpers):**
+1. Pull one A jumper: one CANLINK_DOWN entry everywhere (`raft log`), term unchanged. Put it back: one CANLINK_UP.
+2. N1 off B, N3 off A:
+   - two entries
+   - `raft status` on N2 shows `relay N1 A->B, N3 B->A`
+   - N3 keeps SYNC; the wheel still steers, blinks and brakes
+   - submit an event on N2 (`net cockpit ok`): it appears in N3's `raft log`
+3. N2 leading, N2 off B, N3 off A (checkoff step 9):
+   - the Pi's `raft status` shows `relay N2 A->B, N3 B->A`
+   - SYNC on at N3; REF_RX toggles there
+
+### 7. Global time — DONE except the scope
 **Adds:** the leader puts its clock in REF. Followers set their clock from it plus the CAN delay, and correct for drift between REFs. `global_gettime()`, a PPS pin pulsing every global second, and a console line per pulse with the drift info.
 **Verify:** scope the PPS pins on all nodes. Build it in three stages and check each:
 - local clock only: the edges drift apart
 - with the offset from REF: the edges line up
 - with drift correction: the edges stay together between REFs
+**Done (2026-11-16):** `shared/timesync.c` (host test 7.1-7.3), `src_lab5/time_node.c`, and the same in `cockpit.c`.
+- **Mapping.** global(t) = base_global + (t - base_local)(1 + ppb/1e9). The local clock is the 84 MHz cycle counter on the STM32s (`local_us()`) and CLOCK_MONOTONIC on the Pi.
+  - At boot the leader's mapping is the identity.
+  - A node that wins an election keeps its mapping, so global time has no step at a handover.
+  - Followers re-anchor at every REF: follower_clock = L + delay, where delay = sender TX latency + 236 µs on the wire + receiver RX latency (`timesync.h`, adjustable with `time delay`).
+- **Each correction** is applied half at a time (the clock slews). A REF more than 150 µs late is ignored (it waited behind another frame), unless three in a row agree. Beyond 2 ms: a hard step.
+- **Drift:** (L2 - L1)/(F2 - F1) over >= 2 s windows, smoothed 1/4 per window, applied between REFs.
+- **Stamps.**
+  - Send: each REF is stamped per bus just before that copy is sent.
+  - Receive, STM32: in the CAN RX callback.
+  - Receive, Pi: the kernel's receive timestamp (SO_TIMESTAMPNS).
+- **CLOCK_REALTIME** on the STM32s is set from global time at every PPS edge (`sys_clock_settime`). It has the 100 µs tick, so PPS, REF and the blinkers use `global_gettime()`. The Pi doesn't set its clock (no root, and NTP owns it).
+- **PPS:** PC9 on the STM32s, BCM 22 on the Pi. Each sleeps until about 200 µs before the whole global second, then spins to the edge.
+- **One console line per edge:** `PPS N2 | global 5797.000003 s | local 19.740884 s | drift ratio 1.000041373 (+41.373 ppm) | since REF +0 us | last step +52 us | synced to N1`. `time status` shows the sync counters.
+- **Board (2026-11-16):**
+  - STM32 PPS edges land 3-5 µs after each global second; the Pi's about 20 µs after.
+  - The STM32s run about +40 ppm against the Pi.
+  - Per-REF corrections from the Pi: up to ±100 µs. N2's and N3's are nearly identical, since they hear the same frame. From an STM32 master: ±10 µs.
+  - About 12 % of the Pi's REFs are ignored as late.
 
-### 8. Blinkers and failure mode on global time
+**Still to check:** scope the PPS pins (PC9 on N2 and N3, BCM 22 on the Pi), and tune `time delay` if the Pi's edge is offset from the STM32s'.
+
+### 8. Blinkers and failure mode on global time — DONE except the scope
 **Adds:** blinkers time their flashes from `global_gettime()`. When the cockpit fails, the car enters failure mode: error state, motor braked, hazards at 4 Hz. A new leader keeps time sync going.
 **Verify:** scope FL and RL: within 1 ms over ten edges. Power off the Pi: error within 100 ms, an STM32 becomes leader within 1 s, and the hazards stay in step.
+**Done (2026-11-16):**
+- **Blinkers.** The Pi's BLINK frame now only says which lamps blink, sent on every change and every 500 ms. Each STM32 switches its lamps at multiples of the half period in global time, so the edges are the same instants everywhere; the last ~200 µs before an edge is spun.
+- **Rates:** turn signals 1 Hz (Lab 3), hazards 2 Hz, failure mode 4 Hz (`config.h`).
+- **Failure mode:** no N1 heartbeat on either bus (relayed copies count). The STM32s blink hazards at 4 Hz on their own. ERROR and motor braking are Lab 3's existing 60 ms heartbeat loss.
+- **HZ on the Pi** (BCM 23) shows the hazard lamp on the same edges.
+- **`blink`** in the STM32 shell shows the state and the last 8 edges in global time.
+- **Board (2026-11-16):**
+  - Cockpit up without the proxy (error state): hazards at a 250 ms half period, edges at global .000010-.000041 s.
+  - Cockpit stopped:
+    - within 1 s, a 125 ms half period on N2 (`failure mode: cockpit lost`)
+    - N2 leads term 2; NODE_DOWN N1 and COCKPIT_ERROR logged once each; `holding 2 for N1`
+    - N3 prints `master N1 -> N2, clocks -81 us apart at its first REF`, applied half at a time, so the largest jump at the lamps is ~40 µs, under the 100 µs limit
+- **Ask the TA:** "hazards at 4 Hz ... return to 2 Hz", taken literally (Lab 3 hazards were 1 Hz). The rates are the three constants in `config.h` (and `BLINK_HAZARD_HALF_MS` in `cockpit.c`). Also: what "HZ" is in checkoff step 1. Here it's the Pi's hazard lamp output.
 
-### 9. Pi rejoin, demo, report
+**Still to check:** scope FL (N2 PC11) and RL (N3 PC11) over ten edges, then power off the Pi and watch the handover.
+
+### 9. Pi rejoin, demo, report — rejoin DONE, report drafted
 **Adds:** when the Pi powers back on, it rejoins as a follower and replays the events it missed. Then a dry run of the full checkoff, and the report.
 **Verify:** the Pi shows the missed events once, in order. All 10 checkoff steps pass.
+**Done (2026-11-16):**
+- **Listen before leading.** The preset leader listens for `RAFT_CLAIM_LISTEN_MS` (198 ms, longer than a lone node's pre-vote period) before taking term 1. If it hears any Raft frame, it rejoins as a follower instead. This also closes step 4's known limit: a rebooted Pi can no longer lead term 1 with an empty log.
+- **Replay marking.** A follower marks entries that reach it already committed as replayed (`raft_replayed_through()`). The Pi's display prints every committed entry once, in order: `event    11  term 2   NODE_DOWN N1  [replayed]`, then `[live]`.
+- **Board (2026-11-16):** the Pi restarted under N2's leadership. It printed `cluster heard -> follower`, replayed 12 entries marked `[replayed]`, synced its clock to N2, and LEADER stayed on N2.
+- **Report:** `~/Documents/CMU/18649/Lab5/lab5_report.tex` (and `.pdf`). Its measured numbers come from the board runs above; add the scope captures.
+- **Not done: the extra credit** (cloud VM with Redis and a GUI). It needs a cloud account and a deployed service.
+
+**Demo dry run (to do, with the scope):** checkoff steps 1-10 in order. Step 8 uses `build/n2r` and `build/n3r` (random leader, seed 9, already built) plus `RAFT_LEADER=random RAFT_SEED=9 cockpit/deploy.sh`. Then reflash `build/n2`, `build/n3` and redeploy without the variables.
 
 Build (repo root, west venv active):
 ```

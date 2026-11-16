@@ -9,8 +9,11 @@
  *   ./sim                default_leader=cockpit: steps 4 and 5
  *   ./sim random         LEADER=random (r1.so ...: built with RAFT_DEFAULT_LEADER = none)
  *   ./sim random-seed9   LEADER=random with seed 9 (p1.so ...): the seed that makes the Pi win
+ *   ./sim watch          steps 6-9: every node also runs link watching and relays frames
+ *                        by its routing table, so the log follows the jumpers
  */
 #include "netstate.h"
+#include "netwatch.h"
 #include "raft.h"
 #include "raft_config.h"
 #include <dlfcn.h>
@@ -37,6 +40,16 @@ struct node {
     struct network (*getNetwork)(void);
     uint8_t (*net_event_encode)(const struct net_event *);
     void (*netstate_format)(const struct network *, char *, size_t);
+    int (*net_event_decode)(uint8_t, struct net_event *);
+    void (*net_event_format)(const struct net_event *, char *, size_t);
+    bool (*raft_in_sync)(int64_t);
+    uint16_t (*raft_replayed_through)(void);
+    int (*raft_held_for)(uint8_t);
+    void (*netwatch_init)(uint8_t, int64_t);
+    int (*netwatch_tick)(const struct netwatch_obs *, int64_t);
+    void (*route_build)(const struct network *, uint8_t, struct route_table *);
+    bool (*route_relay_observed)(const struct netwatch_obs *, uint8_t, uint8_t, uint8_t);
+    struct route_table routes; /* rebuilt from its getNetwork() every 10 ms */
 };
 static struct node nodes[RAFT_N + 1]; /* by node ID */
 
@@ -77,6 +90,15 @@ static void load(const char *prefix, uint8_t id) {
     LOAD(n, lib, getNetwork);
     LOAD(n, lib, net_event_encode);
     LOAD(n, lib, netstate_format);
+    LOAD(n, lib, net_event_decode);
+    LOAD(n, lib, net_event_format);
+    LOAD(n, lib, raft_in_sync);
+    LOAD(n, lib, raft_replayed_through);
+    LOAD(n, lib, raft_held_for);
+    LOAD(n, lib, netwatch_init);
+    LOAD(n, lib, netwatch_tick);
+    LOAD(n, lib, route_build);
+    LOAD(n, lib, route_relay_observed);
 }
 
 /* ---- The buses ---- */
@@ -84,8 +106,9 @@ static void load(const char *prefix, uint8_t id) {
 struct frame {
     uint16_t id;
     uint8_t data[8];
-    uint8_t bus; /* NET_BUS_A or NET_BUS_B */
-    int64_t at;  /* delivery time */
+    uint8_t bus;     /* NET_BUS_A or NET_BUS_B */
+    uint8_t relayer; /* the node that forwarded it, or 0 for the sender's own copy */
+    int64_t at;      /* delivery time */
 };
 #define MAX_FRAMES 4096
 static struct frame queue[MAX_FRAMES];
@@ -95,6 +118,47 @@ static int64_t now; /* simulated ms */
 /* linked[node][bus]: that node's jumper on that bus is in. A pulled one cuts the node
  * off that bus both ways. */
 static bool linked[RAFT_N + 1][2];
+
+/* ./sim watch: nodes run link watching (netwatch_tick) and relay by their routing tables */
+static bool watching;
+
+/* What node `me` hears: other nodes' own frames on a bus they share, and relayed ones */
+static bool hears_direct(uint8_t me, uint8_t n, int b) {
+    return n != me && nodes[n].up && nodes[me].up && linked[n][b] && linked[me][b];
+}
+
+static void observe_direct(uint8_t me, struct netwatch_obs *o) {
+    *o = (struct netwatch_obs){0};
+    for (uint8_t n = 1; n <= RAFT_N; n++) {
+        for (int b = 0; b < 2; b++) {
+            o->direct[n][b] = hears_direct(me, n, b);
+            o->fresh[n][b] = o->direct[n][b]; /* links change instantly here */
+        }
+    }
+}
+
+/* Does relay r forward sender s's frames heard on bus `from`? Its routing table from the
+ * graph, or the same rule on what it hears (netwatch.h) */
+static bool relays(uint8_t r, uint8_t s, int from) {
+    struct netwatch_obs o;
+    observe_direct(r, &o);
+    return nodes[r].routes.relay[s][from] || nodes[r].route_relay_observed(&o, r, s, (uint8_t)from);
+}
+
+static void observe(uint8_t me, struct netwatch_obs *o) {
+    observe_direct(me, o);
+    for (uint8_t n = 1; n <= RAFT_N; n++) {
+        o->alive[n] = o->direct[n][0] || o->direct[n][1];
+        for (uint8_t r = 1; r <= RAFT_N && !o->alive[n] && watching; r++) {
+            for (int from = 0; from < 2; from++) {
+                if (r != me && r != n && hears_direct(r, n, from) && hears_direct(me, r, 1 - from) &&
+                    relays(r, n, from)) {
+                    o->alive[n] = true; /* n's heartbeats reach us through r */
+                }
+            }
+        }
+    }
+}
 
 /* The platform hook every node calls: the frame goes out on bus A, and on bus B 1 ms later */
 void raft_platform_send(uint16_t id, uint8_t data[8]) {
@@ -107,8 +171,22 @@ void raft_platform_send(uint16_t id, uint8_t data[8]) {
         f->id = id;
         memcpy(f->data, data, 8);
         f->bus = bus;
+        f->relayer = 0;
         f->at = now + 1 + bus;
     }
+}
+
+static void queue_relayed(const struct frame *in, uint8_t relayer) {
+    if (queued == MAX_FRAMES) {
+        fprintf(stderr, "sim: bus queue full\n");
+        exit(2);
+    }
+    struct frame *f = &queue[queued++];
+    *f = *in;
+    f->data[0] |= RAFT_FLAG_RELAYED;
+    f->bus = 1 - in->bus;
+    f->relayer = relayer;
+    f->at = now + 1;
 }
 
 /* Every frame due by now reaches every other powered node on its bus. Frames sent from
@@ -123,9 +201,14 @@ static void deliver(void) {
             continue;
         }
         uint8_t from = RAFT_ID_SENDER(f.id);
+        uint8_t on_wire = f.relayer ? f.relayer : from; /* who put this copy on the bus */
         for (uint8_t id = 1; id <= RAFT_N; id++) {
-            if (id != from && nodes[id].up && linked[from][f.bus] && linked[id][f.bus]) {
-                nodes[id].raft_on_frame(f.id, f.data, now);
+            if (id == from || id == f.relayer || !nodes[id].up || !linked[on_wire][f.bus] || !linked[id][f.bus]) {
+                continue;
+            }
+            nodes[id].raft_on_frame(f.id, f.data, now);
+            if (watching && f.relayer == 0 && relays(id, from, f.bus)) {
+                queue_relayed(&f, id);
             }
         }
     }
@@ -144,6 +227,17 @@ static void run(int ms) {
                 }
             }
         }
+        if (watching && now % 10 == 0) { /* HB_MON's period on the boards */
+            for (uint8_t id = 1; id <= RAFT_N; id++) {
+                if (nodes[id].up) {
+                    struct network g = nodes[id].getNetwork();
+                    struct netwatch_obs o;
+                    nodes[id].route_build(&g, id, &nodes[id].routes);
+                    observe(id, &o);
+                    nodes[id].netwatch_tick(&o, now);
+                }
+            }
+        }
     }
 }
 
@@ -151,6 +245,8 @@ static void run(int ms) {
 static void boot(uint8_t id) {
     nodes[id].raft_log_init();
     nodes[id].raft_init(id, now);
+    nodes[id].netwatch_init(id, now);
+    nodes[id].routes = (struct route_table){0};
     nodes[id].up = true;
 }
 
@@ -381,10 +477,10 @@ static void step5(void) {
     run(50);
     check("an event from the follower commits on both STM32s", logs_agree(BIT(2) | BIT(3), entries));
 
-    printf("\nsim 5.5: the Pi powers back on (checkoff step 7): empty log, boots as leader of term 1\n");
+    printf("\nsim 5.5: the Pi powers back on (checkoff step 7): empty log, listens before leading\n");
     boot(1);
     run(400);
-    check("it hears term 2, steps down and follows the STM32; the STM32 still leads",
+    check("it hears the cluster and follows the STM32; the STM32 still leads",
           elected(ALL) == leader && in_term(ALL, 2));
     check("the leader replayed the whole log to it: all agree", all_agree(entries));
 
@@ -426,6 +522,147 @@ static void step5(void) {
     run(300);
     check("the third back: it follows, one term everywhere, all agree",
           elected(ALL) != 0 && in_term(ALL, term) && all_agree(entries));
+}
+
+
+/* ---- steps 6-9: link watching, routing, the Pi's rejoin (./sim watch) ---- */
+
+/* The committed entries every node shares, and the term everywhere unchanged */
+static uint16_t entries_everywhere(unsigned mask) {
+    uint16_t n = 0;
+    for (uint8_t id = 1; id <= RAFT_N; id++) {
+        if (mask & BIT(id)) {
+            n = nodes[id].raft_log_commit_index();
+            break;
+        }
+    }
+    return logs_agree(mask, n) ? n : 0;
+}
+
+static bool graph_is(uint8_t id, const char *want) {
+    struct network g = nodes[id].getNetwork();
+    char got[96];
+    nodes[id].netstate_format(&g, got, sizeof(got));
+    return strcmp(got, want) == 0;
+}
+
+static void print_new(uint8_t id, uint16_t from, uint16_t to) {
+    for (uint16_t i = from + 1; i <= to; i++) {
+        struct net_event ev;
+        char name[24] = "?";
+        if (nodes[id].net_event_decode(nodes[id].raft_log_event(i), &ev) == 0) {
+            nodes[id].net_event_format(&ev, name, sizeof(name));
+        }
+        printf("  entry %u, term %u: %s\n", i, nodes[id].raft_log_term(i), name);
+    }
+}
+
+static void watch_scenarios(void) {
+    const char *all_up = "N1 up A+ B+ | N2 up A+ B+ | N3 up A+ B+ | cockpit OK";
+
+    printf("\nsim 6.1: cold start: the nodes report themselves and each other\n");
+    run(1000);
+    uint16_t n = entries_everywhere(ALL);
+    print_new(1, 0, n);
+    check("1 s: one entry per node, link and the cockpit (10), the same on all three",
+          n == 10 && graph_is(1, all_up) && graph_is(2, all_up) && graph_is(3, all_up));
+    check("term 1, N1 leads", in_term(ALL, 1) && elected(ALL) == 1);
+
+    printf("\nsim 6.2: N3's A jumper out, then back (checkoff step 4)\n");
+    set_links(3, false, true);
+    run(1300); /* down is reported after it has held 1 s (NETWATCH_DOWN_HOLD_MS) */
+    uint16_t m = entries_everywhere(ALL);
+    print_new(1, n, m);
+    check("one new entry, CANLINK_DOWN N3 A, at the same index everywhere; term 1",
+          m == n + 1 && nodes[2].raft_log_event(m) == code(CANLINK_DOWN, 3, NET_BUS_A) && in_term(ALL, 1));
+    set_links(3, true, true);
+    run(300);
+    n = entries_everywhere(ALL);
+    print_new(1, m, n);
+    check("back: one entry, CANLINK_UP N3 A", n == m + 1 && graph_is(3, all_up));
+
+    printf("\nsim 6.3: N1 off B, then N3 off A: the hop through N2 (checkoff step 5)\n");
+    set_links(1, true, false);
+    run(1300);
+    set_links(3, false, true);
+    run(1500);
+    m = entries_everywhere(ALL);
+    print_new(1, n, m);
+    const char *hop = "N1 up A+ B- | N2 up A+ B+ | N3 up A- B+ | cockpit OK";
+    check("two entries, the same everywhere (N3's by relay); term 1",
+          m == n + 2 && graph_is(3, hop) && graph_is(1, hop) && in_term(ALL, 1));
+    check("N2's table relays N1 A->B and N3 B->A", nodes[2].routes.relay[1][NET_BUS_A] && nodes[2].routes.relay[3][NET_BUS_B]);
+    check("N3 still hears REF (relayed): SYNC on", nodes[3].raft_in_sync(now));
+    nodes[2].raft_submit(code(COCKPIT_OK, 0, 0));
+    run(100);
+    check("an EVENT from N2 reaches N3's log through the leader N1 and the relay N2",
+          entries_everywhere(ALL) == m + 1);
+    set_links(1, true, true);
+    set_links(3, true, true);
+    run(500);
+    n = entries_everywhere(ALL);
+    check("jumpers back: links up everywhere, nobody relays",
+          n == m + 3 && graph_is(2, all_up) && !nodes[2].routes.relay[1][NET_BUS_A]);
+
+    printf("\nsim 6.4: the Pi powered off (checkoff step 6)\n");
+    nodes[1].up = false;
+    int ms = run_until_elected(BIT(2) | BIT(3), 1000);
+    uint8_t leader = elected(BIT(2) | BIT(3));
+    run(1500);
+    m = entries_everywhere(BIT(2) | BIT(3));
+    print_new(2, n, m);
+    printf("  N%u leads term %u after %d ms; holding %d entries for N1\n", leader, nodes[leader].raft_get_term(), ms,
+           nodes[leader].raft_held_for(1));
+    check("an STM32 leads within 1 s, and logs NODE_DOWN N1 and COCKPIT_ERROR once each",
+          ms >= 0 && ms < 1000 && m == n + 2 && graph_is(2, "N1 down | N2 up A+ B+ | N3 up A+ B+ | cockpit ERROR"));
+    check("the leader holds those two entries for N1", nodes[leader].raft_held_for(1) == 2);
+
+    printf("\nsim 6.5: the Pi powers back on (checkoff step 7)\n");
+    boot(1);
+    run(600);
+    n = entries_everywhere(ALL);
+    print_new(1, m, n);
+    uint16_t replayed = nodes[1].raft_replayed_through();
+    printf("  N1 replayed entries 1-%u\n", replayed);
+    check("it rejoins as a follower; the STM32 still leads; term unchanged",
+          elected(ALL) == leader && in_term(ALL, nodes[leader].raft_get_term()));
+    nodes[3].raft_submit(code(COCKPIT_OK, 0, 0)); /* a live event once it has caught up */
+    run(100);
+    n = entries_everywhere(ALL);
+    check("everything logged while it was away came replayed, then the next one live",
+          replayed >= m && n == nodes[1].raft_log_commit_index() && nodes[1].raft_replayed_through() == replayed &&
+              n > replayed);
+    check("NODE_UP N1, links and COCKPIT_OK logged: all up again", graph_is(1, all_up) && graph_is(leader, all_up));
+    check("the leader holds nothing for N1 any more", nodes[leader].raft_held_for(1) == 0);
+
+    printf("\nsim 6.6: the STM32 leader cut off from the other STM32: the Pi bridges (checkoff step 9)\n");
+    uint8_t other = other_stm32(leader);
+    uint8_t term = nodes[leader].raft_get_term();
+    set_links(leader, true, false); /* leader on A only */
+    set_links(other, false, true);  /* the other on B only */
+    run(1600);
+    m = entries_everywhere(ALL);
+    print_new(1, n, m);
+    check("two entries everywhere, term unchanged, SYNC on at the cut-off STM32",
+          m == n + 2 && in_term(ALL, term) && elected(ALL) == leader && nodes[other].raft_in_sync(now));
+    check("the Pi's table relays both STM32s", nodes[1].routes.relay[leader][NET_BUS_A] && nodes[1].routes.relay[other][NET_BUS_B]);
+    set_links(leader, true, true);
+    set_links(other, true, true);
+    run(500);
+    n = entries_everywhere(ALL);
+    check("restored: all up, term unchanged", graph_is(1, all_up) && in_term(ALL, term));
+
+    printf("\nsim 6.7: a follower isolated, then back (checkoff step 10)\n");
+    set_links(other, false, false);
+    run(1500);
+    m = entries_everywhere(BIT(1) | BIT(leader));
+    print_new(1, n, m);
+    check("NODE_DOWN once; term unchanged", m == n + 1 && in_term(BIT(1) | BIT(leader), term));
+    set_links(other, true, true);
+    run(500);
+    n = entries_everywhere(ALL);
+    print_new(1, m, n);
+    check("back: NODE_UP and its two links; all agree; term unchanged", n == m + 3 && graph_is(other, all_up) && in_term(ALL, term));
 }
 
 /* ---- LEADER=random (checkoff step 8) ---- */
@@ -492,6 +729,7 @@ int main(int argc, char **argv) {
     const char *mode = argc > 1 ? argv[1] : "default";
     bool random_mode = strcmp(mode, "random") == 0;
     bool pi_seed = strcmp(mode, "random-seed9") == 0;
+    watching = strcmp(mode, "watch") == 0;
     const char *prefix = random_mode ? "r" : (pi_seed ? "p" : "n");
 
     printf("\nsim (%s): %s1.so %s2.so %s3.so\n", mode, prefix, prefix, prefix);
@@ -502,8 +740,10 @@ int main(int argc, char **argv) {
     }
     if (random_mode || pi_seed) {
         random_leader(pi_seed);
+    } else if (watching) {
+        watch_scenarios();
     } else {
-        run(10);
+        run(RAFT_CLAIM_LISTEN_MS + 10); /* N1 listens, hears no cluster, leads term 1 */
         step4();
         step5();
     }

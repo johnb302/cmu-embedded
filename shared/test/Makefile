@@ -4,6 +4,7 @@
 #              ./sim                default_leader = cockpit (n*.so)
 #              ./sim random         LEADER=random (r*.so)
 #              ./sim random-seed9   LEADER=random, seed 9: the Pi wins (p*.so)
+#              ./sim watch          steps 6-9: link watching and relaying (n*.so)
 CFLAGS  = -std=c11 -Wall -Wextra -I..
 SHARED  = $(wildcard ../*.c)
 HEADERS = $(wildcard ../*.h)
@@ -24,6 +25,7 @@ run: host_test sim $(LIBS)
 	./sim
 	./sim random
 	./sim random-seed9
+	./sim watch
 
 host_test: host_test.c $(SHARED) $(HEADERS)
 	$(CC) $(CFLAGS) -o $@ host_test.c $(SHARED)

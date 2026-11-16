@@ -131,56 +131,69 @@ int net_event_parse(int argc, char *const argv[], struct net_event *ev) {
     return 0;
 }
 
+/* The four Part 4 mutators. They take the graph to change, so the leader can also apply
+ * events to a copy (its projection of the uncommitted log tail, raft.c) without touching
+ * the committed graph. */
+
 /* addNode(X): node X is alive again, with no links until addLink */
-static void addNode(uint8_t node) {
+static void addNode(struct network *g, uint8_t node) {
     /* No link reset needed: links only come up with addLink, and dropNode cleared them */
-    graph.node_up[node - 1] = true;
+    g->node_up[node - 1] = true;
 }
 
 /* dropNode(X): node X goes down, along with every link attached to it */
-static void dropNode(uint8_t node) {
-    graph.node_up[node - 1] = false;
+static void dropNode(struct network *g, uint8_t node) {
+    g->node_up[node - 1] = false;
     for (int bus = 0; bus < NET_BUSES; bus++) {
-        graph.link_up[node - 1][bus] = false;
+        g->link_up[node - 1][bus] = false;
     }
 }
 
 /* addLink(X, Y): the link between node X and bus Y is up */
-static void addLink(uint8_t node, uint8_t bus) {
-    graph.link_up[node - 1][bus] = true;
+static void addLink(struct network *g, uint8_t node, uint8_t bus) {
+    g->link_up[node - 1][bus] = true;
 }
 
 /* dropLink(X, Y): the link between node X and bus Y is down; node X and the bus stay */
-static void dropLink(uint8_t node, uint8_t bus) {
-    graph.link_up[node - 1][bus] = false;
+static void dropLink(struct network *g, uint8_t node, uint8_t bus) {
+    g->link_up[node - 1][bus] = false;
 }
 
-int netstate_apply(const struct net_event *ev) {
+int netstate_apply_to(struct network *g, const struct net_event *ev) {
     if (!event_valid(ev)) {
         return -EINVAL;
     }
 
     switch (ev->type) {
     case COCKPIT_OK:
-        graph.cockpit_ok = true;
+        g->cockpit_ok = true;
         break;
     case COCKPIT_ERROR:
-        graph.cockpit_ok = false;
+        g->cockpit_ok = false;
         break;
     case NODE_UP:
-        addNode(ev->node);
+        addNode(g, ev->node);
         break;
     case NODE_DOWN:
-        dropNode(ev->node);
+        dropNode(g, ev->node);
         break;
     case CANLINK_UP:
-        addLink(ev->node, ev->bus);
+        addLink(g, ev->node, ev->bus);
         break;
     case CANLINK_DOWN:
-        dropLink(ev->node, ev->bus);
+        dropLink(g, ev->node, ev->bus);
         break;
     }
     return 0;
+}
+
+int netstate_apply(const struct net_event *ev) {
+    return netstate_apply_to(&graph, ev);
+}
+
+bool netstate_changes(const struct network *g, const struct net_event *ev) {
+    struct network after = *g;
+    return netstate_apply_to(&after, ev) == 0 && memcmp(&after, g, sizeof(after)) != 0;
 }
 
 struct network getNetwork(void) {

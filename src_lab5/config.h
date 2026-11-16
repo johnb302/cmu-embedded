@@ -60,7 +60,9 @@
 #define FAULT_HB_LOSS     3
 #define FAULT_REMOTE      4
 
-/* BLINK (Pi -> all): b1 state | b2 bit 0 = phase (1 = lamps on) */
+/* BLINK (Pi -> all): b1 state | b2 bit 0 = phase (Lab 3; Lab 5 ignores it). Lab 5: every
+ * node times its lamps from global_gettime() instead (blink.c), so the Pi only says which
+ * lamps blink. */
 #define BLINK_OFF    0
 #define BLINK_LEFT   1
 #define BLINK_RIGHT  2
@@ -79,6 +81,17 @@
  * 2nd missing heartbeat (t = 40 ms), so a receiver's age peaks at ~40 ms < 50 ms. */
 #define RELAY_AFTER_MS     30
 #define HB_FAILSAFE_RESPONSE_BUDGET_MS 100              /* R4.5 system error */
+
+/* Lab 5 blinkers, timed from global time: each lamp is on for the first half of every
+ * period, so the edges fall on multiples of the half period, the same instant on every
+ * node. Turn signals keep Lab 3's 1 Hz; hazards blink at 2 Hz, and at 4 Hz in failure mode
+ * (cockpit lost, step 8): "hazards at 4 Hz ... hazards return to 2 Hz". */
+#define BLINK_TURN_HALF_MS     500
+#define BLINK_HAZARD_HALF_MS   250
+#define BLINK_FAILSAFE_HALF_MS 125
+
+/* Lab 5 PPS: high for this long from each whole second of global time */
+#define PPS_WIDTH_MS 100
 
 #define PID_INTERVAL_MS   10
 #define FORCE_INTERVAL_MS 50
@@ -100,6 +113,10 @@
  * CONFIG_CAN_MCP2515_INT_THREAD_PRIO (Kconfig), cooperative -14, not set here. */
 #define TASK_STACK_SIZE 1024
 
+/* Lab 5: PPS waits for each whole second of global time, then spins its last ~200 us:
+ * above everything, but that's < 0.03 % of the CPU */
+#define PPS_PRIO 0
+
 #if NODE_ID == ZONE_N2
 /* Node 2 priorities (deadline monotonic; 0 is main during init) */
 #define RELAY_PRIO    1 /* on the relayed brake chain: N3's only copy of CTRL */
@@ -114,12 +131,13 @@
 #else
 /* Node 3 priorities */
 #define DRIVE_PRIO    1 /* ties BLINK_R's 0.5 ms, but brake beats lights */
-#define BLINK_PRIO    2 /* BLINK_R */
-#define TEST_BTN_PRIO 3
-#define PID_PRIO      4
-#define HB_TX_PRIO    5
-#define HB_MON_PRIO   6
-#define RAFT_PRIO     7 /* Last: the REF time is stamped at send (raft_node.c), so a late RAFT
+#define RELAY_PRIO    2 /* Lab 5: any node on both buses relays (checkoff step 9: N2 cut off) */
+#define BLINK_PRIO    3 /* BLINK_R */
+#define TEST_BTN_PRIO 4
+#define PID_PRIO      5
+#define HB_TX_PRIO    6
+#define HB_MON_PRIO   7
+#define RAFT_PRIO     8 /* Last: the REF time is stamped at send (raft_node.c), so a late RAFT
                          * thread can't skew sync. Its deadline is the 60 ms follower timeout. */
 #endif
 

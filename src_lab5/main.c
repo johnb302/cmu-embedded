@@ -12,6 +12,7 @@
 #include "button.h"
 #include "netstate.h"
 #include "raft_node.h"
+#include "time_node.h"
 #include <zephyr/kernel.h>
 #include <zephyr/sys/printk.h>
 #include <zephyr/drivers/gpio.h>
@@ -59,6 +60,11 @@ int main(void) {
         return rf_ret;
     }
 
+    /* After RAFT: PPS on global time */
+    if (time_node_start() < 0) {
+        printk("PPS not started.\n");
+    }
+
 #if NODE_ID == ZONE_N2
     /* After CAN, unlike n3_start(): FORCE_TX starts sending right away */
     int n2_ret = n2_start();
@@ -66,12 +72,13 @@ int main(void) {
         printk("N2 tasks not started.\n");
         return n2_ret;
     }
+#endif
+    /* Lab 5: every node relays by its routing table (step 6), not only N2 */
     int rl_ret = relay_start();
     if (rl_ret < 0) {
         printk("RELAY not started.\n");
         return rl_ret;
     }
-#endif
 
     /* After CAN: a press sends FAULT */
     int btn_ret = button_start();
@@ -87,17 +94,15 @@ int main(void) {
 
     k_thread_priority_set(k_current_get(), MAIN_PRIO);
 
-    unsigned int wcet_tick = 0;
+    /* One line per PPS edge (Part 6.4), and the Lab 3 counters every 5 s */
+    unsigned int tick = 0;
     while (1) {
-        k_msleep(1000);
-        printk("CAN A counts: %d\n", can_io_get_rx(0));
-        printk("CAN B counts: %d\n", can_io_get_rx(1));
-        printk("CAN accepted counts: %d\n", can_io_get_accepted());
-        printk("CAN dropped counts: %d\n", can_io_get_dropped());
-#if NODE_ID == ZONE_N2
-        printk("Relayed: %u\n", relay_take_count());
-#endif
-        if (++wcet_tick % 5 == 0) {
+        (void)time_print_pps(1500);
+        if (++tick % 5 == 0) {
+            printk("CAN A %d B %d | accepted %d dropped %d | relayed %u (5 s)\n", can_io_get_rx(0), can_io_get_rx(1),
+                   can_io_get_accepted(), can_io_get_dropped(), relay_take_count());
+        }
+        if (tick % 30 == 0) {
             wcet_print();
         }
     }

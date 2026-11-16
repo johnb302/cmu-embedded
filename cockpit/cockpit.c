@@ -52,6 +52,8 @@
 #include "raft.h"        /* ../shared: the Raft agent, same code as the STM32s */
 #include "raft_config.h"
 #include "raft_log.h"
+#include "netwatch.h"    /* ../shared: link watching and the routing table (step 6) */
+#include "timesync.h"    /* ../shared: global time (step 7) */
 
 /* ------------------------------ catalog ------------------------------- */
 
@@ -92,9 +94,11 @@
 #define MON_PERIOD_MS   10   /* HB_MON */
 #define HB_TIMEOUT_MS   50   /* 2 missed + 10 ms margin; + MON_PERIOD_MS = 60 ms from the fault */
 #define DUP_WINDOW_MS   10
-#define BLINK_HALF_MS   500  /* 1 Hz (R2.4) */
+#define BLINK_HALF_MS   500  /* 1 Hz (R2.4): turn signals */
+#define BLINK_HAZARD_HALF_MS 250 /* Lab 5: hazards at 2 Hz (STM32 config.h) */
 #define UDP_TIMEOUT_MS  200  /* proxy considered stopped */
 #define REMOTE_CLEAR_MS (3 * PERIOD_MS)
+#define RELAY_AFTER_MS  30   /* Lab 5 relay: the sender counts as off a bus after this (STM32 config.h) */
 #define DOUBLE_MS       500  /* test button double press */
 #define FAULT_MIN_MS    20
 
@@ -137,6 +141,8 @@
 #define GPIO_LEADER   16 /* Lab 5, pin 36: on while this node is the Raft leader */
 #define GPIO_SYNC     12 /* Lab 5, pin 32: on while time sync is fresh (raft_in_sync) */
 #define GPIO_REF_RX   27 /* Lab 5 test point, pin 13: toggles on every REF received */
+#define GPIO_PPS      22 /* Lab 5, pin 15: rising edge at every whole second of global time */
+#define GPIO_HZ       23 /* Lab 5, pin 16: the hazard lamp, timed from global time like FL/RL */
 
 static volatile uint32_t *gpio; /* /dev/gpiomem: memory-mapped hardware registers */
 
@@ -184,7 +190,8 @@ static int gpio_init(void)
 		return -1;
 	}
 	int pins[] = { GPIO_UDP_RX, GPIO_CMD_TX, GPIO_CAN_TX_A, GPIO_CAN_TX_B,
-		       GPIO_DEG_A, GPIO_DEG_B, GPIO_ERR, GPIO_LEADER, GPIO_SYNC, GPIO_REF_RX };
+		       GPIO_DEG_A, GPIO_DEG_B, GPIO_ERR, GPIO_LEADER, GPIO_SYNC, GPIO_REF_RX,
+		       GPIO_PPS, GPIO_HZ };
 	for (size_t i = 0; i < sizeof(pins) / sizeof(pins[0]); i++) {
 		gpio_output(pins[i]);
 	}
@@ -194,7 +201,7 @@ static int gpio_init(void)
 
 /* -------------------------------- time --------------------------------- */
 
-/* Lab 5: the REF master time. Step 7 replaces it with global_gettime(). */
+/* The local clock in µs (CLOCK_MONOTONIC). Global time maps from it (global_gettime). */
 static int64_t now_us(void)
 {
 	struct timespec ts;
@@ -216,6 +223,66 @@ static void sleep_until_ms(int64_t t)
 	struct timespec ts = { .tv_sec = t / 1000, .tv_nsec = (t % 1000) * 1000000 };
 
 	while (clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &ts, NULL) == EINTR) {
+	}
+}
+
+static void sleep_until_us(int64_t t)
+{
+	struct timespec ts = { .tv_sec = t / 1000000, .tv_nsec = (t % 1000000) * 1000 };
+
+	while (clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &ts, NULL) == EINTR) {
+	}
+}
+
+/* ---------------------- global time (Lab 5, Part 6) ---------------------- */
+/*
+ * shared/timesync.c behind one lock: the RAFT, CAN_RX, PPS and BLINK threads all read it.
+ * The Pi doesn't call clock_settime(): it runs without root and the system clock belongs to
+ * NTP. global_gettime() is the synchronized clock instead.
+ */
+static pthread_mutex_t time_lock = PTHREAD_MUTEX_INITIALIZER;
+
+/* Part 6.3: the current global time, µs */
+static int64_t global_gettime(void)
+{
+	pthread_mutex_lock(&time_lock);
+	int64_t g = timesync_global_us(now_us());
+	pthread_mutex_unlock(&time_lock);
+	return g;
+}
+
+/* Sleep until global time reaches g, then spin the last 300 µs */
+static void wait_global(int64_t g)
+{
+	while (1) {
+		pthread_mutex_lock(&time_lock);
+		int64_t target = timesync_local_us(g);
+		pthread_mutex_unlock(&time_lock);
+		int64_t left = target - now_us();
+
+		if (left <= 300) {
+			while (now_us() < target) {
+			}
+			return;
+		}
+		sleep_until_us(target - 300);
+	}
+}
+
+static int64_t ref_time(const uint8_t *data)
+{
+	int64_t t = 0;
+
+	for (int i = 0; i < 6; i++) {
+		t |= (int64_t)data[2 + i] << (8 * i);
+	}
+	return t;
+}
+
+static void put_ref_time(uint8_t *data, int64_t t)
+{
+	for (int i = 0; i < 6; i++) {
+		data[2 + i] = (uint8_t)(t >> (8 * i));
 	}
 }
 
@@ -288,6 +355,11 @@ static int can_open(const char *name)
 	}
 	/* Like can_add_rx_filter() on the STM32s: only the IDs we consume. */
 	setsockopt(fd, SOL_CAN_RAW, CAN_RAW_FILTER, rfilter, sizeof(rfilter));
+	/* Lab 5: the kernel stamps each frame as the driver hands it up: a REF's receive time
+	 * without our thread's wake-up latency */
+	int one = 1;
+
+	setsockopt(fd, SOL_SOCKET, SO_TIMESTAMPNS, &one, sizeof(one));
 	if (bind(fd, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
 		perror("bind can");
 		return -1;
@@ -337,6 +409,8 @@ static pthread_mutex_t st_lock = PTHREAD_MUTEX_INITIALIZER;
 
 /* Guarded by st_lock. */
 static int64_t hb_seen[ZONE_N3 + 1][BUS_COUNT]; /* -1 never */
+static int64_t hb_direct[ZONE_N3 + 1][BUS_COUNT]; /* Lab 5: own copies only, not relayed; -1 never */
+static struct route_table routes;                 /* Lab 5: rebuilt from getNetwork() every 10 ms */
 static uint8_t peer_state[ZONE_N3 + 1];
 static int64_t remote_since[ZONE_N3 + 1];       /* -1 none */
 static bool zone_ok;
@@ -347,8 +421,9 @@ static bool degraded[BUS_COUNT];
 static uint8_t blink_req = BLINK_OFF; /* driver's turn request (off/left/right) */
 static int8_t force_value;
 
-static atomic_uint udp_count, ctrl_count, force_count, relayed_count;
+static atomic_uint udp_count, ctrl_count, force_count, relayed_count, relayed_tx;
 static atomic_bool inject_bad;
+static atomic_int hz_state; /* Lab 5: the blinker state the HZ lamp shows */
 
 static int udp_fd = -1;
 static struct sockaddr_in proxy_addr; /* where the last UDP came from */
@@ -357,6 +432,12 @@ static bool proxy_known;
 static int64_t hb_age(int zone, int bus)
 {
 	return (hb_seen[zone][bus] < 0) ? INT64_MAX : now_ms() - hb_seen[zone][bus];
+}
+
+/* Caller holds st_lock */
+static int64_t hb_direct_age(int zone, int bus)
+{
+	return (hb_direct[zone][bus] < 0) ? INT64_MAX : now_ms() - hb_direct[zone][bus];
 }
 
 /* Caller holds st_lock. */
@@ -555,6 +636,101 @@ static int slot_of(const struct can_frame *f)
 	}
 }
 
+/*
+ * Lab 5 RELAY (step 6, like src_lab5/relay.c): forward a frame from an STM32, heard on bus
+ * b, to the other bus when the routing table (from getNetwork()) or what we hear says the
+ * other STM32 can't hear it any other way: checkoff step 9, the Pi bridging N2 and N3.
+ * A relayed REF gets the first hop and its time here added to its master time.
+ */
+static void relay_maybe(const struct can_frame *f, int b, int64_t rx_us)
+{
+	bool raft = raft_is_frame((uint16_t)f->can_id);
+	uint8_t flag = raft ? RAFT_FLAG_RELAYED : FLAG_RELAYED;
+	int sender = -1;
+
+	if (f->data[0] & flag) {
+		return; /* never relay a relayed copy */
+	}
+	if (raft) {
+		sender = RAFT_ID_SENDER(f->can_id);
+	} else if (f->can_id == ID_HB_N2 || f->can_id == ID_HB_N3) {
+		sender = (int)(f->can_id - ID_HB_N1) + ZONE_N1;
+	} else if (f->can_id == ID_FAULT) {
+		sender = f->data[1];
+	}
+	if (sender < ZONE_N2 || sender > ZONE_N3) {
+		return;
+	}
+
+	pthread_mutex_lock(&st_lock);
+	bool go = routes.relay[sender][b];
+
+	if (!go) {
+		struct netwatch_obs o = { 0 };
+
+		for (int z = ZONE_N2; z <= ZONE_N3; z++) {
+			int64_t limit = (z == sender) ? RELAY_AFTER_MS : HB_TIMEOUT_MS;
+
+			for (int x = 0; x < BUS_COUNT; x++) {
+				o.direct[z][x] = hb_direct_age(z, x) < limit;
+				o.fresh[z][x] = o.direct[z][x];
+			}
+		}
+		go = route_relay_observed(&o, ZONE_N1, (uint8_t)sender, (uint8_t)b);
+	}
+	pthread_mutex_unlock(&st_lock);
+	if (!go) {
+		return;
+	}
+
+	struct can_frame out = *f;
+
+	out.data[0] |= flag;
+	if (raft && RAFT_ID_TYPE(out.can_id) == RAFT_ID_REF) {
+		pthread_mutex_lock(&time_lock);
+		int64_t t = timesync_relay_master_us((uint8_t)sender, ref_time(out.data), rx_us, now_us());
+
+		pthread_mutex_unlock(&time_lock);
+		put_ref_time(out.data, t);
+	}
+	gpio_toggle(tx_tp[1 - b]);
+	if (send(can_fd[1 - b], &out, sizeof(out), MSG_DONTWAIT) == sizeof(out)) {
+		atomic_fetch_add(&relayed_tx, 1);
+	} else {
+		atomic_fetch_add(&tx_fail[1 - b], 1);
+	}
+}
+
+/* Read one frame and the kernel's receive time, converted to CLOCK_MONOTONIC µs */
+static bool read_frame(int fd, struct can_frame *f, int64_t *rx_us)
+{
+	char ctrl[CMSG_SPACE(sizeof(struct timespec))];
+	struct iovec iov = { .iov_base = f, .iov_len = sizeof(*f) };
+	struct msghdr msg = { .msg_iov = &iov, .msg_iovlen = 1, .msg_control = ctrl,
+			      .msg_controllen = sizeof(ctrl) };
+
+	if (recvmsg(fd, &msg, 0) != sizeof(*f)) {
+		return false;
+	}
+	int64_t mono = now_us();
+
+	*rx_us = mono;
+	for (struct cmsghdr *c = CMSG_FIRSTHDR(&msg); c != NULL; c = CMSG_NXTHDR(&msg, c)) {
+		if (c->cmsg_level == SOL_SOCKET && c->cmsg_type == SCM_TIMESTAMPNS) {
+			struct timespec k, real;
+
+			memcpy(&k, CMSG_DATA(c), sizeof(k));
+			clock_gettime(CLOCK_REALTIME, &real);
+			int64_t ago = ((int64_t)real.tv_sec - k.tv_sec) * 1000000 + (real.tv_nsec - k.tv_nsec) / 1000;
+
+			if (ago >= 0 && ago < 100000) {
+				*rx_us = mono - ago;
+			}
+		}
+	}
+	return true;
+}
+
 static void *can_rx_thread(void *arg)
 {
 	struct pollfd pfd[BUS_COUNT];
@@ -576,7 +752,9 @@ static void *can_rx_thread(void *arg)
 		for (int b = 0; b < BUS_COUNT; b++) {
 			struct can_frame f;
 
-			if (!(pfd[b].revents & POLLIN) || read(can_fd[b], &f, sizeof(f)) != sizeof(f)) {
+			int64_t rx_us;
+
+			if (!(pfd[b].revents & POLLIN) || !read_frame(can_fd[b], &f, &rx_us)) {
 				continue;
 			}
 			if ((f.can_id & CAN_EFF_FLAG) || f.can_dlc != 8) {
@@ -585,12 +763,34 @@ static void *can_rx_thread(void *arg)
 			/* Lab 5: Raft frames go to the agent. Byte 0 is a term, not a seq, so
 			 * they skip the dedup below; raft.c is fine seeing both bus copies. */
 			if (raft_is_frame((uint16_t)f.can_id)) {
+				static int last_ref_key = -1;
+
 				if (RAFT_ID_TYPE(f.can_id) == RAFT_ID_REF) {
-					gpio_toggle(GPIO_REF_RX); /* checkoff step 9 */
+					int key = RAFT_ID_SENDER(f.can_id) << 8 | f.data[1];
+
+					if (key != last_ref_key) {
+						gpio_toggle(GPIO_REF_RX); /* checkoff step 9: once per REF */
+						last_ref_key = key;
+					}
 				}
 				pthread_mutex_lock(&raft_lock);
-				raft_on_frame((uint16_t)f.can_id, f.data, now_ms());
+				bool fresh_ref = raft_on_frame((uint16_t)f.can_id, f.data, now_ms());
 				pthread_mutex_unlock(&raft_lock);
+				if (fresh_ref) {
+					pthread_mutex_lock(&time_lock);
+					uint32_t before = timesync_get_stats().handovers;
+
+					timesync_on_ref(RAFT_ID_SENDER(f.can_id), ref_time(f.data), rx_us);
+					struct timesync_stats ts = timesync_get_stats();
+
+					pthread_mutex_unlock(&time_lock);
+					if (ts.handovers != before) {
+						printf("time N1: master N%u -> N%u, clocks %+lld us apart at its first REF\n",
+						       ts.prev_source, RAFT_ID_SENDER(f.can_id),
+						       (long long)ts.handover_step_us);
+					}
+				}
+				relay_maybe(&f, b, rx_us);
 				continue;
 			}
 			int slot = slot_of(&f);
@@ -605,6 +805,9 @@ static void *can_rx_thread(void *arg)
 			pthread_mutex_lock(&st_lock);
 			if (f.can_id == ID_HB_N2 || f.can_id == ID_HB_N3) {
 				hb_seen[f.can_id - ID_HB_N1 + ZONE_N1][b] = t; /* every copy */
+				if (!(f.data[0] & FLAG_RELAYED)) {
+					hb_direct[f.can_id - ID_HB_N1 + ZONE_N1][b] = t;
+				}
 			}
 			dup = (seen[slot].at >= 0 && seen[slot].seq == (f.data[0] & SEQ_MASK) &&
 			       t - seen[slot].at < DUP_WINDOW_MS);
@@ -643,6 +846,7 @@ static void *can_rx_thread(void *arg)
 			pthread_mutex_unlock(&st_lock);
 
 			(void)raise_remote;
+			relay_maybe(&f, b, rx_us);
 			if (!dup && f.can_id == ID_FORCE && have_proxy) {
 				/* Dummy force feedback back to the proxy, like Lab 2's send_force. */
 				sendto(udp_fd, &fv, 1, 0, (struct sockaddr *)&dst, sizeof(dst));
@@ -664,17 +868,13 @@ void raft_platform_send(uint16_t id, uint8_t data[8])
 {
 	struct can_frame f = { .can_id = id, .can_dlc = 8 };
 
-	if (RAFT_ID_TYPE(id) == RAFT_ID_REF) {
-		/* Master time in us, 48-bit little-endian, stamped as late as possible */
-		uint64_t t = (uint64_t)now_us();
-
-		for (int i = 0; i < 6; i++) {
-			data[2 + i] = (uint8_t)(t >> (8 * i));
-		}
-	}
 	memcpy(f.data, data, 8);
-
 	for (int b = 0; b < BUS_COUNT; b++) {
+		if (RAFT_ID_TYPE(id) == RAFT_ID_REF) {
+			/* The master time, global_gettime() in µs (48-bit LE), stamped as late as
+			 * possible: once per bus, just before that copy is sent */
+			put_ref_time(f.data, global_gettime());
+		}
 		gpio_toggle(tx_tp[b]);
 		/* MSG_DONTWAIT: a pulled jumper fills that queue; never stall the other bus. */
 		if (send(can_fd[b], &f, sizeof(f), MSG_DONTWAIT) != sizeof(f)) {
@@ -683,10 +883,38 @@ void raft_platform_send(uint16_t id, uint8_t data[8])
 	}
 }
 
+/* Step 6, every 10 ms: what we hear, for link watching, and the routing table from the
+ * committed graph for relay_maybe(). Caller holds raft_lock. */
+static void watch_links(int64_t t)
+{
+	struct netwatch_obs o = { 0 };
+	struct route_table r;
+
+	pthread_mutex_lock(&st_lock);
+	for (int z = ZONE_N2; z <= ZONE_N3; z++) {
+		for (int b = 0; b < BUS_COUNT; b++) {
+			o.direct[z][b] = hb_direct_age(z, b) < HB_TIMEOUT_MS;
+			o.fresh[z][b] = hb_direct_age(z, b) < NETWATCH_FRESH_MS;
+			o.alive[z] = o.alive[z] || hb_age(z, b) < HB_TIMEOUT_MS;
+		}
+	}
+	pthread_mutex_unlock(&st_lock);
+	o.alive[ZONE_N1] = true;
+	netwatch_tick(&o, t);
+
+	struct network g = getNetwork();
+
+	route_build(&g, ZONE_N1, &r);
+	pthread_mutex_lock(&st_lock);
+	routes = r;
+	pthread_mutex_unlock(&st_lock);
+}
+
 /* RAFT: raft_tick() every RAFT_TICK_MS (raft.c decides what's due), then the LEDs */
 static void *raft_thread(void *arg)
 {
 	int64_t next = now_ms();
+	unsigned int ticks = 0;
 
 	(void)arg;
 	while (1) {
@@ -696,7 +924,14 @@ static void *raft_thread(void *arg)
 		raft_tick(t);
 		bool leader = raft_get_role() == RAFT_LEADER;
 		bool sync = raft_in_sync(t);
+
+		if (++ticks % 2 == 0) {
+			watch_links(t);
+		}
 		pthread_mutex_unlock(&raft_lock);
+		pthread_mutex_lock(&time_lock);
+		timesync_set_master(leader); /* the leader's clock is global time */
+		pthread_mutex_unlock(&time_lock);
 
 		gpio_put(GPIO_LEADER, leader);
 		gpio_put(GPIO_SYNC, sync);
@@ -705,6 +940,100 @@ static void *raft_thread(void *arg)
 		sleep_until_ms(next);
 	}
 	return NULL;
+}
+
+/* ------------------- PPS and the HZ lamp (Lab 5, Part 6) ------------------ */
+
+struct pps_line {
+	int64_t global_us, local_us, since_ref_us;
+	struct timesync_stats st;
+};
+static pthread_mutex_t pps_lock = PTHREAD_MUTEX_INITIALIZER;
+static struct pps_line pps_last;
+static bool pps_new;
+
+/* PPS (6.4): a rising edge on BCM 22 at every whole second of global time */
+static void *pps_thread(void *arg)
+{
+	(void)arg;
+	while (1) {
+		int64_t next = (global_gettime() / 1000000 + 1) * 1000000;
+
+		wait_global(next);
+		gpio_put(GPIO_PPS, true);
+
+		struct pps_line p;
+
+		pthread_mutex_lock(&time_lock);
+		p.local_us = now_us();
+		p.global_us = timesync_global_us(p.local_us);
+		p.st = timesync_get_stats();
+		p.since_ref_us = timesync_correction_since_ref_us(p.local_us);
+		pthread_mutex_unlock(&time_lock);
+		pthread_mutex_lock(&pps_lock);
+		pps_last = p;
+		pps_new = true;
+		pthread_mutex_unlock(&pps_lock);
+
+		sleep_until_us(p.local_us + 100000);
+		gpio_put(GPIO_PPS, false);
+	}
+	return NULL;
+}
+
+/* HZ (BCM 23): the hazard lamp, switched at the same global-time edges as FL and RL */
+static void *hz_thread(void *arg)
+{
+	(void)arg;
+	while (1) {
+		int64_t half = 1000LL * BLINK_HAZARD_HALF_MS;
+		int64_t g = global_gettime();
+		bool on = atomic_load(&hz_state) == BLINK_HAZARD && (g / half) % 2 == 0;
+
+		gpio_put(GPIO_HZ, on);
+		int64_t edge = (g / half + 1) * half;
+
+		if (edge - g > 20000) {
+			sleep_until_us(now_us() + 20000); /* re-check the state every 20 ms */
+		} else {
+			wait_global(edge);
+		}
+	}
+	return NULL;
+}
+
+static void fmt_us(char *buf, size_t len, int64_t us)
+{
+	int64_t a = us < 0 ? -us : us;
+
+	snprintf(buf, len, "%s%lld.%06lld", us < 0 ? "-" : "", (long long)(a / 1000000),
+		 (long long)(a % 1000000));
+}
+
+/* One line per PPS edge (6.4), printed by main */
+static void print_pps(void)
+{
+	pthread_mutex_lock(&pps_lock);
+	struct pps_line p = pps_last;
+	bool fresh = pps_new;
+
+	pps_new = false;
+	pthread_mutex_unlock(&pps_lock);
+	if (!fresh) {
+		return;
+	}
+	char g[24], l[24];
+	int32_t ppb_abs = p.st.ppb < 0 ? -p.st.ppb : p.st.ppb;
+	int64_t ratio = 1000000000LL + p.st.ppb;
+
+	fmt_us(g, sizeof(g), p.global_us);
+	fmt_us(l, sizeof(l), p.local_us);
+	printf("PPS N1 | global %s s | local %s s | drift ratio %lld.%09lld (%c%d.%03d ppm) | %s %+lld us | "
+	       "last step %+lld us | %s N%u\n",
+	       g, l, (long long)(ratio / 1000000000), (long long)(ratio % 1000000000), p.st.ppb < 0 ? '-' : '+',
+	       (int)(ppb_abs / 1000), (int)(ppb_abs % 1000), p.st.master ? "since last sync" : "since REF",
+	       (long long)p.since_ref_us, (long long)p.st.last_step_us,
+	       p.st.master ? "master" : "synced to", p.st.master ? ZONE_N1 : p.st.source);
 }
 
 /* ---------- PERIODIC thread: HB_MON every 10 ms, HB and BLINK every 20 ms ---------- */
@@ -774,23 +1103,20 @@ static void *periodic_thread(void *arg)
 
 		send_both(ID_HB_N1, TX_HB, hb, false);
 
-		bool send = false;
+		/* Lab 5: BLINK says which lamps blink, on every change and again every 500 ms
+		 * (so a lost frame heals); the lamps time themselves from global time. b2 still
+		 * carries the phase for Lab 3's sake, from global time too. */
+		if (blink_state != blink_sent || t - last_toggle >= BLINK_HALF_MS) {
+			int64_t half = 1000LL * (blink_state == BLINK_HAZARD ? BLINK_HAZARD_HALF_MS : BLINK_HALF_MS);
 
-		if (blink_state != blink_sent) {
-			phase = (blink_state != BLINK_OFF); /* start a turn with the lamp on */
-			last_toggle = t;
-			send = true;
-		} else if (blink_state != BLINK_OFF && t - last_toggle >= BLINK_HALF_MS) {
-			phase = !phase;
-			last_toggle += BLINK_HALF_MS;
-			send = true;
-		}
-		if (send) {
+			phase = blink_state != BLINK_OFF && (global_gettime() / half) % 2 == 0;
 			uint8_t bl[8] = { [1] = blink_state, [2] = phase ? 1 : 0 };
 
 			send_both(ID_BLINK, TX_BLINK, bl, false);
 			blink_sent = blink_state;
+			last_toggle = t;
 		}
+		atomic_store(&hz_state, blink_state);
 
 		next += MON_PERIOD_MS;
 		sleep_until_ms(next);
@@ -812,7 +1138,63 @@ static void *periodic_thread(void *arg)
 static void console_help(void)
 {
 	printf("commands: b = inject bad CTRL | q = quit | net show | net %s\n"
-	       "          raft status | raft log [count|all] | raft config\n", NET_EVENT_USAGE);
+	       "          raft status | raft log [count|all] | raft config\n"
+	       "          time status | time delay [<node> <us>]\n", NET_EVENT_USAGE);
+}
+
+/* time status | time delay [<node> <us>] (the same as the STM32 shell) */
+static void console_time(int argc, char **argv)
+{
+	char line[200], g[24];
+
+	if (argc >= 2 && strcmp(argv[1], "delay") == 0) {
+		if (argc >= 4) {
+			int node = atoi(argv[2]);
+
+			if (node >= ZONE_N2 && node <= ZONE_N3) {
+				pthread_mutex_lock(&time_lock);
+				timesync_set_delay_us((uint8_t)node, atoi(argv[3]));
+				pthread_mutex_unlock(&time_lock);
+			}
+		}
+		for (int n = ZONE_N2; n <= ZONE_N3; n++) {
+			printf("delay from N%d: %d us\n", n, (int)timesync_delay_us((uint8_t)n));
+		}
+		return;
+	}
+	pthread_mutex_lock(&time_lock);
+	int64_t l = now_us();
+
+	timesync_format(line, sizeof(line), l);
+	fmt_us(g, sizeof(g), timesync_global_us(l));
+	pthread_mutex_unlock(&time_lock);
+	printf("N1 global %s s | %s\n", g, line);
+}
+
+/*
+ * The cockpit's display of the log (checkoff step 7): every committed entry, once, in
+ * order. Entries that reached the Pi already committed (the leader held them while it was
+ * away) are marked "replayed"; the rest are live.
+ */
+static uint16_t shown;
+
+static void show_new_entries(void)
+{
+	pthread_mutex_lock(&raft_lock);
+	uint16_t commit = raft_log_commit_index();
+	uint16_t replayed = raft_replayed_through();
+
+	if (commit < shown) {
+		shown = 0; /* our log was reset */
+	}
+	while (shown < commit) {
+		char line[64];
+
+		shown++;
+		raft_log_format(shown, line, sizeof(line));
+		printf("event %s%s\n", line, shown <= replayed ? "  [replayed]" : "  [live]");
+	}
+	pthread_mutex_unlock(&raft_lock);
 }
 
 /* `raft status`, and the last line of the status every second */
@@ -820,10 +1202,15 @@ static void print_raft_status(void)
 {
 	char line[128];
 
+	char route[48];
+
 	pthread_mutex_lock(&raft_lock);
 	raft_status_format(line, sizeof(line), now_ms());
 	pthread_mutex_unlock(&raft_lock);
-	printf("raft %s\n", line);
+	pthread_mutex_lock(&st_lock);
+	route_format(&routes, route, sizeof(route));
+	pthread_mutex_unlock(&st_lock);
+	printf("raft %s | %s\n", line, route);
 }
 
 static void console_net_show(void)
@@ -964,6 +1351,8 @@ static bool console_command(char *line)
 		console_log(argc - 1, argv + 1);
 	} else if (is_raft && strcmp(argv[1], "config") == 0) {
 		console_config();
+	} else if (strcmp(argv[0], "time") == 0) {
+		console_time(argc, argv);
 	} else {
 		console_help();
 	}
@@ -1017,6 +1406,7 @@ int main(void)
 		peer_state[z] = HB_STATE_ERROR;
 		for (int b = 0; b < BUS_COUNT; b++) {
 			hb_seen[z][b] = -1;
+			hb_direct[z][b] = -1;
 		}
 	}
 
@@ -1054,11 +1444,15 @@ int main(void)
 		sched_setaffinity(0, sizeof(set), &set);
 		mlockall(MCL_CURRENT | MCL_FUTURE);
 	}
+	timesync_init(RAFT_NODE_COCKPIT);
 	raft_init(RAFT_NODE_COCKPIT, now_ms());
+	netwatch_init(RAFT_NODE_COCKPIT, now_ms());
 	start_thread(udp_thread, 80, rt);       /* brake chain: highest */
 	start_thread(raft_thread, 75, rt);      /* REF on time: below the brake chain, above CAN_RX */
 	start_thread(can_rx_thread, 70, rt);
 	start_thread(periodic_thread, 60, rt);
+	start_thread(pps_thread, 85, rt);       /* Lab 5: the edge on time, above everything */
+	start_thread(hz_thread, 50, rt);
 	printf("cockpit up%s. Commands: b = inject bad CTRL, q = quit, h = the Raft ones\n",
 	       rt ? " (SCHED_FIFO, core 3)" : " (normal priority; sudo for SCHED_FIFO)");
 
@@ -1069,8 +1463,13 @@ int main(void)
 		struct pollfd in = { .fd = STDIN_FILENO, .events = POLLIN };
 		int64_t wait = next_status - now_ms();
 
+		print_pps();
+		show_new_entries();
 		if (wait < 0) {
 			wait = 0;
+		}
+		if (wait > 50) {
+			wait = 50; /* the PPS line and new log entries show within 50 ms */
 		}
 		if (have_stdin && poll(&in, 1, (int)wait) > 0) {
 			char line[128];
@@ -1083,7 +1482,10 @@ int main(void)
 			continue;
 		}
 		if (!have_stdin) {
-			sleep_until_ms(next_status);
+			sleep_until_ms(now_ms() + wait);
+		}
+		if (now_ms() < next_status) {
+			continue;
 		}
 		next_status += 1000;
 
@@ -1099,10 +1501,11 @@ int main(void)
 		int8_t fv = force_value;
 		pthread_mutex_unlock(&st_lock);
 		printf("UDP/s %u CTRL/s %u | raw steer %d thr %d brk %d | FORCE/s %u (%d) | "
-		       "relayed rx %u | tx fail A %u B %u\n",
+		       "relayed rx %u tx %u | tx fail A %u B %u\n",
 		       atomic_exchange(&udp_count, 0), atomic_exchange(&ctrl_count, 0),
 		       atomic_load(&raw_steer), atomic_load(&raw_thr), atomic_load(&raw_brk),
 		       atomic_exchange(&force_count, 0), fv, atomic_exchange(&relayed_count, 0),
+		       atomic_exchange(&relayed_tx, 0),
 		       atomic_exchange(&tx_fail[BUS_A], 0), atomic_exchange(&tx_fail[BUS_B], 0));
 		print_raft_status();
 	}

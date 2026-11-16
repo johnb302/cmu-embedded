@@ -2,11 +2,10 @@
 #define APP_BLINK_H_
 
 /*
- * BLINK_F (N2) / BLINK_R (N3): follow the Pi's BLINK frames (0x200).
- * The Pi is the blinker master: it toggles the phase every 500 ms and every
- * zone just shows what it's told, so all four lamps stay in sync.
- *
- * Payload: b1 state (BLINK_OFF/LEFT/RIGHT/HAZARD) | b2 bit 0 = phase (1 = lamps on)
+ * BLINK_F (N2) / BLINK_R (N3). The Pi's BLINK frames (0x200) say which lamps blink
+ * (b1: BLINK_OFF/LEFT/RIGHT/HAZARD). Lab 5: when they light comes from global_gettime(),
+ * so all four lamps switch together (FL and RL within 1 ms), and in failure mode (cockpit
+ * lost) the STM32s blink hazards at 4 Hz by themselves, still in step.
  */
 
 #include <zephyr/drivers/can.h>

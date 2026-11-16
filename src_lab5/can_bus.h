@@ -22,11 +22,18 @@ int can_io_get_accepted(void);
 /* Get dropped frame count */
 int can_io_get_dropped(void);
 
-/* Compute age of heartbeat */
+/* Compute age of heartbeat (any copy, relayed too: is the zone alive?) */
 int64_t can_io_hb_age_ms(uint8_t zone, int bus);
 
-/* RELAY only: send a received frame on one bus with the relayed flag set (seq kept) */
+/* Lab 5: age of the zone's own heartbeat on this bus, relayed copies not counted (is the
+ * zone's link on this bus up?) */
+int64_t can_io_hb_direct_age_ms(uint8_t zone, int bus);
+
+/* Lab 5: send on one bus only, as-is (a REF, stamped per copy) */
+int can_io_send_one(int bus, uint16_t id, const uint8_t data[FRAME_DLC]);
+
+/* RELAY only: send a received frame on one bus with `flag` set in b0 (seq kept) */
 struct can_frame;
-int can_io_forward(int bus, const struct can_frame *f);
+int can_io_forward(int bus, const struct can_frame *f, uint8_t flag);
 
 #endif

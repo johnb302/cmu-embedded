@@ -24,6 +24,7 @@
  * the term or deposes a leader the others still hear.
  */
 
+#include "raft_config.h"
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
@@ -82,7 +83,12 @@ static inline bool raft_is_frame(uint16_t id) {
  *
  * EVENT   b0 term (not checked: a client request isn't tied to a term) | b1 sequence
  *         number, +1 per event, so the leader appends each event once |
- *         b2 event (net_event_encode code)
+ *         b2 event (net_event_encode code) | b3 1 = only if it changes the graph (link
+ *         watching, step 6: every node reports the same change, the log keeps one)
+ *
+ * Relaying (step 6): a node that forwards a Raft frame to the other bus sets bit 7 of
+ * b0 (RAFT_FLAG_RELAYED) and changes nothing else, except a REF's master time, which
+ * gets the time the frame spent in the relay added (see timesync.h).
  *
  * REQ_VOTE  b0 term: the candidate's new term, or for a pre-vote the term it would
  *         campaign in (its own + 1, not taken yet) | b1 1 = pre-vote, 0 = vote |
@@ -100,8 +106,15 @@ enum raft_role { RAFT_FOLLOWER, RAFT_PRECANDIDATE, RAFT_CANDIDATE, RAFT_LEADER }
 
 #define RAFT_TICK_MS 5 /* platforms call raft_tick() at least this often */
 
+/* With a preset leader, that node listens for RAFT_CLAIM_LISTEN_MS before taking term 1:
+ * if a cluster is already running it rebooted, and it rejoins as a follower (step 9). The
+ * window outlasts a lone node's pre-vote period, so even a single survivor is heard. */
+#define RAFT_CLAIM_LISTEN_MS (2 * (RAFT_MISSED_HEARTBEATS * RAFT_HEARTBEAT_MS + RAFT_ELECTION_JITTER_MS))
 void raft_init(uint8_t my_id, int64_t now_ms);
-void raft_on_frame(uint16_t id, const uint8_t data[8], int64_t now_ms);
+
+/* Returns true for the first copy of a REF from the current leader: the platform then
+ * hands its master time and receive time to time sync (timesync_on_ref) */
+bool raft_on_frame(uint16_t id, const uint8_t data[8], int64_t now_ms);
 void raft_tick(int64_t now_ms);
 
 enum raft_role raft_get_role(void);
@@ -136,6 +149,18 @@ int raft_election_timeout_ms(uint32_t seed, uint8_t node, uint8_t term);
  * -EINVAL for a bad code, -EAGAIN while no leader is known, -ENOSPC if the log is full.
  */
 int raft_submit(uint8_t event);
+
+/* Link watching (step 6): the same, but the leader logs it only if it changes the graph
+ * (committed or not yet), so a change every node reports becomes one entry. 0 when the
+ * leader dropped it. */
+int raft_submit_change(uint8_t event);
+
+/* Entries 1 ... this one reached this node already committed: the leader held them while
+ * the node was away, and the node's display marks them "replayed" (checkoff step 7) */
+uint16_t raft_replayed_through(void);
+
+/* Leader: how many entries node still lacks (events held for a node that's down) */
+int raft_held_for(uint8_t node);
 
 /*
  * Each platform implements this: send one 8-byte frame on both buses with byte 0

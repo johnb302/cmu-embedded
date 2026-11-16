@@ -6,6 +6,7 @@
 #include "wcet.h"
 #include "raft.h"
 #include "raft_node.h"
+#include "time_node.h"
 #include <zephyr/device.h>
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/drivers/can.h>
@@ -35,6 +36,9 @@ static atomic_t rx_counts[] = {0, 0};
 
 /* Table of time data from nodes last heard from */
 static int64_t last_heard[ZONE_N3 + 1][2] = {{-100000, -100000}, {-100000, -100000}, {-100000, -100000}, {-100000, -100000}};
+/* Lab 5: the same for the zone's own copies only (not relayed): what link watching and the
+ * relay rule look at (shared/netwatch.h) */
+static int64_t last_direct[ZONE_N3 + 1][2] = {{-100000, -100000}, {-100000, -100000}, {-100000, -100000}, {-100000, -100000}};
 static K_MUTEX_DEFINE(heard_lock);
 
 /* Struct of last heard message on either bus */
@@ -56,7 +60,7 @@ static atomic_t rx_dropped = 0;
 /* Function definition for get_counter in rx_cb */
 static int get_counter(uint16_t id);
 
-static void rx_dispatch(const struct device *dev, struct can_frame *frame, void *user_data) {
+static void rx_dispatch(const struct device *dev, struct can_frame *frame, void *user_data, int64_t rx_us) {
     /* Recover bus */
     size_t i = (size_t)(uintptr_t)user_data;
 
@@ -77,8 +81,12 @@ static void rx_dispatch(const struct device *dev, struct can_frame *frame, void 
 
     if (zone != 0) {
         /* Record heartbeat's heard @ time */
+        int64_t t = k_uptime_get();
         k_mutex_lock(&heard_lock, K_FOREVER);
-        last_heard[zone][i] = k_uptime_get();
+        last_heard[zone][i] = t;
+        if (!(frame->data[0] & FLAG_RELAYED)) {
+            last_direct[zone][i] = t;
+        }
         k_mutex_unlock(&heard_lock);
     }
 
@@ -88,7 +96,8 @@ static void rx_dispatch(const struct device *dev, struct can_frame *frame, void 
     /* Lab 5: Raft frames go to the RAFT thread. Their byte 0 is a term, not a seq, so they
      * skip the dedup below; raft.c is fine seeing both bus copies. */
     if (raft_is_frame(frame->id)) {
-        raft_node_post(frame);
+        raft_node_post(frame, rx_us);
+        relay_offer(frame, i, rx_us); /* step 6: Raft frames are routed like the rest */
         return;
     }
 
@@ -136,20 +145,20 @@ static void rx_dispatch(const struct device *dev, struct can_frame *frame, void 
             break;
     }
 
-#if NODE_ID == ZONE_N2
-    /* RELAY decides whether the other bus needs this frame (relay.c) */
-    relay_offer(frame, i);
-#endif
+    /* RELAY decides whether the other bus needs this frame (relay.c). Lab 5: any node on
+     * both buses, by its routing table */
+    relay_offer(frame, i, rx_us);
 }
 
 /* The driver's RX callback (its thread, after the SPI read): CAN_RX_A/B toggles
  * here, the moment our code sees the frame (handout test-point definition). */
 static void rx_cb(const struct device *dev, struct can_frame *frame, void *user_data) {
     size_t bus = (size_t)(uintptr_t)user_data;
+    int64_t rx_us = local_us(); /* Lab 5: first thing, the receive time (a REF's F, Figure 4) */
     uint32_t t0 = wcet_start();
 
     gpio_pin_toggle_dt(&rx_pins[bus]);
-    rx_dispatch(dev, frame, user_data);
+    rx_dispatch(dev, frame, user_data, rx_us);
     wcet_record(WCET_CAN_RX, t0);
 }
 
@@ -300,14 +309,35 @@ int can_io_send_raw(uint16_t id, const uint8_t data[FRAME_DLC]) {
     return 0;
 }
 
+/* Lab 5: one bus only. A REF goes out this way, stamped just before each copy. */
+int can_io_send_one(int bus, uint16_t id, const uint8_t data[FRAME_DLC]) {
+    struct can_frame frame = {
+        .id = id,
+        .dlc = FRAME_DLC,
+        .flags = 0,
+    };
+    memcpy(frame.data, data, FRAME_DLC);
+    gpio_pin_toggle_dt(&tx_pins[bus]);
+    return can_send(devs[bus], &frame, K_MSEC(CAN_TX_WAIT_MS), tx_cb, NULL);
+}
+
 /* RELAY: re-send a received frame on ONE bus, unchanged except for the relayed
- * flag. The seq is kept, so receivers dedup it against any other copy. */
-int can_io_forward(int bus, const struct can_frame *f) {
+ * flag (FLAG_RELAYED, or RAFT_FLAG_RELAYED for Raft frames, whose b0 is the term). The
+ * seq is kept, so receivers dedup it against any other copy. */
+int can_io_forward(int bus, const struct can_frame *f, uint8_t flag) {
     struct can_frame frame = *f;
-    frame.data[0] |= FLAG_RELAYED;
+    frame.data[0] |= flag;
 
     gpio_pin_toggle_dt(&tx_pins[bus]);
     return can_send(devs[bus], &frame, K_MSEC(CAN_TX_WAIT_MS), tx_cb, NULL);
+}
+
+int64_t can_io_hb_direct_age_ms(uint8_t zone, int bus) {
+    k_mutex_lock(&heard_lock, K_FOREVER);
+    int64_t heard = last_direct[zone][bus];
+    k_mutex_unlock(&heard_lock);
+
+    return (k_uptime_get() - heard);
 }
 
 int64_t can_io_hb_age_ms(uint8_t zone, int bus) {

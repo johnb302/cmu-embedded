@@ -46,14 +46,14 @@ elseif(LAB5)
   target_include_directories(app PRIVATE src_lab5 shared)
   target_sources(app PRIVATE src_lab5/main.c src_lab5/can_bus.c src_lab5/common.c src_lab5/state.c src_lab5/ctrl.c
                              src_lab5/blink.c src_lab5/button.c src_lab5/wcet.c src_lab5/net_shell.c
-                             src_lab5/raft_node.c ${SHARED_SRC})
+                             src_lab5/raft_node.c src_lab5/time_node.c src_lab5/relay.c ${SHARED_SRC})
   if(DEFINED NODE_ID)
     target_compile_definitions(app PRIVATE NODE_ID=${NODE_ID})
   endif()
   if(NODE_ID EQUAL 3)
     target_sources(app PRIVATE src_lab5/n3.c)
   elseif(NODE_ID EQUAL 2)
-    target_sources(app PRIVATE src_lab5/n2.c src_lab5/relay.c)
+    target_sources(app PRIVATE src_lab5/n2.c)
   endif()
   # Part 2 default_leader and the election seed (shared/raft_config.h). Build all three nodes
   # with the same values (the Pi: RAFT_LEADER=... RAFT_SEED=... cockpit/deploy.sh).

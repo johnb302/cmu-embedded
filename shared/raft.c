@@ -26,6 +26,16 @@ static uint8_t answered_cand; /* not once per bus copy */
 /* SYNC: when this follower last got a REF, the time-sync frame */
 static bool heard_ref;
 static int64_t last_ref_ms;
+static uint8_t last_ref_from;  /* the REF just handed to time sync: its sender and cycle */
+static uint8_t last_ref_cycle; /* counter, so the other bus's copy isn't used twice */
+
+/* The preset leader listens before taking term 1 (step 9): a running cluster means it
+ * rebooted, so it rejoins as a follower instead of starting over with an empty log */
+static bool claiming;
+static int64_t claim_due;
+
+/* Entries 1 ... replayed_through came already committed (catch-up, step 9), not live */
+static uint16_t replayed_through;
 
 /* Leader only */
 static uint8_t ref_cycle; /* REF cycle counter: +1 per REF, so both bus copies carry the same count */
@@ -127,15 +137,20 @@ static uint16_t min_u16(uint16_t a, uint16_t b) {
     return a < b ? a : b;
 }
 
-/* True if this frame is the other bus's copy of one of the sender's recent frames.
+/* True if this frame is the other bus's copy of one of the sender's recent frames, or a
+ * relayed copy (step 6: the relayed flag in byte 0 is the only difference).
  * Otherwise remembers it and returns false. */
 static bool is_bus_copy(struct recent_rx *rx, const uint8_t data[8], int64_t now_ms) {
+    uint8_t plain[8];
+
+    memcpy(plain, data, 8);
+    plain[0] &= RAFT_TERM_MASK;
     for (int i = 0; i < rx->used; i++) {
-        if (now_ms - rx->at_ms[i] < BUS_COPY_MS && memcmp(rx->data[i], data, 8) == 0) {
+        if (now_ms - rx->at_ms[i] < BUS_COPY_MS && memcmp(rx->data[i], plain, 8) == 0) {
             return true;
         }
     }
-    memcpy(rx->data[rx->next], data, 8);
+    memcpy(rx->data[rx->next], plain, 8);
     rx->at_ms[rx->next] = now_ms;
     rx->next = (rx->next + 1) % RX_SLOTS;
     if (rx->used < RX_SLOTS) {
@@ -229,11 +244,15 @@ void raft_init(uint8_t id, int64_t now_ms) {
         elections_on = false;
     }
     reset_election_timer(now_ms);
+    replayed_through = 0;
+    last_ref_from = RAFT_NODE_NONE;
 
-    if (my_id == leader_id) {
-        become_leader(now_ms);
+    claiming = my_id == leader_id;
+    claim_due = now_ms + RAFT_CLAIM_LISTEN_MS;
+    if (claiming) {
+        leader_id = RAFT_NODE_NONE; /* not until the listen window passes in silence */
     }
-    log_state("boot");
+    log_state(claiming ? "boot, listening before leading term 1" : "boot");
 }
 
 /* ---- Leader frames (layouts in raft.h). Each builds one frame and sends it. ---- */
@@ -307,8 +326,33 @@ static void advance_commit(void) {
     }
 }
 
-/* A client's event becomes the next entry; replicate() sends it on the next tick */
-static int leader_append(uint8_t event, uint8_t from) {
+/* The graph as it will be once the whole log commits: the committed graph plus the
+ * uncommitted tail. What a new report is compared against. */
+static struct network projected_network(void) {
+    struct network g = getNetwork();
+    for (uint16_t i = raft_log_commit_index() + 1; i <= raft_log_last_index(); i++) {
+        struct net_event ev;
+        if (net_event_decode(raft_log_event(i), &ev) == 0) {
+            netstate_apply_to(&g, &ev);
+        }
+    }
+    return g;
+}
+
+/* A client's event becomes the next entry; replicate() sends it on the next tick.
+ * only_if_change (link watching, step 6): drop it if the log already says so, so a change
+ * that every node reports is logged once. Returns the index, 0 if dropped, or < 0. */
+static int leader_append(uint8_t event, uint8_t from, bool only_if_change) {
+    if (only_if_change) {
+        struct net_event ev;
+        struct network g = projected_network();
+        if (net_event_decode(event, &ev) < 0) {
+            return -EINVAL;
+        }
+        if (!netstate_changes(&g, &ev)) {
+            return 0;
+        }
+    }
     int index = raft_log_append(current_term, event);
     if (index < 0) {
         debug("raft N%u: can't append event 0x%02X from N%u (%d)\n", my_id, event, from, index);
@@ -464,6 +508,12 @@ static void on_vote(uint8_t voter, const uint8_t data[8], int64_t now_ms) {
 }
 
 void raft_tick(int64_t now_ms) {
+    if (claiming && now_ms >= claim_due) {
+        /* Nobody spoke for the whole window: a cold start, so take term 1 as preset */
+        claiming = false;
+        become_leader(now_ms);
+        log_state("no cluster heard");
+    }
     if (role != RAFT_LEADER) {
         if (elections_on && now_ms >= election_due) {
             start_prevote(now_ms);
@@ -544,6 +594,9 @@ static void on_append(uint8_t leader, const uint8_t data[8], int64_t now_ms) {
                 send_append_resp(false, prev_index); /* a bad entry, or the log is full */
                 return;
             }
+            if (leader_commit >= index) {
+                replayed_through = index; /* the leader held it while we were away (step 9) */
+            }
             log_entry("append", index, RAFT_NODE_NONE);
         }
         match = index;
@@ -592,21 +645,29 @@ static void on_append_resp(uint8_t follower, const uint8_t data[8], int64_t now_
  * and only the leader acts on it: that's the whole redirect. */
 static void on_event(uint8_t sender, const uint8_t data[8], int64_t now_ms) {
     if (role == RAFT_LEADER && !is_bus_copy(&event_rx[sender - 1], data, now_ms)) {
-        leader_append(data[2], sender);
+        leader_append(data[2], sender, data[3] != 0);
     }
 }
 
-void raft_on_frame(uint16_t id, const uint8_t data[8], int64_t now_ms) {
+bool raft_on_frame(uint16_t id, const uint8_t data[8], int64_t now_ms) {
     uint16_t type = RAFT_ID_TYPE(id);
     uint8_t sender = RAFT_ID_SENDER(id);
     uint8_t term = data[0] & RAFT_TERM_MASK;
 
     if (sender < 1 || sender > RAFT_N || sender == my_id) {
-        return; /* not a cluster node, or our own frame relayed back to us (step 6) */
+        return false; /* not a cluster node, or our own frame relayed back to us (step 6) */
     }
     if (type == RAFT_ID_EVENT) {
         on_event(sender, data, now_ms); /* a client request, not an RPC: no term rules */
-        return;
+        return false;
+    }
+    if (claiming) {
+        /* Someone is running a cluster: we rebooted. Rejoin it as a follower; the frames
+         * that follow tell us the term and the leader. */
+        claiming = false;
+        elections_on = true;
+        reset_election_timer(now_ms);
+        log_state("cluster heard");
     }
 
     /* Pre-votes skip the term rules: the term in a request, and in a yes, is one the
@@ -614,11 +675,11 @@ void raft_on_frame(uint16_t id, const uint8_t data[8], int64_t now_ms) {
      * real term and goes through the rules below like any answer. */
     if (type == RAFT_ID_REQ_VOTE && data[1]) {
         on_prevote_request(sender, data, now_ms);
-        return;
+        return false;
     }
     if (type == RAFT_ID_VOTE && data[3] && data[1]) {
         on_prevote_granted(sender, data, now_ms);
-        return;
+        return false;
     }
 
     if (term < current_term) {
@@ -631,7 +692,7 @@ void raft_on_frame(uint16_t id, const uint8_t data[8], int64_t now_ms) {
         } else if (type == RAFT_ID_REQ_VOTE) {
             send_vote(current_term, false, sender, false);
         }
-        return;
+        return false;
     }
 
     uint8_t old_term = current_term;
@@ -656,13 +717,14 @@ void raft_on_frame(uint16_t id, const uint8_t data[8], int64_t now_ms) {
      * one has lost this term's election and follows. Duplicates (one copy per bus) just set
      * the same values again. */
     bool from_leader = type == RAFT_ID_REF || type == RAFT_ID_APPEND;
+    bool fresh_ref = false;
     if (from_leader && role != RAFT_LEADER) {
         if (leader_id != RAFT_NODE_NONE && sender != leader_id) {
             /* Two leaders in one term: only possible if the nodes were built with different
              * default_leader settings. Stay with the first. */
             debug("raft N%u: N%u and N%u both lead term %u: rebuild all nodes with one config\n", my_id,
                   leader_id, sender, current_term);
-            return;
+            return false;
         }
         role = RAFT_FOLLOWER;
         leader_id = sender;
@@ -672,6 +734,10 @@ void raft_on_frame(uint16_t id, const uint8_t data[8], int64_t now_ms) {
         if (type == RAFT_ID_REF) {
             heard_ref = true;
             last_ref_ms = now_ms;
+            /* The first copy of each REF (bus A, bus B or relayed) goes to time sync */
+            fresh_ref = sender != last_ref_from || data[1] != last_ref_cycle;
+            last_ref_from = sender;
+            last_ref_cycle = data[1];
         }
     }
 
@@ -693,16 +759,18 @@ void raft_on_frame(uint16_t id, const uint8_t data[8], int64_t now_ms) {
         snprintf(why, sizeof(why), "frame from N%u", sender);
         log_state(why);
     }
+    return fresh_ref;
 }
 
-int raft_submit(uint8_t event) {
+/* raft_submit() and raft_submit_change() */
+static int submit(uint8_t event, bool only_if_change) {
     struct net_event ev;
 
     if (net_event_decode(event, &ev) < 0) {
         return -EINVAL;
     }
     if (role == RAFT_LEADER) {
-        return leader_append(event, my_id);
+        return leader_append(event, my_id, only_if_change);
     }
     if (leader_id == RAFT_NODE_NONE) {
         return -EAGAIN; /* mid-election (step 5): no one to send it to yet */
@@ -713,12 +781,45 @@ int raft_submit(uint8_t event) {
     data[0] = current_term & RAFT_TERM_MASK;
     data[1] = event_seq++;
     data[2] = event;
+    data[3] = only_if_change;
     raft_platform_send(RAFT_ID(RAFT_ID_EVENT, my_id), data);
 
     char name[24];
     net_event_format(&ev, name, sizeof(name));
-    debug("raft N%u: send %s to leader N%u\n", my_id, name, leader_id);
+    if (!only_if_change) { /* link watching retries every 300 ms: too chatty to print */
+        debug("raft N%u: send %s to leader N%u\n", my_id, name, leader_id);
+    }
     return 0;
+}
+
+int raft_submit(uint8_t event) {
+    return submit(event, false);
+}
+
+int raft_submit_change(uint8_t event) {
+    return submit(event, true);
+}
+
+uint16_t raft_replayed_through(void) {
+    return replayed_through;
+}
+
+int raft_held_for(uint8_t node) {
+    if (role != RAFT_LEADER || node < 1 || node > RAFT_N || node == my_id) {
+        return 0;
+    }
+    /* While the node is down: everything logged since it went (a new leader doesn't know
+     * what a dead node has, so matchIndex would count the whole log) */
+    struct net_event down = {NODE_DOWN, node, 0};
+    uint8_t down_code = net_event_encode(&down);
+    if (!getNetwork().node_up[node - 1]) {
+        for (uint16_t i = raft_log_last_index(); i >= 1; i--) {
+            if (raft_log_event(i) == down_code) {
+                return raft_log_last_index() - i + 1;
+            }
+        }
+    }
+    return raft_log_last_index() - match_index[node];
 }
 
 bool raft_in_sync(int64_t now_ms) {
@@ -772,7 +873,17 @@ void raft_status_format(char *buf, size_t len, int64_t now_ms) {
     int n = snprintf(buf, len, "%s | term %u | leader %s | SYNC %s", raft_role_name(role), current_term,
                      node_str(leader_id, leader), raft_in_sync(now_ms) ? "on" : "off");
 
-    if (role == RAFT_LEADER || n < 0 || (size_t)n >= len) {
+    if (n < 0 || (size_t)n >= len) {
+        return;
+    }
+    if (role == RAFT_LEADER) {
+        for (uint8_t node = 1; node <= RAFT_N; node++) {
+            int held = raft_held_for(node);
+            if (held > 0 && (size_t)n < len) {
+                int m = snprintf(buf + n, len - (size_t)n, " | holding %d for N%u", held, node);
+                n += m > 0 ? m : 0;
+            }
+        }
         return;
     }
     if (leader_id != RAFT_NODE_NONE && elections_on) { /* not the preset leader before it's heard */

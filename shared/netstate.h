@@ -86,6 +86,12 @@ int net_event_parse(int argc, char *const argv[], struct net_event *ev);
  * -EINVAL if the type, node or bus is out of range; the graph is unchanged then. */
 int netstate_apply(const struct net_event *ev);
 
+/* The same, on any graph: the leader projects its uncommitted entries onto a copy */
+int netstate_apply_to(struct network *g, const struct net_event *ev);
+
+/* Would ev change g? Lets the leader log each change once, however many nodes report it. */
+bool netstate_changes(const struct network *g, const struct net_event *ev);
+
 /* Back to the boot graph (all down). For raft_log_init(): an empty log means an empty graph. */
 void netstate_reset(void);
 

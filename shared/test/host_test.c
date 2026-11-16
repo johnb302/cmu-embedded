@@ -3,6 +3,9 @@
 #include "raft.h"
 #include "raft_config.h"
 #include "raft_log.h"
+#include "netwatch.h"
+#include "timesync.h"
+#include <stdlib.h>
 #include <errno.h>
 #include <stdio.h>
 #include <string.h>
@@ -192,13 +195,19 @@ static void log_full(void) {
     raft_log_init();
 }
 
+/* N1, the preset leader, booted early enough that its listen window ends at t: it leads
+ * term 1 from its tick at t (REF and APPEND at t) */
+static void boot_leader(int64_t t) {
+    raft_init(RAFT_NODE_COCKPIT, t - RAFT_CLAIM_LISTEN_MS);
+    now = t;
+    raft_tick(t);
+}
+
 /* 2.3: each empty APPEND reads the leader's log as it is when sent */
 static void append_from_log(void) {
     printf("\nraft 2.3: empty APPEND from the leader's log\n");
     raft_log_init();
-    raft_init(RAFT_NODE_COCKPIT, 0);
-    now = 0;
-    raft_tick(now);
+    boot_leader(0);
     static const uint8_t empty_log[8] = {1}; /* term 1, the rest 0 */
     check("empty log, t=0: term 1, prevLogIndex 0, prevLogTerm 0, leaderCommit 0",
           memcmp(last_append, empty_log, 8) == 0);
@@ -228,7 +237,7 @@ static void rx(uint16_t base, uint8_t sender, uint8_t term, int64_t t) {
 /* Tick a leader for 1 s with the given tick spacing, counting frames */
 static void run_leader(int64_t start, const int *steps, int nsteps) {
     refs = appends = 0;
-    raft_init(RAFT_NODE_COCKPIT, start);
+    raft_init(RAFT_NODE_COCKPIT, start - RAFT_CLAIM_LISTEN_MS);
     int i = 0;
     for (now = start; now <= start + 1000; now += steps[i++ % nsteps]) {
         raft_tick(now);
@@ -239,7 +248,7 @@ static void run_leader(int64_t start, const int *steps, int nsteps) {
 static void leader_trace(void) {
     printf("\nraft 3.2: N1 as default leader, ticks 0..200 ms\n");
     print_tx = true;
-    raft_init(RAFT_NODE_COCKPIT, 0);
+    raft_init(RAFT_NODE_COCKPIT, -RAFT_CLAIM_LISTEN_MS);
     for (now = 0; now <= 200; now += RAFT_TICK_MS) {
         raft_tick(now);
     }
@@ -359,7 +368,7 @@ static void follower_append(void) {
 static void submit(void) {
     printf("\nraft 4.2: raft_submit and EVENT\n");
     raft_log_init();
-    raft_init(RAFT_NODE_COCKPIT, 0);
+    boot_leader(0);
     check("leader: appends to its own log, returns the index",
           raft_submit(code(NODE_UP, 1, 0)) == 1 && raft_log_last_index() == 1);
     check("a bad code or 0: -EINVAL", raft_submit(0xFF) == -EINVAL && raft_submit(NET_EVENT_NONE) == -EINVAL);
@@ -465,7 +474,7 @@ static void console(void) {
 /* 3.3: a leader that hears a higher term steps down and stops sending */
 static void leader_steps_down(void) {
     printf("\nraft 3.3: N1 leader hears term 2\n");
-    raft_init(RAFT_NODE_COCKPIT, 0);
+    boot_leader(0);
     rx(RAFT_ID_REF, 3, 2, 5);
     check("REF from N3 in term 2: N1 becomes follower of N3",
           raft_get_role() == RAFT_FOLLOWER && raft_get_term() == 2 && raft_get_leader() == 3);
@@ -663,6 +672,292 @@ static void voter(void) {
     check("status: role, term, leader none, SYNC, timeout", strncmp(line, status, strlen(status)) == 0);
 }
 
+
+/* ---- steps 6-9 ---- */
+
+static int64_t llabs64(int64_t v) {
+    return v < 0 ? -v : v;
+}
+
+/* 7: the global clock on a follower (N2) of master N1 */
+static void time_sync(void) {
+    printf("\ntime 7.1: N2 follows N1's REFs\n");
+    timesync_init(RAFT_NODE_STEERING);
+    int64_t d = timesync_delay_us(RAFT_NODE_COCKPIT);
+    check("before any REF: global = local", timesync_global_us(12345) == 12345);
+    timesync_on_ref(1, 5000000, 1000);
+    check("first REF sets the clock: global(rx) = L + delay", timesync_global_us(1000) == 5000000 + d);
+
+    /* N1's clock runs 50 ppm fast against N2's: 20 ms of N2's time is 20.001 ms of N1's */
+    int64_t worst = 0;
+    for (int k = 1; k <= 200; k++) {
+        int64_t rx = 1000 + (int64_t)k * 20000;
+        int64_t master = 5000000 + (int64_t)k * 20001;
+        timesync_on_ref(1, master, rx);
+        if (k > 100) {
+            int64_t truth = master + d + 10000; /* 10 ms after the REF */
+            worst = llabs64(timesync_global_us(rx + 10000) - truth) > worst ? llabs64(timesync_global_us(rx + 10000) - truth) : worst;
+        }
+    }
+    struct timesync_stats st = timesync_get_stats();
+    printf("  drift %d ppb (true 50000), worst error 10 ms after a REF: %lld us\n", (int)st.ppb, (long long)worst);
+    check("4 s of REFs: drift within 1 ppm of 50 ppm", llabs64(st.ppb - 50000) < 1000);
+    check("between REFs the drift correction keeps it within 2 us", worst <= 2);
+    check("local(global(t)) = t within 1 us", llabs64(timesync_local_us(timesync_global_us(7777777)) - 7777777) <= 1);
+
+    int64_t rx = 1000 + 201 * 20000;
+    int64_t before = timesync_global_us(rx);
+    timesync_on_ref(1, 5000000 + 201 * 20001, rx + 250); /* waited 250 us for the bus */
+    check("a REF that queued 250 us behind another frame is ignored",
+          timesync_global_us(rx) == before && timesync_get_stats().outliers == 1);
+
+    printf("\ntime 7.2: N2 becomes the master (handover)\n");
+    int64_t t = rx + 20000;
+    int64_t extrapolated = timesync_global_us(t + 100000);
+    timesync_set_master(true);
+    check("its global clock runs on unchanged: no step", timesync_global_us(t + 100000) == extrapolated);
+    timesync_on_ref(3, 1, t);
+    check("a stale REF can't move the master", timesync_global_us(t + 100000) == extrapolated);
+
+    printf("\ntime 7.3: N3 relays a REF\n");
+    timesync_init(RAFT_NODE_DRIVETRAIN);
+    int64_t fwd = timesync_relay_master_us(1, 1000000, 500, 820);
+    check("relayed master time = L + hop delay + 320 us in the relay + its TX - N1's TX",
+          fwd == 1000000 + timesync_delay_us(1) + 320 + TIMESYNC_TX_US_STM32 - TIMESYNC_TX_US_PI);
+}
+
+static void obs_all(struct netwatch_obs *o) {
+    *o = (struct netwatch_obs){0};
+    for (int n = 1; n <= RAFT_N; n++) {
+        o->alive[n] = true;
+        o->direct[n][0] = o->direct[n][1] = true;
+        o->fresh[n][0] = o->fresh[n][1] = true;
+    }
+}
+
+/* 6.1: what each node can vouch for */
+static void link_watch(void) {
+    printf("\nnetwatch 6.1: facts from what a node hears\n");
+    struct netwatch_obs o;
+    struct netwatch_view v;
+
+    obs_all(&o);
+    netwatch_view(&o, 2, &v);
+    check("all up: every node, the others' links and the cockpit up",
+          v.node[1] == FACT_UP && v.node[3] == FACT_UP && v.link[1][0] == FACT_UP && v.link[3][1] == FACT_UP &&
+              v.cockpit == FACT_UP);
+    check("... but never our own links up: others vouch for those", v.link[2][0] == FACT_UNKNOWN);
+
+    o.direct[3][NET_BUS_A] = o.fresh[3][NET_BUS_A] = false; /* N3's A jumper out, seen from N2 */
+    netwatch_view(&o, 2, &v);
+    check("N3 off A, seen from N2: N3 A down, N3 B up", v.link[3][0] == FACT_DOWN && v.link[3][1] == FACT_UP);
+
+    obs_all(&o); /* the same, seen from N3: nobody heard on A */
+    o.direct[1][NET_BUS_A] = o.direct[2][NET_BUS_A] = false;
+    o.fresh[1][NET_BUS_A] = o.fresh[2][NET_BUS_A] = false;
+    netwatch_view(&o, 3, &v);
+    check("... seen from N3: its own A down; nothing said about others on A",
+          v.link[3][0] == FACT_DOWN && v.link[3][1] == FACT_UNKNOWN && v.link[1][0] == FACT_UNKNOWN);
+
+    /* Board, 2026-11-16: 0-20 ms after N3's A jumper came out, N2's heartbeat on A had
+     * aged out but N1's (a different phase) hadn't yet. N3 blamed N2's link. */
+    obs_all(&o);
+    o.direct[2][NET_BUS_A] = false;                         /* 50 ms old */
+    o.fresh[1][NET_BUS_A] = o.fresh[2][NET_BUS_A] = false; /* N1 35 ms old: heard, not fresh */
+    netwatch_view(&o, 3, &v);
+    check("N3's own A just died, N1 still within 50 ms: N2's A is not blamed",
+          v.link[2][0] == FACT_UNKNOWN && v.link[3][0] == FACT_UNKNOWN);
+
+    obs_all(&o); /* N1 off B, N3 off A, seen from N1: N3 only through N2's relay */
+    o.direct[2][NET_BUS_B] = o.direct[3][NET_BUS_B] = false;
+    o.fresh[2][NET_BUS_B] = o.fresh[3][NET_BUS_B] = false;
+    o.direct[3][NET_BUS_A] = o.fresh[3][NET_BUS_A] = false;
+    netwatch_view(&o, 1, &v);
+    check("N1 off B, N3 off A, seen from N1: N3 up (relayed), N3 A down, N3 B unknown",
+          v.node[3] == FACT_UP && v.link[3][0] == FACT_DOWN && v.link[3][1] == FACT_UNKNOWN && v.link[1][1] == FACT_DOWN);
+    o.alive[3] = false; /* before the relay starts */
+    netwatch_view(&o, 1, &v);
+    check("... before the relay starts: N3 unknown, never reported down", v.node[3] == FACT_UNKNOWN);
+
+    /* Board, 2026-11-16: N2's B transmitter dead, its receiver fine. N2 hears N1 and N3 on
+     * B; nobody hears N2 there. */
+    obs_all(&o);
+    netwatch_view(&o, 2, &v);
+    struct netwatch_view v3;
+    struct netwatch_obs o3;
+    obs_all(&o3);
+    o3.direct[2][NET_BUS_B] = o3.fresh[2][NET_BUS_B] = false;
+    netwatch_view(&o3, 3, &v3);
+    check("N2 can't send on B: N3 says N2 B down, and N2 doesn't contradict it",
+          v3.link[2][1] == FACT_DOWN && v.link[2][1] == FACT_UNKNOWN);
+
+    o = (struct netwatch_obs){0}; /* N2 isolated: hears nobody */
+    netwatch_view(&o, 2, &v);
+    check("isolated: only itself up; no claims on links or others",
+          v.node[2] == FACT_UP && v.link[2][0] == FACT_UNKNOWN && v.node[1] == FACT_UNKNOWN);
+
+    obs_all(&o); /* the Pi powered off, seen from N2 */
+    o.alive[1] = false;
+    o.direct[1][0] = o.direct[1][1] = false;
+    o.fresh[1][0] = o.fresh[1][1] = false;
+    netwatch_view(&o, 2, &v);
+    check("Pi off, seen from N2: N1 down, cockpit ERROR", v.node[1] == FACT_DOWN && v.cockpit == FACT_DOWN);
+}
+
+static struct network graph_all(void) {
+    struct network g = {.cockpit_ok = true};
+    for (int n = 0; n < NET_NODES; n++) {
+        g.node_up[n] = true;
+        g.link_up[n][0] = g.link_up[n][1] = true;
+    }
+    return g;
+}
+
+/* 6.2: the routing table from the graph */
+static void routing(void) {
+    printf("\nroute 6.2: routing tables from getNetwork()\n");
+    struct network g = graph_all();
+    struct route_table t;
+    char line[64];
+    bool any = false;
+
+    for (uint8_t me = 1; me <= 3; me++) {
+        route_build(&g, me, &t);
+        for (int s = 1; s <= 3; s++) {
+            any = any || t.relay[s][0] || t.relay[s][1];
+        }
+    }
+    check("all links up: nobody relays", !any);
+
+    g.link_up[2][NET_BUS_A] = false; /* N3 off A */
+    any = false;
+    for (uint8_t me = 1; me <= 3; me++) {
+        route_build(&g, me, &t);
+        for (int s = 1; s <= 3; s++) {
+            any = any || t.relay[s][0] || t.relay[s][1];
+        }
+    }
+    check("N3 off A only: still nobody (everyone hears N3 on B)", !any);
+
+    g.link_up[0][NET_BUS_B] = false; /* and N1 off B */
+    route_build(&g, 2, &t);
+    route_format(&t, line, sizeof(line));
+    printf("  N2: %s\n", line);
+    check("N1 off B and N3 off A: N2 relays N1 A->B and N3 B->A",
+          t.relay[1][NET_BUS_A] && t.relay[3][NET_BUS_B] && !t.relay[1][NET_BUS_B] && !t.relay[3][NET_BUS_A]);
+    struct route_table t1, t3;
+    route_build(&g, 1, &t1);
+    route_build(&g, 3, &t3);
+    check("... and N1 and N3 relay nothing (they're on one bus)", !t1.relay[3][1] && !t3.relay[1][0]);
+
+    g = graph_all(); /* checkoff step 9: N2 leads, N2 off B, N3 off A: the Pi bridges */
+    g.link_up[1][NET_BUS_B] = false;
+    g.link_up[2][NET_BUS_A] = false;
+    route_build(&g, 1, &t);
+    route_format(&t, line, sizeof(line));
+    printf("  N1: %s\n", line);
+    check("N2 off B, N3 off A: the Pi relays N2 A->B and N3 B->A", t.relay[2][NET_BUS_A] && t.relay[3][NET_BUS_B]);
+
+    struct netwatch_obs o;
+    obs_all(&o);
+    o.direct[1][NET_BUS_B] = o.fresh[1][NET_BUS_B] = false;
+    o.direct[3][NET_BUS_A] = o.fresh[3][NET_BUS_A] = false;
+    check("the same rule on what N2 hears, before the log has it",
+          route_relay_observed(&o, 2, 1, NET_BUS_A) && route_relay_observed(&o, 2, 3, NET_BUS_B) &&
+              !route_relay_observed(&o, 2, 1, NET_BUS_B));
+}
+
+/* 6.3: every node reports the same change; the log keeps one */
+static void dedupe(void) {
+    printf("\nraft 6.3: one entry per change\n");
+    raft_log_init();
+    boot_leader(0);
+    uint8_t up2 = code(NODE_UP, 2, 0);
+    check("NODE_UP N2 as a change: entry 1", raft_submit_change(up2) == 1);
+    check("the same again, still uncommitted: dropped (0)", raft_submit_change(up2) == 0 && raft_log_last_index() == 1);
+    uint8_t ev[8] = {1, 3, up2, 1};
+    raft_on_frame(RAFT_ID(RAFT_ID_EVENT, 3), ev, 1);
+    check("N3 reports it too (EVENT b3 = 1): dropped", raft_log_last_index() == 1);
+    check("NODE_DOWN N2: a change, entry 2", raft_submit_change(code(NODE_DOWN, 2, 0)) == 2);
+    check("a console submit is never dropped: entry 3", raft_submit(code(NODE_DOWN, 2, 0)) == 3);
+
+    printf("\nnetwatch 6.4: our own link comes back (board, 2026-11-16)\n");
+    raft_log_init();
+    boot_leader(0);
+    static const uint8_t setup[][3] = {{NODE_UP, 1, 0}, {NODE_UP, 2, 0}, {NODE_UP, 3, 0}, {CANLINK_UP, 1, 0},
+                                       {CANLINK_UP, 1, 1}, {CANLINK_UP, 2, 0}, {CANLINK_UP, 2, 1},
+                                       {CANLINK_UP, 3, 0}, {CANLINK_UP, 3, 1}, {COCKPIT_OK, 0, 0}};
+    for (size_t i = 0; i < sizeof(setup) / sizeof(setup[0]); i++) {
+        raft_log_append(1, code((enum net_event_type)setup[i][0], setup[i][1], setup[i][2]));
+    }
+    raft_log_commit(raft_log_last_index());
+    uint16_t base = raft_log_last_index();
+    netwatch_init(1, 0);
+    struct netwatch_obs o;
+    obs_all(&o); /* N1's A jumper out: nobody heard on A for a while (already logged) */
+    o.direct[2][0] = o.direct[3][0] = o.fresh[2][0] = o.fresh[3][0] = false;
+    netwatch_tick(&o, 1000);
+    raft_log_init(); /* only what netwatch adds from here matters */
+    for (size_t i = 0; i < sizeof(setup) / sizeof(setup[0]); i++) {
+        raft_log_append(1, code((enum net_event_type)(setup[i][0]), setup[i][1], setup[i][2]));
+    }
+    raft_log_append(1, code(CANLINK_DOWN, 1, 0));
+    raft_log_commit(raft_log_last_index());
+    base = raft_log_last_index();
+    obs_all(&o); /* back in: N3 heard on A at once, N2's next heartbeat still 15 ms away */
+    o.direct[2][0] = o.fresh[2][0] = false;
+    netwatch_tick(&o, 1010);
+    bool blamed = false;
+    for (uint16_t i = base + 1; i <= raft_log_last_index(); i++) {
+        blamed = blamed || raft_log_event(i) == code(CANLINK_DOWN, 2, 0);
+    }
+    check("N3 heard first: N2's A not blamed (our A has been up 0 ms)", !blamed);
+    check("our own A not reported up by us (N2 and N3 vouch for it)", raft_log_last_index() == base);
+    o.direct[2][0] = true; /* N2 heard again within 20 ms; then N2 really gone from A */
+    netwatch_tick(&o, 1030);
+    o.direct[2][0] = o.fresh[2][0] = false;
+    uint16_t before = raft_log_last_index();
+    for (int64_t t = 1100; t < 2100; t += 10) {
+        netwatch_tick(&o, t);
+    }
+    check("a real failure: nothing for the first second (the hold)", raft_log_last_index() == before);
+    netwatch_tick(&o, 2110);
+    check("... then reported once our A has settled and it held 1 s",
+          raft_log_event(raft_log_last_index()) == code(CANLINK_DOWN, 2, 0));
+
+    printf("\nnetwatch 6.5: the whole bus glitches for 600 ms (board, N3's B jumper)\n");
+    obs_all(&o);
+    before = raft_log_last_index();
+    netwatch_tick(&o, 3000);
+    raft_log_init(); /* a fresh leader log with everything up */
+    for (size_t i = 0; i < sizeof(setup) / sizeof(setup[0]); i++) {
+        raft_log_append(1, code((enum net_event_type)(setup[i][0]), setup[i][1], setup[i][2]));
+    }
+    raft_log_commit(raft_log_last_index());
+    before = raft_log_last_index();
+    obs_all(&o);
+    for (int n = 1; n <= RAFT_N; n++) {
+        o.direct[n][1] = o.fresh[n][1] = false; /* nobody heard on B */
+    }
+    for (int64_t t = 3010; t <= 3600; t += 10) {
+        netwatch_tick(&o, t);
+    }
+    obs_all(&o);
+    for (int64_t t = 3610; t <= 5000; t += 10) {
+        netwatch_tick(&o, t);
+    }
+    check("bus B silent for every node for 600 ms, then back: nothing logged", raft_log_last_index() == before);
+    raft_log_init();
+
+    printf("\nraft 9.1: entries a follower catches up on are replayed\n");
+    raft_log_init();
+    raft_init(RAFT_NODE_STEERING, 0);
+    rx_append(1, 1, 0, 0, 1, up2, 1, 10); /* entry 1, already committed by the leader */
+    rx_append(1, 1, 1, 1, 1, code(NODE_UP, 3, 0), 1, 20); /* entry 2, live */
+    check("entry 1 came committed (replayed), entry 2 live", raft_replayed_through() == 1);
+    raft_log_init();
+}
+
 int main(void) {
     failures += netstate_selftest();
     event_codes();
@@ -679,6 +974,10 @@ int main(void) {
     election_timeouts();
     candidate();
     voter();
+    time_sync();
+    link_watch();
+    routing();
+    dedupe();
     printf("\n%s: %d failure(s)\n", failures == 0 ? "ALL PASS" : "FAILED", failures);
     return failures == 0 ? 0 : 1;
 }
