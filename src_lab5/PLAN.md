@@ -64,7 +64,7 @@ REF_RX toggles once per REF since step 7: on its first copy (bus A, bus B or rel
 
 **Known limit (until step 9):** logs live in RAM. A rebooted follower catches up on its own (sim 4.7). Since step 5, a restarted Pi also rejoins as a follower and gets the log replayed (sim 5.5), because the STM32s have elected a leader in term 2 by the time it's back. The old problem remains only if the Pi restarts while just one STM32 is up: with no majority there's no election, the term stays 1, and the Pi's empty term-1 log is taken as current. In that case, restart the STM32s too.
 
-### 5. Leader election — DONE except the jumper pulls (board check below)
+### 5. Leader election — DONE
 **Adds:** when the leader's heartbeats stop, followers time out at random offsets, vote, and elect a new leader in a new term. A "random leader" boot mode with no preset leader.
 **Verify:** power off the leader. A new LEADER LED lights within 1 s, the term goes up once, and logs still agree. Pulling a link must not trigger an election.
 **Done (2026-11-16), in `shared/`, tested on the Mac:**
@@ -97,14 +97,10 @@ REF_RX toggles once per REF since step 7: on its first copy (bus A, bus B or rel
 - **Debug lines block the RAFT thread** on the STM32: printf waits on the 115200-baud console, about 5 ms per line. Each frame now goes out before its debug line, which cut the first election from 90 ms to 76 ms. The remaining ~10 ms is a print holding up the next frame. For step 7: stamp the REF receive time in `raft_node_post()` (the RX callback), not in the RAFT thread.
 - **N3's console input died again** right after typing a submit on N3. A board reset through OpenOCD didn't bring it back, so it's the ST-Link/USB side, as step 4 concluded. Replugging N3's USB fixes it.
 
-**Still to check on the boards (needs hands on the jumpers; all covered in the sim):**
-1. Pull N3's A jumper: no `0x05x` frames, term unchanged everywhere.
-2. Pull N1 off B and N3 off A:
-   - N3 shows `pre-candidate` and sends `0x053` (b1 = 1) every 60–99 ms
-   - N2 answers `0x05A` with b1 = 0 (no)
-   - term unchanged on all three
-   - Put the jumpers back: N3 follows again and catches up.
-3. Pull both jumpers of the STM32 leader: the Pi and the other STM32 elect, term +1. Reconnect: one term everywhere, one LEADER LED.
+**Jumper checks (2026-11-16):** done during the step 6 jumper tests and the checkoff walk-through (step 9 below):
+- single jumpers: no election
+- the hop: no term change
+- the leader isolated: one election
 
 **Checkoff step 8 plan:**
 1. Build all three with `RAFT_LEADER=random`: an STM32 leads. Power it off: a new leader, no failure mode.
@@ -114,7 +110,7 @@ REF_RX toggles once per REF since step 7: on its first copy (bus A, bus B or rel
 
 **Ask the TA:** Is "the seed that makes the Pi win" about the election after an STM32 leader dies? At boot the Pi can't win, because the STM32s finish electing before the cockpit starts.
 
-### 6. Link watching and routing — DONE except the jumper pulls (board check below)
+### 6. Link watching and routing — DONE
 **Adds:** each node reports node and link failures and recoveries to the leader as log events. Routing (direct bus or relay) is built from `getNetwork()` instead of lab3's heartbeat ages.
 **Verify:** pull an A jumper and you get one new log entry, at the same index on every node, with the term unchanged. Pull N1 off B and N3 off A, and steering, blinking and braking still work through the Pi relay.
 **Done (2026-11-16):** `shared/netwatch.c` (the Part 1 Raft client), tested in `host_test` 6.1-6.3 and `sim watch`.
@@ -133,17 +129,15 @@ REF_RX toggles once per REF since step 7: on its first copy (bus A, bus B or rel
   - the STM32 leader cut off from the other STM32: the Pi bridges, term unchanged
   - a follower isolated: NODE_DOWN once, then NODE_UP plus its 2 links
 - **Board (2026-11-16):** cold start logged exactly those 10 entries, the same on all three. No relaying with all links up (`relay none` in `raft status`).
-
-**Still to check on the boards (needs hands on the jumpers):**
-1. Pull one A jumper: one CANLINK_DOWN entry everywhere (`raft log`), term unchanged. Put it back: one CANLINK_UP.
-2. N1 off B, N3 off A:
-   - two entries
-   - `raft status` on N2 shows `relay N1 A->B, N3 B->A`
-   - N3 keeps SYNC; the wheel still steers, blinks and brakes
-   - submit an event on N2 (`net cockpit ok`): it appears in N3's `raft log`
-3. N2 leading, N2 off B, N3 off A (checkoff step 9):
-   - the Pi's `raft status` shows `relay N2 A->B, N3 B->A`
-   - SYNC on at N3; REF_RX toggles there
+- **Four rules the jumper pulls taught** (`netwatch.h`, each with a host test that replays the board case):
+  - **Fresh proof** (`NETWATCH_FRESH_MS` 25): heartbeats age out at different phases, so for up to 20 ms after a node's own link dies one peer looks gone while another still looks heard. N3 blamed N2's A when its own A jumper came out. Blaming a peer's link now needs a third node heard on that bus within 25 ms.
+  - **Settle** (`NETWATCH_SETTLE_MS` 50): the same race on reconnection. Blame nobody on a bus until our own link there has been up 50 ms.
+  - **Hold** (`NETWATCH_DOWN_HOLD_MS` 1000): pulling N3's B jumper took bus B down for every node for under a second, and everyone logged their own B link down and up. Down is now reported only after holding 1 s. Up is immediate; relaying and failure mode don't wait for the log.
+  - **No self-vouching:** after its B jumper went back in, N2's B transmitter stayed dead for seconds while its receiver worked. N2's "my B is up" fought N3's "N2's B is down", and the log flipped every 1.3 s. A node now reports its own link only as down; peers report it up.
+- **Board results (all with the final rules):**
+  - each jumper out and back: one entry each way, same index everywhere, term unchanged, including on the leader
+  - N1 off B, N3 off A: two entries, N2 relays both ways (170 frames/s), N3 synced through the relay, and an EVENT from N2 reaches N3's log
+  - N2 leading, N2 off B, N3 off A (checkoff step 9): the Pi bridges them; N3's per-REF corrections stay within +6 µs
 
 ### 7. Global time — DONE except the scope
 **Adds:** the leader puts its clock in REF. Followers set their clock from it plus the CAN delay, and correct for drift between REFs. `global_gettime()`, a PPS pin pulsing every global second, and a console line per pulse with the drift info.
@@ -171,6 +165,13 @@ REF_RX toggles once per REF since step 7: on its first copy (bus A, bus B or rel
   - Per-REF corrections from the Pi: up to ±100 µs. N2's and N3's are nearly identical, since they hear the same frame. From an STM32 master: ±10 µs.
   - About 12 % of the Pi's REFs are ignored as late.
 
+- **From 743 PPS lines (2026-11-16):**
+  - drift median +39.7 ppm
+  - per-REF correction: median 13 µs (90 %: 94 µs) with the Pi as master, 4 µs (90 %: 10 µs) with an STM32
+  - PPS edge vs. its global second: median 4 µs, 90 % within 30 µs, about 1 % over 260 µs (the CAN driver thread preempting the PPS spin)
+- **Handover printout:** reports only a REF that was used. A new leader's first REF usually waits behind the election's last frames and is discarded as late; it used to print as a fake -354 µs handover.
+- **FL/RL during the hop:** the scope showed the FL/RL gap shrink while N3 synced through N2's relay. N3 then shares N2's receive error, leaving only the accurate STM32-to-STM32 hop. The normal gap is the two STM32s receiving the Pi's REF differently; trim it with `time delay 1 <us>` on N3 if wanted.
+
 **Still to check:** scope the PPS pins (PC9 on N2 and N3, BCM 22 on the Pi), and tune `time delay` if the Pi's edge is offset from the STM32s'.
 
 ### 8. Blinkers and failure mode on global time — DONE except the scope
@@ -192,17 +193,51 @@ REF_RX toggles once per REF since step 7: on its first copy (bus A, bus B or rel
 
 **Still to check:** scope FL (N2 PC11) and RL (N3 PC11) over ten edges, then power off the Pi and watch the handover.
 
-### 9. Pi rejoin, demo, report — rejoin DONE, report drafted
+### 9. Pi rejoin, demo, report — DONE except the LEDs and scope checks (list below)
 **Adds:** when the Pi powers back on, it rejoins as a follower and replays the events it missed. Then a dry run of the full checkoff, and the report.
 **Verify:** the Pi shows the missed events once, in order. All 10 checkoff steps pass.
 **Done (2026-11-16):**
 - **Listen before leading.** The preset leader listens for `RAFT_CLAIM_LISTEN_MS` (198 ms, longer than a lone node's pre-vote period) before taking term 1. If it hears any Raft frame, it rejoins as a follower instead. This also closes step 4's known limit: a rebooted Pi can no longer lead term 1 with an empty log.
 - **Replay marking.** A follower marks entries that reach it already committed as replayed (`raft_replayed_through()`). The Pi's display prints every committed entry once, in order: `event    11  term 2   NODE_DOWN N1  [replayed]`, then `[live]`.
 - **Board (2026-11-16):** the Pi restarted under N2's leadership. It printed `cluster heard -> follower`, replayed 12 entries marked `[replayed]`, synced its clock to N2, and LEADER stayed on N2.
-- **Report:** `~/Documents/CMU/18649/Lab5/lab5_report.tex` (and `.pdf`). Its measured numbers come from the board runs above; add the scope captures.
+- **Report:** `~/Documents/CMU/18649/Lab5/lab5_report.tex` (and `.pdf`), one page per section. All measured numbers come from the board consoles. The handout asks for drift and jitter from the PPS printouts, not scope captures, so nothing is left to fill in.
 - **Not done: the extra credit** (cloud VM with Redis and a GUI). It needs a cloud account and a deployed service.
 
-**Demo dry run (to do, with the scope):** checkoff steps 1-10 in order. Step 8 uses `build/n2r` and `build/n3r` (random leader, seed 9, already built) plus `RAFT_LEADER=random RAFT_SEED=9 cockpit/deploy.sh`. Then reflash `build/n2`, `build/n3` and redeploy without the variables.
+**Checkoff walk-through on the boards (2026-11-16), steps 1-10 in order: all pass in software.**
+
+| Step | Result |
+|---|---|
+| 1 | Cold start, proxy stopped: all in ERROR, hazards in step, Pi leads, SYNC on (from the consoles; the LEDs aren't wired). Proxy started: all OK. |
+| 2 | `candump`: every catalog ID; REF every 19.0-21.0 ms; APPEND every 99-101 ms; no `0x05x`. FAULT appears only on a fault (step 10). |
+| 3 | Left, right, cancel on both nodes; FL/RL edges 1-3 µs apart in global time. |
+| 4 | One entry per change, term unchanged. The jumpers pulled were not the ones intended: label them. |
+| 5 | Two entries, N2 relays, wheel works, term unchanged. EVENT through the relay: shown in jumper test 2. |
+| 6 | STM32 leads in 78-106 ms; NODE_DOWN N1 and COCKPIT_ERROR once each; 4 Hz on both; handover -57 µs. |
+| 7 | Pi rejoins as a follower, shows missed entries once, in order, `[replayed]`. |
+| 8 | Seed 1: an STM32 wins at boot; halted leader replaced in 80 ms, no failure mode. Seed 9: the Pi wins (72 ms). Step 6 again: 106 ms, handover -54 µs. |
+| 9 | Jumper test 3. |
+| 10 | Follower isolated: term unchanged. Leader (Pi) isolated: term +1, exactly once. Test button: all ERROR, cleared by double press. |
+
+**Fixed during the walk-through:**
+- `cockpit.c`:
+  - the turn buttons are 5 = left, 4 = right with the proxy's IOKit backend (they were mirrored)
+  - the brake rest point is learned (this pedal rests at 30582, not 0, and read as 93 % braking)
+- `run_cockpit.sh` keeps the previous log as `cockpit.prev.log`.
+
+**Before the demo:**
+- [ ] Wire the six LEADER/SYNC LEDs (pins under step 3).
+- [ ] Label every jumper by node and bus.
+- [ ] Check N3's bus B connector and terminator: pulling N3's B jumper takes bus B down for everyone, once for over 1 s.
+- [ ] Scope: PPS spread, FL/RL over ten edges, no step at the handover (steps 6 and 9).
+- [ ] Flash the final images: `build/n2`, `build/n3` (default); `build/n2r`, `build/n3r` (random, seed 9); `build/n2r1`, `build/n3r1` (random, seed 1). They're built but not flashed, and only the handover printout changed.
+
+**Demo commands:**
+- **Wheel proxy** (Mac, proxy folder, `.venv` active):
+  `SDL_JOYSTICK_MFI=0 python3 mac_proxy.py --remote 172.26.58.163 --steer 0 --throttle 3 --brake 2 --interval-ms 50`
+  Without `SDL_JOYSTICK_MFI=0`, macOS's game-controller backend hides the wheel ("No joystick found").
+- **If `team5.local` stops resolving**, use the Pi's IP. ssh only knows the key under the name, so add `-o HostKeyAlias=team5.local`.
+- **Step 8:** flash the random images, then rebuild the Pi with the same values (`make -B -C lab5/cockpit RAFT_LEADER=random RAFT_SEED=9` on the Pi, or via `deploy.sh`). Afterwards, flash `build/n2`, `build/n3` and rebuild the Pi without the variables.
+- **Simulating power loss:** `pkill -x cockpit` on the Pi is the same as powering it off, on the bus. Halting an STM32's core through OpenOCD (`reset halt`, then `reset run`) is the same as powering it off and on.
 
 Build (repo root, west venv active):
 ```

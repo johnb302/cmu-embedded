@@ -73,6 +73,17 @@ int64_t timesync_correction_since_ref_us(int64_t local_us) {
     return scale_ppb(local_us - base_local);
 }
 
+/* A REF from a new master was used (not discarded): checkoff step 6, "no step larger than
+ * 100 us at the handover". Only REFs that are used count: the new leader's very first REF
+ * often waits for the bus behind the election's last frames and is discarded as late. */
+static void note_handover(uint8_t master, int64_t err) {
+    if (st.synced && master != st.source) {
+        st.handovers++;
+        st.prev_source = st.source;
+        st.handover_step_us = err;
+    }
+}
+
 /* Start over from this REF: the clock reads exactly measured at rx */
 static void hard_set(uint8_t master, int64_t measured, int64_t rx_us) {
     base_local = rx_us;
@@ -95,11 +106,6 @@ void timesync_on_ref(uint8_t master, int64_t master_us, int64_t rx_us) {
     st.delay_us = delay;
     st.last_step_us = err;
     st.last_ref_local_us = rx_us;
-    if (st.synced && master != st.source) {
-        st.handovers++; /* checkoff step 6: "no step larger than 100 us at the handover" */
-        st.prev_source = st.source;
-        st.handover_step_us = err;
-    }
 
     if (!st.synced) {
         hard_set(master, measured, rx_us);
@@ -116,6 +122,7 @@ void timesync_on_ref(uint8_t master, int64_t master_us, int64_t rx_us) {
         }
         far_streak = 0;
         late_streak = 0;
+        note_handover(master, err);
         hard_set(master, measured, rx_us);
         st.refs++;
         return;
@@ -129,6 +136,7 @@ void timesync_on_ref(uint8_t master, int64_t master_us, int64_t rx_us) {
         return;
     }
     late_streak = 0;
+    note_handover(master, err);
 
     /* Slew: take half the error now, the rest over the next REFs (20 ms each) */
     int64_t predicted = timesync_global_us(rx_us);

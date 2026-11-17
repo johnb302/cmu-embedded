@@ -77,8 +77,12 @@ void time_on_ref(uint8_t master, const uint8_t data[8], int64_t rx_us) {
     struct timesync_stats st = timesync_get_stats();
     k_spin_unlock(&time_lock, key);
     if (st.handovers != before) { /* printed outside the lock: it masks interrupts */
-        printk("time N%d: master N%u -> N%u, clocks %+lld us apart at its first REF\n", NODE_ID, st.prev_source,
-               master, (long long)st.handover_step_us);
+        char from[12] = "own clock"; /* prev_source 0: this node was the master itself */
+        if (st.prev_source != 0) {
+            snprintk(from, sizeof(from), "N%u", st.prev_source);
+        }
+        printk("time N%d: master %s -> N%u, clocks %+lld us apart at its first REF\n", NODE_ID, from, master,
+               (long long)st.handover_step_us);
     }
 }
 

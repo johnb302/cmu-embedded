@@ -719,6 +719,22 @@ static void time_sync(void) {
     timesync_on_ref(3, 1, t);
     check("a stale REF can't move the master", timesync_global_us(t + 100000) == extrapolated);
 
+    printf("\ntime 7.2: the new master's first REF queued behind the election\n");
+    timesync_init(RAFT_NODE_DRIVETRAIN);
+    for (int k = 0; k < 10; k++) {
+        timesync_on_ref(1, 1000000 + k * 20000, k * 20000);
+    }
+    timesync_on_ref(2, 1000000 + 10 * 20000, 10 * 20000 + 354); /* N2's first REF, 354 us late */
+    struct timesync_stats hs = timesync_get_stats();
+    check("a late first REF from the new master: discarded, no handover reported",
+          hs.handovers == 0 && hs.source == 1);
+    /* N3's clock reads N1's time + its delay; N2's REF carries N2's clock, which we expect
+     * at our clock - N2's delay. 57 us early: */
+    timesync_on_ref(2, 1000000 + 11 * 20000 + timesync_delay_us(1) - timesync_delay_us(2) - 57, 11 * 20000);
+    hs = timesync_get_stats();
+    check("its next REF: the handover, with the step actually applied (-57 us)",
+          hs.handovers == 1 && hs.prev_source == 1 && hs.source == 2 && hs.handover_step_us == -57);
+
     printf("\ntime 7.3: N3 relays a REF\n");
     timesync_init(RAFT_NODE_DRIVETRAIN);
     int64_t fwd = timesync_relay_master_us(1, 1000000, 500, 820);

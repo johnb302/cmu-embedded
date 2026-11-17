@@ -795,9 +795,13 @@ static void *can_rx_thread(void *arg)
 
 					pthread_mutex_unlock(&time_lock);
 					if (ts.handovers != before) {
-						printf("time N1: master N%u -> N%u, clocks %+lld us apart at its first REF\n",
-						       ts.prev_source, RAFT_ID_SENDER(f.can_id),
-						       (long long)ts.handover_step_us);
+						char from[12] = "own clock"; /* it was the master */
+
+						if (ts.prev_source != 0) {
+							snprintf(from, sizeof(from), "N%u", ts.prev_source);
+						}
+						printf("time N1: master %s -> N%u, clocks %+lld us apart at its first REF\n",
+						       from, RAFT_ID_SENDER(f.can_id), (long long)ts.handover_step_us);
 					}
 				}
 				relay_maybe(&f, b, rx_us);
