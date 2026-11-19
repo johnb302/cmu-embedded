@@ -1,0 +1,23 @@
+18:24:36.698962 WCET us: CAN_RX 314 HB_TX 2470 HB_MON 885 BLINK 496 PID 526
+18:24:40.336813 raft N3: append 13 term 1 CANLINK_DOWN N3 A
+18:24:40.340562 raft N3: commit 13
+18:24:58.022646 raft N3: append 14 term 1 CANLINK_DOWN N1 B
+18:24:58.029723 raft N3: commit 14
+18:25:05.581818 
+18:25:05.588796 [1;32muart:~$ [mnet show
+18:25:05.593765 N1 up A+ B- | N2 up A+ B+ | N3 up A- B+ | cockpit OK
+18:25:05.596754 [1;32muart:~$ [mraft log
+18:25:05.599752 N3 log: 14 entries, commit 14, term 1
+18:25:05.602762     5  term 1   CANLINK_UP N1 A
+18:25:05.606760     6  term 1   CANLINK_UP N1 B
+18:25:05.609760     7  term 1   CANLINK_UP N2 A
+18:25:05.612828     8  term 1   CANLINK_UP N2 B
+18:25:05.616553     9  term 1   CANLINK_UP N3 A
+18:25:05.618995    10  term 1   CANLINK_UP N3 B
+18:25:05.621909    11  term 1   CANLINK_DOWN N3 B
+18:25:05.626386    12  term 1   CANLINK_UP N3 B
+18:25:05.629358    13  term 1   CANLINK_DOWN N3 A
+18:25:05.631906    14  term 1   CANLINK_DOWN N1 B
+18:25:05.634880 [1;32muart:~$ [mraft status
+18:25:05.646657 N3 follower | term 1 | leader N1 | SYNC on | heard 17 ms ago | election timeout 96 ms | rx dropped 0 | relay none
+18:25:06.697048 WCET us: CAN_RX 314 HB_TX 2470 HB_MON 885 BLINK 496 PID 526

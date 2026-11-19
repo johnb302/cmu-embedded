@@ -1,0 +1,53 @@
+18:31:03.244923 raft N3: append 4 term 1 CANLINK_UP N2 B
+18:31:03.246976 raft N3: commit 4
+18:31:03.252365 raft N3: no entry 20 term 2 here (last 4)
+18:31:03.255202 raft N3: append 5 term 1 CANLINK_UP N3 A
+18:31:03.257376 raft N3: commit 5
+18:31:03.264907 raft N3: append 6 term 1 CANLINK_UP N3 B
+18:31:03.266831 raft N3: commit 6
+18:31:03.275415 raft N3: append 7 term 1 NODE_UP N1
+18:31:03.275874 raft N3: commit 7
+18:31:03.284123 raft N3: append 8 term 1 COCKPIT_OK
+18:31:03.286044 raft N3: commit 8
+18:31:03.294964 raft N3: append 9 term 1 CANLINK_UP N1 A
+18:31:03.297268 raft N3: commit 9
+18:31:03.304928 raft N3: append 10 term 1 CANLINK_UP N1 B
+18:31:03.306802 raft N3: commit 10
+18:31:03.316347 raft N3: append 11 term 1 CANLINK_DOWN N2 A
+18:31:03.316864 raft N3: commit 11
+18:31:03.325410 raft N3: append 12 term 1 CANLINK_UP N2 A
+18:31:03.327785 raft N3: commit 12
+18:31:03.335211 raft N3: append 13 term 1 CANLINK_DOWN N2 A
+18:31:03.336758 raft N3: commit 13
+18:31:03.344909 raft N3: append 14 term 1 CANLINK_UP N2 A
+18:31:03.347314 raft N3: commit 14
+18:31:03.351859 raft N3: no entry 20 term 2 here (last 14)
+18:31:03.356314 raft N3: append 15 term 1 CANLINK_DOWN N2 A
+18:31:03.358181 raft N3: commit 15
+18:31:03.366332 raft N3: append 16 term 1 CANLINK_UP N2 A
+18:31:03.367829 raft N3: commit 16
+18:31:03.374997 raft N3: append 17 term 2 NODE_DOWN N3
+18:31:03.376785 raft N3: commit 17
+18:31:03.383840 raft N3: append 18 term 2 NODE_UP N3
+18:31:03.385993 raft N3: commit 18
+18:31:03.395188 raft N3: append 19 term 2 CANLINK_UP N3 A
+18:31:03.395786 raft N3: commit 19
+18:31:03.404885 raft N3: append 20 term 2 CANLINK_UP N3 B
+18:31:03.405952 raft N3: commit 20
+18:31:07.198912 
+18:31:07.207884 [1;32muart:~$ [mnet show
+18:31:07.212879 N1 up A+ B+ | N2 up A+ B+ | N3 up A+ B+ | cockpit OK
+18:31:07.215894 [1;32muart:~$ [mraft log
+18:31:07.219883 N3 log: 20 entries, commit 20, term 2
+18:31:07.222914    11  term 1   CANLINK_DOWN N2 A
+18:31:07.225830    12  term 1   CANLINK_UP N2 A
+18:31:07.228905    13  term 1   CANLINK_DOWN N2 A
+18:31:07.231860    14  term 1   CANLINK_UP N2 A
+18:31:07.236383    15  term 1   CANLINK_DOWN N2 A
+18:31:07.239097    16  term 1   CANLINK_UP N2 A
+18:31:07.242157    17  term 2   NODE_DOWN N3
+18:31:07.245042    18  term 2   NODE_UP N3
+18:31:07.248109    19  term 2   CANLINK_UP N3 A
+18:31:07.251344    20  term 2   CANLINK_UP N3 B
+18:31:07.254684 [1;32muart:~$ [mraft status
+18:31:07.265743 N3 follower | term 2 | leader N2 | SYNC on | heard 11 ms ago | election timeout 86 ms | rx dropped 0 | relay none

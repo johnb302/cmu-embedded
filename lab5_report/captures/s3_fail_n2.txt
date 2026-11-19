@@ -1,0 +1,43 @@
+18:30:38.158151   global 180.250010 s  L0 R0
+18:30:38.161098   global 180.500011 s  L1 R1
+18:30:38.164132   global 180.750011 s  L0 R0
+18:30:38.167072   global 181.000048 s  L1 R1
+18:30:38.169081   global 181.250012 s  L0 R0
+18:30:44.134244 raft N2: election timeout -> pre-candidate, term 1, leader N3
+18:30:44.141661 raft N2: pre-vote won -> candidate, term 2, leader none
+18:30:44.145253 raft N2: won the vote -> leader, term 2, leader N2
+18:30:45.137199 raft N2: append 17 term 2 NODE_DOWN N3 (from N1)
+18:30:45.139928 raft N2: commit 17
+18:30:47.106404 raft status
+18:30:47.114412 N2 leader | term 2 | leader N2 | SYNC on | holding 1 for N3 | rx dropped 0 | relay none
+18:30:47.117425 [1;32muart:~$ [mblink
+18:30:47.120389 N2 lamps: hazard, half period 250 ms
+18:30:47.123376   global 188.500011 s  L1 R1
+18:30:47.126948   global 188.750011 s  L0 R0
+18:30:47.130022   global 189.000049 s  L1 R1
+18:30:47.132499   global 189.250010 s  L0 R0
+18:30:47.135054   global 189.500010 s  L1 R1
+18:30:47.137509   global 189.750011 s  L0 R0
+18:30:47.140928   global 190.000046 s  L1 R1
+18:30:47.144463   global 190.250010 s  L0 R0
+18:30:53.908554 
+18:30:53.916505 [1;32muart:~$ [mnet show
+18:30:53.921530 N1 up A+ B+ | N2 up A+ B+ | N3 down | cockpit OK
+18:30:53.923491 [1;32muart:~$ [mraft log
+18:30:53.927506 N2 log: 17 entries, commit 17, term 2
+18:30:53.930472     8  term 1   COCKPIT_OK
+18:30:53.933474     9  term 1   CANLINK_UP N1 A
+18:30:53.936601    10  term 1   CANLINK_UP N1 B
+18:30:53.939537    11  term 1   CANLINK_DOWN N2 A
+18:30:53.942536    12  term 1   CANLINK_UP N2 A
+18:30:53.946518    13  term 1   CANLINK_DOWN N2 A
+18:30:53.949485    14  term 1   CANLINK_UP N2 A
+18:30:53.952507    15  term 1   CANLINK_DOWN N2 A
+18:30:53.955512    16  term 1   CANLINK_UP N2 A
+18:30:53.958503    17  term 2   NODE_DOWN N3
+18:30:53.961540 [1;32muart:~$ [mraft status
+18:30:53.970500 N2 leader | term 2 | leader N2 | SYNC on | holding 1 for N3 | rx dropped 0 | relay none
+18:30:53.818544 PPS N2 | global 197.000092 s | local 196.985429 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -78 us | last step +5 us | master N2
+18:30:54.818551 [1;32muart:~$ [mPPS N2 | global 198.000003 s | local 197.985348 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -86 us | last step +5 us | master N2
+18:30:55.820113 PPS N2 | global 199.000081 s | local 198.985434 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -94 us | last step +5 us | master N2
+18:30:56.819544 PPS N2 | global 200.000003 s | local 199.985364 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -102 us | last step +5 us | master N2

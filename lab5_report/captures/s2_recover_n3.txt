@@ -1,0 +1,26 @@
+18:29:21.869379 raft N3: commit 12
+18:29:24.547769 raft N3: append 13 term 1 CANLINK_DOWN N2 A (from N3)
+18:29:24.550252 raft N3: commit 13
+18:29:26.677281 raft N3: append 14 term 1 CANLINK_UP N2 A (from N3)
+18:29:26.682775 raft N3: commit 14
+18:29:29.947898 raft N3: append 15 term 1 CANLINK_DOWN N2 A (from N3)
+18:29:29.950451 raft N3: commit 15
+18:29:35.367111 raft N3: append 16 term 1 CANLINK_UP N2 A (from N1)
+18:29:35.369622 raft N3: commit 16
+18:29:47.867765 
+18:29:47.874767 [1;32muart:~$ [mnet show
+18:29:47.879747 N1 up A+ B+ | N2 up A+ B+ | N3 up A+ B+ | cockpit OK
+18:29:47.882752 [1;32muart:~$ [mraft log
+18:29:47.886740 N3 log: 16 entries, commit 16, term 1
+18:29:47.888773     7  term 1   NODE_UP N1
+18:29:47.891744     8  term 1   COCKPIT_OK
+18:29:47.894735     9  term 1   CANLINK_UP N1 A
+18:29:47.897752    10  term 1   CANLINK_UP N1 B
+18:29:47.901907    11  term 1   CANLINK_DOWN N2 A
+18:29:47.904827    12  term 1   CANLINK_UP N2 A
+18:29:47.907956    13  term 1   CANLINK_DOWN N2 A
+18:29:47.910781    14  term 1   CANLINK_UP N2 A
+18:29:47.914783    15  term 1   CANLINK_DOWN N2 A
+18:29:47.917806    16  term 1   CANLINK_UP N2 A
+18:29:47.921131 [1;32muart:~$ [mraft status
+18:29:47.926855 N3 leader | term 1 | leader N3 | SYNC on | rx dropped 0 | relay none

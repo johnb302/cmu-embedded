@@ -200,7 +200,7 @@ REF_RX toggles once per REF since step 7: on its first copy (bus A, bus B or rel
 - **Listen before leading.** The preset leader listens for `RAFT_CLAIM_LISTEN_MS` (198 ms, longer than a lone node's pre-vote period) before taking term 1. If it hears any Raft frame, it rejoins as a follower instead. This also closes step 4's known limit: a rebooted Pi can no longer lead term 1 with an empty log.
 - **Replay marking.** A follower marks entries that reach it already committed as replayed (`raft_replayed_through()`). The Pi's display prints every committed entry once, in order: `event    11  term 2   NODE_DOWN N1  [replayed]`, then `[live]`.
 - **Board (2026-11-16):** the Pi restarted under N2's leadership. It printed `cluster heard -> follower`, replayed 12 entries marked `[replayed]`, synced its clock to N2, and LEADER stayed on N2.
-- **Report:** `~/Documents/CMU/18649/Lab5/lab5_report.tex` (and `.pdf`), one page per section. All measured numbers come from the board consoles. The handout asks for drift and jitter from the PPS printouts, not scope captures, so nothing is left to fill in.
+- **Report:** `lab5_report/lab5_report.tex` (and `.pdf`); captures in `lab5_report/captures/`, console logs in `lab5_report/logs/`, one page per section. All measured numbers come from the board consoles. The handout asks for drift and jitter from the PPS printouts, not scope captures, so nothing is left to fill in.
 - **Not done: the extra credit** (cloud VM with Redis and a GUI). It needs a cloud account and a deployed service.
 
 **Checkoff walk-through on the boards (2026-11-16), steps 1-10 in order: all pass in software.**

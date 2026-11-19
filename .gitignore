@@ -22,3 +22,10 @@
 /shared/test/host_test
 /shared/test/sim
 /shared/test/*.so
+
+# LaTeX build files (the console logs in lab5_report/logs/ are kept)
+/lab5_report/lab5_report.aux
+/lab5_report/lab5_report.fdb_latexmk
+/lab5_report/lab5_report.fls
+/lab5_report/lab5_report.log
+/lab5_report/lab5_report.out

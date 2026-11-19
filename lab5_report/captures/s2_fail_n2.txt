@@ -1,0 +1,19 @@
+18:28:39.051772 raft N2: append 11 term 1 CANLINK_DOWN N2 A
+18:28:39.055098 raft N2: commit 11
+18:28:48.648277 
+18:28:48.656223 [1;32muart:~$ [mnet show
+18:28:48.661251 N1 up A+ B+ | N2 up A- B+ | N3 up A+ B+ | cockpit OK
+18:28:48.664274 [1;32muart:~$ [mraft log
+18:28:48.668251 N2 log: 11 entries, commit 11, term 1
+18:28:48.670238     2  term 1   NODE_UP N3
+18:28:48.673245     3  term 1   CANLINK_UP N2 A
+18:28:48.677278     4  term 1   CANLINK_UP N2 B
+18:28:48.680301     5  term 1   CANLINK_UP N3 A
+18:28:48.683258     6  term 1   CANLINK_UP N3 B
+18:28:48.685243     7  term 1   NODE_UP N1
+18:28:48.688286     8  term 1   COCKPIT_OK
+18:28:48.691430     9  term 1   CANLINK_UP N1 A
+18:28:48.694275    10  term 1   CANLINK_UP N1 B
+18:28:48.698264    11  term 1   CANLINK_DOWN N2 A
+18:28:48.702304 [1;32muart:~$ [mraft status
+18:28:48.712297 N2 follower | term 1 | leader N3 | SYNC on | heard 3 ms ago | election timeout 62 ms | rx dropped 0 | relay none

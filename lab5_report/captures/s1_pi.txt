@@ -1,0 +1,63 @@
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (22) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft leader | term 1 | leader N1 | SYNC on | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (42) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft leader | term 1 | leader N1 | SYNC on | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (62) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft leader | term 1 | leader N1 | SYNC on | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (82) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft leader | term 1 | leader N1 | SYNC on | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (102) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft leader | term 1 | leader N1 | SYNC on | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (122) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft leader | term 1 | leader N1 | SYNC on | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-114) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft leader | term 1 | leader N1 | SYNC on | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-94) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft leader | term 1 | leader N1 | SYNC on | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-74) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft leader | term 1 | leader N1 | SYNC on | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-54) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft leader | term 1 | leader N1 | SYNC on | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-34) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft leader | term 1 | leader N1 | SYNC on | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-14) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft leader | term 1 | leader N1 | SYNC on | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (6) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft leader | term 1 | leader N1 | SYNC on | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (26) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft leader | term 1 | leader N1 | SYNC on | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (46) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft leader | term 1 | leader N1 | SYNC on | relay none
+N1 up A+ B+ | N2 up A+ B+ | N3 up A+ B- | cockpit OK
+N1 log: 11 entries, commit 11, term 1
+    2  term 1   NODE_UP N2
+    3  term 1   NODE_UP N3
+    4  term 1   COCKPIT_OK
+    5  term 1   CANLINK_UP N1 A
+    6  term 1   CANLINK_UP N1 B
+    7  term 1   CANLINK_UP N2 A
+    8  term 1   CANLINK_UP N2 B
+    9  term 1   CANLINK_UP N3 A
+   10  term 1   CANLINK_UP N3 B
+   11  term 1   CANLINK_DOWN N3 B
+raft leader | term 1 | leader N1 | SYNC on | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (66) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft leader | term 1 | leader N1 | SYNC on | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (86) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft leader | term 1 | leader N1 | SYNC on | relay none

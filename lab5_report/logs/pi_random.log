@@ -1,0 +1,2208 @@
+bus A = can1 (spi0.0, CE0), bus B = can0 (spi0.1, CE1)
+raft N1: boot -> follower, term 0, leader none
+cockpit up (normal priority; sudo for SCHED_FIFO). Commands: b = inject bad CTRL, q = quit, h = the Raft ones
+raft N1: frame from N3 -> follower, term 1, leader N3
+raft N1: no entry 6 term 1 here (last 0)
+raft N1: append 1 term 1 NODE_UP N2
+raft N1: commit 1
+raft N1: no entry 7 term 1 here (last 1)
+raft N1: append 2 term 1 NODE_UP N3
+raft N1: commit 2
+raft N1: append 3 term 1 CANLINK_UP N2 A
+raft N1: commit 3
+raft N1: append 4 term 1 CANLINK_UP N2 B
+raft N1: commit 4
+raft N1: no entry 8 term 1 here (last 4)
+raft N1: append 5 term 1 CANLINK_UP N3 A
+raft N1: commit 5
+event     1  term 1   NODE_UP N2  [replayed]
+event     2  term 1   NODE_UP N3  [replayed]
+event     3  term 1   CANLINK_UP N2 A  [replayed]
+event     4  term 1   CANLINK_UP N2 B  [replayed]
+event     5  term 1   CANLINK_UP N3 A  [replayed]
+raft N1: append 6 term 1 CANLINK_UP N3 B
+raft N1: commit 6
+raft N1: no entry 9 term 1 here (last 6)
+raft N1: append 7 term 1 NODE_UP N1
+raft N1: commit 7
+raft N1: append 8 term 1 COCKPIT_OK
+raft N1: commit 8
+raft N1: append 9 term 1 CANLINK_UP N1 A
+raft N1: commit 9
+raft N1: append 10 term 1 CANLINK_UP N1 B
+raft N1: commit 10
+event     6  term 1   CANLINK_UP N3 B  [replayed]
+event     7  term 1   NODE_UP N1  [replayed]
+event     8  term 1   COCKPIT_OK  [replayed]
+event     9  term 1   CANLINK_UP N1 A  [replayed]
+event    10  term 1   CANLINK_UP N1 B  [replayed]
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-53) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 14 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-33) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 14 ms ago | election timeout 93 ms | relay none
+raft follower | term 1 | leader N3 | SYNC on | heard 4 ms ago | election timeout 93 ms | relay none
+node 1 | N=3 default_leader=none heartbeat_ms=20 missed_heartbeats=3 election_timeout_jitter_ms=39 log_size=30000 nodes=cockpit:1,steering:2,drivetrain:3 debug=yes seed=1
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-13) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 13 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (7) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 13 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (27) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 13 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (47) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 13 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (67) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 13 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (87) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 14 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (107) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 13 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (127) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 13 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-109) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 13 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-89) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 13 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-69) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 13 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-49) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 13 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-29) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 13 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-9) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 13 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (11) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 14 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (31) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 13 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (51) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 12 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (71) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 13 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (91) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 12 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (111) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 13 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-125) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 13 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-105) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 12 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-85) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 12 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-65) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 13 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-45) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 12 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-25) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 11 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-5) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 12 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (15) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 12 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (35) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 11 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (55) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 12 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (75) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 12 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (95) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 12 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (115) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 12 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-121) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 11 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-101) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 11 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-81) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 12 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-61) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 11 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-41) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 11 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-21) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 11 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-1) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 11 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (19) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 12 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (39) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 11 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (59) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 11 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (79) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 12 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (99) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 11 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (119) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 11 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-117) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 12 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-97) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 11 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-77) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 11 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-57) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 11 ms ago | election timeout 93 ms | relay none
+raft N1: append 11 term 1 CANLINK_DOWN N2 A
+raft N1: commit 11
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-37) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 10 ms ago | election timeout 93 ms | relay none
+event    11  term 1   CANLINK_DOWN N2 A  [live]
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-17) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 10 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (3) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 12 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (23) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 11 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (43) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 10 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (63) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 10 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (83) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 10 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (103) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 10 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (123) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 11 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-113) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 10 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-93) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 11 ms ago | election timeout 93 ms | relay none
+N1 up A+ B+ | N2 up A- B+ | N3 up A+ B+ | cockpit OK
+N1 log: 11 entries, commit 11, term 1
+    2  term 1   NODE_UP N3
+    3  term 1   CANLINK_UP N2 A
+    4  term 1   CANLINK_UP N2 B
+    5  term 1   CANLINK_UP N3 A
+    6  term 1   CANLINK_UP N3 B
+    7  term 1   NODE_UP N1
+    8  term 1   COCKPIT_OK
+    9  term 1   CANLINK_UP N1 A
+   10  term 1   CANLINK_UP N1 B
+   11  term 1   CANLINK_DOWN N2 A
+raft follower | term 1 | leader N3 | SYNC on | heard 14 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-73) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 10 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-53) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 10 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-33) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 10 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-13) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 10 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (7) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 10 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (27) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 11 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (47) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 10 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (67) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 10 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (87) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 10 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (107) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 9 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (127) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 9 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-109) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 9 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-89) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 9 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-69) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 10 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-49) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 10 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-29) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 9 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-9) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 10 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (11) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (31) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (51) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (71) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (91) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (111) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-125) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 9 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-105) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-85) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-65) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 9 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-45) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-25) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 10 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-5) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 9 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (15) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 9 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (35) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 10 ms ago | election timeout 93 ms | relay none
+raft N1: append 12 term 1 CANLINK_UP N2 A
+raft N1: commit 12
+event    12  term 1   CANLINK_UP N2 A  [live]
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (55) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (75) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (95) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+raft N1: append 13 term 1 CANLINK_DOWN N2 A
+raft N1: commit 13
+event    13  term 1   CANLINK_DOWN N2 A  [live]
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (115) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-121) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 7 ms ago | election timeout 93 ms | relay none
+raft N1: append 14 term 1 CANLINK_UP N2 A
+raft N1: commit 14
+event    14  term 1   CANLINK_UP N2 A  [live]
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-101) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-81) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-61) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 7 ms ago | election timeout 93 ms | relay none
+raft N1: append 15 term 1 CANLINK_DOWN N2 A
+raft N1: commit 15
+event    15  term 1   CANLINK_DOWN N2 A  [live]
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-41) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 7 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-21) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-1) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (19) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (39) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A -- B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (59) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 7 ms ago | election timeout 93 ms | relay none
+raft N1: append 16 term 1 CANLINK_UP N2 A
+raft N1: commit 16
+event    16  term 1   CANLINK_UP N2 A  [live]
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (79) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 21 (99) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (119) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-117) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-97) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 7 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-77) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 7 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-57) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 7 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-37) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 7 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-17) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (3) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 7 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (23) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 7 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (43) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (63) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 7 ms ago | election timeout 93 ms | relay none
+N1 up A+ B+ | N2 up A+ B+ | N3 up A+ B+ | cockpit OK
+N1 log: 16 entries, commit 16, term 1
+    7  term 1   NODE_UP N1
+    8  term 1   COCKPIT_OK
+    9  term 1   CANLINK_UP N1 A
+   10  term 1   CANLINK_UP N1 B
+   11  term 1   CANLINK_DOWN N2 A
+   12  term 1   CANLINK_UP N2 A
+   13  term 1   CANLINK_DOWN N2 A
+   14  term 1   CANLINK_UP N2 A
+   15  term 1   CANLINK_DOWN N2 A
+   16  term 1   CANLINK_UP N2 A
+raft follower | term 1 | leader N3 | SYNC on | heard 19 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (83) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 7 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (103) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 7 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (123) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 7 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-113) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-93) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-73) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 7 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-53) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 7 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-33) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 7 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-13) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 7 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (7) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 6 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (27) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 6 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (47) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 5 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (67) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 6 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (87) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 5 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (107) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 5 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (127) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 6 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-109) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 5 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-89) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 5 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-69) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 5 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-49) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 5 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-29) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 5 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-9) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 5 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (11) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 5 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (31) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 6 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (51) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 5 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (71) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 5 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (91) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 6 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (111) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 5 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-125) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 5 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-105) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 5 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-85) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 5 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-65) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 5 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-45) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 6 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-25) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 4 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-5) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 4 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (15) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 5 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (35) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 4 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (55) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 4 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (75) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 5 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (95) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 4 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (115) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 4 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-121) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 5 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-101) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 4 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-81) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 4 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-61) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 5 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-41) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 4 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-21) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 4 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-1) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 5 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (19) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 4 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (39) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 4 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (59) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 4 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (79) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 4 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (99) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 3 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (119) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 4 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-117) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 3 ms ago | election timeout 93 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-97) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 1 | leader N3 | SYNC on | heard 24 ms ago | election timeout 93 ms | relay none
+raft N1: vote for N2 in term 2
+raft N1: frame from N2 -> follower, term 2, leader none
+raft N1: frame from N2 -> follower, term 2, leader N2
+time N1: master N3 -> N2, clocks -67 us apart at its first REF
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A -- B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-77) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 2 ms ago | election timeout 66 ms | relay none
+raft N1: append 17 term 2 NODE_DOWN N3
+raft N1: commit 17
+event    17  term 2   NODE_DOWN N3  [live]
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A -- B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-57) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 2 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A -- B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-37) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 2 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A -- B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-17) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A -- B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (3) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 2 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A -- B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (23) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 2 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A -- B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (43) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 2 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A -- B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (63) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 2 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A -- B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (83) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 2 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A -- B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (103) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 2 ms ago | election timeout 66 ms | relay none
+N1 up A+ B+ | N2 up A+ B+ | N3 down | cockpit OK
+N1 log: 17 entries, commit 17, term 2
+    8  term 1   COCKPIT_OK
+    9  term 1   CANLINK_UP N1 A
+   10  term 1   CANLINK_UP N1 B
+   11  term 1   CANLINK_DOWN N2 A
+   12  term 1   CANLINK_UP N2 A
+   13  term 1   CANLINK_DOWN N2 A
+   14  term 1   CANLINK_UP N2 A
+   15  term 1   CANLINK_DOWN N2 A
+   16  term 1   CANLINK_UP N2 A
+   17  term 2   NODE_DOWN N3
+raft follower | term 2 | leader N2 | SYNC on | heard 14 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A -- B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (123) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 2 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A -- B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-113) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A -- B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-93) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 2 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A -- B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-73) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 3 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A -- B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-53) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A -- B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-33) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A -- B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-13) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 2 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A -- B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (7) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A -- B --
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (27) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+raft N1: append 18 term 2 NODE_UP N3
+raft N1: commit 18
+raft N1: append 19 term 2 CANLINK_UP N3 A
+raft N1: append 20 term 2 CANLINK_UP N3 B
+raft N1: commit 19
+raft N1: commit 20
+event    18  term 2   NODE_UP N3  [live]
+event    19  term 2   CANLINK_UP N3 A  [live]
+event    20  term 2   CANLINK_UP N3 B  [live]
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (47) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (67) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (87) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (107) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 2 ms ago | election timeout 66 ms | relay none
+N1 up A+ B+ | N2 up A+ B+ | N3 up A+ B+ | cockpit OK
+N1 log: 20 entries, commit 20, term 2
+   11  term 1   CANLINK_DOWN N2 A
+   12  term 1   CANLINK_UP N2 A
+   13  term 1   CANLINK_DOWN N2 A
+   14  term 1   CANLINK_UP N2 A
+   15  term 1   CANLINK_DOWN N2 A
+   16  term 1   CANLINK_UP N2 A
+   17  term 2   NODE_DOWN N3
+   18  term 2   NODE_UP N3
+   19  term 2   CANLINK_UP N3 A
+   20  term 2   CANLINK_UP N3 B
+raft follower | term 2 | leader N2 | SYNC on | heard 12 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (127) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-109) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-89) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 2 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-69) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-49) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-29) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-9) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 0 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (11) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 0 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (31) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (51) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (71) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 0 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (91) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 0 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (111) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-125) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 0 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-105) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-85) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 5 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-65) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 5 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-45) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 5 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-25) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 20 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-5) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (15) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 25 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (35) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (55) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (75) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 20 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (95) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (115) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-121) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 20 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-101) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-81) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-61) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-41) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-21) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-1) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 20 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (19) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (39) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (59) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 20 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (79) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (99) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 24 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (119) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 20 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-117) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 4 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-97) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-77) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-57) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-37) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 18 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-17) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (3) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 18 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (23) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 18 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (43) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 18 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (63) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (83) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 18 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (103) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (123) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 18 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-113) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-93) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 18 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-73) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 18 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-53) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-33) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 18 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-13) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 18 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (7) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (27) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 18 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (47) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 18 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (67) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 18 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (87) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 18 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (107) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 2 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (127) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-109) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-89) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 18 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-69) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-49) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-29) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-9) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (11) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (31) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 18 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (51) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (71) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (91) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (111) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 18 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-125) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 18 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-105) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-85) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-65) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 18 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-45) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 21 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-25) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-5) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (15) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (35) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 18 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (55) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (75) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (95) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (115) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 16 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-121) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-101) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 16 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-81) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 16 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-61) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-41) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 16 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-21) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 16 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-1) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 16 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (19) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 16 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (39) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 16 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (59) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (79) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 16 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (99) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 21 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (119) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 15 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-117) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 16 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-97) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 16 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-77) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 15 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-57) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 16 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-37) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 15 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-17) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 21 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (3) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 20 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (23) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 15 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (43) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 21 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (63) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 15 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (83) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 15 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (103) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (123) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 15 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-113) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 15 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-93) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 16 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-73) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-53) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 15 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-33) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 15 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-13) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 15 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (7) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (27) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 20 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (47) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (67) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (87) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 20 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (107) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 14 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (127) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 14 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-109) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 15 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-89) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 14 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-69) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 14 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-49) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 14 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-29) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 15 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-9) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 14 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (11) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 14 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (31) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 14 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (51) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 14 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (71) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (91) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 14 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (111) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 15 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-125) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 14 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-105) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 14 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-85) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 14 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-65) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 14 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-45) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 14 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-25) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 13 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-5) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 13 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (15) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 13 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (35) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 14 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (55) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 14 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (75) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 14 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (95) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 13 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (115) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 14 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-121) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 13 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-101) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 13 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-81) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 13 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-61) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 13 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-41) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 13 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-21) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-1) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 13 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (19) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 13 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (39) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 13 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (59) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 13 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (79) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 14 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (99) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 12 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (119) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 12 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-117) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 13 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-97) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 12 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-77) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 12 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-57) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 13 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-37) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 12 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-17) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 12 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (3) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 13 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (23) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 12 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (43) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 12 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (63) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 13 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (83) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 12 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (103) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 12 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (123) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 12 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-113) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 12 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-93) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 12 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-73) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 12 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-53) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 12 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-33) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 12 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-13) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 12 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (7) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 12 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (27) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 11 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (47) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 11 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (67) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 11 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (87) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 11 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (107) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 12 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (127) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 11 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-109) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 11 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-89) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 12 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-69) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 11 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-49) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 11 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-29) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 11 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-9) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 11 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (11) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 11 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (31) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 12 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (51) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 11 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (71) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 11 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (91) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 11 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (111) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 15 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-125) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 11 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-105) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 10 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-85) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 10 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-65) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 11 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-45) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 10 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-25) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 10 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-5) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 10 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (15) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 10 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (35) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 10 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (55) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 10 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (75) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 11 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (95) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 10 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (115) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 10 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-121) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 11 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-101) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 10 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-81) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 10 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-61) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 11 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-41) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 10 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-21) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 10 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-1) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 10 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (19) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 10 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (39) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 10 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (59) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 10 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (79) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 10 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (99) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 11 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (119) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 14 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-117) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 14 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-97) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 9 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-77) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 9 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-57) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 9 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-37) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 9 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-17) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 9 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (3) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 9 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (23) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 9 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (43) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 9 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (63) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 9 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (83) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 10 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (103) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 9 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (123) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 9 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-113) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 9 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-93) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 9 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-73) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 8 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-53) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 9 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-33) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 8 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-13) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 8 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (7) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 9 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (27) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 8 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (47) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 8 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (67) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 10 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (87) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 8 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (107) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 8 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (127) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 9 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-109) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 13 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-89) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 8 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-69) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 9 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-49) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 8 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-29) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 8 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-9) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 8 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (11) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 8 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (31) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 12 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (51) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 7 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (71) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 7 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (91) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 7 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (111) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 7 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-125) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 7 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-105) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 7 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-85) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 8 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-65) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 7 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-45) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 10 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-25) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 7 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-5) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 8 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (15) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 7 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (35) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 7 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (55) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 8 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (75) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 7 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (95) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 7 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (115) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 8 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-121) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 7 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-101) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 7 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-81) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 7 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-61) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 6 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-41) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 6 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-21) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 7 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-1) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 6 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (19) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 6 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (39) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 6 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (59) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 6 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (79) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 7 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (99) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 11 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (119) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 6 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-117) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 6 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-97) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 11 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-77) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 6 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-57) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 7 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-37) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 6 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-17) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 6 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (3) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 6 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (23) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 6 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (43) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 5 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (63) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 6 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (83) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 6 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (103) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 10 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (123) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 6 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-113) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 5 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-93) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 5 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-73) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 5 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-53) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 5 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-33) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 6 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-13) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 5 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (7) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 5 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (27) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 6 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (47) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 5 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (67) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 5 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (87) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 5 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (107) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 5 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (127) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 6 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-109) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 5 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-89) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 5 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-69) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 6 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-49) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 9 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-29) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 9 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-9) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 5 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (11) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 5 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (31) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 4 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (51) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 4 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (71) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 5 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (91) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 4 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (111) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 4 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-125) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 6 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-105) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 9 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-85) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 4 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-65) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 5 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-45) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 4 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-25) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 4 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-5) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 5 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (15) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 4 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (35) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 4 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (55) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 5 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (75) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 4 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (95) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 4 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (115) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 4 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-121) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 3 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-101) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 3 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-81) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 4 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-61) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 3 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-41) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 3 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-21) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 3 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-1) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 4 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (19) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 3 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (39) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 3 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (59) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 4 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (79) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 3 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (99) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 4 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (119) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 3 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-117) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 3 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-97) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 3 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-77) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 3 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-57) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 3 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-37) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 3 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-17) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 3 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (3) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 2 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (23) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 3 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (43) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 2 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (63) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 3 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (83) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 3 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (103) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 2 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 19 (122) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 2 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 21 (-113) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 3 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-93) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 2 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 19 (-74) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 2 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 21 (-53) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 3 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 19 (-34) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 2 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-14) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 2 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 21 (7) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 3 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 19 (26) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 2 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (46) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 2 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (66) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 2 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (86) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 2 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (106) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 2 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (126) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 2 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-110) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-90) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-70) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-50) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-30) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-10) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (10) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (30) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (50) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (70) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (90) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (110) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 2 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-126) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-106) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-86) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-66) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-46) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 4 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-26) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-6) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (14) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (34) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (54) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (74) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 2 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (94) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 0 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (114) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 0 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-122) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-102) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 0 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-82) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 5 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-62) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 24 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-42) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 0 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-22) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 0 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-2) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 1 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (18) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 0 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (38) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 24 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (58) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 0 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (78) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 0 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (98) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (118) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-118) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-98) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 20 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-78) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-58) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-38) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 20 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-18) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (2) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (22) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 20 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (42) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 0 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (62) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (82) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 20 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (102) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (122) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 2 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-114) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 20 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-94) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-74) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 4 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-54) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 20 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-34) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-14) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 4 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (6) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (26) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 3 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (46) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 3 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (66) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 3 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (86) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 4 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (106) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 3 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (126) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 3 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-110) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 19 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-90) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 3 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-70) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 18 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-50) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 4 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-30) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 3 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-10) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 3 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (10) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 3 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (30) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 4 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (50) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 18 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (70) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 18 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (90) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 18 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (110) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 18 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-126) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-106) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-86) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 18 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-66) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-46) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-26) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 18 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-6) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (14) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (34) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 18 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (54) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 18 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (74) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (94) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (114) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-122) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-102) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-82) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 18 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-62) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-42) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-22) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-2) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (18) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (38) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 16 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (58) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 16 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (78) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (98) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 16 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (118) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 16 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-118) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-98) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 16 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-78) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 16 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-58) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 16 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-38) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 16 ms ago | election timeout 66 ms | relay none
+zone ERROR (last: -) | DEG A 0 B 0 | N2 ERR A ok B ok | N3 ERR A ok B ok
+UDP/s 0 CTRL/s 0 | raw steer 0 thr 0 brk 0 | FORCE/s 20 (-18) | relayed rx 0 tx 0 | tx fail A 0 B 0
+raft follower | term 2 | leader N2 | SYNC on | heard 17 ms ago | election timeout 66 ms | relay none

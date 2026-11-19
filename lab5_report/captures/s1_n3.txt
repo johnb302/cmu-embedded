@@ -1,0 +1,20 @@
+18:22:56.690017  since REF +0 us | lasraft N3: commit 11
+18:22:56.692213 t step +4 us | synced to N1
+18:23:06.697191 WCET us: CAN_RX 314 HB_TX 2225 HB_MON 885 BLINK 496 PID 526
+18:23:16.946403 
+18:23:16.954504 [1;32muart:~$ [mnet show
+18:23:16.959374 N1 up A+ B+ | N2 up A+ B+ | N3 up A+ B- | cockpit OK
+18:23:16.962369 [1;32muart:~$ [mraft log
+18:23:16.965413 N3 log: 11 entries, commit 11, term 1
+18:23:16.968411     2  term 1   NODE_UP N2
+18:23:16.971381     3  term 1   NODE_UP N3
+18:23:16.973362     4  term 1   COCKPIT_OK
+18:23:16.976378     5  term 1   CANLINK_UP N1 A
+18:23:16.980519     6  term 1   CANLINK_UP N1 B
+18:23:16.983405     7  term 1   CANLINK_UP N2 A
+18:23:16.986531     8  term 1   CANLINK_UP N2 B
+18:23:16.989429     9  term 1   CANLINK_UP N3 A
+18:23:16.993194    10  term 1   CANLINK_UP N3 B
+18:23:16.996216    11  term 1   CANLINK_DOWN N3 B
+18:23:16.998656 [1;32muart:~$ [mraft status
+18:23:17.009416 N3 follower | term 1 | leader N1 | SYNC on | heard 1 ms ago | election timeout 96 ms | rx dropped 0 | relay none

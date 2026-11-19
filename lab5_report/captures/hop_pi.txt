@@ -1,0 +1,32 @@
+raft N1: append 14 term 1 CANLINK_DOWN N1 B (from N1)
+raft N1: commit 14
+raft leader | term 1 | leader N1 | SYNC on | relay none
+event    14  term 1   CANLINK_DOWN N1 B  [live]
+raft leader | term 1 | leader N1 | SYNC on | relay none
+raft leader | term 1 | leader N1 | SYNC on | relay none
+raft leader | term 1 | leader N1 | SYNC on | relay none
+raft leader | term 1 | leader N1 | SYNC on | relay none
+raft leader | term 1 | leader N1 | SYNC on | relay none
+raft leader | term 1 | leader N1 | SYNC on | relay none
+raft leader | term 1 | leader N1 | SYNC on | relay none
+N1 up A+ B- | N2 up A+ B+ | N3 up A- B+ | cockpit OK
+N1 log: 14 entries, commit 14, term 1
+    5  term 1   CANLINK_UP N1 A
+    6  term 1   CANLINK_UP N1 B
+    7  term 1   CANLINK_UP N2 A
+    8  term 1   CANLINK_UP N2 B
+    9  term 1   CANLINK_UP N3 A
+   10  term 1   CANLINK_UP N3 B
+   11  term 1   CANLINK_DOWN N3 B
+   12  term 1   CANLINK_UP N3 B
+   13  term 1   CANLINK_DOWN N3 A
+   14  term 1   CANLINK_DOWN N1 B
+raft leader | term 1 | leader N1 | SYNC on | relay none
+raft leader | term 1 | leader N1 | SYNC on | relay none
+raft leader | term 1 | leader N1 | SYNC on | relay none
+raft leader | term 1 | leader N1 | SYNC on | relay none
+raft leader | term 1 | leader N1 | SYNC on | relay none
+raft leader | term 1 | leader N1 | SYNC on | relay none
+raft leader | term 1 | leader N1 | SYNC on | relay none
+raft leader | term 1 | leader N1 | SYNC on | relay none
+raft leader | term 1 | leader N1 | SYNC on | relay none

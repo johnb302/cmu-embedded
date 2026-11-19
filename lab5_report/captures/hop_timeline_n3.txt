@@ -1,0 +1,9 @@
+18:24:40.336813 raft N3: append 13 term 1 CANLINK_DOWN N3 A
+18:24:40.340562 raft N3: commit 13
+18:24:41.693937 CAN A 447 B 863 | accepted 510 dropped 265 | relayed 0 (5 s)
+18:24:46.691965 CAN A 0 B 860 | accepted 510 dropped 0 | relayed 0 (5 s)
+18:24:51.692106 CAN A 0 B 860 | accepted 510 dropped 0 | relayed 0 (5 s)
+18:24:56.692184 CAN A 0 B 860 | accepted 510 dropped 0 | relayed 0 (5 s)
+18:24:58.022646 raft N3: append 14 term 1 CANLINK_DOWN N1 B
+18:24:58.029723 raft N3: commit 14
+18:25:01.692302 CAN A 0 B 860 | accepted 508 dropped 0 | relayed 0 (5 s)

@@ -1,0 +1,1329 @@
+18:20:48.687410 2PPS N2 | global 903.000005 s | local 916.473763 s | drift ratio 1.000043551 (+43.551 ppm) | since REF +0 us | last step +18 us | synced to N1
+18:20:49.688140 PPS N2 | global 904.000004 s | local 917.473643 s | drift ratio 1.000043551 (+43.551 ppm) | since REF +0 us | last step -125 us | synced to N1
+18:20:50.687741 PPS N2 | global 905.000003 s | local 918.473740 s | drift ratio 1.000032289 (+32.289 ppm) | since REF +0 us | last step +25 us | synced to N1
+18:20:51.687946 PPS N2 | global 906.000004 s | local 919.473684 s | drift ratio 1.000032289 (+32.289 ppm) | since REF +0 us | last step +22 us | synced to N1
+18:20:51.692959 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:20:52.687677 PPS N2 | global 907.000003 s | local 920.473637 s | drift ratio 1.000043401 (+43.401 ppm) | since REF +0 us | last step +4 us | synced to N1
+18:20:53.687602 PPS N2 | global 908.000091 s | local 921.473531 s | drift ratio 1.000043401 (+43.401 ppm) | since REF +0 us | last step +128 us | synced to N1
+18:20:54.687610 PPS N2 | global 909.000003 s | local 922.473274 s | drift ratio 1.000043401 (+43.401 ppm) | since REF +0 us | last step -6 us | synced to N1
+18:20:55.687562 PPS N2 | global 910.000005 s | local 923.473369 s | drift ratio 1.000080357 (+80.357 ppm) | since REF +1 us | last step -58 us | synced to N1
+18:20:56.687655 PPS N2 | global 911.000027 s | local 924.473231 s | drift ratio 1.000080357 (+80.357 ppm) | since REF +1 us | last step +45 us | synced to N1
+18:20:56.693351 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:20:57.687661 PPS N2 | global 912.000008 s | local 925.473231 s | drift ratio 1.000047894 (+47.894 ppm) | since REF +0 us | last step +92 us | synced to N1
+18:20:58.687783 PPS N2 | global 913.000004 s | local 926.473264 s | drift ratio 1.000047894 (+47.894 ppm) | since REF +0 us | last step +153 us | synced to N1
+18:20:59.687676 PPS N2 | global 914.000069 s | local 927.473233 s | drift ratio 1.000036292 (+36.292 ppm) | since REF +0 us | last step -50 us | synced to N1
+18:21:00.688330 PPS N2 | global 915.000005 s | local 928.473116 s | drift ratio 1.000036292 (+36.292 ppm) | since REF +0 us | last step -150 us | synced to N1
+18:21:01.688337 PPS N2 | global 916.000193 s | local 929.473131 s | drift ratio 1.000046156 (+46.156 ppm) | since REF +0 us | last step +18 us | synced to N1
+18:21:01.692841 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:21:01.699962 WCET us: CAN_RX 347 HB_TX 7246 HB_MON 803 BLINK 480 FORCE_TX 9395
+18:21:02.687691 PPS N2 | global 917.000005 s | local 930.472841 s | drift ratio 1.000046156 (+46.156 ppm) | since REF +0 us | last step -4 us | synced to N1
+18:21:03.687863 PPS N2 | global 918.000005 s | local 931.472891 s | drift ratio 1.000075588 (+75.588 ppm) | since REF +1 us | last step +13 us | synced to N1
+18:21:04.687826 PPS N2 | global 919.000005 s | local 932.472834 s | drift ratio 1.000075588 (+75.588 ppm) | since REF +1 us | last step -84 us | synced to N1
+18:21:05.687730 PPS N2 | global 920.000004 s | local 933.472766 s | drift ratio 1.000056317 (+56.317 ppm) | since REF +0 us | last step -56 us | synced to N1
+18:21:06.687807 PPS N2 | global 921.000004 s | local 934.472674 s | drift ratio 1.000056317 (+56.317 ppm) | since REF +0 us | last step +120 us | synced to N1
+18:21:06.693182 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:21:07.687792 PPS N2 | global 922.000045 s | local 935.472635 s | drift ratio 1.000072934 (+72.934 ppm) | since REF +2 us | last step -170 us | synced to N1
+18:21:08.687819 PPS N2 | global 923.000004 s | local 936.472625 s | drift ratio 1.000072934 (+72.934 ppm) | since REF +1 us | last step +106 us | synced to N1
+18:21:09.687835 PPS N2 | global 924.000005 s | local 937.472505 s | drift ratio 1.000061879 (+61.879 ppm) | since REF +2 us | last step -169 us | synced to N1
+18:21:10.686905 PPS N2 | global 925.000011 s | local 938.472431 s | drift ratio 1.000061879 (+61.879 ppm) | since REF +1 us | last step +12 us | synced to N1
+18:21:11.687885 PPS N2 | global 926.000003 s | local 939.472420 s | drift ratio 1.000066088 (+66.088 ppm) | since REF +1 us | last step +41 us | synced to N1
+18:21:11.692862 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:21:12.686971 PPS N2 | global 927.000010 s | local 940.472331 s | drift ratio 1.000066088 (+66.088 ppm) | since REF +1 us | last step +21 us | synced to N1
+18:21:13.687971 PPS N2 | global 928.000003 s | local 941.472299 s | drift ratio 1.000059715 (+59.715 ppm) | since REF +0 us | last step -2 us | synced to N1
+18:21:14.687077 PPS N2 | global 929.000004 s | local 942.472231 s | drift ratio 1.000059715 (+59.715 ppm) | since REF +0 us | last step +36 us | synced to N1
+18:21:15.687021 PPS N2 | global 930.000005 s | local 943.472197 s | drift ratio 1.000054317 (+54.317 ppm) | since REF +0 us | last step +19 us | synced to N1
+18:21:16.687122 PPS N2 | global 931.000004 s | local 944.472334 s | drift ratio 1.000054317 (+54.317 ppm) | since REF +1 us | last step -174 us | synced to N1
+18:21:16.693159 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:21:17.687318 PPS N2 | global 932.000005 s | local 945.472097 s | drift ratio 1.000052496 (+52.496 ppm) | since REF +0 us | last step +11 us | synced to N1
+18:21:18.687737 PPS N2 | global 933.000003 s | local 946.472085 s | drift ratio 1.000052496 (+52.496 ppm) | since REF +0 us | last step +92 us | synced to N1
+18:21:19.687091 PPS N2 | global 934.000100 s | local 947.472131 s | drift ratio 1.000005377 (+5.377 ppm) | since REF +0 us | last step +86 us | synced to N1
+18:21:20.687738 PPS N2 | global 935.000109 s | local 948.472031 s | drift ratio 1.000005377 (+5.377 ppm) | since REF +0 us | last step +30 us | synced to N1
+18:21:21.687322 PPS N2 | global 936.000003 s | local 949.471877 s | drift ratio 1.000064320 (+64.320 ppm) | since REF +1 us | last step +33 us | synced to N1
+18:21:21.692386 CAN A 859 B 859 | accepted 509 dropped 509 | relayed 0 (5 s)
+18:21:22.687265 PPS N2 | global 937.000025 s | local 950.471831 s | drift ratio 1.000064320 (+64.320 ppm) | since REF +1 us | last step +20 us | synced to N1
+18:21:23.687976 PPS N2 | global 938.000003 s | local 951.471769 s | drift ratio 1.000043616 (+43.616 ppm) | since REF +0 us | last step +34 us | synced to N1
+18:21:24.687913 PPS N2 | global 939.000005 s | local 952.471740 s | drift ratio 1.000043616 (+43.616 ppm) | since REF +0 us | last step +61 us | synced to N1
+18:21:25.687255 PPS N2 | global 940.000005 s | local 953.471672 s | drift ratio 1.000059695 (+59.695 ppm) | since REF +0 us | last step +35 us | synced to N1
+18:21:26.687681 PPS N2 | global 941.000005 s | local 954.471637 s | drift ratio 1.000059695 (+59.695 ppm) | since REF +0 us | last step +63 us | synced to N1
+18:21:26.692269 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:21:27.687311 PPS N2 | global 942.000004 s | local 955.471566 s | drift ratio 1.000057148 (+57.148 ppm) | since REF +0 us | last step +27 us | synced to N1
+18:21:28.687996 PPS N2 | global 943.000005 s | local 956.471605 s | drift ratio 1.000057148 (+57.148 ppm) | since REF +0 us | last step -121 us | synced to N1
+18:21:29.688119 PPS N2 | global 944.000004 s | local 957.471497 s | drift ratio 1.000040112 (+40.112 ppm) | since REF +0 us | last step +11 us | synced to N1
+18:21:30.686979 PPS N2 | global 945.000004 s | local 958.471440 s | drift ratio 1.000040112 (+40.112 ppm) | since REF +0 us | last step +0 us | synced to N1
+18:21:31.686333 PPS N2 | global 946.000005 s | local 959.471392 s | drift ratio 1.000062441 (+62.441 ppm) | since REF +1 us | last step -2 us | synced to N1
+18:21:31.692315 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:21:31.698311 WCET us: CAN_RX 347 HB_TX 7246 HB_MON 803 BLINK 480 FORCE_TX 9395
+18:21:32.688161 PPS N2 | global 947.000005 s | local 960.471351 s | drift ratio 1.000062441 (+62.441 ppm) | since REF +1 us | last step -26 us | synced to N1
+18:21:33.688013 PPS N2 | global 948.000003 s | local 961.471302 s | drift ratio 1.000054429 (+54.429 ppm) | since REF +1 us | last step -166 us | synced to N1
+18:21:34.687176 PPS N2 | global 949.000004 s | local 962.471259 s | drift ratio 1.000054429 (+54.429 ppm) | since REF +0 us | last step -5 us | synced to N1
+18:21:35.687092 PPS N2 | global 950.000004 s | local 963.471210 s | drift ratio 1.000056911 (+56.911 ppm) | since REF +0 us | last step -8 us | synced to N1
+18:21:36.686805 PPS N2 | global 951.000004 s | local 964.471164 s | drift ratio 1.000056911 (+56.911 ppm) | since REF +0 us | last step +7 us | synced to N1
+18:21:36.692914 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:21:37.686732 PPS N2 | global 952.000005 s | local 965.471115 s | drift ratio 1.000051347 (+51.347 ppm) | since REF +0 us | last step +0 us | synced to N1
+18:21:38.687375 PPS N2 | global 953.000004 s | local 966.471061 s | drift ratio 1.000051347 (+51.347 ppm) | since REF +0 us | last step -5 us | synced to N1
+18:21:39.687371 PPS N2 | global 954.000005 s | local 967.471005 s | drift ratio 1.000050887 (+50.887 ppm) | since REF +0 us | last step -18 us | synced to N1
+18:21:40.686975 PPS N2 | global 955.000005 s | local 968.470964 s | drift ratio 1.000050887 (+50.887 ppm) | since REF +0 us | last step -11 us | synced to N1
+18:21:41.687018 PPS N2 | global 956.000003 s | local 969.470915 s | drift ratio 1.000030041 (+30.041 ppm) | since REF +0 us | last step +18 us | synced to N1
+18:21:41.692880 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:21:42.686533 PPS N2 | global 957.000075 s | local 970.470931 s | drift ratio 1.000030041 (+30.041 ppm) | since REF +0 us | last step +9 us | synced to N1
+18:21:43.687154 PPS N2 | global 958.000030 s | local 971.470831 s | drift ratio 1.000054836 (+54.836 ppm) | since REF +0 us | last step -2 us | synced to N1
+18:21:44.686658 PPS N2 | global 959.000005 s | local 972.470901 s | drift ratio 1.000054836 (+54.836 ppm) | since REF +0 us | last step -70 us | synced to N1
+18:21:45.687216 PPS N2 | global 960.000003 s | local 973.470787 s | drift ratio 1.000035930 (+35.930 ppm) | since REF +0 us | last step -118 us | synced to N1
+18:21:46.686623 PPS N2 | global 961.000003 s | local 974.470661 s | drift ratio 1.000035930 (+35.930 ppm) | since REF +0 us | last step +2 us | synced to N1
+18:21:46.692852 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:21:47.686715 PPS N2 | global 962.000031 s | local 975.470631 s | drift ratio 1.000055416 (+55.416 ppm) | since REF +0 us | last step +59 us | synced to N1
+18:21:48.686975 PPS N2 | global 963.000005 s | local 976.470569 s | drift ratio 1.000055416 (+55.416 ppm) | since REF +0 us | last step -2 us | synced to N1
+18:21:49.686662 PPS N2 | global 964.000003 s | local 977.470517 s | drift ratio 1.000038938 (+38.938 ppm) | since REF +0 us | last step +11 us | synced to N1
+18:21:50.686771 PPS N2 | global 965.000050 s | local 978.470531 s | drift ratio 1.000038938 (+38.938 ppm) | since REF +0 us | last step +6 us | synced to N1
+18:21:51.686710 PPS N2 | global 966.000003 s | local 979.470533 s | drift ratio 1.000057548 (+57.548 ppm) | since REF +0 us | last step -23 us | synced to N1
+18:21:51.693242 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:21:52.687197 PPS N2 | global 967.000004 s | local 980.470384 s | drift ratio 1.000057548 (+57.548 ppm) | since REF +0 us | last step -9 us | synced to N1
+18:21:53.686696 PPS N2 | global 968.000004 s | local 981.470370 s | drift ratio 1.000058137 (+58.137 ppm) | since REF +0 us | last step +55 us | synced to N1
+18:21:54.686708 PPS N2 | global 969.000005 s | local 982.470364 s | drift ratio 1.000058137 (+58.137 ppm) | since REF +0 us | last step -87 us | synced to N1
+18:21:55.686770 PPS N2 | global 970.000013 s | local 983.470231 s | drift ratio 1.000053628 (+53.628 ppm) | since REF +0 us | last step +40 us | synced to N1
+18:21:56.686762 PPS N2 | global 971.000003 s | local 984.470240 s | drift ratio 1.000053628 (+53.628 ppm) | since REF +0 us | last step +84 us | synced to N1
+18:21:56.692492 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:21:57.686808 PPS N2 | global 972.000004 s | local 985.470146 s | drift ratio 1.000036847 (+36.847 ppm) | since REF +0 us | last step +2 us | synced to N1
+18:21:58.687351 PPS N2 | global 973.000030 s | local 986.470131 s | drift ratio 1.000036847 (+36.847 ppm) | since REF +0 us | last step +14 us | synced to N1
+18:21:59.687295 PPS N2 | global 974.000058 s | local 987.470131 s | drift ratio 1.000054989 (+54.989 ppm) | since REF +0 us | last step +67 us | synced to N1
+18:22:00.686782 PPS N2 | global 975.000004 s | local 988.470002 s | drift ratio 1.000054989 (+54.989 ppm) | since REF +0 us | last step +6 us | synced to N1
+18:22:01.687197 PPS N2 | global 976.000005 s | local 989.470007 s | drift ratio 1.000054238 (+54.238 ppm) | since REF +0 us | last step -117 us | synced to N1
+18:22:01.693029 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:22:01.699059 WCET us: CAN_RX 347 HB_TX 7246 HB_MON 803 BLINK 480 FORCE_TX 9395
+18:22:02.686858 PPS N2 | global 977.000005 s | local 990.469897 s | drift ratio 1.000054238 (+54.238 ppm) | since REF +0 us | last step -1 us | synced to N1
+18:22:03.687189 PPS N2 | global 978.000095 s | local 991.469931 s | drift ratio 1.000036347 (+36.347 ppm) | since REF +0 us | last step +11 us | synced to N1
+18:22:04.687050 PPS N2 | global 979.000022 s | local 992.469831 s | drift ratio 1.000036347 (+36.347 ppm) | since REF +0 us | last step +18 us | synced to N1
+18:22:05.687060 PPS N2 | global 980.000003 s | local 993.469784 s | drift ratio 1.000038894 (+38.894 ppm) | since REF +0 us | last step +71 us | synced to N1
+18:22:06.687483 PPS N2 | global 981.000028 s | local 994.469731 s | drift ratio 1.000038894 (+38.894 ppm) | since REF +0 us | last step +6 us | synced to N1
+18:22:06.692237 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:22:07.687132 PPS N2 | global 982.000004 s | local 995.469661 s | drift ratio 1.000060857 (+60.857 ppm) | since REF +1 us | last step +89 us | synced to N1
+18:22:08.687065 PPS N2 | global 983.000003 s | local 996.469607 s | drift ratio 1.000060857 (+60.857 ppm) | since REF +1 us | last step +6 us | synced to N1
+18:22:09.687784 PPS N2 | global 984.000005 s | local 997.469565 s | drift ratio 1.000056658 (+56.658 ppm) | since REF +0 us | last step +16 us | synced to N1
+18:22:10.687159 PPS N2 | global 985.000004 s | local 998.469499 s | drift ratio 1.000056658 (+56.658 ppm) | since REF +2 us | last step -176 us | synced to N1
+18:22:11.687136 PPS N2 | global 986.000003 s | local 999.469461 s | drift ratio 1.000037420 (+37.420 ppm) | since REF +0 us | last step +17 us | synced to N1
+18:22:11.692482 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:22:12.688081 PPS N2 | global 987.000004 s | local 1000.469405 s | drift ratio 1.000037420 (+37.420 ppm) | since REF +0 us | last step +1 us | synced to N1
+18:22:13.687854 PPS N2 | global 988.000003 s | local 1001.469450 s | drift ratio 1.000041060 (+41.060 ppm) | since REF +0 us | last step -56 us | synced to N1
+18:22:14.687219 PPS N2 | global 989.000005 s | local 1002.469350 s | drift ratio 1.000041060 (+41.060 ppm) | since REF +0 us | last step +63 us | synced to N1
+18:22:15.687422 PPS N2 | global 990.000004 s | local 1003.469317 s | drift ratio 1.000058273 (+58.273 ppm) | since REF +0 us | last step +103 us | synced to N1
+18:22:16.687184 PPS N2 | global 991.000003 s | local 1004.469319 s | drift ratio 1.000058273 (+58.273 ppm) | since REF +0 us | last step -22 us | synced to N1
+18:22:16.692346 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:22:17.687184 PPS N2 | global 992.000004 s | local 1005.469154 s | drift ratio 1.000060042 (+60.042 ppm) | since REF +0 us | last step +35 us | synced to N1
+18:22:18.687874 PPS N2 | global 993.000003 s | local 1006.469107 s | drift ratio 1.000060042 (+60.042 ppm) | since REF +0 us | last step +5 us | synced to N1
+18:22:19.688059 PPS N2 | global 994.000004 s | local 1007.469061 s | drift ratio 1.000054067 (+54.067 ppm) | since REF +0 us | last step +27 us | synced to N1
+18:22:20.686256 PPS N2 | global 995.000004 s | local 1008.468994 s | drift ratio 1.000054067 (+54.067 ppm) | since REF +0 us | last step +2 us | synced to N1
+18:22:21.687052 PPS N2 | global 996.000003 s | local 1009.468940 s | drift ratio 1.000038694 (+38.694 ppm) | since REF +0 us | last step +8 us | synced to N1
+18:22:21.692413 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:22:22.686880 PPS N2 | global 997.000004 s | local 1010.468884 s | drift ratio 1.000038694 (+38.694 ppm) | since REF +0 us | last step +4 us | synced to N1
+18:22:23.686269 PPS N2 | global 998.000011 s | local 1011.468831 s | drift ratio 1.000057984 (+57.984 ppm) | since REF +0 us | last step -1 us | synced to N1
+18:22:24.687101 PPS N2 | global 999.000003 s | local 1012.468761 s | drift ratio 1.000057984 (+57.984 ppm) | since REF +0 us | last step +7 us | synced to N1
+18:22:25.687049 PPS N2 | global 1000.000004 s | local 1013.468684 s | drift ratio 1.000061682 (+61.682 ppm) | since REF +1 us | last step +24 us | synced to N1
+18:22:26.687459 PPS N2 | global 1001.000003 s | local 1014.468638 s | drift ratio 1.000061682 (+61.682 ppm) | since REF +1 us | last step +22 us | synced to N1
+18:22:26.693086 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:22:27.686684 PPS N2 | global 1002.000005 s | local 1015.468574 s | drift ratio 1.000043137 (+43.137 ppm) | since REF +0 us | last step +7 us | synced to N1
+18:22:28.687341 PPS N2 | global 1003.000003 s | local 1016.468575 s | drift ratio 1.000043137 (+43.137 ppm) | since REF +0 us | last step +121 us | synced to N1
+18:22:29.687420 PPS N2 | global 1004.000003 s | local 1017.468522 s | drift ratio 1.000046710 (+46.710 ppm) | since REF +0 us | last step +130 us | synced to N1
+18:22:30.687960 PPS N2 | global 1005.000004 s | local 1018.468470 s | drift ratio 1.000046710 (+46.710 ppm) | since REF +0 us | last step -107 us | synced to N1
+18:22:31.687553 PPS N2 | global 1006.000090 s | local 1019.468431 s | drift ratio 1.000064491 (+64.491 ppm) | since REF +1 us | last step -24 us | synced to N1
+18:22:31.693613 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:22:31.698656 WCET us: CAN_RX 347 HB_TX 7246 HB_MON 803 BLINK 480 FORCE_TX 9395
+18:22:32.688082 PPS N2 | global 1007.000005 s | local 1020.468351 s | drift ratio 1.000064491 (+64.491 ppm) | since REF +1 us | last step +139 us | synced to N1
+18:22:33.687076 PPS N2 | global 1008.000003 s | local 1021.468264 s | drift ratio 1.000062478 (+62.478 ppm) | since REF +1 us | last step +56 us | synced to N1
+18:22:34.686481 PPS N2 | global 1009.000068 s | local 1022.468234 s | drift ratio 1.000062478 (+62.478 ppm) | since REF +1 us | last step +25 us | synced to N1
+18:22:35.686550 PPS N2 | global 1010.000004 s | local 1023.468140 s | drift ratio 1.000062577 (+62.577 ppm) | since REF +1 us | last step +32 us | synced to N1
+18:22:36.687362 PPS N2 | global 1011.000003 s | local 1024.468084 s | drift ratio 1.000062577 (+62.577 ppm) | since REF +1 us | last step +66 us | synced to N1
+18:22:36.693037 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:22:37.686607 PPS N2 | global 1012.000036 s | local 1025.468031 s | drift ratio 1.000061785 (+61.785 ppm) | since REF +1 us | last step -6 us | synced to N1
+18:22:38.686651 PPS N2 | global 1013.000005 s | local 1026.467933 s | drift ratio 1.000061785 (+61.785 ppm) | since REF +1 us | last step +10 us | synced to N1
+18:22:39.686952 PPS N2 | global 1014.000004 s | local 1027.468069 s | drift ratio 1.000061687 (+61.687 ppm) | since REF +1 us | last step -363 us | synced to N1
+18:22:40.686709 PPS N2 | global 1015.000005 s | local 1028.467812 s | drift ratio 1.000061687 (+61.687 ppm) | since REF +1 us | last step +13 us | synced to N1
+18:22:41.687427 PPS N2 | global 1016.000005 s | local 1029.467759 s | drift ratio 1.000047627 (+47.627 ppm) | since REF +0 us | last step +54 us | synced to N1
+18:22:41.692728 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:22:42.687194 PPS N2 | global 1017.000038 s | local 1030.467731 s | drift ratio 1.000047627 (+47.627 ppm) | since REF +0 us | last step +19 us | synced to N1
+18:22:43.687057 PPS N2 | global 1018.000003 s | local 1031.467664 s | drift ratio 1.000048097 (+48.097 ppm) | since REF +0 us | last step +84 us | synced to N1
+18:22:44.686795 PPS N2 | global 1019.000005 s | local 1032.467641 s | drift ratio 1.000048097 (+48.097 ppm) | since REF +0 us | last step -109 us | synced to N1
+18:22:45.687215 PPS N2 | global 1020.000023 s | local 1033.467531 s | drift ratio 1.000068007 (+68.007 ppm) | since REF +1 us | last step +16 us | synced to N1
+18:22:46.686902 PPS N2 | global 1021.000003 s | local 1034.467466 s | drift ratio 1.000068007 (+68.007 ppm) | since REF +2 us | last step -362 us | synced to N1
+18:22:46.693233 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:22:47.687283 PPS N2 | global 1022.000030 s | local 1035.467431 s | drift ratio 1.000068007 (+68.007 ppm) | since REF +1 us | last step +52 us | synced to N1
+18:22:48.687302 PPS N2 | global 1023.000003 s | local 1036.467342 s | drift ratio 1.000066353 (+66.353 ppm) | since REF +1 us | last step +66 us | synced to N1
+18:22:49.687404 PPS N2 | global 1024.000004 s | local 1037.467271 s | drift ratio 1.000066353 (+66.353 ppm) | since REF +1 us | last step -13 us | synced to N1
+18:22:50.687084 PPS N2 | global 1025.000003 s | local 1038.467275 s | drift ratio 1.000064617 (+64.617 ppm) | since REF +1 us | last step -148 us | synced to N1
+18:22:51.687353 PPS N2 | global 1026.000005 s | local 1039.467148 s | drift ratio 1.000064617 (+64.617 ppm) | since REF +1 us | last step +4 us | synced to N1
+18:22:51.692030 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:22:52.687618 PPS N2 | global 1027.000004 s | local 1040.467070 s | drift ratio 1.000064182 (+64.182 ppm) | since REF +1 us | last step +6 us | synced to N1
+18:22:53.687081 PPS N2 | global 1028.000003 s | local 1041.467018 s | drift ratio 1.000064182 (+64.182 ppm) | since REF +1 us | last step +8 us | synced to N1
+18:22:54.687464 PPS N2 | global 1029.000005 s | local 1042.466945 s | drift ratio 1.000060761 (+60.761 ppm) | since REF +1 us | last step +24 us | synced to N1
+18:22:55.687012 PPS N2 | global 1030.000005 s | local 1043.466907 s | drift ratio 1.000060761 (+60.761 ppm) | since REF +1 us | last step -4 us | synced to N1
+18:22:56.686567 PPS N2 | global 1031.000003 s | local 1044.466841 s | drift ratio 1.000064136 (+64.136 ppraft N2: append 11 term 1 CANLINK_DOWN N3 B
+18:22:56.689022 m)raft N2: commit 11
+18:22:56.694236  | since REF +1 us | last step -5 us | synced to N1
+18:22:56.700402 CAN A 866 B 799 | accepted 511 dropped 458 | relayed 0 (5 s)
+18:22:57.687108 PPS N2 | global 1032.000004 s | local 1045.466787 s | drift ratio 1.000064136 (+64.136 ppm) | since REF +1 us | last step -1 us | synced to N1
+18:22:58.687076 PPS N2 | global 1033.000003 s | local 1046.466746 s | drift ratio 1.000062336 (+62.336 ppm) | since REF +1 us | last step +156 us | synced to N1
+18:22:59.687070 PPS N2 | global 1034.000004 s | local 1047.466652 s | drift ratio 1.000062336 (+62.336 ppm) | since REF +1 us | last step +23 us | synced to N1
+18:23:00.687386 PPS N2 | global 1035.000003 s | local 1048.466599 s | drift ratio 1.000060862 (+60.862 ppm) | since REF +1 us | last step +8 us | synced to N1
+18:23:01.687129 PPS N2 | global 1036.000005 s | local 1049.466533 s | drift ratio 1.000060862 (+60.862 ppm) | since REF +1 us | last step +13 us | synced to N1
+18:23:01.692768 CAN A 859 B 560 | accepted 509 dropped 260 | relayed 0 (5 s)
+18:23:01.698129 WCET us: CAN_RX 347 HB_TX 7246 HB_MON 803 BLINK 480 FORCE_TX 9395
+18:23:02.687108 PPS N2 | global 1037.000004 s | local 1050.466484 s | drift ratio 1.000062974 (+62.974 ppm) | since REF +1 us | last step -6 us | synced to N1
+18:23:03.687476 PPS N2 | global 1038.000004 s | local 1051.466422 s | drift ratio 1.000062974 (+62.974 ppm) | since REF +1 us | last step -8 us | synced to N1
+18:23:04.687204 PPS N2 | global 1039.000005 s | local 1052.466350 s | drift ratio 1.000060222 (+60.222 ppm) | since REF +0 us | last step +20 us | synced to N1
+18:23:05.687288 PPS N2 | global 1040.000004 s | local 1053.466292 s | drift ratio 1.000060222 (+60.222 ppm) | since REF +0 us | last step +10 us | synced to N1
+18:23:06.686912 PPS N2 | global 1041.000004 s | local 1054.466237 s | drift ratio 1.000058781 (+58.781 ppm) | since REF +0 us | last step +6 us | synced to N1
+18:23:06.692145 CAN A 860 B 560 | accepted 510 dropped 260 | relayed 0 (5 s)
+18:23:07.686200 PPS N2 | global 1042.000004 s | local 1055.466171 s | drift ratio 1.000058781 (+58.781 ppm) | since REF +0 us | last step +3 us | synced to N1
+18:23:08.687471 PPS N2 | global 1043.000005 s | local 1056.466138 s | drift ratio 1.000060671 (+60.671 ppm) | since REF +1 us | last step +69 us | synced to N1
+18:23:09.686799 PPS N2 | global 1044.000003 s | local 1057.466051 s | drift ratio 1.000060671 (+60.671 ppm) | since REF +0 us | last step +4 us | synced to N1
+18:23:10.687238 PPS N2 | global 1045.000004 s | local 1058.465997 s | drift ratio 1.000060108 (+60.108 ppm) | since REF +2 us | last step -399 us | synced to N1
+18:23:11.687255 PPS N2 | global 1046.000003 s | local 1059.465943 s | drift ratio 1.000060108 (+60.108 ppm) | since REF +0 us | last step -10 us | synced to N1
+18:23:11.692214 CAN A 860 B 560 | accepted 510 dropped 260 | relayed 0 (5 s)
+18:23:12.686488 PPS N2 | global 1047.000004 s | local 1060.465884 s | drift ratio 1.000061171 (+61.171 ppm) | since REF +1 us | last step -3 us | synced to N1
+18:23:13.686408 PPS N2 | global 1048.000003 s | local 1061.465822 s | drift ratio 1.000061171 (+61.171 ppm) | since REF +1 us | last step -9 us | synced to N1
+18:23:14.686781 PPS N2 | global 1049.000004 s | local 1062.465743 s | drift ratio 1.000064939 (+64.939 ppm) | since REF +1 us | last step +46 us | synced to N1
+18:23:15.686420 PPS N2 | global 1050.000003 s | local 1063.465692 s | drift ratio 1.000064939 (+64.939 ppm) | since REF +1 us | last step -10 us | synced to N1
+18:23:16.686451 PPS N2 | global 1051.000005 s | local 1064.465641 s | drift ratio 1.000058853 (+58.853 ppm) | since REF +0 us | last step -4 us | synced to N1
+18:23:16.692362 CAN A 860 B 560 | accepted 510 dropped 260 | relayed 0 (5 s)
+18:23:16.916390 
+18:23:16.925411 [1;32muart:~$ [mnet show
+18:23:16.930418 N1 up A+ B+ | N2 up A+ B+ | N3 up A+ B- | cockpit OK
+18:23:16.933383 [1;32muart:~$ [mraft log
+18:23:16.937421 N2 log: 11 entries, commit 11, term 1
+18:23:16.939407     2  term 1   NODE_UP N2
+18:23:16.942379     3  term 1   NODE_UP N3
+18:23:16.945363     4  term 1   COCKPIT_OK
+18:23:16.948373     5  term 1   CANLINK_UP N1 A
+18:23:16.951385     6  term 1   CANLINK_UP N1 B
+18:23:16.954499     7  term 1   CANLINK_UP N2 A
+18:23:16.957399     8  term 1   CANLINK_UP N2 B
+18:23:16.960379     9  term 1   CANLINK_UP N3 A
+18:23:16.964429    10  term 1   CANLINK_UP N3 B
+18:23:16.967433    11  term 1   CANLINK_DOWN N3 B
+18:23:16.970418 [1;32muart:~$ [mraft status
+18:23:16.981405 N2 follower | term 1 | leader N1 | SYNC on | heard 12 ms ago | election timeout 62 ms | rx dropped 0 | relay none
+18:23:17.686956 [1;32muart:~$ [mPPS N2 | global 1052.000004 s | local 1065.465589 s | drift ratio 1.000058853 (+58.853 ppm) | since REF +0 us | last step -12 us | synced to N1
+18:23:18.687523 PPS N2 | global 1053.000115 s | local 1066.465631 s | drift ratio 1.000059239 (+59.239 ppm) | since REF +2 us | last step -178 us | synced to N1
+18:23:19.687275 PPS N2 | global 1054.000044 s | local 1067.465432 s | drift ratio 1.000059239 (+59.239 ppm) | since REF +0 us | last step +10 us | synced to N1
+18:23:20.687214 PPS N2 | global 1055.000004 s | local 1068.465375 s | drift ratio 1.000067451 (+67.451 ppm) | since REF +1 us | last step +69 us | synced to N1
+18:23:21.686495 PPS N2 | global 1056.000062 s | local 1069.465351 s | drift ratio 1.000067451 (+67.451 ppm) | since REF +1 us | last step -4 us | synced to N1
+18:23:21.692468 CAN A 860 B 560 | accepted 510 dropped 260 | relayed 0 (5 s)
+18:23:22.686486 PPS N2 | global 1057.000118 s | local 1070.465357 s | drift ratio 1.000062844 (+62.844 ppm) | since REF +1 us | last step +4 us | synced to N1
+18:23:23.686552 PPS N2 | global 1058.000168 s | local 1071.465354 s | drift ratio 1.000062844 (+62.844 ppm) | since REF +1 us | last step -8 us | synced to N1
+18:23:24.687853 PPS N2 | global 1059.000168 s | local 1072.465368 s | drift ratio 1.000060492 (+60.492 ppm) | since REF +1 us | last step -36 us | synced to N1
+18:23:25.686706 PPS N2 | global 1060.000003 s | local 1073.465161 s | drift ratio 1.000060492 (+60.492 ppm) | since REF +0 us | last step -25 us | synced to N1
+18:23:26.687340 PPS N2 | global 1061.000005 s | local 1074.465104 s | drift ratio 1.000034603 (+34.603 ppm) | since REF +0 us | last step +0 us | synced to N1
+18:23:26.692649 CAN A 860 B 560 | accepted 510 dropped 260 | relayed 0 (5 s)
+18:23:27.686731 PPS N2 | global 1062.000004 s | local 1075.465092 s | drift ratio 1.000034603 (+34.603 ppm) | since REF +0 us | last step +174 us | synced to N1
+18:23:28.686711 PPS N2 | global 1063.000030 s | local 1076.465031 s | drift ratio 1.000036348 (+36.348 ppm) | since REF +0 us | last step +8 us | synced to N1
+18:23:29.686827 PPS N2 | global 1064.000004 s | local 1077.465020 s | drift ratio 1.000036348 (+36.348 ppm) | since REF +0 us | last step -107 us | synced to N1
+18:23:30.686896 PPS N2 | global 1065.000015 s | local 1078.464931 s | drift ratio 1.000057462 (+57.462 ppm) | since REF +0 us | last step +37 us | synced to N1
+18:23:31.686841 PPS N2 | global 1066.000004 s | local 1079.464848 s | drift ratio 1.000057462 (+57.462 ppm) | since REF +0 us | last step -18 us | synced to N1
+18:23:31.692883 CAN A 860 B 560 | accepted 510 dropped 260 | relayed 0 (5 s)
+18:23:31.699307 WCET us: CAN_RX 347 HB_TX 7246 HB_MON 803 BLINK 480 FORCE_TX 9395
+18:23:32.687262 PPS N2 | global 1067.000004 s | local 1080.464915 s | drift ratio 1.000033097 (+33.097 ppm) | since REF +0 us | last step -48 us | synced to N1
+18:23:33.687673 PPS N2 | global 1068.000004 s | local 1081.464756 s | drift ratio 1.000033097 (+33.097 ppm) | since REF +1 us | last step -167 us | synced to N1
+18:23:34.687455 PPS N2 | global 1069.000005 s | local 1082.464769 s | drift ratio 1.000039303 (+39.303 ppm) | since REF +0 us | last step -138 us | synced to N1
+18:23:35.687402 PPS N2 | global 1070.000080 s | local 1083.464731 s | drift ratio 1.000039303 (+39.303 ppm) | since REF +0 us | last step -17 us | synced to N1
+18:23:36.686815 PPS N2 | global 1071.000005 s | local 1084.464688 s | drift ratio 1.000063392 (+63.392 ppm) | since REF +1 us | last step -61 us | synced to N1
+18:23:36.692785 CAN A 860 B 560 | accepted 510 dropped 260 | relayed 0 (5 s)
+18:23:37.687899 PPS N2 | global 1072.000004 s | local 1085.464718 s | drift ratio 1.000063392 (+63.392 ppm) | since REF +1 us | last step -93 us | synced to N1
+18:23:38.687329 PPS N2 | global 1073.000005 s | local 1086.464530 s | drift ratio 1.000032377 (+32.377 ppm) | since REF +1 us | last step -178 us | synced to N1
+18:23:39.686885 PPS N2 | global 1074.000004 s | local 1087.464624 s | drift ratio 1.000032377 (+32.377 ppm) | since REF +0 us | last step -143 us | synced to N1
+18:23:40.687632 PPS N2 | global 1075.000021 s | local 1088.464431 s | drift ratio 1.000050772 (+50.772 ppm) | since REF +0 us | last step +148 us | synced to N1
+18:23:41.686967 PPS N2 | global 1076.000003 s | local 1089.464425 s | drift ratio 1.000050772 (+50.772 ppm) | since REF +0 us | last step -108 us | synced to N1
+18:23:41.692975 CAN A 860 B 560 | accepted 510 dropped 260 | relayed 0 (5 s)
+18:23:42.687646 PPS N2 | global 1077.000004 s | local 1090.464305 s | drift ratio 1.000051446 (+51.446 ppm) | since REF +0 us | last step +20 us | synced to N1
+18:23:43.687139 PPS N2 | global 1078.000012 s | local 1091.464231 s | drift ratio 1.000051446 (+51.446 ppm) | since REF +2 us | last step -172 us | synced to N1
+18:23:44.687804 PPS N2 | global 1079.000003 s | local 1092.464202 s | drift ratio 1.000066434 (+66.434 ppm) | since REF +2 us | last step -179 us | synced to N1
+18:23:45.687186 PPS N2 | global 1080.000003 s | local 1093.464137 s | drift ratio 1.000066434 (+66.434 ppm) | since REF +3 us | last step -247 us | synced to N1
+18:23:46.687120 PPS N2 | global 1081.000004 s | local 1094.464202 s | drift ratio 1.000049455 (+49.455 ppm) | since REF +0 us | last step -64 us | synced to N1
+18:23:46.692178 CAN A 860 B 560 | accepted 510 dropped 260 | relayed 0 (5 s)
+18:23:47.687544 PPS N2 | global 1082.000003 s | local 1095.464017 s | drift ratio 1.000049455 (+49.455 ppm) | since REF +0 us | last step -54 us | synced to N1
+18:23:48.687212 PPS N2 | global 1083.000005 s | local 1096.464068 s | drift ratio 1.000063331 (+63.331 ppm) | since REF +1 us | last step -35 us | synced to N1
+18:23:49.687211 PPS N2 | global 1084.000004 s | local 1097.463934 s | drift ratio 1.000063331 (+63.331 ppm) | since REF +1 us | last step +83 us | synced to N1
+18:23:50.687184 PPS N2 | global 1085.000004 s | local 1098.463845 s | drift ratio 1.000062970 (+62.970 ppm) | since REF +1 us | last step -3 us | synced to N1
+18:23:51.687492 PPS N2 | global 1086.000004 s | local 1099.463843 s | drift ratio 1.000062970 (+62.970 ppm) | since REF +1 us | last step -135 us | synced to N1
+18:23:51.692915 CAN A 860 B 560 | accepted 510 dropped 260 | relayed 0 (5 s)
+18:23:52.687232 PPS N2 | global 1087.000003 s | local 1100.463799 s | drift ratio 1.000062699 (+62.699 ppm) | since REF +1 us | last step -13 us | synced to N1
+18:23:53.687284 PPS N2 | global 1088.000005 s | local 1101.463694 s | drift ratio 1.000062699 (+62.699 ppm) | since REF +1 us | last step +84 us | synced to N1
+18:23:54.687402 PPS N2 | global 1089.000005 s | local 1102.463616 s | drift ratio 1.000059649 (+59.649 ppm) | since REF +2 us | last step -160 us | synced to N1
+18:23:55.687257 PPS N2 | global 1090.000004 s | local 1103.463657 s | drift ratio 1.000059649 (+59.649 ppm) | since REF +0 us | last step -74 us | synced to N1
+18:23:56.688116 PPS N2 | global 1091.000005 s | local 1104.463537 s | drift ratio 1.000039539 (+39.539 ppm) | since REF +0 us | last step +113 us | synced to N1
+18:23:56.692329 CAN A 860 B 560 | accepted 510 dropped 260 | relayed 0 (5 s)
+18:23:57.687880 PPS N2 | global 1092.000006 s | local 1105.463437 s | drift ratio 1.000039539 (+39.539 ppm) | since REF +0 us | last step +0 us | synced to N1
+18:23:58.687359 PPS N2 | global 1093.000004 s | local 1106.463460 s | drift ratio 1.000048096 (+48.096 ppm) | since REF +0 us | last step -130 us | synced to N1
+18:23:59.687379 PPS N2 | global 1094.000004 s | local 1107.463381 s | drift ratio 1.000048096 (+48.096 ppm) | since REF +0 us | last step +102 us | synced to N1
+18:24:00.687470 PPS N2 | global 1095.000003 s | local 1108.463375 s | drift ratio 1.000065902 (+65.902 ppm) | since REF +1 us | last step -59 us | synced to N1
+18:24:01.686963 PPS N2 | global 1096.000004 s | local 1109.463222 s | drift ratio 1.000065902 (+65.902 ppm) | since REF +1 us | last step -6 us | synced to N1
+18:24:01.692530 CAN A 860 B 560 | accepted 510 dropped 260 | relayed 0 (5 s)
+18:24:01.698565 WCET us: CAN_RX 347 HB_TX 7246 HB_MON 806 BLINK 480 FORCE_TX 9395
+18:24:02.687111 PPS N2 | global 1097.000005 s | local 1110.463168 s | drift ratio 1.000062670 (+62.670 ppm) | since REF +1 us | last step +7 us | synced to N1
+18:24:03.686979 PPS N2 | global 1098.000004 s | local 1111.463143 s | drift ratio 1.000062670 (+62.670 ppm) | since REF +1 us | last step +67 us | synced to N1
+18:24:04.686642 PPS N2 | global 1099.000013 s | local 1112.463031 s | drift ratio 1.000060246 (+60.246 ppm) | since REF +0 us | last step +14 us | synced to N1
+18:24:05.687163 PPS N2 | global 1100.000003 s | local 1113.462984 s | drift ratio 1.000060246 (+60.246 ppm) | since REF +0 us | last step +42 us | synced to N1
+18:24:06.687658 PPS N2 | global 1101.000004 s | local 1114.462951 s | drift ratio 1.000056819 (+56.819 ppm) | since REF +0 us | last step -1 us | synced to N1
+18:24:06.692562 CAN A 860 B 560 | accepted 510 dropped 260 | relayed 0 (5 s)
+18:24:07.686998 PPS N2 | global 1102.000003 s | local 1115.462894 s | drift ratio 1.000056819 (+56.819 ppm) | since REF +0 us | last step +0 us | synced to N1
+18:24:08.687370 PPS N2 | global 1103.000007 s | local 1116.462837 s | drift ratio 1.000057590 (+57.590 ppm) | since REF +0 us | last step +5 us | synced to N1
+18:24:09.686727 PPS N2 | global 1104.000003 s | local 1117.462792 s | drift ratio 1.000057590 (+57.590 ppm) | since REF +0 us | last step +6 us | synced to N1
+18:24:10.687113 PPS N2 | global 1105.000004 s | local 1118.462745 s | drift ratio 1.000056065 (+56.065 ppm) | since REF +0 us | last step +9 us | synced to N1
+18:24:11.686877 PPS N2 | global 1106.000003 s | local 1119.462669 s | drift ratio 1.000056065 (+56.065 ppm) | since REF +0 us | last step +38 us | synced to N1
+18:24:11.693255 CAN A 860 B 560 | accepted 510 dropped 260 | relayed 0 (5 s)
+18:24:12.686801 PPS N2 | global 1107.000003 s | local 1120.462645 s | drift ratio 1.000054178 (+54.178 ppm) | since REF +0 us | last step +3 us | synced to N1
+18:24:13.426203 raft N2: append 12 term 1 CANLINK_UP N3 B
+18:24:13.429745 raft N2: commit 12
+18:24:13.688151 PPS N2 | global 1108.000005 s | local 1121.462807 s | drift ratio 1.000054178 (+54.178 ppm) | since REF +0 us | last step +22 us | synced to N1
+18:24:14.687664 PPS N2 | global 1109.000089 s | local 1122.462731 s | drift ratio 1.000047441 (+47.441 ppm) | since REF +0 us | last step -41 us | synced to N1
+18:24:15.687460 PPS N2 | global 1110.000004 s | local 1123.462631 s | drift ratio 1.000047441 (+47.441 ppm) | since REF +0 us | last step -21 us | synced to N1
+18:24:16.687387 PPS N2 | global 1111.000005 s | local 1124.462440 s | drift ratio 1.000054270 (+54.270 ppm) | since REF +0 us | last step +6 us | synced to N1
+18:24:16.693248 CAN A 863 B 761 | accepted 510 dropped 424 | relayed 0 (5 s)
+18:24:17.686883 PPS N2 | global 1112.000004 s | local 1125.462452 s | drift ratio 1.000054270 (+54.270 ppm) | since REF +0 us | last step +27 us | synced to N1
+18:24:18.687149 PPS N2 | global 1113.000003 s | local 1126.462448 s | drift ratio 1.000040078 (+40.078 ppm) | since REF +0 us | last step +8 us | synced to N1
+18:24:19.686838 PPS N2 | global 1114.000003 s | local 1127.462452 s | drift ratio 1.000040078 (+40.078 ppm) | since REF +0 us | last step +6 us | synced to N1
+18:24:20.687865 PPS N2 | global 1115.000003 s | local 1128.462453 s | drift ratio 1.000040078 (+40.078 ppm) | since REF +2 us | last step -174 us | synced to N1
+18:24:21.687934 PPS N2 | global 1116.000005 s | local 1129.462602 s | drift ratio 1.000029446 (+29.446 ppm) | since REF +0 us | last step -76 us | synced to N1
+18:24:21.692974 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:24:22.686919 PPS N2 | global 1117.000105 s | local 1130.462231 s | drift ratio 1.000029446 (+29.446 ppm) | since REF +0 us | last step +14 us | synced to N1
+18:24:23.687767 PPS N2 | global 1118.000003 s | local 1131.462074 s | drift ratio 1.000062437 (+62.437 ppm) | since REF +1 us | last step +6 us | synced to N1
+18:24:24.687108 PPS N2 | global 1119.000004 s | local 1132.462028 s | drift ratio 1.000062437 (+62.437 ppm) | since REF +1 us | last step +8 us | synced to N1
+18:24:25.686934 PPS N2 | global 1120.000005 s | local 1133.461979 s | drift ratio 1.000059452 (+59.452 ppm) | since REF +0 us | last step +8 us | synced to N1
+18:24:26.687821 PPS N2 | global 1121.000004 s | local 1134.461927 s | drift ratio 1.000059452 (+59.452 ppm) | since REF +0 us | last step +8 us | synced to N1
+18:24:26.692059 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:24:27.687200 PPS N2 | global 1122.000003 s | local 1135.461882 s | drift ratio 1.000057090 (+57.090 ppm) | since REF +0 us | last step +5 us | synced to N1
+18:24:28.687030 PPS N2 | global 1123.000005 s | local 1136.461832 s | drift ratio 1.000057090 (+57.090 ppm) | since REF +0 us | last step +7 us | synced to N1
+18:24:29.687093 PPS N2 | global 1124.000005 s | local 1137.461782 s | drift ratio 1.000054947 (+54.947 ppm) | since REF +0 us | last step +9 us | synced to N1
+18:24:30.687554 PPS N2 | global 1125.000003 s | local 1138.461743 s | drift ratio 1.000054947 (+54.947 ppm) | since REF +0 us | last step +5 us | synced to N1
+18:24:31.687107 PPS N2 | global 1126.000005 s | local 1139.461674 s | drift ratio 1.000056062 (+56.062 ppm) | since REF +0 us | last step -1 us | synced to N1
+18:24:31.692054 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:24:31.699029 WCET us: CAN_RX 347 HB_TX 7246 HB_MON 806 BLINK 480 FORCE_TX 9395
+18:24:32.687525 PPS N2 | global 1127.000004 s | local 1140.461643 s | drift ratio 1.000056062 (+56.062 ppm) | since REF +0 us | last step +0 us | synced to N1
+18:24:33.687162 PPS N2 | global 1128.000004 s | local 1141.461597 s | drift ratio 1.000050710 (+50.710 ppm) | since REF +0 us | last step +9 us | synced to N1
+18:24:34.687113 PPS N2 | global 1129.000003 s | local 1142.461540 s | drift ratio 1.000050710 (+50.710 ppm) | since REF +0 us | last step -7 us | synced to N1
+18:24:35.687298 PPS N2 | global 1130.000005 s | local 1143.461497 s | drift ratio 1.000055360 (+55.360 ppm) | since REF +0 us | last step +7 us | synced to N1
+18:24:36.687211 PPS N2 | global 1131.000004 s | local 1144.461448 s | drift ratio 1.000055360 (+55.360 ppm) | since REF +0 us | last step +4 us | synced to N1
+18:24:36.692150 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:24:37.687778 PPS N2 | global 1132.000005 s | local 1145.461402 s | drift ratio 1.000047956 (+47.956 ppm) | since REF +0 us | last step +3 us | synced to N1
+18:24:38.688349 PPS N2 | global 1133.000004 s | local 1146.461351 s | drift ratio 1.000047956 (+47.956 ppm) | since REF +0 us | last step +11 us | synced to N1
+18:24:39.687154 PPS N2 | global 1134.000004 s | local 1147.461300 s | drift ratio 1.000048962 (+48.962 ppm) | since REF +0 us | last step +3 us | synced to N1
+18:24:40.336813 raft N2: append 13 term 1 CANLINK_DOWN N3 A
+18:24:40.340562 raft N2: commit 13
+18:24:40.687181 PPS N2 | global 1135.000005 s | local 1148.461251 s | drift ratio 1.000048962 (+48.962 ppm) | since REF +0 us | last step -11 us | synced to N1
+18:24:41.687132 PPS N2 | global 1136.000004 s | local 1149.461199 s | drift ratio 1.000054173 (+54.173 ppm) | since REF +0 us | last step +4 us | synced to N1
+18:24:41.692424 CAN A 717 B 862 | accepted 510 dropped 390 | relayed 0 (5 s)
+18:24:42.686473 PPS N2 | global 1137.000003 s | local 1150.461183 s | drift ratio 1.000054173 (+54.173 ppm) | since REF +0 us | last step +65 us | synced to N1
+18:24:43.686357 PPS N2 | global 1138.000003 s | local 1151.461105 s | drift ratio 1.000052759 (+52.759 ppm) | since REF +0 us | last step -2 us | synced to N1
+18:24:44.686832 PPS N2 | global 1139.000004 s | local 1152.461057 s | drift ratio 1.000052759 (+52.759 ppm) | since REF +0 us | last step +7 us | synced to N1
+18:24:45.686460 PPS N2 | global 1140.000005 s | local 1153.461007 s | drift ratio 1.000052194 (+52.194 ppm) | since REF +0 us | last step +7 us | synced to N1
+18:24:46.687113 PPS N2 | global 1141.000005 s | local 1154.460956 s | drift ratio 1.000052194 (+52.194 ppm) | since REF +0 us | last step -7 us | synced to N1
+18:24:46.692436 CAN A 560 B 860 | accepted 510 dropped 260 | relayed 0 (5 s)
+18:24:47.687224 PPS N2 | global 1142.000005 s | local 1155.460913 s | drift ratio 1.000045641 (+45.641 ppm) | since REF +0 us | last step +6 us | synced to N1
+18:24:48.687116 PPS N2 | global 1143.000005 s | local 1156.460864 s | drift ratio 1.000045641 (+45.641 ppm) | since REF +0 us | last step +4 us | synced to N1
+18:24:49.687171 PPS N2 | global 1144.000005 s | local 1157.460812 s | drift ratio 1.000046731 (+46.731 ppm) | since REF +0 us | last step +7 us | synced to N1
+18:24:50.687215 PPS N2 | global 1145.000005 s | local 1158.460764 s | drift ratio 1.000046731 (+46.731 ppm) | since REF +0 us | last step +0 us | synced to N1
+18:24:51.686639 PPS N2 | global 1146.000004 s | local 1159.460713 s | drift ratio 1.000046683 (+46.683 ppm) | since REF +0 us | last step -1 us | synced to N1
+18:24:51.692566 CAN A 560 B 860 | accepted 510 dropped 260 | relayed 0 (5 s)
+18:24:52.686624 PPS N2 | global 1147.000003 s | local 1160.460656 s | drift ratio 1.000046683 (+46.683 ppm) | since REF +0 us | last step +1 us | synced to N1
+18:24:53.686664 PPS N2 | global 1148.000003 s | local 1161.460607 s | drift ratio 1.000048131 (+48.131 ppm) | since REF +0 us | last step +7 us | synced to N1
+18:24:54.687112 PPS N2 | global 1149.000005 s | local 1162.460545 s | drift ratio 1.000048131 (+48.131 ppm) | since REF +0 us | last step +45 us | synced to N1
+18:24:55.686777 PPS N2 | global 1150.000003 s | local 1163.460484 s | drift ratio 1.000047361 (+47.361 ppm) | since REF +0 us | last step +43 us | synced to N1
+18:24:56.687264 PPS N2 | global 1151.000004 s | local 1164.460459 s | drift ratio 1.000047361 (+47.361 ppm) | since REF +0 us | last step +10 us | synced to N1
+18:24:56.692613 CAN A 560 B 860 | accepted 510 dropped 260 | relayed 0 (5 s)
+18:24:57.687334 PPS N2 | global 1152.000005 s | local 1165.460356 s | drift ratio 1.000055076 (+55.076 ppm) | since REF +0 us | last step +11 us | synced to N1
+18:24:58.022523 raft N2: append 14 term 1 CANLINK_DOWN N1 B
+18:24:58.029364 raft N2: commit 14
+18:24:58.686891 PPS N2 | global 1153.000004 s | local 1166.460313 s | drift ratio 1.000055076 (+55.076 ppm) | since REF +0 us | last step +8 us | synced to N1
+18:24:59.687644 PPS N2 | global 1154.000005 s | local 1167.460264 s | drift ratio 1.000053808 (+53.808 ppm) | since REF +0 us | last step +8 us | synced to N1
+18:25:00.686820 PPS N2 | global 1155.000003 s | local 1168.460217 s | drift ratio 1.000053808 (+53.808 ppm) | since REF +0 us | last step +22 us | synced to N1
+18:25:01.686781 PPS N2 | global 1156.000004 s | local 1169.460159 s | drift ratio 1.000053723 (+53.723 ppm) | since REF +0 us | last step +9 us | synced to N1
+18:25:01.692302 CAN A 562 B 332 | accepted 510 dropped 14 | relayed 809 (5 s)
+18:25:01.699783 WCET us: CAN_RX 347 HB_TX 7246 HB_MON 806 BLINK 480 FORCE_TX 9395 RELAY 2159
+18:25:02.687493 PPS N2 | global 1157.000004 s | local 1170.460107 s | drift ratio 1.000053723 (+53.723 ppm) | since REF +0 us | last step +8 us | synced to N1
+18:25:03.686772 PPS N2 | global 1158.000003 s | local 1171.460056 s | drift ratio 1.000053041 (+53.041 ppm) | since REF +0 us | last step +10 us | synced to N1
+18:25:04.686910 PPS N2 | global 1159.000005 s | local 1172.460005 s | drift ratio 1.000053041 (+53.041 ppm) | since REF +0 us | last step +6 us | synced to N1
+18:25:05.555826 
+18:25:05.562771 [1;32muart:~$ [mnet show
+18:25:05.567791 N1 up A+ B- | N2 up A+ B+ | N3 up A- B+ | cockpit OK
+18:25:05.570801 [1;32muart:~$ [mraft log
+18:25:05.573792 N2 log: 14 entries, commit 14, term 1
+18:25:05.576760     5  term 1   CANLINK_UP N1 A
+18:25:05.580752     6  term 1   CANLINK_UP N1 B
+18:25:05.583762     7  term 1   CANLINK_UP N2 A
+18:25:05.586760     8  term 1   CANLINK_UP N2 B
+18:25:05.589785     9  term 1   CANLINK_UP N3 A
+18:25:05.592793    10  term 1   CANLINK_UP N3 B
+18:25:05.595783    11  term 1   CANLINK_DOWN N3 B
+18:25:05.599775    12  term 1   CANLINK_UP N3 B
+18:25:05.602805    13  term 1   CANLINK_DOWN N3 A
+18:25:05.605805    14  term 1   CANLINK_DOWN N1 B
+18:25:05.608900 [1;32muart:~$ [mraft status
+18:25:05.621306 N2 follower | term 1 | leader N1 | SYNC on | heard 11 ms ago | election timeout 62 ms | rx dropped 0 | relay N1 A->B, N3 B->A
+18:25:05.686919 [1;32muart:~$ [mPPS N2 | global 1160.000004 s | local 1173.459954 s | drift ratio 1.000051168 (+51.168 ppm) | since REF +0 us | last step +10 us | synced to N1
+18:25:06.686876 PPS N2 | global 1161.000003 s | local 1174.459837 s | drift ratio 1.000051168 (+51.168 ppm) | since REF +0 us | last step -1 us | synced to N1
+18:25:06.692075 CAN A 560 B 300 | accepted 510 dropped 0 | relayed 860 (5 s)
+18:25:07.686902 PPS N2 | global 1162.000256 s | local 1175.460031 s | drift ratio 1.000060655 (+60.655 ppm) | since REF +1 us | last step +6 us | synced to N1
+18:25:08.686878 PPS N2 | global 1163.000111 s | local 1176.459831 s | drift ratio 1.000060655 (+60.655 ppm) | since REF +1 us | last step +5 us | synced to N1
+18:25:09.686968 PPS N2 | global 1164.000005 s | local 1177.459674 s | drift ratio 1.000060220 (+60.220 ppm) | since REF +0 us | last step +1 us | synced to N1
+18:25:10.687129 PPS N2 | global 1165.000005 s | local 1178.459615 s | drift ratio 1.000060220 (+60.220 ppm) | since REF +0 us | last step -3 us | synced to N1
+18:25:11.686961 PPS N2 | global 1166.000003 s | local 1179.459622 s | drift ratio 1.000004976 (+4.976 ppm) | since REF +0 us | last step +9 us | synced to N1
+18:25:11.691974 CAN A 560 B 300 | accepted 510 dropped 0 | relayed 860 (5 s)
+18:25:12.687122 PPS N2 | global 1167.000166 s | local 1180.459731 s | drift ratio 1.000004976 (+4.976 ppm) | since REF +0 us | last step +8 us | synced to N1
+18:25:13.687081 PPS N2 | global 1168.000010 s | local 1181.459531 s | drift ratio 1.000062037 (+62.037 ppm) | since REF +1 us | last step +99 us | synced to N1
+18:25:14.687216 PPS N2 | global 1169.000004 s | local 1182.459467 s | drift ratio 1.000062037 (+62.037 ppm) | since REF +1 us | last step +9 us | synced to N1
+18:25:15.687137 PPS N2 | global 1170.000005 s | local 1183.459415 s | drift ratio 1.000061628 (+61.628 ppm) | since REF +1 us | last step +9 us | synced to N1
+18:25:16.686225 PPS N2 | global 1171.000004 s | local 1184.459359 s | drift ratio 1.000061628 (+61.628 ppm) | since REF +1 us | last step +0 us | synced to N1
+18:25:16.692147 CAN A 560 B 300 | accepted 510 dropped 0 | relayed 860 (5 s)
+18:25:17.687222 PPS N2 | global 1172.000004 s | local 1185.459312 s | drift ratio 1.000058474 (+58.474 ppm) | since REF +0 us | last step +13 us | synced to N1
+18:25:18.687194 PPS N2 | global 1173.000003 s | local 1186.459256 s | drift ratio 1.000058474 (+58.474 ppm) | since REF +0 us | last step +6 us | synced to N1
+18:25:19.687255 PPS N2 | global 1174.000004 s | local 1187.459205 s | drift ratio 1.000057099 (+57.099 ppm) | since REF +0 us | last step +11 us | synced to N1
+18:25:20.687199 PPS N2 | global 1175.000004 s | local 1188.459148 s | drift ratio 1.000057099 (+57.099 ppm) | since REF +0 us | last step +11 us | synced to N1
+18:25:21.686747 PPS N2 | global 1176.000003 s | local 1189.459092 s | drift ratio 1.000057058 (+57.058 ppm) | since REF +0 us | last step +4 us | synced to N1
+18:25:21.693257 CAN A 560 B 300 | accepted 510 dropped 0 | relayed 860 (5 s)
+18:25:22.686504 PPS N2 | global 1177.000003 s | local 1190.459041 s | drift ratio 1.000057058 (+57.058 ppm) | since REF +0 us | last step +7 us | synced to N1
+18:25:23.686282 PPS N2 | global 1178.000003 s | local 1191.458984 s | drift ratio 1.000055294 (+55.294 ppm) | since REF +0 us | last step +10 us | synced to N1
+18:25:24.687296 PPS N2 | global 1179.000004 s | local 1192.458933 s | drift ratio 1.000055294 (+55.294 ppm) | since REF +2 us | last step -380 us | synced to N1
+18:25:25.686654 PPS N2 | global 1180.000003 s | local 1193.458874 s | drift ratio 1.000007726 (+7.726 ppm) | since REF +0 us | last step +6 us | synced to N1
+18:25:26.687687 PPS N2 | global 1181.000220 s | local 1194.459038 s | drift ratio 1.000007726 (+7.726 ppm) | since REF +0 us | last step +11 us | synced to N1
+18:25:26.692415 CAN A 560 B 300 | accepted 510 dropped 0 | relayed 860 (5 s)
+18:25:27.687521 PPS N2 | global 1182.000175 s | local 1195.458938 s | drift ratio 1.000019409 (+19.409 ppm) | since REF +0 us | last step +11 us | synced to N1
+18:25:28.686401 PPS N2 | global 1183.000231 s | local 1196.458938 s | drift ratio 1.000019409 (+19.409 ppm) | since REF +0 us | last step +8 us | synced to N1
+18:25:29.687417 PPS N2 | global 1184.000187 s | local 1197.458838 s | drift ratio 1.000028666 (+28.666 ppm) | since REF +0 us | last step +9 us | synced to N1
+18:25:30.686443 PPS N2 | global 1185.000004 s | local 1198.458599 s | drift ratio 1.000028666 (+28.666 ppm) | since REF +0 us | last step +11 us | synced to N1
+18:25:31.686473 PPS N2 | global 1186.000003 s | local 1199.458545 s | drift ratio 1.000081786 (+81.786 ppm) | since REF +1 us | last step +7 us | synced to N1
+18:25:31.692458 CAN A 560 B 300 | accepted 510 dropped 0 | relayed 860 (5 s)
+18:25:31.699455 WCET us: CAN_RX 347 HB_TX 7246 HB_MON 806 BLINK 480 FORCE_TX 9395 RELAY 2159
+18:25:32.686422 PPS N2 | global 1187.000004 s | local 1200.458492 s | drift ratio 1.000081786 (+81.786 ppm) | since REF +1 us | last step +4 us | synced to N1
+18:25:33.686444 PPS N2 | global 1188.000005 s | local 1201.458436 s | drift ratio 1.000074954 (+74.954 ppm) | since REF +1 us | last step +9 us | synced to N1
+18:25:34.686500 PPS N2 | global 1189.000005 s | local 1202.458377 s | drift ratio 1.000074954 (+74.954 ppm) | since REF +1 us | last step +9 us | synced to N1
+18:25:35.686525 PPS N2 | global 1190.000004 s | local 1203.458322 s | drift ratio 1.000070944 (+70.944 ppm) | since REF +1 us | last step +10 us | synced to N1
+18:25:36.686506 PPS N2 | global 1191.000003 s | local 1204.458266 s | drift ratio 1.000070944 (+70.944 ppm) | since REF +1 us | last step +7 us | synced to N1
+18:25:36.692501 CAN A 560 B 300 | accepted 510 dropped 0 | relayed 860 (5 s)
+18:25:37.689838 PPS N2 | global 1192.000005 s | local 1205.458210 s | drift ratio 1.000067689 (+67.689 ppm) | since REF +1 us | last step +8 us | synced to N1
+18:25:38.686718 PPS N2 | global 1193.000004 s | local 1206.458154 s | drift ratio 1.000067689 (+67.689 ppm) | since REF +1 us | last step +3 us | synced to N1
+18:25:39.686594 PPS N2 | global 1194.000003 s | local 1207.458099 s | drift ratio 1.000064738 (+64.738 ppm) | since REF +1 us | last step +11 us | synced to N1
+18:25:40.481652 raft N2: append 15 term 1 CANLINK_UP N1 B
+18:25:40.489643 raft N2: commit 15
+18:25:40.687651 PPS N2 | global 1195.000004 s | local 1208.458156 s | drift ratio 1.000064738 (+64.738 ppm) | since REF +1 us | last step -105 us | synced to N1
+18:25:41.686684 PPS N2 | global 1196.000003 s | local 1209.458020 s | drift ratio 1.000064738 (+64.738 ppm) | since REF +1 us | last step +10 us | synced to N1
+18:25:41.691694 CAN A 566 B 452 | accepted 517 dropped 64 | relayed 658 (5 s)
+18:25:42.686698 PPS N2 | global 1197.000004 s | local 1210.457948 s | drift ratio 1.000064738 (+64.738 ppm) | since REF +1 us | last step -9 us | synced to N1
+18:25:43.686724 PPS N2 | global 1198.000004 s | local 1211.457968 s | drift ratio 1.000064738 (+64.738 ppm) | since REF +1 us | last step -120 us | synced to N1
+18:25:44.686700 PPS N2 | global 1199.000004 s | local 1212.457882 s | drift ratio 1.000061426 (+61.426 ppm) | since REF +1 us | last step +55 us | synced to N1
+18:25:45.686745 PPS N2 | global 1200.000005 s | local 1213.457889 s | drift ratio 1.000061426 (+61.426 ppm) | since REF +1 us | last step -51 us | synced to N1
+18:25:46.686744 PPS N2 | global 1201.000005 s | local 1214.457764 s | drift ratio 1.000063768 (+63.768 ppm) | since REF +1 us | last step +60 us | synced to N1
+18:25:46.691751 CAN A 568 B 836 | accepted 510 dropped 244 | relayed 3 (5 s)
+18:25:47.686779 PPS N2 | global 1202.000003 s | local 1215.457702 s | drift ratio 1.000063768 (+63.768 ppm) | since REF +1 us | last step +61 us | synced to N1
+18:25:48.686786 PPS N2 | global 1203.000003 s | local 1216.457652 s | drift ratio 1.000046341 (+46.341 ppm) | since REF +0 us | last step +74 us | synced to N1
+18:25:49.686861 PPS N2 | global 1204.000004 s | local 1217.457644 s | drift ratio 1.000046341 (+46.341 ppm) | since REF +0 us | last step -55 us | synced to N1
+18:25:50.381879 raft N2: append 16 term 1 CANLINK_UP N3 A
+18:25:50.388855 raft N2: commit 16
+18:25:50.686893 PPS N2 | global 1205.000005 s | local 1218.457510 s | drift ratio 1.000063843 (+63.843 ppm) | since REF +1 us | last step +30 us | synced to N1
+18:25:51.687107 PPS N2 | global 1206.000004 s | local 1219.457541 s | drift ratio 1.000063843 (+63.843 ppm) | since REF +1 us | last step -95 us | synced to N1
+18:25:51.692941 CAN A 644 B 864 | accepted 512 dropped 325 | relayed 0 (5 s)
+18:25:52.687810 PPS N2 | global 1207.000004 s | local 1220.457433 s | drift ratio 1.000050234 (+50.234 ppm) | since REF +0 us | last step +114 us | synced to N1
+18:25:53.686962 PPS N2 | global 1208.000004 s | local 1221.457379 s | drift ratio 1.000050234 (+50.234 ppm) | since REF +0 us | last step +125 us | synced to N1
+18:25:54.687520 PPS N2 | global 1209.000005 s | local 1222.457363 s | drift ratio 1.000065277 (+65.277 ppm) | since REF +1 us | last step -8 us | synced to N1
+18:25:55.687308 PPS N2 | global 1210.000004 s | local 1223.457176 s | drift ratio 1.000065277 (+65.277 ppm) | since REF +2 us | last step -171 us | synced to N1
+18:25:56.688117 PPS N2 | global 1211.000005 s | local 1224.457143 s | drift ratio 1.000046607 (+46.607 ppm) | since REF +0 us | last step +29 us | synced to N1
+18:25:56.692082 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:25:57.687202 PPS N2 | global 1212.000003 s | local 1225.457083 s | drift ratio 1.000046607 (+46.607 ppm) | since REF +0 us | last step +30 us | synced to N1
+18:25:58.687744 PPS N2 | global 1213.000005 s | local 1226.457086 s | drift ratio 1.000069737 (+69.737 ppm) | since REF +1 us | last step -76 us | synced to N1
+18:25:59.687446 PPS N2 | global 1214.000014 s | local 1227.457014 s | drift ratio 1.000069737 (+69.737 ppm) | since REF +1 us | last step -112 us | synced to N1
+18:26:00.687901 PPS N2 | global 1215.000003 s | local 1228.456949 s | drift ratio 1.000047724 (+47.724 ppm) | since REF +0 us | last step +174 us | synced to N1
+18:26:01.687739 PPS N2 | global 1216.000005 s | local 1229.456872 s | drift ratio 1.000047724 (+47.724 ppm) | since REF +0 us | last step +113 us | synced to N1
+18:26:01.692557 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:26:01.700454 WCET us: CAN_RX 347 HB_TX 7246 HB_MON 806 BLINK 480 FORCE_TX 9395 RELAY 2159
+18:26:02.687271 PPS N2 | global 1217.000004 s | local 1230.456851 s | drift ratio 1.000051883 (+51.883 ppm) | since REF +0 us | last step -59 us | synced to N1
+18:26:03.687878 PPS N2 | global 1218.000004 s | local 1231.456812 s | drift ratio 1.000051883 (+51.883 ppm) | since REF +0 us | last step -92 us | synced to N1
+18:26:04.687196 PPS N2 | global 1219.000005 s | local 1232.456677 s | drift ratio 1.000053022 (+53.022 ppm) | since REF +0 us | last step +80 us | synced to N1
+18:26:05.687172 PPS N2 | global 1220.000005 s | local 1233.456635 s | drift ratio 1.000053022 (+53.022 ppm) | since REF +0 us | last step -120 us | synced to N1
+18:26:06.687559 PPS N2 | global 1221.000027 s | local 1234.456534 s | drift ratio 1.000074424 (+74.424 ppm) | since REF +1 us | last step -12 us | synced to N1
+18:26:06.692656 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:26:07.688022 PPS N2 | global 1222.000092 s | local 1235.456540 s | drift ratio 1.000074424 (+74.424 ppm) | since REF +1 us | last step +6 us | synced to N1
+18:26:08.687723 PPS N2 | global 1223.000153 s | local 1236.456523 s | drift ratio 1.000073517 (+73.517 ppm) | since REF +1 us | last step +54 us | synced to N1
+18:26:09.688251 PPS N2 | global 1224.000143 s | local 1237.456520 s | drift ratio 1.000073517 (+73.517 ppm) | since REF +1 us | last step +119 us | synced to N1
+18:26:10.687531 PPS N2 | global 1225.000003 s | local 1238.456333 s | drift ratio 1.000053388 (+53.388 ppm) | since REF +0 us | last step -117 us | synced to N1
+18:26:11.687476 PPS N2 | global 1226.000029 s | local 1239.456231 s | drift ratio 1.000053388 (+53.388 ppm) | since REF +0 us | last step -1 us | synced to N1
+18:26:11.692639 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:26:12.687384 PPS N2 | global 1227.000113 s | local 1240.456231 s | drift ratio 1.000071728 (+71.728 ppm) | since REF +1 us | last step +33 us | synced to N1
+18:26:13.687620 PPS N2 | global 1228.000003 s | local 1241.456189 s | drift ratio 1.000071728 (+71.728 ppm) | since REF +1 us | last step -31 us | synced to N1
+18:26:14.688086 PPS N2 | global 1229.000004 s | local 1242.456031 s | drift ratio 1.000052806 (+52.806 ppm) | since REF +0 us | last step +0 us | synced to N1
+18:26:15.687014 PPS N2 | global 1230.000004 s | local 1243.455974 s | drift ratio 1.000052806 (+52.806 ppm) | since REF +0 us | last step +5 us | synced to N1
+18:26:16.688171 PPS N2 | global 1231.000052 s | local 1244.455931 s | drift ratio 1.000069310 (+69.310 ppm) | since REF +1 us | last step +43 us | synced to N1
+18:26:16.693023 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:26:17.687668 PPS N2 | global 1232.000004 s | local 1245.455837 s | drift ratio 1.000069310 (+69.310 ppm) | since REF +1 us | last step -10 us | synced to N1
+18:26:18.687778 PPS N2 | global 1233.000069 s | local 1246.455833 s | drift ratio 1.000053592 (+53.592 ppm) | since REF +0 us | last step +6 us | synced to N1
+18:26:19.687220 PPS N2 | global 1234.000024 s | local 1247.455731 s | drift ratio 1.000053592 (+53.592 ppm) | since REF +0 us | last step +37 us | synced to N1
+18:26:20.687642 PPS N2 | global 1235.000003 s | local 1248.455682 s | drift ratio 1.000072995 (+72.995 ppm) | since REF +1 us | last step +133 us | synced to N1
+18:26:21.686806 PPS N2 | global 1236.000003 s | local 1249.455599 s | drift ratio 1.000072995 (+72.995 ppm) | since REF +1 us | last step -1 us | synced to N1
+18:26:21.693033 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:26:22.687688 PPS N2 | global 1237.000005 s | local 1250.455616 s | drift ratio 1.000052747 (+52.747 ppm) | since REF +0 us | last step -89 us | synced to N1
+18:26:23.686972 PPS N2 | global 1238.000005 s | local 1251.455474 s | drift ratio 1.000052747 (+52.747 ppm) | since REF +0 us | last step +4 us | synced to N1
+18:26:24.687029 PPS N2 | global 1239.000028 s | local 1252.455431 s | drift ratio 1.000054536 (+54.536 ppm) | since REF +0 us | last step +59 us | synced to N1
+18:26:25.688117 PPS N2 | global 1240.000004 s | local 1253.455470 s | drift ratio 1.000054536 (+54.536 ppm) | since REF +0 us | last step -16 us | synced to N1
+18:26:26.687967 PPS N2 | global 1241.000004 s | local 1254.455424 s | drift ratio 1.000052784 (+52.784 ppm) | since REF +0 us | last step -95 us | synced to N1
+18:26:26.692807 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:26:27.687815 PPS N2 | global 1242.000003 s | local 1255.455384 s | drift ratio 1.000052784 (+52.784 ppm) | since REF +0 us | last step +10 us | synced to N1
+18:26:28.687766 PPS N2 | global 1243.000004 s | local 1256.455314 s | drift ratio 1.000069913 (+69.913 ppm) | since REF +1 us | last step -30 us | synced to N1
+18:26:29.686870 PPS N2 | global 1244.000083 s | local 1257.455231 s | drift ratio 1.000069913 (+69.913 ppm) | since REF +1 us | last step +6 us | synced to N1
+18:26:30.686995 PPS N2 | global 1245.000004 s | local 1258.455115 s | drift ratio 1.000065926 (+65.926 ppm) | since REF +1 us | last step +34 us | synced to N1
+18:26:31.687071 PPS N2 | global 1246.000003 s | local 1259.455041 s | drift ratio 1.000065926 (+65.926 ppm) | since REF +1 us | last step +1 us | synced to N1
+18:26:31.693447 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:26:31.700367 WCET us: CAN_RX 348 HB_TX 7246 HB_MON 806 BLINK 480 FORCE_TX 9395 RELAY 2159
+18:26:32.687949 PPS N2 | global 1247.000003 s | local 1260.455095 s | drift ratio 1.000062936 (+62.936 ppm) | since REF +1 us | last step -29 us | synced to N1
+18:26:33.687017 PPS N2 | global 1248.000004 s | local 1261.454954 s | drift ratio 1.000062936 (+62.936 ppm) | since REF +1 us | last step +85 us | synced to N1
+18:26:34.686990 PPS N2 | global 1249.000004 s | local 1262.454884 s | drift ratio 1.000044078 (+44.078 ppm) | since REF +0 us | last step +27 us | synced to N1
+18:26:35.687155 PPS N2 | global 1250.000004 s | local 1263.454837 s | drift ratio 1.000044078 (+44.078 ppm) | since REF +0 us | last step +23 us | synced to N1
+18:26:36.687529 PPS N2 | global 1251.000051 s | local 1264.454831 s | drift ratio 1.000062517 (+62.517 ppm) | since REF +1 us | last step -7 us | synced to N1
+18:26:36.692274 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:26:37.687194 PPS N2 | global 1252.000004 s | local 1265.454815 s | drift ratio 1.000062517 (+62.517 ppm) | since REF +1 us | last step -141 us | synced to N1
+18:26:38.687049 PPS N2 | global 1253.000005 s | local 1266.454677 s | drift ratio 1.000042433 (+42.433 ppm) | since REF +0 us | last step +31 us | synced to N1
+18:26:39.687455 PPS N2 | global 1254.000004 s | local 1267.454661 s | drift ratio 1.000042433 (+42.433 ppm) | since REF +0 us | last step +64 us | synced to N1
+18:26:40.687927 PPS N2 | global 1255.000003 s | local 1268.454670 s | drift ratio 1.000061607 (+61.607 ppm) | since REF +1 us | last step -25 us | synced to N1
+18:26:41.687783 PPS N2 | global 1256.000004 s | local 1269.454515 s | drift ratio 1.000061607 (+61.607 ppm) | since REF +1 us | last step -7 us | synced to N1
+18:26:41.693211 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:26:42.687141 PPS N2 | global 1257.000005 s | local 1270.454533 s | drift ratio 1.000056990 (+56.990 ppm) | since REF +0 us | last step -99 us | synced to N1
+18:26:43.687166 PPS N2 | global 1258.000021 s | local 1271.454431 s | drift ratio 1.000056990 (+56.990 ppm) | since REF +0 us | last step +107 us | synced to N1
+18:26:44.687209 PPS N2 | global 1259.000003 s | local 1272.454366 s | drift ratio 1.000042493 (+42.493 ppm) | since REF +0 us | last step -7 us | synced to N1
+18:26:45.687460 PPS N2 | global 1260.000004 s | local 1273.454312 s | drift ratio 1.000042493 (+42.493 ppm) | since REF +0 us | last step -7 us | synced to N1
+18:26:46.687253 PPS N2 | global 1261.000004 s | local 1274.454266 s | drift ratio 1.000059966 (+59.966 ppm) | since REF +0 us | last step +3 us | synced to N1
+18:26:46.692263 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:26:47.687360 PPS N2 | global 1262.000005 s | local 1275.454195 s | drift ratio 1.000059966 (+59.966 ppm) | since REF +0 us | last step +16 us | synced to N1
+18:26:48.688028 PPS N2 | global 1263.000004 s | local 1276.454246 s | drift ratio 1.000042376 (+42.376 ppm) | since REF +0 us | last step -16 us | synced to N1
+18:26:49.688184 PPS N2 | global 1264.000003 s | local 1277.454165 s | drift ratio 1.000042376 (+42.376 ppm) | since REF +0 us | last step -63 us | synced to N1
+18:26:50.687937 PPS N2 | global 1265.000012 s | local 1278.454131 s | drift ratio 1.000064830 (+64.830 ppm) | since REF +1 us | last step -40 us | synced to N1
+18:26:51.687680 PPS N2 | global 1266.000093 s | local 1279.454031 s | drift ratio 1.000064830 (+64.830 ppm) | since REF +1 us | last step +10 us | synced to N1
+18:26:51.692747 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:26:52.687386 PPS N2 | global 1267.000004 s | local 1280.453905 s | drift ratio 1.000059267 (+59.267 ppm) | since REF +0 us | last step +50 us | synced to N1
+18:26:53.687362 PPS N2 | global 1268.000004 s | local 1281.453850 s | drift ratio 1.000059267 (+59.267 ppm) | since REF +0 us | last step +9 us | synced to N1
+18:26:54.687513 PPS N2 | global 1269.000003 s | local 1282.453802 s | drift ratio 1.000044698 (+44.698 ppm) | since REF +0 us | last step +82 us | synced to N1
+18:26:55.688028 PPS N2 | global 1270.000005 s | local 1283.453743 s | drift ratio 1.000044698 (+44.698 ppm) | since REF +0 us | last step +26 us | synced to N1
+18:26:56.687775 PPS N2 | global 1271.000005 s | local 1284.453814 s | drift ratio 1.000041980 (+41.980 ppm) | since REF +0 us | last step +5 us | synced to N1
+18:26:56.692643 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:26:57.687561 PPS N2 | global 1272.000005 s | local 1285.453633 s | drift ratio 1.000041980 (+41.980 ppm) | since REF +0 us | last step +12 us | synced to N1
+18:26:58.686541 PPS N2 | global 1273.000045 s | local 1286.453532 s | drift ratio 1.000077780 (+77.780 ppm) | since REF +1 us | last step +23 us | synced to N1
+18:26:58.971090 raft N2: election timeout -> pre-candidate, term 1, leader N1
+18:26:58.976110 raft N2: pre-vote won -> candidate, term 2, leader none
+18:26:58.980696 raft N2: won the vote -> leader, term 2, leader N2
+18:26:59.687577 PPS N2 | global 1274.000005 s | local 1287.453433 s | drift ratio 1.000077780 (+77.780 ppm) | since last sync +60 us | last step +28 us | master N2
+18:26:59.961194 raft N2: append 17 term 2 NODE_DOWN N1 (from N2)
+18:26:59.964627 raft N2: append 18 term 2 COCKPIT_ERROR (from N2)
+18:26:59.971758 raft N2: commit 17
+18:26:59.981265 raft N2: commit 18
+18:27:00.687641 PPS N2 | global 1275.000005 s | local 1288.453355 s | drift ratio 1.000077780 (+77.780 ppm) | since last sync +138 us | last step +28 us | master N2
+18:27:01.687778 PPS N2 | global 1276.000004 s | local 1289.453277 s | drift ratio 1.000077780 (+77.780 ppm) | since last sync +215 us | last step +28 us | master N2
+18:27:01.693628 CAN A 574 B 574 | accepted 365 dropped 365 | relayed 0 (5 s)
+18:27:01.700682 WCET us: CAN_RX 348 HB_TX 7246 HB_MON 806 BLINK 480 FORCE_TX 9395 RELAY 2159
+18:27:02.687621 PPS N2 | global 1277.000005 s | local 1290.453200 s | drift ratio 1.000077780 (+77.780 ppm) | since last sync +293 us | last step +28 us | master N2
+18:27:03.688487 PPS N2 | global 1278.000005 s | local 1291.453122 s | drift ratio 1.000077780 (+77.780 ppm) | since last sync +371 us | last step +28 us | master N2
+18:27:08.268750 *** Booting Zephyr OS build v4.4.0-17000-g15723416fdd0 ***
+18:27:08.271732 lab5: node 2 booted.
+18:27:08.272713 netstate selftest
+18:27:08.279770 [ 1] NODE_UP N2        -> N1 down | N2 up A- B- | N3 down | cockpit ERROR  PASS
+18:27:08.286764 [ 2] CANLINK_UP N2 A   -> N1 down | N2 up A+ B- | N3 down | cockpit ERROR  PASS
+18:27:08.293790 [ 3] CANLINK_UP N2 B   -> N1 down | N2 up A+ B+ | N3 down | cockpit ERROR  PASS
+18:27:08.301754 [ 4] NODE_UP N3        -> N1 down | N2 up A+ B+ | N3 up A- B- | cockpit ERROR  PASS
+18:27:08.308718 [ 5] CANLINK_UP N3 A   -> N1 down | N2 up A+ B+ | N3 up A+ B- | cockpit ERROR  PASS
+18:27:08.317174 [ 6] CANLINK_UP N3 B   -> N1 down | N2 up A+ B+ | N3 up A+ B+ | cockpit ERROR  PASS
+18:27:08.323764 [ 7] COCKPIT_OK        -> N1 down | N2 up A+ B+ | N3 up A+ B+ | cockpit OK  PASS
+18:27:08.330843 [ 8] CANLINK_DOWN N2 A -> N1 down | N2 up A- B+ | N3 up A+ B+ | cockpit OK  PASS
+18:27:08.337711 [ 9] NODE_DOWN N3      -> N1 down | N2 up A- B+ | N3 down | cockpit OK  PASS
+18:27:08.344742 [10] NODE_UP N3        -> N1 down | N2 up A- B+ | N3 up A- B- | cockpit OK  PASS
+18:27:08.351728 [11] COCKPIT_ERROR     -> N1 down | N2 up A- B+ | N3 up A- B- | cockpit ERROR  PASS
+18:27:08.354741 netstate selftest: 11/11 PASS
+18:27:08.358763 raft N2: boot -> follower, term 0, leader none
+18:27:08.359741 [m
+18:27:08.430771 [1;32muart:~$ [mraft N2: election timeout -> pre-candidate, term 0, leader none
+18:27:08.435704 raft N2: frame from N3 -> follower, term 2, leader none
+18:27:08.440739 raft N2: vote for N3 in term 3
+18:27:08.445727 raft N2: frame from N3 -> follower, term 3, leader none
+18:27:08.451724 raft N2: frame from N3 -> follower, term 3, leader N3
+18:27:08.455729 raft N2: no entry 18 term 2 here (last 0)
+18:27:08.459764 raft N2: append 1 term 1 NODE_UP N1
+18:27:08.461755 raft N2: commit 1
+18:27:08.469762 raft N2: append 2 term 1 NODE_UP N2
+18:27:08.471753 raft N2: commit 2
+18:27:08.478788 raft N2: append 3 term 1 NODE_UP N3
+18:27:08.480725 raft N2: commit 3
+18:27:08.489742 raft N2: append 4 term 1 COCKPIT_OK
+18:27:08.492723 raft N2: commit 4
+18:27:08.499727 raft N2: append 5 term 1 CANLINK_UP N1 A
+18:27:08.501706 raft N2: commit 5
+18:27:08.509737 raft N2: append 6 term 1 CANLINK_UP N1 B
+18:27:08.511722 raft N2: commit 6
+18:27:08.519714 raft N2: append 7 term 1 CANLINK_UP N2 A
+18:27:08.521669 raft N2: commit 7
+18:27:08.529693 raft N2: append 8 term 1 CANLINK_UP N2 B
+18:27:08.531684 raft N2: commit 8
+18:27:08.539695 raft N2: append 9 term 1 CANLINK_UP N3 A
+18:27:08.541684 raft N2: commit 9
+18:27:08.550695 raft N2: append 10 term 1 CANLINK_UP N3 B
+18:27:08.551691 raft N2: commit 10
+18:27:08.555777 raft N2: no entry 18 term 2 here (last 10)
+18:27:08.560695 raft N2: append 11 term 1 CANLINK_DOWN N3 B
+18:27:08.562691 raft N2: commit 11
+18:27:08.569717 raft N2: append 12 term 1 CANLINK_UP N3 B
+18:27:08.571767 raft N2: commit 12
+18:27:08.579771 raft N2: append 13 term 1 CANLINK_DOWN N3 A
+18:27:08.581726 raft N2: commit 13
+18:27:08.590738 raft N2: append 14 term 1 CANLINK_DOWN N1 B
+18:27:08.592734 raft N2: commit 14
+18:27:08.599732 raft N2: append 15 term 1 CANLINK_UP N1 B
+18:27:08.601725 raft N2: commit 15
+18:27:08.611729 raft N2: append 16 term 1 CANLINK_UP N3 A
+18:27:08.613768 raft N2: commit 16
+18:27:08.619729 raft N2: append 17 term 2 NODE_DOWN N1
+18:27:08.621739 raft N2: commit 17
+18:27:08.630767 raft N2: append 18 term 2 COCKPIT_ERROR
+18:27:08.631740 raft N2: commit 18
+18:27:09.274768 PPS N2 | global 1283.588541 s | local 0.999931 s | drift ratio 1.000000000 (+0.000 ppm) | since REF +0 us | last step +16 us | synced to N3
+18:27:09.294087 raft N2: election timeout -> pre-candidate, term 3, leader N3
+18:27:09.685740 PPS N2 | global 1284.000004 s | local 1.411394 s | drift ratio 1.000000000 (+0.000 ppm) | since REF +0 us | last step +16 us | synced to N3
+18:27:10.685798 PPS N2 | global 1285.000004 s | local 2.411394 s | drift ratio 1.000000000 (+0.000 ppm) | since REF +0 us | last step +16 us | synced to N3
+18:27:11.685782 PPS N2 | global 1286.000004 s | local 3.411394 s | drift ratio 1.000000000 (+0.000 ppm) | since REF +0 us | last step +16 us | synced to N3
+18:27:12.685976 PPS N2 | global 1287.000004 s | local 4.411394 s | drift ratio 1.000000000 (+0.000 ppm) | since REF +0 us | last step +16 us | synced to N3
+18:27:12.691016 CAN A 114 B 114 | accepted 44 dropped 44 | relayed 0 (5 s)
+18:27:12.804851 raft N2: pre-vote won -> candidate, term 4, leader none
+18:27:12.810843 raft N2: won the vote -> leader, term 4, leader N2
+18:27:13.687010 PPS N2 | global 1288.000004 s | local 5.411394 s | drift ratio 1.000000000 (+0.000 ppm) | since last sync +0 us | last step +16 us | master N2
+18:27:14.686896 PPS N2 | global 1289.000004 s | local 6.411394 s | drift ratio 1.000000000 (+0.000 ppm) | since last sync +0 us | last step +16 us | master N2
+18:27:15.686985 PPS N2 | global 1290.000004 s | local 7.411394 s | drift ratio 1.000000000 (+0.000 ppm) | since last sync +0 us | last step +16 us | master N2
+18:27:16.686951 PPS N2 | global 1291.000004 s | local 8.411394 s | drift ratio 1.000000000 (+0.000 ppm) | since last sync +0 us | last step +16 us | master N2
+18:27:17.686938 PPS N2 | global 1292.000004 s | local 9.411394 s | drift ratio 1.000000000 (+0.000 ppm) | since last sync +0 us | last step +16 us | master N2
+18:27:17.691938 CAN A 318 B 318 | accepted 246 dropped 246 | relayed 0 (5 s)
+18:27:18.687050 PPS N2 | global 1293.000004 s | local 10.411394 s | drift ratio 1.000000000 (+0.000 ppm) | since last sync +0 us | last step +16 us | master N2
+18:27:18.831010 
+18:27:18.838981 [1;32muart:~$ [mraft config
+18:27:18.854952 node 2 | N=3 default_leader=none heartbeat_ms=20 missed_heartbeats=3 election_timeout_jitter_ms=39 log_size=30000 nodes=cockpit:1,steering:2,drivetrain:3 debug=yes seed=1
+18:27:18.857981 [1;32muart:~$ [mraft status
+18:27:18.866993 N2 leader | term 4 | leader N2 | SYNC on | holding 2 for N1 | rx dropped 0 | relay none
+18:27:19.687068 [1;32muart:~$ [mPPS N2 | global 1294.000004 s | local 11.411394 s | drift ratio 1.000000000 (+0.000 ppm) | since last sync +0 us | last step +16 us | master N2
+18:27:20.687173 PPS N2 | global 1295.000004 s | local 12.411394 s | drift ratio 1.000000000 (+0.000 ppm) | since last sync +0 us | last step +16 us | master N2
+18:27:21.687863 PPS N2 | global 1296.000004 s | local 13.411394 s | drift ratio 1.000000000 (+0.000 ppm) | since last sync +0 us | last step +16 us | master N2
+18:27:22.687272 PPS N2 | global 1297.000004 s | local 14.411394 s | drift ratio 1.000000000 (+0.000 ppm) | since last sync +0 us | last step +16 us | master N2
+18:27:22.693273 CAN A 300 B 300 | accepted 250 dropped 250 | relayed 0 (5 s)
+18:27:23.687715 PPS N2 | global 1298.000004 s | local 15.411394 s | drift ratio 1.000000000 (+0.000 ppm) | since last sync +0 us | last step +16 us | master N2
+18:27:24.687209 PPS N2 | global 1299.000004 s | local 16.411394 s | drift ratio 1.000000000 (+0.000 ppm) | since last sync +0 us | last step +16 us | master N2
+18:27:25.687857 PPS N2 | global 1300.000004 s | local 17.411394 s | drift ratio 1.000000000 (+0.000 ppm) | since last sync +0 us | last step +16 us | master N2
+18:27:26.687227 PPS N2 | global 1301.000004 s | local 18.411394 s | drift ratio 1.000000000 (+0.000 ppm) | since last sync +0 us | last step +16 us | master N2
+18:27:27.687302 PPS N2 | global 1302.000004 s | local 19.411394 s | drift ratio 1.000000000 (+0.000 ppm) | since last sync +0 us | last step +16 us | master N2
+18:27:27.693418 CAN A 300 B 300 | accepted 250 dropped 250 | relayed 0 (5 s)
+18:27:28.687426 PPS N2 | global 1303.000004 s | local 20.411394 s | drift ratio 1.000000000 (+0.000 ppm) | since last sync +0 us | last step +16 us | master N2
+18:27:29.687379 PPS N2 | global 1304.000004 s | local 21.411394 s | drift ratio 1.000000000 (+0.000 ppm) | since last sync +0 us | last step +16 us | master N2
+18:27:30.687329 PPS N2 | global 1305.000004 s | local 22.411394 s | drift ratio 1.000000000 (+0.000 ppm) | since last sync +0 us | last step +16 us | master N2
+18:27:31.470269 raft status
+18:27:31.479309 N2 leader | term 4 | leader N2 | SYNC on | holding 2 for N1 | rx dropped 0 | relay none
+18:27:31.687307 [1;32muart:~$ [mPPS N2 | global 1306.000004 s | local 23.411394 s | drift ratio 1.000000000 (+0.000 ppm) | since last sync +0 us | last step +16 us | master N2
+18:27:32.687331 PPS N2 | global 1307.000004 s | local 24.411394 s | drift ratio 1.000000000 (+0.000 ppm) | since last sync +0 us | last step +16 us | master N2
+18:27:32.693356 CAN A 300 B 300 | accepted 250 dropped 250 | relayed 0 (5 s)
+18:27:33.687922 PPS N2 | global 1308.000004 s | local 25.411394 s | drift ratio 1.000000000 (+0.000 ppm) | since last sync +0 us | last step +16 us | master N2
+18:27:34.687545 PPS N2 | global 1309.000004 s | local 26.411394 s | drift ratio 1.000000000 (+0.000 ppm) | since last sync +0 us | last step +16 us | master N2
+18:27:35.687931 PPS N2 | global 1310.000004 s | local 27.411394 s | drift ratio 1.000000000 (+0.000 ppm) | since last sync +0 us | last step +16 us | master N2
+18:27:36.687571 PPS N2 | global 1311.000004 s | local 28.411394 s | drift ratio 1.000000000 (+0.000 ppm) | since last sync +0 us | last step +16 us | master N2
+18:27:36.816822 *** Booting Zephyr OS build v4.4.0-17000-g15723416fdd0 ***
+18:27:36.819478 lab5: node 2 booted.
+18:27:36.821138 netstate selftest
+18:27:36.828171 [ 1] NODE_UP N2        -> N1 down | N2 up A- B- | N3 down | cockpit ERROR  PASS
+18:27:36.834539 [ 2] CANLINK_UP N2 A   -> N1 down | N2 up A+ B- | N3 down | cockpit ERROR  PASS
+18:27:36.841536 [ 3] CANLINK_UP N2 B   -> N1 down | N2 up A+ B+ | N3 down | cockpit ERROR  PASS
+18:27:36.849499 [ 4] NODE_UP N3        -> N1 down | N2 up A+ B+ | N3 up A- B- | cockpit ERROR  PASS
+18:27:36.856460 [ 5] CANLINK_UP N3 A   -> N1 down | N2 up A+ B+ | N3 up A+ B- | cockpit ERROR  PASS
+18:27:36.863971 [ 6] CANLINK_UP N3 B   -> N1 down | N2 up A+ B+ | N3 up A+ B+ | cockpit ERROR  PASS
+18:27:36.871764 [ 7] COCKPIT_OK        -> N1 down | N2 up A+ B+ | N3 up A+ B+ | cockpit OK  PASS
+18:27:36.878490 [ 8] CANLINK_DOWN N2 A -> N1 down | N2 up A- B+ | N3 up A+ B+ | cockpit OK  PASS
+18:27:36.884454 [ 9] NODE_DOWN N3      -> N1 down | N2 up A- B+ | N3 down | cockpit OK  PASS
+18:27:36.892652 [10] NODE_UP N3        -> N1 down | N2 up A- B+ | N3 up A- B- | cockpit OK  PASS
+18:27:36.899492 [11] COCKPIT_ERROR     -> N1 down | N2 up A- B+ | N3 up A- B- | cockpit ERROR  PASS
+18:27:36.902947 netstate selftest: 11/11 PASS
+18:27:36.907030 raft N2: boot -> follower, term 0, leader none
+18:27:36.907518 [m
+18:27:36.966527 [1;32muart:~$ [mraft N2: vote for N3 in term 1
+18:27:36.972455 raft N2: frame from N3 -> follower, term 1, leader none
+18:27:36.977654 raft N2: frame from N3 -> follower, term 1, leader N3
+18:27:37.005555 raft N2: append 1 term 1 NODE_UP N2
+18:27:37.012742 raft N2: append 2 term 1 NODE_UP N3
+18:27:37.014756 raft N2: commit 1
+18:27:37.028830 raft N2: append 3 term 1 CANLINK_UP N2 A
+18:27:37.030992 raft N2: commit 2
+18:27:37.041934 raft N2: append 4 term 1 CANLINK_UP N2 B
+18:27:37.044069 raft N2: commit 3
+18:27:37.050439 raft N2: append 5 term 1 CANLINK_UP N3 A
+18:27:37.052079 raft N2: commit 4
+18:27:37.058528 raft N2: append 6 term 1 CANLINK_UP N3 B
+18:27:37.060273 raft N2: commit 5
+18:27:37.067240 raft N2: commit 6
+18:27:37.823271 PPS N2 | global 1.015912 s | local 1.000066 s | drift ratio 1.000000000 (+0.000 ppm) | since REF +0 us | last step +46 us | synced to N3
+18:27:38.806536 PPS N2 | global 2.000004 s | local 1.984157 s | drift ratio 1.000000000 (+0.000 ppm) | since REF +0 us | last step +47 us | synced to N3
+18:27:39.806990 PPS N2 | global 3.000005 s | local 2.984202 s | drift ratio 0.999962524 (-37.476 ppm) | since REF +0 us | last step -31 us | synced to N3
+18:27:39.893555 raft status
+18:27:39.905779 N2 follower | term 1 | leader N3 | SYNC on | heard 3 ms ago | election timeout 62 ms | rx dropped 0 | relay none
+18:27:40.807016 [1;32muart:~$ [mPPS N2 | global 4.000005 s | local 3.984205 s | drift ratio 0.999962524 (-37.476 ppm) | since REF +0 us | last step -36 us | synced to N3
+18:27:41.806927 PPS N2 | global 5.000076 s | local 4.984231 s | drift ratio 0.999971018 (-28.982 ppm) | since REF +0 us | last step +52 us | synced to N3
+18:27:41.812756 CAN A 593 B 593 | accepted 245 dropped 245 | relayed 0 (5 s)
+18:27:42.806705 PPS N2 | global 6.000005 s | local 5.984204 s | drift ratio 0.999971018 (-28.982 ppm) | since REF +0 us | last step -32 us | synced to N3
+18:27:43.806654 PPS N2 | global 7.000003 s | local 6.984199 s | drift ratio 0.999988165 (-11.835 ppm) | since REF +0 us | last step -38 us | synced to N3
+18:27:44.806896 PPS N2 | global 8.000004 s | local 7.984205 s | drift ratio 0.999988165 (-11.835 ppm) | since REF +0 us | last step -40 us | synced to N3
+18:27:45.806932 PPS N2 | global 9.000004 s | local 8.984161 s | drift ratio 0.999990749 (-9.251 ppm) | since REF +0 us | last step +52 us | synced to N3
+18:27:46.103795 raft N2: append 7 term 1 NODE_UP N1
+18:27:46.112856 raft N2: append 8 term 1 COCKPIT_OK
+18:27:46.114774 raft N2: commit 7
+18:27:46.134053 raft N2: append 9 term 1 CANLINK_UP N1 A
+18:27:46.136249 raft N2: commit 8
+18:27:46.143855 raft N2: append 10 term 1 CANLINK_UP N1 B
+18:27:46.145759 raft N2: commit 9
+18:27:46.159766 raft N2: commit 10
+18:27:46.807254 PPS N2 | global 10.000004 s | local 9.984148 s | drift ratio 0.999990749 (-9.251 ppm) | since REF +0 us | last step +2 us | synced to N3
+18:27:46.813468 CAN A 666 B 666 | accepted 289 dropped 289 | relayed 0 (5 s)
+18:27:47.807217 PPS N2 | global 11.000005 s | local 10.984153 s | drift ratio 0.999992687 (-7.313 ppm) | since REF +0 us | last step +3 us | synced to N3
+18:27:48.806843 PPS N2 | global 12.000005 s | local 11.984161 s | drift ratio 0.999992687 (-7.313 ppm) | since REF +0 us | last step -1 us | synced to N3
+18:27:49.807412 PPS N2 | global 13.000004 s | local 12.984167 s | drift ratio 0.999993140 (-6.860 ppm) | since REF +0 us | last step +0 us | synced to N3
+18:27:50.807232 PPS N2 | global 14.000005 s | local 13.984172 s | drift ratio 0.999993140 (-6.860 ppm) | since REF +0 us | last step +0 us | synced to N3
+18:27:51.807014 PPS N2 | global 15.000003 s | local 14.984179 s | drift ratio 0.999992981 (-7.019 ppm) | since REF +0 us | last step +0 us | synced to N3
+18:27:51.813909 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:27:52.806934 PPS N2 | global 16.000005 s | local 15.984190 s | drift ratio 0.999992981 (-7.019 ppm) | since REF +0 us | last step +0 us | synced to N3
+18:27:53.807160 PPS N2 | global 17.000004 s | local 16.984192 s | drift ratio 0.999993251 (-6.749 ppm) | since REF +0 us | last step +2 us | synced to N3
+18:27:54.807066 PPS N2 | global 18.000005 s | local 17.984200 s | drift ratio 0.999993251 (-6.749 ppm) | since REF +0 us | last step -3 us | synced to N3
+18:27:55.807106 PPS N2 | global 19.000004 s | local 18.984207 s | drift ratio 0.999993329 (-6.671 ppm) | since REF +0 us | last step +1 us | synced to N3
+18:27:56.807081 PPS N2 | global 20.000005 s | local 19.984215 s | drift ratio 0.999993329 (-6.671 ppm) | since REF +0 us | last step +4 us | synced to N3
+18:27:56.813934 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:27:57.807135 PPS N2 | global 21.000005 s | local 20.984220 s | drift ratio 0.999993264 (-6.736 ppm) | since REF +0 us | last step +4 us | synced to N3
+18:27:58.807298 PPS N2 | global 22.000003 s | local 21.984222 s | drift ratio 0.999993264 (-6.736 ppm) | since REF +0 us | last step +4 us | synced to N3
+18:27:59.807143 PPS N2 | global 23.000003 s | local 22.984227 s | drift ratio 0.999993698 (-6.302 ppm) | since REF +0 us | last step +1 us | synced to N3
+18:28:00.807215 PPS N2 | global 24.000004 s | local 23.984234 s | drift ratio 0.999993698 (-6.302 ppm) | since REF +0 us | last step +0 us | synced to N3
+18:28:01.807310 PPS N2 | global 25.000004 s | local 24.984241 s | drift ratio 0.999993649 (-6.351 ppm) | since REF +0 us | last step +0 us | synced to N3
+18:28:01.814132 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:28:02.808638 PPS N2 | global 26.000004 s | local 25.984241 s | drift ratio 0.999993649 (-6.351 ppm) | since REF +0 us | last step +3 us | synced to N3
+18:28:03.808215 PPS N2 | global 27.000004 s | local 26.984246 s | drift ratio 0.999994362 (-5.638 ppm) | since REF +0 us | last step -1 us | synced to N3
+18:28:04.808285 PPS N2 | global 28.000004 s | local 27.984254 s | drift ratio 0.999994362 (-5.638 ppm) | since REF +0 us | last step +3 us | synced to N3
+18:28:05.808844 PPS N2 | global 29.000005 s | local 28.984259 s | drift ratio 0.999993050 (-6.950 ppm) | since REF +0 us | last step +3 us | synced to N3
+18:28:06.809004 PPS N2 | global 30.000004 s | local 29.984264 s | drift ratio 0.999993050 (-6.950 ppm) | since REF +0 us | last step +0 us | synced to N3
+18:28:06.814278 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:28:06.819982 WCET us: CAN_RX 47 HB_TX 954 HB_MON 41 BLINK 30 FORCE_TX 443
+18:28:07.808403 PPS N2 | global 31.000004 s | local 30.984274 s | drift ratio 0.999994911 (-5.089 ppm) | since REF +0 us | last step -4 us | synced to N3
+18:28:08.808384 PPS N2 | global 32.000003 s | local 31.984276 s | drift ratio 0.999994911 (-5.089 ppm) | since REF +0 us | last step -3 us | synced to N3
+18:28:09.808365 PPS N2 | global 33.000004 s | local 32.984284 s | drift ratio 0.999994575 (-5.425 ppm) | since REF +0 us | last step +0 us | synced to N3
+18:28:10.808437 PPS N2 | global 34.000004 s | local 33.984292 s | drift ratio 0.999994575 (-5.425 ppm) | since REF +0 us | last step -4 us | synced to N3
+18:28:11.808366 PPS N2 | global 35.000003 s | local 34.984297 s | drift ratio 0.999994057 (-5.943 ppm) | since REF +0 us | last step +0 us | synced to N3
+18:28:11.814330 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:28:12.808508 PPS N2 | global 36.000004 s | local 35.984315 s | drift ratio 0.999994057 (-5.943 ppm) | since REF +0 us | last step +2 us | synced to N3
+18:28:13.808885 PPS N2 | global 37.000005 s | local 36.984317 s | drift ratio 0.999993418 (-6.582 ppm) | since REF +0 us | last step +6 us | synced to N3
+18:28:14.808639 PPS N2 | global 38.000003 s | local 37.984322 s | drift ratio 0.999993418 (-6.582 ppm) | since REF +0 us | last step +10 us | synced to N3
+18:28:15.809051 PPS N2 | global 39.000004 s | local 38.984330 s | drift ratio 0.999992341 (-7.659 ppm) | since REF +0 us | last step +11 us | synced to N3
+18:28:16.808486 PPS N2 | global 40.000003 s | local 39.984333 s | drift ratio 0.999992341 (-7.659 ppm) | since REF +0 us | last step +0 us | synced to N3
+18:28:16.814563 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:28:17.808826 PPS N2 | global 41.000005 s | local 40.984346 s | drift ratio 0.999993760 (-6.240 ppm) | since REF +0 us | last step +10 us | synced to N3
+18:28:18.808656 PPS N2 | global 42.000003 s | local 41.984348 s | drift ratio 0.999993760 (-6.240 ppm) | since REF +0 us | last step +4 us | synced to N3
+18:28:19.809247 PPS N2 | global 43.000004 s | local 42.984354 s | drift ratio 0.999993696 (-6.304 ppm) | since REF +0 us | last step -2 us | synced to N3
+18:28:20.808904 PPS N2 | global 44.000003 s | local 43.984361 s | drift ratio 0.999993696 (-6.304 ppm) | since REF +0 us | last step -3 us | synced to N3
+18:28:21.809068 PPS N2 | global 45.000003 s | local 44.984369 s | drift ratio 0.999993273 (-6.727 ppm) | since REF +0 us | last step -1 us | synced to N3
+18:28:21.816314 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:28:22.809210 PPS N2 | global 46.000004 s | local 45.984379 s | drift ratio 0.999993273 (-6.727 ppm) | since REF +0 us | last step -3 us | synced to N3
+18:28:23.808991 PPS N2 | global 47.000003 s | local 46.984382 s | drift ratio 0.999992975 (-7.025 ppm) | since REF +0 us | last step -1 us | synced to N3
+18:28:24.809210 PPS N2 | global 48.000004 s | local 47.984389 s | drift ratio 0.999992975 (-7.025 ppm) | since REF +0 us | last step +0 us | synced to N3
+18:28:25.808996 PPS N2 | global 49.000003 s | local 48.984394 s | drift ratio 0.999993606 (-6.394 ppm) | since REF +0 us | last step +2 us | synced to N3
+18:28:26.808970 PPS N2 | global 50.000005 s | local 49.984410 s | drift ratio 0.999993606 (-6.394 ppm) | since REF +0 us | last step +4 us | synced to N3
+18:28:26.815867 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:28:27.809302 PPS N2 | global 51.000004 s | local 50.984415 s | drift ratio 0.999991455 (-8.545 ppm) | since REF +0 us | last step +3 us | synced to N3
+18:28:28.809339 PPS N2 | global 52.000003 s | local 51.984417 s | drift ratio 0.999991455 (-8.545 ppm) | since REF +0 us | last step -1 us | synced to N3
+18:28:29.809332 PPS N2 | global 53.000005 s | local 52.984425 s | drift ratio 0.999993591 (-6.409 ppm) | since REF +0 us | last step +3 us | synced to N3
+18:28:30.809259 PPS N2 | global 54.000004 s | local 53.984436 s | drift ratio 0.999993591 (-6.409 ppm) | since REF +0 us | last step -9 us | synced to N3
+18:28:31.809445 PPS N2 | global 55.000005 s | local 54.984438 s | drift ratio 0.999992719 (-7.281 ppm) | since REF +0 us | last step +1 us | synced to N3
+18:28:31.815944 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:28:32.809261 PPS N2 | global 56.000004 s | local 55.984446 s | drift ratio 0.999992719 (-7.281 ppm) | since REF +0 us | last step +5 us | synced to N3
+18:28:33.810566 PPS N2 | global 57.000005 s | local 56.984451 s | drift ratio 0.999993789 (-6.211 ppm) | since REF +0 us | last step +3 us | synced to N3
+18:28:34.810700 PPS N2 | global 58.000005 s | local 57.984457 s | drift ratio 0.999993789 (-6.211 ppm) | since REF +0 us | last step -4 us | synced to N3
+18:28:35.810089 PPS N2 | global 59.000004 s | local 58.984464 s | drift ratio 0.999994104 (-5.896 ppm) | since REF +0 us | last step -1 us | synced to N3
+18:28:36.810029 PPS N2 | global 60.000003 s | local 59.984469 s | drift ratio 0.999994104 (-5.896 ppm) | since REF +0 us | last step -2 us | synced to N3
+18:28:36.816643 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:28:36.822059 WCET us: CAN_RX 262 HB_TX 954 HB_MON 41 BLINK 330 FORCE_TX 443
+18:28:37.810766 PPS N2 | global 61.000005 s | local 60.984479 s | drift ratio 0.999993704 (-6.296 ppm) | since REF +0 us | last step -3 us | synced to N3
+18:28:38.810341 PPS N2 | global 62.000005 s | local 61.984477 s | drift ratio 0.999993704 (-6.296 ppm) | since REF +0 us | last step -11 us | synced to N3
+18:28:39.051772 raft N2: append 11 term 1 CANLINK_DOWN N2 A
+18:28:39.055098 raft N2: commit 11
+18:28:39.810489 PPS N2 | global 63.000004 s | local 62.984482 s | drift ratio 0.999994659 (-5.341 ppm) | since REF +0 us | last step -11 us | synced to N3
+18:28:40.810083 PPS N2 | global 64.000005 s | local 63.984482 s | drift ratio 0.999994659 (-5.341 ppm) | since REF +0 us | last step +0 us | synced to N3
+18:28:41.810243 PPS N2 | global 65.000005 s | local 64.984487 s | drift ratio 0.999994880 (-5.120 ppm) | since REF +0 us | last step +1 us | synced to N3
+18:28:41.815150 CAN A 206 B 865 | accepted 510 dropped 122 | relayed 0 (5 s)
+18:28:42.810968 PPS N2 | global 66.000005 s | local 65.984490 s | drift ratio 0.999994880 (-5.120 ppm) | since REF +0 us | last step +1 us | synced to N3
+18:28:43.810537 PPS N2 | global 67.000005 s | local 66.984497 s | drift ratio 0.999995160 (-4.840 ppm) | since REF +0 us | last step +0 us | synced to N3
+18:28:44.811003 PPS N2 | global 68.000004 s | local 67.984502 s | drift ratio 0.999995160 (-4.840 ppm) | since REF +0 us | last step +5 us | synced to N3
+18:28:45.810372 PPS N2 | global 69.000004 s | local 68.984505 s | drift ratio 0.999995370 (-4.630 ppm) | since REF +0 us | last step +5 us | synced to N3
+18:28:46.810404 PPS N2 | global 70.000004 s | local 69.984507 s | drift ratio 0.999995370 (-4.630 ppm) | since REF +0 us | last step +3 us | synced to N3
+18:28:46.815561 CAN A 0 B 860 | accepted 510 dropped 0 | relayed 0 (5 s)
+18:28:47.810796 PPS N2 | global 71.000005 s | local 70.984515 s | drift ratio 0.999995527 (-4.473 ppm) | since REF +0 us | last step +3 us | synced to N3
+18:28:48.648277 
+18:28:48.656223 [1;32muart:~$ [mnet show
+18:28:48.661251 N1 up A+ B+ | N2 up A- B+ | N3 up A+ B+ | cockpit OK
+18:28:48.664274 [1;32muart:~$ [mraft log
+18:28:48.668251 N2 log: 11 entries, commit 11, term 1
+18:28:48.670238     2  term 1   NODE_UP N3
+18:28:48.673245     3  term 1   CANLINK_UP N2 A
+18:28:48.677278     4  term 1   CANLINK_UP N2 B
+18:28:48.680301     5  term 1   CANLINK_UP N3 A
+18:28:48.683258     6  term 1   CANLINK_UP N3 B
+18:28:48.685243     7  term 1   NODE_UP N1
+18:28:48.688286     8  term 1   COCKPIT_OK
+18:28:48.691430     9  term 1   CANLINK_UP N1 A
+18:28:48.694275    10  term 1   CANLINK_UP N1 B
+18:28:48.698264    11  term 1   CANLINK_DOWN N2 A
+18:28:48.702304 [1;32muart:~$ [mraft status
+18:28:48.712297 N2 follower | term 1 | leader N3 | SYNC on | heard 3 ms ago | election timeout 62 ms | rx dropped 0 | relay none
+18:28:48.810625 [1;32muart:~$ [mPPS N2 | global 72.000003 s | local 71.984522 s | drift ratio 0.999995527 (-4.473 ppm) | since REF +0 us | last step +5 us | synced to N3
+18:28:49.810425 PPS N2 | global 73.000003 s | local 72.984527 s | drift ratio 0.999995521 (-4.479 ppm) | since REF +0 us | last step -2 us | synced to N3
+18:28:50.810628 PPS N2 | global 74.000004 s | local 73.984534 s | drift ratio 0.999995521 (-4.479 ppm) | since REF +0 us | last step -1 us | synced to N3
+18:28:51.810538 PPS N2 | global 75.000006 s | local 74.984538 s | drift ratio 0.999993141 (-6.859 ppm) | since REF +0 us | last step -9 us | synced to N3
+18:28:51.815944 CAN A 0 B 860 | accepted 510 dropped 0 | relayed 0 (5 s)
+18:28:52.810720 PPS N2 | global 76.000004 s | local 75.984541 s | drift ratio 0.999993141 (-6.859 ppm) | since REF +0 us | last step -9 us | synced to N3
+18:28:53.811401 PPS N2 | global 77.000005 s | local 76.984548 s | drift ratio 0.999994113 (-5.887 ppm) | since REF +0 us | last step -11 us | synced to N3
+18:28:54.810486 PPS N2 | global 78.000003 s | local 77.984548 s | drift ratio 0.999994113 (-5.887 ppm) | since REF +0 us | last step -9 us | synced to N3
+18:28:55.811256 PPS N2 | global 79.000005 s | local 78.984548 s | drift ratio 0.999996209 (-3.791 ppm) | since REF +0 us | last step +2 us | synced to N3
+18:28:56.810693 PPS N2 | global 80.000004 s | local 79.984564 s | drift ratio 0.999996209 (-3.791 ppm) | since REF +0 us | last step -4 us | synced to N3
+18:28:56.816226 CAN A 0 B 860 | accepted 510 dropped 0 | relayed 0 (5 s)
+18:28:57.810503 PPS N2 | global 81.000005 s | local 80.984559 s | drift ratio 0.999995657 (-4.343 ppm) | since REF +0 us | last step -1 us | synced to N3
+18:28:58.810643 PPS N2 | global 82.000004 s | local 81.984567 s | drift ratio 0.999995657 (-4.343 ppm) | since REF +0 us | last step -3 us | synced to N3
+18:28:59.810772 PPS N2 | global 83.000005 s | local 82.984569 s | drift ratio 0.999995876 (-4.124 ppm) | since REF +0 us | last step +4 us | synced to N3
+18:29:00.810598 PPS N2 | global 84.000004 s | local 83.984577 s | drift ratio 0.999995876 (-4.124 ppm) | since REF +0 us | last step -3 us | synced to N3
+18:29:01.810699 PPS N2 | global 85.000004 s | local 84.984579 s | drift ratio 0.999995175 (-4.825 ppm) | since REF +0 us | last step +2 us | synced to N3
+18:29:01.816198 CAN A 0 B 860 | accepted 510 dropped 0 | relayed 0 (5 s)
+18:29:02.811150 PPS N2 | global 86.000005 s | local 85.984589 s | drift ratio 0.999995175 (-4.825 ppm) | since REF +0 us | last step -1 us | synced to N3
+18:29:03.810666 PPS N2 | global 87.000004 s | local 86.984592 s | drift ratio 0.999995267 (-4.733 ppm) | since REF +0 us | last step +2 us | synced to N3
+18:29:04.810735 PPS N2 | global 88.000003 s | local 87.984597 s | drift ratio 0.999995267 (-4.733 ppm) | since REF +0 us | last step +1 us | synced to N3
+18:29:05.811087 PPS N2 | global 89.000003 s | local 88.984600 s | drift ratio 0.999995090 (-4.910 ppm) | since REF +0 us | last step -1 us | synced to N3
+18:29:06.812558 PPS N2 | global 90.000004 s | local 89.984607 s | drift ratio 0.999995090 (-4.910 ppm) | since REF +0 us | last step +0 us | synced to N3
+18:29:06.817481 CAN A 0 B 860 | accepted 510 dropped 0 | relayed 0 (5 s)
+18:29:06.822920 WCET us: CAN_RX 262 HB_TX 2189 HB_MON 41 BLINK 330 FORCE_TX 2522
+18:29:07.810871 PPS N2 | global 91.000004 s | local 90.984612 s | drift ratio 0.999995327 (-4.673 ppm) | since REF +0 us | last step +4 us | synced to N3
+18:29:08.812025 PPS N2 | global 92.000005 s | local 91.984620 s | drift ratio 0.999995327 (-4.673 ppm) | since REF +0 us | last step -1 us | synced to N3
+18:29:09.812263 PPS N2 | global 93.000003 s | local 92.984620 s | drift ratio 0.999994747 (-5.253 ppm) | since REF +0 us | last step +0 us | synced to N3
+18:29:10.811915 PPS N2 | global 94.000004 s | local 93.984632 s | drift ratio 0.999994747 (-5.253 ppm) | since REF +0 us | last step -10 us | synced to N3
+18:29:11.812249 PPS N2 | global 95.000005 s | local 94.984641 s | drift ratio 0.999994328 (-5.672 ppm) | since REF +0 us | last step -8 us | synced to N3
+18:29:11.817362 CAN A 0 B 860 | accepted 510 dropped 0 | relayed 0 (5 s)
+18:29:12.812641 PPS N2 | global 96.000005 s | local 95.984641 s | drift ratio 0.999994328 (-5.672 ppm) | since REF +0 us | last step -9 us | synced to N3
+18:29:13.812387 PPS N2 | global 97.000003 s | local 96.984648 s | drift ratio 0.999995496 (-4.504 ppm) | since REF +0 us | last step -14 us | synced to N3
+18:29:14.812136 PPS N2 | global 98.000005 s | local 97.984653 s | drift ratio 0.999995496 (-4.504 ppm) | since REF +0 us | last step -12 us | synced to N3
+18:29:15.812895 PPS N2 | global 99.000004 s | local 98.984656 s | drift ratio 0.999995137 (-4.863 ppm) | since REF +0 us | last step -11 us | synced to N3
+18:29:16.812802 PPS N2 | global 100.000003 s | local 99.984661 s | drift ratio 0.999995137 (-4.863 ppm) | since REF +0 us | last step -8 us | synced to N3
+18:29:16.817574 CAN A 0 B 860 | accepted 510 dropped 0 | relayed 0 (5 s)
+18:29:17.812159 PPS N2 | global 101.000004 s | local 100.984667 s | drift ratio 0.999995115 (-4.885 ppm) | since REF +0 us | last step -9 us | synced to N3
+18:29:18.812914 PPS N2 | global 102.000005 s | local 101.984674 s | drift ratio 0.999995115 (-4.885 ppm) | since REF +0 us | last step -10 us | synced to N3
+18:29:19.812205 PPS N2 | global 103.000003 s | local 102.984679 s | drift ratio 0.999995087 (-4.913 ppm) | since REF +0 us | last step -7 us | synced to N3
+18:29:20.812339 PPS N2 | global 104.000003 s | local 103.984684 s | drift ratio 0.999995087 (-4.913 ppm) | since REF +0 us | last step -1 us | synced to N3
+18:29:21.812945 PPS N2 | global 105.000003 s | local 104.984682 s | drift ratio 0.999994941 (-5.059 ppm) | since REF +0 us | last step +1 us | synced to N3
+18:29:21.817451 CAN A 12 B 860 | accepted 510 dropped 9 | relayed 0 (5 s)
+18:29:21.871267 raft N2: append 12 term 1 CANLINK_UP N2 A
+18:29:21.875974 raft N2: commit 12
+18:29:22.813287 PPS N2 | global 106.000005 s | local 105.984700 s | drift ratio 0.999994941 (-5.059 ppm) | since REF +0 us | last step -4 us | synced to N3
+18:29:23.812367 PPS N2 | global 107.000004 s | local 106.984697 s | drift ratio 0.999993607 (-6.393 ppm) | since REF +0 us | last step +3 us | synced to N3
+18:29:24.552886 raft N2: append 13 term 1 CANLINK_DOWN N2 A
+18:29:24.556808 raft N2: commit 13
+18:29:24.812831 PPS N2 | global 108.000004 s | local 107.984702 s | drift ratio 0.999993607 (-6.393 ppm) | since REF +0 us | last step +1 us | synced to N3
+18:29:25.812387 PPS N2 | global 109.000004 s | local 108.984710 s | drift ratio 0.999994705 (-5.295 ppm) | since REF +0 us | last step +2 us | synced to N3
+18:29:26.684818 raft N2: append 14 term 1 CANLINK_UP N2 A
+18:29:26.687836 raft N2: commit 14
+18:29:26.814103 PPS N2 | global 110.000004 s | local 109.984722 s | drift ratio 0.999994705 (-5.295 ppm) | since REF +0 us | last step -2 us | synced to N3
+18:29:26.820080 CAN A 331 B 874 | accepted 510 dropped 192 | relayed 0 (5 s)
+18:29:27.813992 PPS N2 | global 111.000003 s | local 110.984730 s | drift ratio 0.999993058 (-6.942 ppm) | since REF +0 us | last step +0 us | synced to N3
+18:29:28.813825 PPS N2 | global 112.000005 s | local 111.984746 s | drift ratio 0.999993058 (-6.942 ppm) | since REF +0 us | last step -11 us | synced to N3
+18:29:29.812619 PPS N2 | global 113.000004 s | local 112.984738 s | drift ratio 0.999992670 (-7.330 ppm) | since REF +0 us | last step +4 us | synced to N3
+18:29:29.952498 raft N2: append 15 term 1 CANLINK_DOWN N2 A
+18:29:29.957038 raft N2: commit 15
+18:29:30.812932 PPS N2 | global 114.000005 s | local 113.984738 s | drift ratio 0.999992670 (-7.330 ppm) | since REF +0 us | last step +1 us | synced to N3
+18:29:31.814042 PPS N2 | global 115.000003 s | local 114.984758 s | drift ratio 0.999992253 (-7.747 ppm) | since REF +0 us | last step -16 us | synced to N3
+18:29:31.819014 CAN A 361 B 865 | accepted 510 dropped 214 | relayed 0 (5 s)
+18:29:32.813736 PPS N2 | global 116.000004 s | local 115.984746 s | drift ratio 0.999992253 (-7.747 ppm) | since REF +0 us | last step -4 us | synced to N3
+18:29:33.813950 PPS N2 | global 117.000004 s | local 116.984748 s | drift ratio 0.999994437 (-5.563 ppm) | since REF +0 us | last step +3 us | synced to N3
+18:29:34.814271 PPS N2 | global 118.000004 s | local 117.984751 s | drift ratio 0.999994437 (-5.563 ppm) | since REF +0 us | last step +1 us | synced to N3
+18:29:35.371916 raft N2: append 16 term 1 CANLINK_UP N2 A
+18:29:35.374258 raft N2: commit 16
+18:29:35.813786 PPS N2 | global 119.000005 s | local 118.984764 s | drift ratio 0.999995827 (-4.173 ppm) | since REF +0 us | last step -3 us | synced to N3
+18:29:36.813674 PPS N2 | global 120.000003 s | local 119.984764 s | drift ratio 0.999995827 (-4.173 ppm) | since REF +0 us | last step -5 us | synced to N3
+18:29:36.819612 CAN A 228 B 864 | accepted 510 dropped 133 | relayed 0 (5 s)
+18:29:36.825691 WCET us: CAN_RX 262 HB_TX 2189 HB_MON 41 BLINK 330 FORCE_TX 2522
+18:29:37.814143 PPS N2 | global 121.000003 s | local 120.984769 s | drift ratio 0.999996370 (-3.630 ppm) | since REF +0 us | last step -1 us | synced to N3
+18:29:38.813721 PPS N2 | global 122.000004 s | local 121.984772 s | drift ratio 0.999996370 (-3.630 ppm) | since REF +0 us | last step +2 us | synced to N3
+18:29:39.813685 PPS N2 | global 123.000004 s | local 122.984779 s | drift ratio 0.999995653 (-4.347 ppm) | since REF +0 us | last step -1 us | synced to N3
+18:29:40.814454 PPS N2 | global 124.000003 s | local 123.984779 s | drift ratio 0.999995653 (-4.347 ppm) | since REF +0 us | last step -1 us | synced to N3
+18:29:41.813789 PPS N2 | global 125.000004 s | local 124.984787 s | drift ratio 0.999996490 (-3.510 ppm) | since REF +0 us | last step +2 us | synced to N3
+18:29:41.819944 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:29:42.813816 PPS N2 | global 126.000003 s | local 125.984789 s | drift ratio 0.999996490 (-3.510 ppm) | since REF +0 us | last step -1 us | synced to N3
+18:29:43.813857 PPS N2 | global 127.000003 s | local 126.984792 s | drift ratio 0.999995743 (-4.257 ppm) | since REF +0 us | last step -3 us | synced to N3
+18:29:44.814226 PPS N2 | global 128.000004 s | local 127.984800 s | drift ratio 0.999995743 (-4.257 ppm) | since REF +0 us | last step +0 us | synced to N3
+18:29:45.814774 PPS N2 | global 129.000005 s | local 128.984800 s | drift ratio 0.999996432 (-3.568 ppm) | since REF +0 us | last step -3 us | synced to N3
+18:29:46.813951 PPS N2 | global 130.000005 s | local 129.984807 s | drift ratio 0.999996432 (-3.568 ppm) | since REF +0 us | last step +2 us | synced to N3
+18:29:46.820076 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:29:47.814758 PPS N2 | global 131.000003 s | local 130.984807 s | drift ratio 0.999995950 (-4.050 ppm) | since REF +0 us | last step -2 us | synced to N3
+18:29:47.840812 
+18:29:47.848762 [1;32muart:~$ [mnet show
+18:29:47.853751 N1 up A+ B+ | N2 up A+ B+ | N3 up A+ B+ | cockpit OK
+18:29:47.856760 [1;32muart:~$ [mraft log
+18:29:47.859751 N2 log: 16 entries, commit 16, term 1
+18:29:47.862738     7  term 1   NODE_UP N1
+18:29:47.865741     8  term 1   COCKPIT_OK
+18:29:47.868776     9  term 1   CANLINK_UP N1 A
+18:29:47.871790    10  term 1   CANLINK_UP N1 B
+18:29:47.874774    11  term 1   CANLINK_DOWN N2 A
+18:29:47.877746    12  term 1   CANLINK_UP N2 A
+18:29:47.881761    13  term 1   CANLINK_DOWN N2 A
+18:29:47.884805    14  term 1   CANLINK_UP N2 A
+18:29:47.887741    15  term 1   CANLINK_DOWN N2 A
+18:29:47.891746    16  term 1   CANLINK_UP N2 A
+18:29:47.894741 [1;32muart:~$ [mraft status
+18:29:47.905784 N2 follower | term 1 | leader N3 | SYNC on | heard 14 ms ago | election timeout 62 ms | rx dropped 0 | relay none
+18:29:48.813755 [1;32muart:~$ [mPPS N2 | global 132.000005 s | local 131.984813 s | drift ratio 0.999995950 (-4.050 ppm) | since REF +0 us | last step +2 us | synced to N3
+18:29:49.813810 PPS N2 | global 133.000004 s | local 132.984817 s | drift ratio 0.999995962 (-4.038 ppm) | since REF +0 us | last step -1 us | synced to N3
+18:29:50.813868 PPS N2 | global 134.000004 s | local 133.984820 s | drift ratio 0.999995962 (-4.038 ppm) | since REF +0 us | last step -2 us | synced to N3
+18:29:51.813937 PPS N2 | global 135.000003 s | local 134.984820 s | drift ratio 0.999996471 (-3.529 ppm) | since REF +0 us | last step +3 us | synced to N3
+18:29:51.820845 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:29:52.814227 PPS N2 | global 136.000003 s | local 135.984823 s | drift ratio 0.999996471 (-3.529 ppm) | since REF +0 us | last step -1 us | synced to N3
+18:29:53.814998 PPS N2 | global 137.000004 s | local 136.984827 s | drift ratio 0.999996978 (-3.022 ppm) | since REF +0 us | last step +0 us | synced to N3
+18:29:54.814171 PPS N2 | global 138.000004 s | local 137.984830 s | drift ratio 0.999996978 (-3.022 ppm) | since REF +0 us | last step +0 us | synced to N3
+18:29:55.815273 PPS N2 | global 139.000005 s | local 138.984836 s | drift ratio 0.999996359 (-3.641 ppm) | since REF +0 us | last step -4 us | synced to N3
+18:29:56.815077 PPS N2 | global 140.000003 s | local 139.984836 s | drift ratio 0.999996359 (-3.641 ppm) | since REF +0 us | last step -1 us | synced to N3
+18:29:56.821007 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:29:57.815169 PPS N2 | global 141.000003 s | local 140.984848 s | drift ratio 0.999996270 (-3.730 ppm) | since REF +0 us | last step -9 us | synced to N3
+18:29:58.815233 PPS N2 | global 142.000004 s | local 141.984856 s | drift ratio 0.999996270 (-3.730 ppm) | since REF +0 us | last step -8 us | synced to N3
+18:29:59.815315 PPS N2 | global 143.000004 s | local 142.984867 s | drift ratio 0.999995099 (-4.901 ppm) | since REF +0 us | last step -13 us | synced to N3
+18:30:00.815776 PPS N2 | global 144.000004 s | local 143.984869 s | drift ratio 0.999995099 (-4.901 ppm) | since REF +0 us | last step +4 us | synced to N3
+18:30:01.815215 PPS N2 | global 145.000003 s | local 144.984884 s | drift ratio 0.999994450 (-5.550 ppm) | since REF +0 us | last step -13 us | synced to N3
+18:30:01.821736 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:30:02.815224 PPS N2 | global 146.000005 s | local 145.984892 s | drift ratio 0.999994450 (-5.550 ppm) | since REF +0 us | last step -12 us | synced to N3
+18:30:03.815961 PPS N2 | global 147.000003 s | local 146.984900 s | drift ratio 0.999993463 (-6.537 ppm) | since REF +0 us | last step -10 us | synced to N3
+18:30:04.815389 PPS N2 | global 148.000004 s | local 147.984912 s | drift ratio 0.999993463 (-6.537 ppm) | since REF +0 us | last step -12 us | synced to N3
+18:30:05.815683 PPS N2 | global 149.000003 s | local 148.984920 s | drift ratio 0.999993098 (-6.902 ppm) | since REF +0 us | last step -13 us | synced to N3
+18:30:06.815327 PPS N2 | global 150.000004 s | local 149.984925 s | drift ratio 0.999993098 (-6.902 ppm) | since REF +0 us | last step -4 us | synced to N3
+18:30:06.821435 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:30:06.827374 WCET us: CAN_RX 262 HB_TX 2189 HB_MON 41 BLINK 330 FORCE_TX 2522
+18:30:07.815470 PPS N2 | global 151.000005 s | local 150.984933 s | drift ratio 0.999991449 (-8.551 ppm) | since REF +0 us | last step +1 us | synced to N3
+18:30:08.815691 PPS N2 | global 152.000004 s | local 151.984943 s | drift ratio 0.999991449 (-8.551 ppm) | since REF +0 us | last step -6 us | synced to N3
+18:30:09.815412 PPS N2 | global 153.000005 s | local 152.984951 s | drift ratio 0.999992473 (-7.527 ppm) | since REF +0 us | last step +1 us | synced to N3
+18:30:10.815540 PPS N2 | global 154.000003 s | local 153.984956 s | drift ratio 0.999992473 (-7.527 ppm) | since REF +0 us | last step +3 us | synced to N3
+18:30:11.816523 PPS N2 | global 155.000005 s | local 154.984967 s | drift ratio 0.999992480 (-7.520 ppm) | since REF +0 us | last step +3 us | synced to N3
+18:30:11.822460 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:30:12.816637 PPS N2 | global 156.000004 s | local 155.984977 s | drift ratio 0.999992480 (-7.520 ppm) | since REF +0 us | last step -3 us | synced to N3
+18:30:13.816718 PPS N2 | global 157.000003 s | local 156.984984 s | drift ratio 0.999991486 (-8.514 ppm) | since REF +0 us | last step +4 us | synced to N3
+18:30:14.816563 PPS N2 | global 158.000003 s | local 157.984997 s | drift ratio 0.999991486 (-8.514 ppm) | since REF +0 us | last step -5 us | synced to N3
+18:30:15.817041 PPS N2 | global 159.000004 s | local 158.985018 s | drift ratio 0.999989240 (-10.760 ppm) | since REF +0 us | last step +0 us | synced to N3
+18:30:16.817177 PPS N2 | global 160.000003 s | local 159.985027 s | drift ratio 0.999989240 (-10.760 ppm) | since REF +0 us | last step -1 us | synced to N3
+18:30:16.822626 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:30:17.816604 PPS N2 | global 161.000006 s | local 160.985038 s | drift ratio 0.999990305 (-9.695 ppm) | since REF +0 us | last step -1 us | synced to N3
+18:30:18.817147 PPS N2 | global 162.000004 s | local 161.985038 s | drift ratio 0.999990305 (-9.695 ppm) | since REF +0 us | last step -4 us | synced to N3
+18:30:19.816639 PPS N2 | global 163.000004 s | local 162.985046 s | drift ratio 0.999991354 (-8.646 ppm) | since REF +0 us | last step +5 us | synced to N3
+18:30:20.816699 PPS N2 | global 164.000003 s | local 163.985064 s | drift ratio 0.999991354 (-8.646 ppm) | since REF +0 us | last step -11 us | synced to N3
+18:30:21.816755 PPS N2 | global 165.000005 s | local 164.985069 s | drift ratio 0.999991041 (-8.959 ppm) | since REF +0 us | last step -8 us | synced to N3
+18:30:21.822758 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:30:22.817483 PPS N2 | global 166.000004 s | local 165.985082 s | drift ratio 0.999991041 (-8.959 ppm) | since REF +0 us | last step -16 us | synced to N3
+18:30:23.816710 PPS N2 | global 167.000005 s | local 166.985092 s | drift ratio 0.999990656 (-9.344 ppm) | since REF +0 us | last step -12 us | synced to N3
+18:30:24.816722 PPS N2 | global 168.000005 s | local 167.985100 s | drift ratio 0.999990656 (-9.344 ppm) | since REF +0 us | last step -11 us | synced to N3
+18:30:25.816835 PPS N2 | global 169.000004 s | local 168.985110 s | drift ratio 0.999987868 (-12.132 ppm) | since REF +0 us | last step -13 us | synced to N3
+18:30:26.817006 PPS N2 | global 170.000004 s | local 169.985120 s | drift ratio 0.999987868 (-12.132 ppm) | since REF +0 us | last step -19 us | synced to N3
+18:30:26.822945 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:30:27.816887 PPS N2 | global 171.000003 s | local 170.985135 s | drift ratio 0.999991650 (-8.350 ppm) | since REF +0 us | last step -2 us | synced to N3
+18:30:28.817021 PPS N2 | global 172.000004 s | local 171.985138 s | drift ratio 0.999991650 (-8.350 ppm) | since REF +0 us | last step -3 us | synced to N3
+18:30:29.816977 PPS N2 | global 173.000003 s | local 172.985143 s | drift ratio 0.999990767 (-9.233 ppm) | since REF +0 us | last step -1 us | synced to N3
+18:30:30.817032 PPS N2 | global 174.000004 s | local 173.985164 s | drift ratio 0.999990767 (-9.233 ppm) | since REF +0 us | last step -7 us | synced to N3
+18:30:31.817378 PPS N2 | global 175.000005 s | local 174.985169 s | drift ratio 0.999990971 (-9.029 ppm) | since REF +0 us | last step -13 us | synced to N3
+18:30:31.823445 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:30:32.817334 PPS N2 | global 176.000004 s | local 175.985177 s | drift ratio 0.999990971 (-9.029 ppm) | since REF +0 us | last step -11 us | synced to N3
+18:30:33.817101 PPS N2 | global 177.000005 s | local 176.985187 s | drift ratio 0.999990729 (-9.271 ppm) | since REF +0 us | last step -12 us | synced to N3
+18:30:34.817320 PPS N2 | global 178.000004 s | local 177.985187 s | drift ratio 0.999990729 (-9.271 ppm) | since REF +0 us | last step -5 us | synced to N3
+18:30:35.817037 PPS N2 | global 179.000003 s | local 178.985197 s | drift ratio 0.999990672 (-9.328 ppm) | since REF +0 us | last step +2 us | synced to N3
+18:30:36.817616 PPS N2 | global 180.000005 s | local 179.985212 s | drift ratio 0.999990672 (-9.328 ppm) | since REF +0 us | last step -11 us | synced to N3
+18:30:36.823189 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:30:36.829215 WCET us: CAN_RX 262 HB_TX 2189 HB_MON 41 BLINK 330 FORCE_TX 2522
+18:30:37.817153 PPS N2 | global 181.000005 s | local 180.985220 s | drift ratio 0.999991379 (-8.621 ppm) | since REF +0 us | last step -8 us | synced to N3
+18:30:38.143145 blink
+18:30:38.147102 N2 lamps: hazard, half period 250 ms
+18:30:38.149174   global 179.500011 s  L1 R1
+18:30:38.152313   global 179.750012 s  L0 R0
+18:30:38.155109   global 180.000048 s  L1 R1
+18:30:38.158151   global 180.250010 s  L0 R0
+18:30:38.161098   global 180.500011 s  L1 R1
+18:30:38.164132   global 180.750011 s  L0 R0
+18:30:38.167072   global 181.000048 s  L1 R1
+18:30:38.169081   global 181.250012 s  L0 R0
+18:30:38.817264 [1;32muart:~$ [mPPS N2 | global 182.000004 s | local 181.985230 s | drift ratio 0.999991379 (-8.621 ppm) | since REF +0 us | last step -12 us | synced to N3
+18:30:39.817868 PPS N2 | global 183.000003 s | local 182.985238 s | drift ratio 0.999990410 (-9.590 ppm) | since REF +0 us | last step -6 us | synced to N3
+18:30:40.817177 PPS N2 | global 184.000005 s | local 183.985243 s | drift ratio 0.999990410 (-9.590 ppm) | since REF +0 us | last step +4 us | synced to N3
+18:30:41.817213 PPS N2 | global 185.000004 s | local 184.985248 s | drift ratio 0.999991432 (-8.568 ppm) | since REF +0 us | last step -2 us | synced to N3
+18:30:41.823192 CAN A 860 B 860 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:30:42.817572 PPS N2 | global 186.000004 s | local 185.985257 s | drift ratio 0.999991432 (-8.568 ppm) | since REF +0 us | last step -8 us | synced to N3
+18:30:43.818931 PPS N2 | global 187.000005 s | local 186.985269 s | drift ratio 0.999991965 (-8.035 ppm) | since REF +0 us | last step -4 us | synced to N3
+18:30:44.134244 raft N2: election timeout -> pre-candidate, term 1, leader N3
+18:30:44.141661 raft N2: pre-vote won -> candidate, term 2, leader none
+18:30:44.145253 raft N2: won the vote -> leader, term 2, leader N2
+18:30:44.818416 PPS N2 | global 188.000013 s | local 187.985277 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -5 us | last step +5 us | master N2
+18:30:45.137199 raft N2: append 17 term 2 NODE_DOWN N3 (from N1)
+18:30:45.139928 raft N2: commit 17
+18:30:45.819131 PPS N2 | global 189.000005 s | local 188.985277 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -13 us | last step +5 us | master N2
+18:30:46.818928 PPS N2 | global 190.000004 s | local 189.985285 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -22 us | last step +5 us | master N2
+18:30:46.823894 CAN A 580 B 580 | accepted 374 dropped 374 | relayed 0 (5 s)
+18:30:47.106404 raft status
+18:30:47.114412 N2 leader | term 2 | leader N2 | SYNC on | holding 1 for N3 | rx dropped 0 | relay none
+18:30:47.117425 [1;32muart:~$ [mblink
+18:30:47.120389 N2 lamps: hazard, half period 250 ms
+18:30:47.123376   global 188.500011 s  L1 R1
+18:30:47.126948   global 188.750011 s  L0 R0
+18:30:47.130022   global 189.000049 s  L1 R1
+18:30:47.132499   global 189.250010 s  L0 R0
+18:30:47.135054   global 189.500010 s  L1 R1
+18:30:47.137509   global 189.750011 s  L0 R0
+18:30:47.140928   global 190.000046 s  L1 R1
+18:30:47.144463   global 190.250010 s  L0 R0
+18:30:47.818445 [1;32muart:~$ [mPPS N2 | global 191.000044 s | local 190.985333 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -30 us | last step +5 us | master N2
+18:30:48.819094 PPS N2 | global 192.000005 s | local 191.985302 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -38 us | last step +5 us | master N2
+18:30:49.818689 PPS N2 | global 193.000005 s | local 192.985310 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -46 us | last step +5 us | master N2
+18:30:50.819183 PPS N2 | global 194.000003 s | local 193.985316 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -54 us | last step +5 us | master N2
+18:30:51.820013 PPS N2 | global 195.000005 s | local 194.985326 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -62 us | last step +5 us | master N2
+18:30:51.824566 CAN A 360 B 360 | accepted 260 dropped 260 | relayed 0 (5 s)
+18:30:52.818578 PPS N2 | global 196.000004 s | local 195.985333 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -70 us | last step +5 us | master N2
+18:30:53.818544 PPS N2 | global 197.000092 s | local 196.985429 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -78 us | last step +5 us | master N2
+18:30:53.908554 
+18:30:53.916505 [1;32muart:~$ [mnet show
+18:30:53.921530 N1 up A+ B+ | N2 up A+ B+ | N3 down | cockpit OK
+18:30:53.923491 [1;32muart:~$ [mraft log
+18:30:53.927506 N2 log: 17 entries, commit 17, term 2
+18:30:53.930472     8  term 1   COCKPIT_OK
+18:30:53.933474     9  term 1   CANLINK_UP N1 A
+18:30:53.936601    10  term 1   CANLINK_UP N1 B
+18:30:53.939537    11  term 1   CANLINK_DOWN N2 A
+18:30:53.942536    12  term 1   CANLINK_UP N2 A
+18:30:53.946518    13  term 1   CANLINK_DOWN N2 A
+18:30:53.949485    14  term 1   CANLINK_UP N2 A
+18:30:53.952507    15  term 1   CANLINK_DOWN N2 A
+18:30:53.955512    16  term 1   CANLINK_UP N2 A
+18:30:53.958503    17  term 2   NODE_DOWN N3
+18:30:53.961540 [1;32muart:~$ [mraft status
+18:30:53.970500 N2 leader | term 2 | leader N2 | SYNC on | holding 1 for N3 | rx dropped 0 | relay none
+18:30:54.818551 [1;32muart:~$ [mPPS N2 | global 198.000003 s | local 197.985348 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -86 us | last step +5 us | master N2
+18:30:55.820113 PPS N2 | global 199.000081 s | local 198.985434 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -94 us | last step +5 us | master N2
+18:30:56.819544 PPS N2 | global 200.000003 s | local 199.985364 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -102 us | last step +5 us | master N2
+18:30:56.825281 CAN A 360 B 360 | accepted 260 dropped 260 | relayed 0 (5 s)
+18:30:57.820237 PPS N2 | global 201.000065 s | local 200.985434 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -110 us | last step +5 us | master N2
+18:30:58.819698 PPS N2 | global 202.000005 s | local 201.985382 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -118 us | last step +5 us | master N2
+18:30:59.819810 PPS N2 | global 203.000130 s | local 202.985515 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -126 us | last step +5 us | master N2
+18:31:00.819827 PPS N2 | global 204.000005 s | local 203.985398 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -134 us | last step +5 us | master N2
+18:31:01.819804 PPS N2 | global 205.000004 s | local 204.985405 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -142 us | last step +5 us | master N2
+18:31:01.825985 CAN A 359 B 359 | accepted 260 dropped 260 | relayed 0 (5 s)
+18:31:02.820139 PPS N2 | global 206.000004 s | local 205.985413 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -150 us | last step +5 us | master N2
+18:31:03.186861 raft N2: append 18 term 2 NODE_UP N3 (from N1)
+18:31:03.189879 raft N2: commit 18
+18:31:03.196939 raft N2: append 19 term 2 CANLINK_UP N3 A (from N1)
+18:31:03.203921 raft N2: append 20 term 2 CANLINK_UP N3 B (from N2)
+18:31:03.204814 raft N2: commit 19
+18:31:03.208857 raft N2: commit 20
+18:31:03.820141 PPS N2 | global 207.000004 s | local 206.985421 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -158 us | last step +5 us | master N2
+18:31:04.819903 PPS N2 | global 208.000003 s | local 207.985428 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -166 us | last step +5 us | master N2
+18:31:05.820021 PPS N2 | global 209.000005 s | local 208.985438 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -174 us | last step +5 us | master N2
+18:31:06.819984 PPS N2 | global 210.000005 s | local 209.985446 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -182 us | last step +5 us | master N2
+18:31:06.826024 CAN A 601 B 601 | accepted 443 dropped 443 | relayed 0 (5 s)
+18:31:06.832018 WCET us: CAN_RX 272 HB_TX 2189 HB_MON 511 BLINK 340 FORCE_TX 2522
+18:31:07.170965 
+18:31:07.178899 [1;32muart:~$ [mnet show
+18:31:07.183903 N1 up A+ B+ | N2 up A+ B+ | N3 up A+ B+ | cockpit OK
+18:31:07.186916 [1;32muart:~$ [mraft log
+18:31:07.190943 N2 log: 20 entries, commit 20, term 2
+18:31:07.193884    11  term 1   CANLINK_DOWN N2 A
+18:31:07.196905    12  term 1   CANLINK_UP N2 A
+18:31:07.200031    13  term 1   CANLINK_DOWN N2 A
+18:31:07.202877    14  term 1   CANLINK_UP N2 A
+18:31:07.206864    15  term 1   CANLINK_DOWN N2 A
+18:31:07.209866    16  term 1   CANLINK_UP N2 A
+18:31:07.212879    17  term 2   NODE_DOWN N3
+18:31:07.214862    18  term 2   NODE_UP N3
+18:31:07.218880    19  term 2   CANLINK_UP N3 A
+18:31:07.221878    20  term 2   CANLINK_UP N3 B
+18:31:07.224876 [1;32muart:~$ [mraft status
+18:31:07.230999 N2 leader | term 2 | leader N2 | SYNC on | rx dropped 0 | relay none
+18:31:07.819922 [1;32muart:~$ [mPPS N2 | global 211.000005 s | local 210.985454 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -190 us | last step +5 us | master N2
+18:31:08.819939 PPS N2 | global 212.000005 s | local 211.985462 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -198 us | last step +5 us | master N2
+18:31:09.820043 PPS N2 | global 213.000005 s | local 212.985470 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -206 us | last step +5 us | master N2
+18:31:10.098016 blink
+18:31:10.101973 N2 lamps: hazard, half period 250 ms
+18:31:10.104940   global 211.500010 s  L1 R1
+18:31:10.107955   global 211.750011 s  L0 R0
+18:31:10.109998   global 212.000049 s  L1 R1
+18:31:10.112987   global 212.250012 s  L0 R0
+18:31:10.116030   global 212.500010 s  L1 R1
+18:31:10.119172   global 212.750010 s  L0 R0
+18:31:10.122384   global 213.000049 s  L1 R1
+18:31:10.125069   global 213.250011 s  L0 R0
+18:31:10.820046 [1;32muart:~$ [mPPS N2 | global 214.000004 s | local 213.985477 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -214 us | last step +5 us | master N2
+18:31:11.820082 PPS N2 | global 215.000004 s | local 214.985485 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -222 us | last step +5 us | master N2
+18:31:11.825197 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:31:12.820192 PPS N2 | global 216.000003 s | local 215.985492 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -230 us | last step +5 us | master N2
+18:31:13.820405 PPS N2 | global 217.000004 s | local 216.985501 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -238 us | last step +5 us | master N2
+18:31:14.820163 PPS N2 | global 218.000004 s | local 217.985510 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -247 us | last step +5 us | master N2
+18:31:15.820185 PPS N2 | global 219.000302 s | local 218.985816 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -255 us | last step +5 us | master N2
+18:31:16.820180 PPS N2 | global 220.000238 s | local 219.985760 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -263 us | last step +5 us | master N2
+18:31:16.826137 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:31:17.821145 PPS N2 | global 221.000303 s | local 220.985833 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -271 us | last step +5 us | master N2
+18:31:18.820945 PPS N2 | global 222.000137 s | local 221.985675 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -279 us | last step +5 us | master N2
+18:31:19.820255 PPS N2 | global 223.000083 s | local 222.985629 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -287 us | last step +5 us | master N2
+18:31:20.821207 PPS N2 | global 224.000098 s | local 223.985652 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -295 us | last step +5 us | master N2
+18:31:21.821329 PPS N2 | global 225.000266 s | local 224.985828 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -303 us | last step +5 us | master N2
+18:31:21.826349 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:31:22.821449 PPS N2 | global 226.000133 s | local 225.985703 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -311 us | last step +5 us | master N2
+18:31:23.820657 PPS N2 | global 227.000004 s | local 226.985582 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -319 us | last step +5 us | master N2
+18:31:24.821466 PPS N2 | global 228.000004 s | local 227.985590 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -327 us | last step +5 us | master N2
+18:31:25.821445 PPS N2 | global 229.000005 s | local 228.985599 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -335 us | last step +5 us | master N2
+18:31:26.821574 PPS N2 | global 230.000004 s | local 229.985606 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -343 us | last step +5 us | master N2
+18:31:26.826640 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:31:27.821761 PPS N2 | global 231.000021 s | local 230.985631 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -351 us | last step +5 us | master N2
+18:31:28.821455 PPS N2 | global 232.000003 s | local 231.985621 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -359 us | last step +5 us | master N2
+18:31:29.821520 PPS N2 | global 233.000056 s | local 232.985682 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -367 us | last step +5 us | master N2
+18:31:30.821543 PPS N2 | global 234.000010 s | local 233.985644 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -375 us | last step +5 us | master N2
+18:31:31.821960 PPS N2 | global 235.000004 s | local 234.985646 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -383 us | last step +5 us | master N2
+18:31:31.826630 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:31:32.821663 PPS N2 | global 236.000004 s | local 235.985654 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -391 us | last step +5 us | master N2
+18:31:33.821696 PPS N2 | global 237.000004 s | local 236.985662 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -399 us | last step +5 us | master N2
+18:31:34.822485 PPS N2 | global 238.000003 s | local 237.985669 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -407 us | last step +5 us | master N2
+18:31:35.821779 PPS N2 | global 239.000003 s | local 238.985677 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -415 us | last step +5 us | master N2
+18:31:36.821826 PPS N2 | global 240.000003 s | local 239.985685 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -423 us | last step +5 us | master N2
+18:31:36.827370 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:31:36.833770 WCET us: CAN_RX 336 HB_TX 2189 HB_MON 511 BLINK 544 FORCE_TX 2522
+18:31:37.821783 PPS N2 | global 241.000005 s | local 240.985695 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -431 us | last step +5 us | master N2
+18:31:38.821727 PPS N2 | global 242.000004 s | local 241.985702 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -439 us | last step +5 us | master N2
+18:31:39.821755 PPS N2 | global 243.000004 s | local 242.985710 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -447 us | last step +5 us | master N2
+18:31:40.821967 PPS N2 | global 244.000004 s | local 243.985718 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -455 us | last step +5 us | master N2
+18:31:41.822020 PPS N2 | global 245.000003 s | local 244.985725 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -463 us | last step +5 us | master N2
+18:31:41.828323 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:31:42.821925 PPS N2 | global 246.000004 s | local 245.985734 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -471 us | last step +5 us | master N2
+18:31:43.822473 PPS N2 | global 247.000004 s | local 246.985743 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -480 us | last step +5 us | master N2
+18:31:44.822518 PPS N2 | global 248.000004 s | local 247.985751 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -488 us | last step +5 us | master N2
+18:31:45.822848 PPS N2 | global 249.000004 s | local 248.985759 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -496 us | last step +5 us | master N2
+18:31:46.822784 PPS N2 | global 250.000004 s | local 249.985767 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -504 us | last step +5 us | master N2
+18:31:46.828443 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:31:47.822329 PPS N2 | global 251.000003 s | local 250.985774 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -512 us | last step +5 us | master N2
+18:31:48.822320 PPS N2 | global 252.000003 s | local 251.985782 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -520 us | last step +5 us | master N2
+18:31:49.822065 PPS N2 | global 253.000005 s | local 252.985792 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -528 us | last step +5 us | master N2
+18:31:50.822032 PPS N2 | global 254.000005 s | local 253.985800 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -536 us | last step +5 us | master N2
+18:31:51.822069 PPS N2 | global 255.000005 s | local 254.985808 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -544 us | last step +5 us | master N2
+18:31:51.828323 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:31:52.822105 PPS N2 | global 256.000004 s | local 255.985815 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -552 us | last step +5 us | master N2
+18:31:53.822142 PPS N2 | global 257.000004 s | local 256.985823 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -560 us | last step +5 us | master N2
+18:31:54.822659 PPS N2 | global 258.000003 s | local 257.985830 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -568 us | last step +5 us | master N2
+18:31:55.823240 PPS N2 | global 259.000003 s | local 258.985838 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -576 us | last step +5 us | master N2
+18:31:56.823230 PPS N2 | global 260.000005 s | local 259.985848 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -584 us | last step +5 us | master N2
+18:31:56.828246 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:31:57.823276 PPS N2 | global 261.000005 s | local 260.985856 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -592 us | last step +5 us | master N2
+18:31:58.823282 PPS N2 | global 262.000005 s | local 261.985864 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -600 us | last step +5 us | master N2
+18:31:59.823298 PPS N2 | global 263.000004 s | local 262.985871 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -608 us | last step +5 us | master N2
+18:32:00.823303 PPS N2 | global 264.000004 s | local 263.985879 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -616 us | last step +5 us | master N2
+18:32:01.823329 PPS N2 | global 265.000004 s | local 264.985887 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -624 us | last step +5 us | master N2
+18:32:01.828393 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:32:02.823362 PPS N2 | global 266.000003 s | local 265.985894 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -632 us | last step +5 us | master N2
+18:32:03.823381 PPS N2 | global 267.000003 s | local 266.985902 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -640 us | last step +5 us | master N2
+18:32:04.823429 PPS N2 | global 268.000005 s | local 267.985912 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -648 us | last step +5 us | master N2
+18:32:05.823445 PPS N2 | global 269.000005 s | local 268.985920 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -656 us | last step +5 us | master N2
+18:32:06.823492 PPS N2 | global 270.000004 s | local 269.985927 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -664 us | last step +5 us | master N2
+18:32:06.829437 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:32:06.834432 WCET us: CAN_RX 336 HB_TX 2189 HB_MON 511 BLINK 544 FORCE_TX 2522
+18:32:07.823503 PPS N2 | global 271.000004 s | local 270.985935 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -672 us | last step +5 us | master N2
+18:32:08.823645 PPS N2 | global 272.000005 s | local 271.985944 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -680 us | last step +5 us | master N2
+18:32:09.823625 PPS N2 | global 273.000004 s | local 272.985951 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -688 us | last step +5 us | master N2
+18:32:10.824093 PPS N2 | global 274.000004 s | local 273.985959 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -696 us | last step +5 us | master N2
+18:32:11.823701 PPS N2 | global 275.000003 s | local 274.985967 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -705 us | last step +5 us | master N2
+18:32:11.829750 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:32:12.823717 PPS N2 | global 276.000005 s | local 275.985977 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -713 us | last step +5 us | master N2
+18:32:13.823727 PPS N2 | global 277.000005 s | local 276.985985 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -721 us | last step +5 us | master N2
+18:32:14.824276 PPS N2 | global 278.000004 s | local 277.985992 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -729 us | last step +5 us | master N2
+18:32:15.824310 PPS N2 | global 279.000004 s | local 278.986000 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -737 us | last step +5 us | master N2
+18:32:16.823771 PPS N2 | global 280.000004 s | local 279.986008 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -745 us | last step +5 us | master N2
+18:32:16.830131 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:32:17.824898 PPS N2 | global 281.000003 s | local 280.986015 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -753 us | last step +5 us | master N2
+18:32:18.823998 PPS N2 | global 282.000003 s | local 281.986023 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -761 us | last step +5 us | master N2
+18:32:19.823841 PPS N2 | global 283.000005 s | local 282.986033 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -769 us | last step +5 us | master N2
+18:32:20.824471 PPS N2 | global 284.000005 s | local 283.986041 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -777 us | last step +5 us | master N2
+18:32:21.824966 PPS N2 | global 285.000004 s | local 284.986048 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -785 us | last step +5 us | master N2
+18:32:21.830659 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:32:22.824938 PPS N2 | global 286.000005 s | local 285.986057 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -793 us | last step +5 us | master N2
+18:32:23.825043 PPS N2 | global 287.000004 s | local 286.986064 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -801 us | last step +5 us | master N2
+18:32:24.825018 PPS N2 | global 288.000004 s | local 287.986072 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -809 us | last step +5 us | master N2
+18:32:25.825050 PPS N2 | global 289.000004 s | local 288.986080 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -817 us | last step +5 us | master N2
+18:32:26.825075 PPS N2 | global 290.000003 s | local 289.986087 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -825 us | last step +5 us | master N2
+18:32:26.831204 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:32:27.825408 PPS N2 | global 291.000003 s | local 290.986095 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -833 us | last step +5 us | master N2
+18:32:28.825217 PPS N2 | global 292.000005 s | local 291.986105 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -841 us | last step +5 us | master N2
+18:32:29.825194 PPS N2 | global 293.000005 s | local 292.986113 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -849 us | last step +5 us | master N2
+18:32:30.825308 PPS N2 | global 294.000005 s | local 293.986121 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -857 us | last step +5 us | master N2
+18:32:31.825237 PPS N2 | global 295.000004 s | local 294.986128 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -865 us | last step +5 us | master N2
+18:32:31.831220 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:32:32.825231 PPS N2 | global 296.000004 s | local 295.986136 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -873 us | last step +5 us | master N2
+18:32:33.825274 PPS N2 | global 297.000003 s | local 296.986143 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -881 us | last step +5 us | master N2
+18:32:34.825318 PPS N2 | global 298.000004 s | local 297.986152 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -889 us | last step +5 us | master N2
+18:32:35.825571 PPS N2 | global 299.000003 s | local 298.986159 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -897 us | last step +5 us | master N2
+18:32:36.825317 PPS N2 | global 300.000003 s | local 299.986167 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -905 us | last step +5 us | master N2
+18:32:36.831310 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:32:36.836308 WCET us: CAN_RX 336 HB_TX 2189 HB_MON 511 BLINK 544 FORCE_TX 2522
+18:32:37.825324 PPS N2 | global 301.000005 s | local 300.986177 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -913 us | last step +5 us | master N2
+18:32:38.825425 PPS N2 | global 302.000005 s | local 301.986185 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -921 us | last step +5 us | master N2
+18:32:39.825479 PPS N2 | global 303.000004 s | local 302.986192 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -929 us | last step +5 us | master N2
+18:32:40.825477 PPS N2 | global 304.000003 s | local 303.986200 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -938 us | last step +5 us | master N2
+18:32:41.825653 PPS N2 | global 305.000005 s | local 304.986210 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -946 us | last step +5 us | master N2
+18:32:41.832001 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:32:42.825545 PPS N2 | global 306.000005 s | local 305.986218 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -954 us | last step +5 us | master N2
+18:32:43.825718 PPS N2 | global 307.000004 s | local 306.986225 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -962 us | last step +5 us | master N2
+18:32:44.825719 PPS N2 | global 308.000004 s | local 307.986233 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -970 us | last step +5 us | master N2
+18:32:45.826084 PPS N2 | global 309.000004 s | local 308.986241 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -978 us | last step +5 us | master N2
+18:32:46.826222 PPS N2 | global 310.000003 s | local 309.986248 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -986 us | last step +5 us | master N2
+18:32:46.832399 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:32:47.825706 PPS N2 | global 311.000004 s | local 310.986257 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -994 us | last step +5 us | master N2
+18:32:48.826841 PPS N2 | global 312.000003 s | local 311.986264 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1002 us | last step +5 us | master N2
+18:32:49.826743 PPS N2 | global 313.000003 s | local 312.986272 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1010 us | last step +5 us | master N2
+18:32:50.826801 PPS N2 | global 314.000005 s | local 313.986282 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1018 us | last step +5 us | master N2
+18:32:51.826889 PPS N2 | global 315.000005 s | local 314.986290 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1026 us | last step +5 us | master N2
+18:32:51.831763 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:32:52.826785 PPS N2 | global 316.000004 s | local 315.986297 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1034 us | last step +5 us | master N2
+18:32:53.826831 PPS N2 | global 317.000004 s | local 316.986305 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1042 us | last step +5 us | master N2
+18:32:54.826957 PPS N2 | global 318.000004 s | local 317.986313 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1050 us | last step +5 us | master N2
+18:32:55.826896 PPS N2 | global 319.000003 s | local 318.986320 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1058 us | last step +5 us | master N2
+18:32:56.826944 PPS N2 | global 320.000003 s | local 319.986328 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1066 us | last step +5 us | master N2
+18:32:56.832089 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:32:57.826893 PPS N2 | global 321.000005 s | local 320.986338 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1074 us | last step +5 us | master N2
+18:32:58.827080 PPS N2 | global 322.000005 s | local 321.986346 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1082 us | last step +5 us | master N2
+18:32:59.827649 PPS N2 | global 323.000005 s | local 322.986354 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1090 us | last step +5 us | master N2
+18:33:00.827683 PPS N2 | global 324.000005 s | local 323.986362 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1098 us | last step +5 us | master N2
+18:33:01.827112 PPS N2 | global 325.000005 s | local 324.986370 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1106 us | last step +5 us | master N2
+18:33:01.833556 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:33:02.827127 PPS N2 | global 326.000004 s | local 325.986377 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1114 us | last step +5 us | master N2
+18:33:03.827320 PPS N2 | global 327.000004 s | local 326.986385 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1122 us | last step +5 us | master N2
+18:33:04.827274 PPS N2 | global 328.000003 s | local 327.986392 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1130 us | last step +5 us | master N2
+18:33:05.827164 PPS N2 | global 329.000003 s | local 328.986400 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1138 us | last step +5 us | master N2
+18:33:06.827153 PPS N2 | global 330.000005 s | local 329.986410 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1146 us | last step +5 us | master N2
+18:33:06.833124 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:33:06.839738 WCET us: CAN_RX 336 HB_TX 2189 HB_MON 511 BLINK 544 FORCE_TX 2522
+18:33:07.827393 PPS N2 | global 331.000005 s | local 330.986418 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1154 us | last step +5 us | master N2
+18:33:08.827285 PPS N2 | global 332.000003 s | local 331.986425 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1163 us | last step +5 us | master N2
+18:33:09.828259 PPS N2 | global 333.000004 s | local 332.986434 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1171 us | last step +5 us | master N2
+18:33:10.829058 PPS N2 | global 334.000005 s | local 333.986443 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1179 us | last step +5 us | master N2
+18:33:11.829047 PPS N2 | global 335.000005 s | local 334.986451 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1187 us | last step +5 us | master N2
+18:33:11.833915 CAN A 611 B 611 | accepted 511 dropped 511 | relayed 0 (5 s)
+18:33:12.829123 PPS N2 | global 336.000005 s | local 335.986459 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1195 us | last step +5 us | master N2
+18:33:13.828343 PPS N2 | global 337.000005 s | local 336.986467 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1203 us | last step +5 us | master N2
+18:33:14.828697 PPS N2 | global 338.000004 s | local 337.986474 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1211 us | last step +5 us | master N2
+18:33:15.828437 PPS N2 | global 339.000004 s | local 338.986482 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1219 us | last step +5 us | master N2
+18:33:16.828534 PPS N2 | global 340.000004 s | local 339.986490 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1227 us | last step +5 us | master N2
+18:33:16.833570 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:33:17.828519 PPS N2 | global 341.000003 s | local 340.986497 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1235 us | last step +5 us | master N2
+18:33:18.829160 PPS N2 | global 342.000003 s | local 341.986505 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1243 us | last step +5 us | master N2
+18:33:19.828559 PPS N2 | global 343.000005 s | local 342.986515 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1251 us | last step +5 us | master N2
+18:33:20.829213 PPS N2 | global 344.000003 s | local 343.986521 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1259 us | last step +5 us | master N2
+18:33:21.828643 PPS N2 | global 345.000004 s | local 344.986530 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1267 us | last step +5 us | master N2
+18:33:21.834712 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:33:22.828655 PPS N2 | global 346.000004 s | local 345.986538 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1275 us | last step +5 us | master N2
+18:33:23.828711 PPS N2 | global 347.000004 s | local 346.986546 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1283 us | last step +5 us | master N2
+18:33:24.828658 PPS N2 | global 348.000004 s | local 347.986554 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1291 us | last step +5 us | master N2
+18:33:25.828696 PPS N2 | global 349.000004 s | local 348.986562 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1299 us | last step +5 us | master N2
+18:33:26.828763 PPS N2 | global 350.000003 s | local 349.986569 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1307 us | last step +5 us | master N2
+18:33:26.835244 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:33:27.829848 PPS N2 | global 351.000003 s | local 350.986577 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1315 us | last step +5 us | master N2
+18:33:28.828751 PPS N2 | global 352.000003 s | local 351.986585 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1323 us | last step +5 us | master N2
+18:33:29.828906 PPS N2 | global 353.000005 s | local 352.986595 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1331 us | last step +5 us | master N2
+18:33:30.828812 PPS N2 | global 354.000004 s | local 353.986602 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1339 us | last step +5 us | master N2
+18:33:31.828978 PPS N2 | global 355.000004 s | local 354.986610 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1347 us | last step +5 us | master N2
+18:33:31.834901 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:33:32.828914 PPS N2 | global 356.000004 s | local 355.986618 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1355 us | last step +5 us | master N2
+18:33:33.829474 PPS N2 | global 357.000003 s | local 356.986625 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1363 us | last step +5 us | master N2
+18:33:34.829028 PPS N2 | global 358.000004 s | local 357.986634 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1371 us | last step +5 us | master N2
+18:33:35.829034 PPS N2 | global 359.000005 s | local 358.986643 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1379 us | last step +5 us | master N2
+18:33:36.829123 PPS N2 | global 360.000005 s | local 359.986651 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1387 us | last step +5 us | master N2
+18:33:36.835058 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:33:36.841058 WCET us: CAN_RX 336 HB_TX 2189 HB_MON 549 BLINK 544 FORCE_TX 2522
+18:33:37.828992 PPS N2 | global 361.000004 s | local 360.986659 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1396 us | last step +5 us | master N2
+18:33:38.830164 PPS N2 | global 362.000004 s | local 361.986667 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1404 us | last step +5 us | master N2
+18:33:39.829295 PPS N2 | global 363.000003 s | local 362.986674 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1412 us | last step +5 us | master N2
+18:33:40.830077 PPS N2 | global 364.000003 s | local 363.986682 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1420 us | last step +5 us | master N2
+18:33:41.831254 PPS N2 | global 365.000005 s | local 364.986692 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1428 us | last step +5 us | master N2
+18:33:41.835653 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:33:42.830231 PPS N2 | global 366.000005 s | local 365.986700 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1436 us | last step +5 us | master N2
+18:33:43.830369 PPS N2 | global 367.000005 s | local 366.986708 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1444 us | last step +5 us | master N2
+18:33:44.830139 PPS N2 | global 368.000004 s | local 367.986715 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1452 us | last step +5 us | master N2
+18:33:45.830332 PPS N2 | global 369.000004 s | local 368.986723 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1460 us | last step +5 us | master N2
+18:33:46.830350 PPS N2 | global 370.000003 s | local 369.986730 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1468 us | last step +5 us | master N2
+18:33:46.835431 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:33:47.830323 PPS N2 | global 371.000003 s | local 370.986738 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1476 us | last step +5 us | master N2
+18:33:48.830264 PPS N2 | global 372.000005 s | local 371.986748 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1484 us | last step +5 us | master N2
+18:33:49.830437 PPS N2 | global 373.000003 s | local 372.986754 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1492 us | last step +5 us | master N2
+18:33:50.831308 PPS N2 | global 374.000005 s | local 373.986764 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1500 us | last step +5 us | master N2
+18:33:51.830456 PPS N2 | global 375.000005 s | local 374.986772 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1508 us | last step +5 us | master N2
+18:33:51.836465 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:33:52.830500 PPS N2 | global 376.000005 s | local 375.986780 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1516 us | last step +5 us | master N2
+18:33:53.830474 PPS N2 | global 377.000004 s | local 376.986787 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1524 us | last step +5 us | master N2
+18:33:54.830527 PPS N2 | global 378.000004 s | local 377.986795 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1532 us | last step +5 us | master N2
+18:33:55.831255 PPS N2 | global 379.000004 s | local 378.986803 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1540 us | last step +5 us | master N2
+18:33:56.831163 PPS N2 | global 380.000003 s | local 379.986810 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1548 us | last step +5 us | master N2
+18:33:56.836657 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:33:57.830861 PPS N2 | global 381.000005 s | local 380.986820 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1556 us | last step +5 us | master N2
+18:33:58.831059 PPS N2 | global 382.000005 s | local 381.986828 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1564 us | last step +5 us | master N2
+18:33:59.831157 PPS N2 | global 383.000003 s | local 382.986834 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1572 us | last step +5 us | master N2
+18:34:00.831209 PPS N2 | global 384.000004 s | local 383.986843 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1580 us | last step +5 us | master N2
+18:34:01.831372 PPS N2 | global 385.000004 s | local 384.986851 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1588 us | last step +5 us | master N2
+18:34:01.836758 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:34:02.830675 PPS N2 | global 386.000004 s | local 385.986859 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1596 us | last step +5 us | master N2
+18:34:03.831776 PPS N2 | global 387.000004 s | local 386.986867 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1604 us | last step +5 us | master N2
+18:34:04.831788 PPS N2 | global 388.000003 s | local 387.986874 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1612 us | last step +5 us | master N2
+18:34:05.831831 PPS N2 | global 389.000002 s | local 388.986882 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1621 us | last step +5 us | master N2
+18:34:06.831884 PPS N2 | global 390.000004 s | local 389.986892 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1629 us | last step +5 us | master N2
+18:34:06.837092 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:34:06.842923 WCET us: CAN_RX 336 HB_TX 2189 HB_MON 849 BLINK 544 FORCE_TX 2522
+18:34:07.831840 PPS N2 | global 391.000004 s | local 390.986900 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1637 us | last step +5 us | master N2
+18:34:08.831893 PPS N2 | global 392.000004 s | local 391.986908 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1645 us | last step +5 us | master N2
+18:34:09.831969 PPS N2 | global 393.000003 s | local 392.986915 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1653 us | last step +5 us | master N2
+18:34:10.832106 PPS N2 | global 394.000003 s | local 393.986923 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1661 us | last step +5 us | master N2
+18:34:11.832253 PPS N2 | global 395.000005 s | local 394.986933 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1669 us | last step +5 us | master N2
+18:34:11.837170 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:34:12.832033 PPS N2 | global 396.000005 s | local 395.986941 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1677 us | last step +5 us | master N2
+18:34:13.832036 PPS N2 | global 397.000004 s | local 396.986948 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1685 us | last step +5 us | master N2
+18:34:14.832097 PPS N2 | global 398.000005 s | local 397.986957 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1693 us | last step +5 us | master N2
+18:34:15.832828 PPS N2 | global 399.000004 s | local 398.986964 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1701 us | last step +5 us | master N2
+18:34:16.832129 PPS N2 | global 400.000004 s | local 399.986972 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1709 us | last step +5 us | master N2
+18:34:16.837121 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:34:17.832153 PPS N2 | global 401.000004 s | local 400.986980 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1717 us | last step +5 us | master N2
+18:34:18.832322 PPS N2 | global 402.000004 s | local 401.986988 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1725 us | last step +5 us | master N2
+18:34:19.833018 PPS N2 | global 403.000003 s | local 402.986995 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1733 us | last step +5 us | master N2
+18:34:20.832461 PPS N2 | global 404.000016 s | local 403.987016 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1741 us | last step +5 us | master N2
+18:34:21.832224 PPS N2 | global 405.000008 s | local 404.987016 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1749 us | last step +5 us | master N2
+18:34:21.838170 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:34:22.832266 PPS N2 | global 406.000003 s | local 405.987019 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1757 us | last step +5 us | master N2
+18:34:23.832239 PPS N2 | global 407.000005 s | local 406.987029 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1765 us | last step +5 us | master N2
+18:34:24.832402 PPS N2 | global 408.000004 s | local 407.987036 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1773 us | last step +5 us | master N2
+18:34:25.832387 PPS N2 | global 409.000005 s | local 408.987045 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1781 us | last step +5 us | master N2
+18:34:26.832326 PPS N2 | global 410.000003 s | local 409.987051 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1789 us | last step +5 us | master N2
+18:34:26.838296 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:34:27.832437 PPS N2 | global 411.000005 s | local 410.987061 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1797 us | last step +5 us | master N2
+18:34:28.832650 PPS N2 | global 412.000005 s | local 411.987069 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1805 us | last step +5 us | master N2
+18:34:29.832962 PPS N2 | global 413.000004 s | local 412.987076 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1813 us | last step +5 us | master N2
+18:34:30.832578 PPS N2 | global 414.000004 s | local 413.987084 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1821 us | last step +5 us | master N2
+18:34:31.832878 PPS N2 | global 415.000004 s | local 414.987092 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1829 us | last step +5 us | master N2
+18:34:31.838798 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:34:32.833626 PPS N2 | global 416.000003 s | local 415.987099 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1837 us | last step +5 us | master N2
+18:34:33.833245 PPS N2 | global 417.000003 s | local 416.987107 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1845 us | last step +5 us | master N2
+18:34:34.832940 PPS N2 | global 418.000004 s | local 417.987117 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1854 us | last step +5 us | master N2
+18:34:35.833682 PPS N2 | global 419.000004 s | local 418.987125 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1862 us | last step +5 us | master N2
+18:34:36.833727 PPS N2 | global 420.000003 s | local 419.987132 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1870 us | last step +5 us | master N2
+18:34:36.839201 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:34:36.844763 WCET us: CAN_RX 336 HB_TX 2189 HB_MON 849 BLINK 544 FORCE_TX 2522
+18:34:37.833356 PPS N2 | global 421.000004 s | local 420.987141 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1878 us | last step +5 us | master N2
+18:34:38.833181 PPS N2 | global 422.000003 s | local 421.987148 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1886 us | last step +5 us | master N2
+18:34:39.832879 PPS N2 | global 423.000003 s | local 422.987156 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1894 us | last step +5 us | master N2
+18:34:40.833754 PPS N2 | global 424.000003 s | local 423.987164 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1902 us | last step +5 us | master N2
+18:34:41.834874 PPS N2 | global 425.000003 s | local 424.987172 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1910 us | last step +5 us | master N2
+18:34:41.839264 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:34:42.833831 PPS N2 | global 426.000005 s | local 425.987182 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1918 us | last step +5 us | master N2
+18:34:43.833853 PPS N2 | global 427.000004 s | local 426.987189 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1926 us | last step +5 us | master N2
+18:34:44.833893 PPS N2 | global 428.000004 s | local 427.987197 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1934 us | last step +5 us | master N2
+18:34:45.833937 PPS N2 | global 429.000004 s | local 428.987205 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1942 us | last step +5 us | master N2
+18:34:46.834339 PPS N2 | global 430.000003 s | local 429.987212 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1950 us | last step +5 us | master N2
+18:34:46.839060 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:34:47.833963 PPS N2 | global 431.000003 s | local 430.987220 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1958 us | last step +5 us | master N2
+18:34:48.834652 PPS N2 | global 432.000005 s | local 431.987230 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1966 us | last step +5 us | master N2
+18:34:49.834389 PPS N2 | global 433.000003 s | local 432.987236 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1974 us | last step +5 us | master N2
+18:34:50.834455 PPS N2 | global 434.000005 s | local 433.987246 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1982 us | last step +5 us | master N2
+18:34:51.834364 PPS N2 | global 435.000005 s | local 434.987254 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1990 us | last step +5 us | master N2
+18:34:51.839185 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:34:52.834476 PPS N2 | global 436.000005 s | local 435.987262 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -1998 us | last step +5 us | master N2
+18:34:53.834646 PPS N2 | global 437.000005 s | local 436.987270 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -2006 us | last step +5 us | master N2
+18:34:54.834795 PPS N2 | global 438.000004 s | local 437.987277 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -2014 us | last step +5 us | master N2
+18:34:55.834453 PPS N2 | global 439.000004 s | local 438.987285 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -2022 us | last step +5 us | master N2
+18:34:56.835239 PPS N2 | global 440.000003 s | local 439.987292 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -2030 us | last step +5 us | master N2
+18:34:56.840296 CAN A 610 B 610 | accepted 510 dropped 510 | relayed 0 (5 s)
+18:34:57.834717 PPS N2 | global 441.000003 s | local 440.987300 s | drift ratio 0.999991965 (-8.035 ppm) | since last sync -2038 us | last step +5 us | master N2

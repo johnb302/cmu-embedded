@@ -1,0 +1,59 @@
+raft follower | term 1 | leader N3 | SYNC on | heard 9 ms ago | election timeout 93 ms | relay none
+raft follower | term 1 | leader N3 | SYNC on | heard 10 ms ago | election timeout 93 ms | relay none
+raft N1: append 12 term 1 CANLINK_UP N2 A
+raft N1: commit 12
+event    12  term 1   CANLINK_UP N2 A  [live]
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+raft N1: append 13 term 1 CANLINK_DOWN N2 A
+raft N1: commit 13
+event    13  term 1   CANLINK_DOWN N2 A  [live]
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+raft follower | term 1 | leader N3 | SYNC on | heard 7 ms ago | election timeout 93 ms | relay none
+raft N1: append 14 term 1 CANLINK_UP N2 A
+raft N1: commit 14
+event    14  term 1   CANLINK_UP N2 A  [live]
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+raft follower | term 1 | leader N3 | SYNC on | heard 7 ms ago | election timeout 93 ms | relay none
+raft N1: append 15 term 1 CANLINK_DOWN N2 A
+raft N1: commit 15
+event    15  term 1   CANLINK_DOWN N2 A  [live]
+raft follower | term 1 | leader N3 | SYNC on | heard 7 ms ago | election timeout 93 ms | relay none
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+raft follower | term 1 | leader N3 | SYNC on | heard 7 ms ago | election timeout 93 ms | relay none
+raft N1: append 16 term 1 CANLINK_UP N2 A
+raft N1: commit 16
+event    16  term 1   CANLINK_UP N2 A  [live]
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+raft follower | term 1 | leader N3 | SYNC on | heard 7 ms ago | election timeout 93 ms | relay none
+raft follower | term 1 | leader N3 | SYNC on | heard 7 ms ago | election timeout 93 ms | relay none
+raft follower | term 1 | leader N3 | SYNC on | heard 7 ms ago | election timeout 93 ms | relay none
+raft follower | term 1 | leader N3 | SYNC on | heard 7 ms ago | election timeout 93 ms | relay none
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+raft follower | term 1 | leader N3 | SYNC on | heard 7 ms ago | election timeout 93 ms | relay none
+raft follower | term 1 | leader N3 | SYNC on | heard 7 ms ago | election timeout 93 ms | relay none
+raft follower | term 1 | leader N3 | SYNC on | heard 8 ms ago | election timeout 93 ms | relay none
+raft follower | term 1 | leader N3 | SYNC on | heard 7 ms ago | election timeout 93 ms | relay none
+N1 up A+ B+ | N2 up A+ B+ | N3 up A+ B+ | cockpit OK
+N1 log: 16 entries, commit 16, term 1
+    7  term 1   NODE_UP N1
+    8  term 1   COCKPIT_OK
+    9  term 1   CANLINK_UP N1 A
+   10  term 1   CANLINK_UP N1 B
+   11  term 1   CANLINK_DOWN N2 A
+   12  term 1   CANLINK_UP N2 A
+   13  term 1   CANLINK_DOWN N2 A
+   14  term 1   CANLINK_UP N2 A
+   15  term 1   CANLINK_DOWN N2 A
+   16  term 1   CANLINK_UP N2 A
+raft follower | term 1 | leader N3 | SYNC on | heard 19 ms ago | election timeout 93 ms | relay none
+raft follower | term 1 | leader N3 | SYNC on | heard 7 ms ago | election timeout 93 ms | relay none
+raft follower | term 1 | leader N3 | SYNC on | heard 7 ms ago | election timeout 93 ms | relay none

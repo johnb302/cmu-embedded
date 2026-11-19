@@ -1,0 +1,162 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.8in]{geometry}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage[hidelinks]{hyperref}
+\usepackage{parskip}
+\usepackage{enumitem}
+\setlist{nosep, leftmargin=1.2em}
+
+\begin{document}
+{\Large\textbf{Lab 5: Time Synchronization and Consensus}}\hfill Andrew Noble, 18-449/649
+
+\textbf{GitHub:} \url{https://github.com/andrew-noble/cmu-embedded} (branch \texttt{lab5}).
+Shared C (\texttt{shared/}) runs on all three nodes: the STM32s (\texttt{src\_lab5/}) and the Pi cockpit (\texttt{cockpit/}).
+Nodes: N1 = cockpit (Pi), N2 = steering, N3 = drivetrain. All numbers below come from the node consoles.
+
+% ---------------------------------------------------------------------------
+\section{Time drift adjustment}
+
+\textbf{Global time.} Every node maps its local clock $t$ (84\,MHz cycle counter on the STM32s, \texttt{CLOCK\_MONOTONIC} on the Pi) to global time:
+\[
+  \texttt{global\_gettime()} = B_g + (t - B_l)\,(1 + \text{ppb}\cdot 10^{-9})
+\]
+The Raft leader is the time master. Its mapping never changes: at boot it is the identity, and a node that wins an election keeps the mapping it was synced with, so global time has no step at a handover.
+
+\textbf{Clock synchronization.} Every 20\,ms the leader sends REF carrying its global time $L$ in \textmu s, stamped just before each copy is handed to the CAN controller. A follower stamps the receive time $F$ (in the CAN RX callback on the STM32s, the kernel's \texttt{SO\_TIMESTAMPNS} on the Pi) and sets follower\_clock $= L +$ network\_delay, where network\_delay = TX latency + 236\,\textmu s on the wire + RX latency. The 236\,\textmu s is one 8-byte frame at 500\,kbit/s. The TX and RX latencies are fixed per node type (STM32: 70/70\,\textmu s, Pi: 150/60\,\textmu s). Like TTCAN, no round trip is needed.
+
+\textbf{When a correction is used.} The offset error is $e = (L + \text{delay}) - \texttt{global\_gettime}(F)$.
+\begin{itemize}
+  \item $|e| \le 150$\,\textmu s: apply $e/2$. The clock slews toward the master rather than jumping.
+  \item $e > 150$\,\textmu s late: the REF waited behind another frame on the bus, so it is ignored, unless three in a row agree (a real step).
+  \item $|e| > 2$\,ms: step at once (boot, or a new master far off).
+\end{itemize}
+
+\textbf{Drift.} The drift ratio is measured from two REFs at least 2\,s apart: relative\_drift $= (L_2 - L_1)/(F_2 - F_1)$. One 20\,ms REF period is too short: REF arrival jitter (up to $\pm$100\,\textmu s from the Pi) would swamp the $\sim$1\,\textmu s of drift. Ratios beyond 500\,ppm are rejected, and each new value moves the estimate 1/4 of the way. The ratio is applied continuously between REFs through the ppb term of the mapping.
+
+Between two consecutive REFs the drift is worth little: 60\,ppm over 20\,ms is 1.2\,\textmu s. It matters when REFs stop: a late REF is ignored, an election leaves 70--100\,ms without REF, or REFs arrive through a relay. Without the ratio, 60\,ppm grows to 6\,\textmu s over a 100\,ms election.
+
+\textbf{PPS.} Each node sleeps until 200\,\textmu s before the next whole global second, spins to the edge, raises its PPS pin and prints a line, e.g.:
+{\footnotesize\texttt{PPS N2 | global 563.000005 s | local 576.492182 s | drift ratio 1.000063657 (+63.657 ppm) | since REF +1 us | last step -21 us | synced to N1}}
+
+\textbf{Results} (2,400 PPS lines; edge = PPS edge vs.\ its whole global second; correction = \texttt{last step}):
+
+\begin{center}\small
+\begin{tabular}{llrrrr}
+\toprule
+Master & Follower & Lines & Drift (median) & Correction per REF, median / p90 & PPS edge, median / p90 \\
+\midrule
+Pi (N1) & N2 & 370 & +56.3\,ppm & 18 / 121\,\textmu s & 4 / 45\,\textmu s \\
+Pi (N1) & N3 & 370 & +58.4\,ppm & 18 / 183\,\textmu s & 4 / 80\,\textmu s \\
+N3      & N2 & 192 & $-$6.3\,ppm & 3 / 13\,\textmu s & 4 / 5\,\textmu s \\
+N2      & N3 & 268 & $-$1.4\,ppm & 2 / 6\,\textmu s  & 4 / 5\,\textmu s \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{itemize}
+  \item The STM32 crystals run about 57\,ppm fast against the Pi, and within a few ppm of each other.
+  \item Per-REF corrections are larger with the Pi as master, because the Pi's send timing jitters more under Linux. Between two STM32s they stay within 13\,\textmu s at p90.
+  \item The drift-correction term (\texttt{since REF}) is 0--1\,\textmu s at each edge, as expected for 20\,ms between REFs.
+  \item \textbf{Leader handover} (N3 halted, N2 elected): the Pi measured the new master's clock 67\,\textmu s off at its first REF. Applied half at a time, the largest jump was about 34\,\textmu s. Front and rear blinker edges stayed within 5\,\textmu s of each other in global time.
+\end{itemize}
+
+% ---------------------------------------------------------------------------
+\newpage
+\section{Raft state machine}
+
+\textbf{Configuration} (\texttt{shared/raft\_config.h}, compiled into all three nodes; \texttt{raft config} prints it):
+{\sloppy\texttt{N=3}, \texttt{default\_leader=cockpit} (or \texttt{none}), \texttt{heartbeat\_ms=20}, \texttt{missed\_heartbeats=3}, \texttt{election\_timeout\_jitter\_ms=39}, \texttt{log\_size=30000}, \texttt{nodes=cockpit:1,steering:2,drivetrain:3}, \texttt{debug=yes}.\par}
+
+\textbf{Log.} Each entry is \{term, index, event\}. An event is one byte: the high hex digit is the type (\texttt{NODE\_UP/DOWN}, \texttt{CANLINK\_UP/DOWN}, \texttt{COCKPIT\_OK/ERROR}) and the low digit the node (+4 for bus B). Appending an entry does not change the network state. Only committed entries are applied, once each and in index order.
+
+\textbf{State machine.} The graph holds three nodes, each with a link to bus A and bus B, plus the cockpit flag. Committed events map onto the four mutators:
+\begin{itemize}
+  \item \texttt{NODE\_X\_UP} $\to$ \texttt{addNode(X)}: node X up, with no links until \texttt{addLink}.
+  \item \texttt{NODE\_X\_DOWN} $\to$ \texttt{dropNode(X)}: node X and its links down.
+  \item \texttt{CANLINK\_X\_Y\_UP/DOWN} $\to$ \texttt{addLink(X,Y)} / \texttt{dropLink(X,Y)}.
+  \item \texttt{COCKPIT\_OK/ERROR}: leave or enter failure mode.
+\end{itemize}
+\texttt{getNetwork()} returns a copy of the graph. The routing table is built from it (Section 3).
+
+\textbf{CAN frames.} One CAN ID per type per sender: REF \texttt{0x000}+node, APPEND \texttt{0x040}+node, APPEND\_RESP \texttt{0x048}+node, REQ\_VOTE \texttt{0x050}+node, VOTE \texttt{0x058}+node, EVENT \texttt{0x060}+node. Every frame goes out on both buses, and each one is acted on once.
+
+\textbf{Client write} (handout Figure 2).
+\begin{enumerate}
+  \item A client calls \texttt{raft\_submit(event)}. On a follower, this sends an EVENT frame that only the leader acts on (the redirect).
+  \item The leader appends the event and sends it in an APPEND, keeping \texttt{nextIndex}/\texttt{matchIndex} per follower and resending every 100\,ms until acknowledged.
+  \item Followers check that the previous entry matches, drop conflicting uncommitted entries, append, and reply with APPEND\_RESP.
+  \item Once a majority holds the entry, the leader commits it and sends an empty APPEND at once with the new \texttt{leaderCommit}. Followers commit and apply. The client gets ``ok'' when the entry commits on its node.
+\end{enumerate}
+
+\textbf{Leader election.}
+\begin{itemize}
+  \item \textbf{Preset leader:} with \texttt{default\_leader} set, every node boots in term 1 with no election.
+  \item \textbf{Timeout:} a follower that misses 3 heartbeats waits $60 + U(0,39)$\,ms, then starts an election. $U$ is a hash of (seed, node, term), so the order is reproducible.
+  \item \textbf{Pre-vote:} the candidate first asks whether it would win term+1, without raising its term. Nodes that heard a leader in the last 60\,ms say no. A node cut off by a link failure therefore never raises the term, and no election follows a link failure.
+  \item \textbf{Votes} follow Raft's Figure 2: one vote per term, only for a log at least as up to date. A stale leader steps down when it hears a higher term.
+  \item \textbf{Rejoin:} a rebooted node rejoins as a follower and gets the missed entries replayed one per round trip.
+\end{itemize}
+
+\textbf{Results} (Part 7). \texttt{getNetwork()} was printed on all three nodes after each step, and the logs compared. Every node agreed every time.
+
+\begin{center}\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}p{2.2cm}>{\raggedright\arraybackslash}p{6.6cm}>{\raggedright\arraybackslash}p{3.6cm}}
+\toprule
+Scenario & Mode & New log entries (same index on N1, N2, N3) & \texttt{getNetwork()} on every node \\
+\midrule
+1. Link failure & default (Pi leads) & 11 \texttt{CANLINK\_DOWN N3 B}, term 1 & \texttt{N3 up A+ B-} \\
+2. Link failure, recovery & random (N3 leads) & 11 \texttt{CANLINK\_DOWN N2 A}; recovery 16 \texttt{CANLINK\_UP N2 A}, term 1$^{*}$ & \texttt{N2 up A- B+}, then all up \\
+3. Leader failure & random (N3 leads) & N3 halted: N2 wins term 2 with the Pi's vote; 17 \texttt{NODE\_DOWN N3}. N3 back: rejoins as follower, logs equal through 20. Blinkers stay within 5\,\textmu s & \texttt{N3 down}, then all up \\
+\bottomrule
+\end{tabular}
+\end{center}
+{\small $^{*}$The jumper bounced on reinsertion, adding entries 12--15 (two extra down/up pairs), identical on all three nodes.}
+
+% ---------------------------------------------------------------------------
+\newpage
+\section{Raft client and routing over CAN}
+
+\textbf{Link watching.} Every 10\,ms each node's Raft client turns heartbeat ages into facts it can vouch for:
+\begin{itemize}
+  \item Its own link on a bus is up if it hears another node's own (not relayed) heartbeat there.
+  \item Another node is up if heard at all. It is down only if this node sees both buses and hears it on neither.
+  \item Another node's link on a bus is up if and only if that node's own heartbeat is heard on it.
+  \item The cockpit is OK while N1 is up.
+\end{itemize}
+The client compares these facts with \texttt{getNetwork()} and submits each difference with \texttt{raft\_submit()}, retrying every 300\,ms while they still disagree.
+
+Every node reports the same change, so the leader logs an event only if it changes the graph it projects: committed entries plus its uncommitted tail. The result is one log entry per change.
+
+\textbf{Four rules keep the reports accurate:}
+\begin{itemize}
+  \item \textbf{Fresh proof:} blaming a peer's link requires a third node heard on that bus in the last 25\,ms. Otherwise a node whose own link died can blame its peers while their heartbeats age out.
+  \item \textbf{Settle:} blame nobody on a bus until this node's own link there has been up for 50\,ms.
+  \item \textbf{Hold:} a link is reported down only after it has been down for 1\,s. A brief bus disturbance logs nothing.
+  \item \textbf{No self-vouching:} a node reports its own link only as down. Peers report it up, because only they can confirm its transmitter works.
+\end{itemize}
+
+\textbf{Routing from \texttt{getNetwork()}.} A node forwards sender S's frames from bus X to bus Y when the graph says:
+\begin{itemize}
+  \item this node is on both buses,
+  \item S is on X and not on Y, and
+  \item some third node is on Y and not on X.
+\end{itemize}
+With three nodes, at most one node qualifies. Relayed frames are marked (bit 7 of byte 0) so they are never forwarded twice. Raft frames are relayed too, so a node that shares no bus with the leader still gets APPEND and REF. A relayed REF carries the time it spent in the relay added to its master time, so the far node stays synchronized.
+
+\textbf{Multi-link failures.} One link failure needs no relay: every node still shares a bus with every other. The second failure can split the buses. For example, N1 off bus B and N3 off bus A leaves N1 and N3 on different buses, with only N2 on both.
+
+That second failure takes a round of reports, appends and commits before every routing table has it, and the node that most needs the relay is the one cut off from the leader. So until the log records the second link failure, each node also runs the same rule on direct heartbeat ages: a sender counts as gone from a bus after 30\,ms, before the 50\,ms heartbeat timeout. The log catches up afterwards.
+
+Pre-vote keeps the cut-off node from starting an election: the other nodes still hear the leader, so they refuse.
+
+\textbf{Results} (two-link failure: Pi off bus B, N3 off bus A, Pi leading):
+\begin{itemize}
+  \item Two entries, at the same index on all three nodes: 13 \texttt{CANLINK\_DOWN N3 A}, 14 \texttt{CANLINK\_DOWN N1 B}. Term unchanged (1).
+  \item \texttt{getNetwork()} on every node: \texttt{N1 up A+ B- | N2 up A+ B+ | N3 up A- B+ | cockpit OK}.
+  \item N2's routing table: \texttt{relay N1 A->B, N3 B->A}, forwarding about 170 frames/s. N3 kept SYNC on, synchronized to N1 through N2.
+  \item Restoring both jumpers added entries 15 and 16 (\texttt{CANLINK\_UP}).
+\end{itemize}
+
+\end{document}

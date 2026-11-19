@@ -1,0 +1,40 @@
+18:30:53.908554 
+18:30:53.916505 [1;32muart:~$ [mnet show
+18:30:53.921530 N1 up A+ B+ | N2 up A+ B+ | N3 down | cockpit OK
+18:30:53.923491 [1;32muart:~$ [mraft log
+18:30:53.927506 N2 log: 17 entries, commit 17, term 2
+18:30:53.930472     8  term 1   COCKPIT_OK
+18:30:53.933474     9  term 1   CANLINK_UP N1 A
+18:30:53.936601    10  term 1   CANLINK_UP N1 B
+18:30:53.939537    11  term 1   CANLINK_DOWN N2 A
+18:30:53.942536    12  term 1   CANLINK_UP N2 A
+18:30:53.946518    13  term 1   CANLINK_DOWN N2 A
+18:30:53.949485    14  term 1   CANLINK_UP N2 A
+18:30:53.952507    15  term 1   CANLINK_DOWN N2 A
+18:30:53.955512    16  term 1   CANLINK_UP N2 A
+18:30:53.958503    17  term 2   NODE_DOWN N3
+18:30:53.961540 [1;32muart:~$ [mraft status
+18:30:53.970500 N2 leader | term 2 | leader N2 | SYNC on | holding 1 for N3 | rx dropped 0 | relay none
+18:31:03.186861 raft N2: append 18 term 2 NODE_UP N3 (from N1)
+18:31:03.189879 raft N2: commit 18
+18:31:03.196939 raft N2: append 19 term 2 CANLINK_UP N3 A (from N1)
+18:31:03.203921 raft N2: append 20 term 2 CANLINK_UP N3 B (from N2)
+18:31:03.204814 raft N2: commit 19
+18:31:03.208857 raft N2: commit 20
+18:31:07.170965 
+18:31:07.178899 [1;32muart:~$ [mnet show
+18:31:07.183903 N1 up A+ B+ | N2 up A+ B+ | N3 up A+ B+ | cockpit OK
+18:31:07.186916 [1;32muart:~$ [mraft log
+18:31:07.190943 N2 log: 20 entries, commit 20, term 2
+18:31:07.193884    11  term 1   CANLINK_DOWN N2 A
+18:31:07.196905    12  term 1   CANLINK_UP N2 A
+18:31:07.200031    13  term 1   CANLINK_DOWN N2 A
+18:31:07.202877    14  term 1   CANLINK_UP N2 A
+18:31:07.206864    15  term 1   CANLINK_DOWN N2 A
+18:31:07.209866    16  term 1   CANLINK_UP N2 A
+18:31:07.212879    17  term 2   NODE_DOWN N3
+18:31:07.214862    18  term 2   NODE_UP N3
+18:31:07.218880    19  term 2   CANLINK_UP N3 A
+18:31:07.221878    20  term 2   CANLINK_UP N3 B
+18:31:07.224876 [1;32muart:~$ [mraft status
+18:31:07.230999 N2 leader | term 2 | leader N2 | SYNC on | rx dropped 0 | relay none
